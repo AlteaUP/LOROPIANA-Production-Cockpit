@@ -1,0 +1,87 @@
+{
+  "name": "zproduction_cockpit",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@cap-js/sqlite": "^1",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/http-client": "^4.0.1",
+    "@sap-cloud-sdk/resilience": "^4.0.1",
+    "@sap/cds": "^8",
+    "@sap/xssec": "^4",
+    "axios": "^1.8.1",
+    "express": "^4",
+    "npm-check-updates": "^18.0.1"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.9.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.23.0",
+    "@sap/cds-dk": "^8.8",
+    "@sap/eslint-plugin-cds": "^3.2.0",
+    "cds-launchpad-plugin": "^2.2.0",
+    "cds-plugin-ui5": "^0.12.0",
+    "globals": "^16.0.0",
+    "mbt": "^1.2.34",
+    "rimraf": "^6.0.1",
+    "simple-git": "^3.27.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive -m verbose",
+    "deploy": "cf deploy mta_archives/archive.mtar --delete-service-brokers --delete-service-keys --delete-services",
+    "cf-login": "cf login -a https://api.cf.eu30.hana.ondemand.com -o 'Loro Piana S.p.A._btp-development-loro-piana-82xq0cpc' -s 'DEV-SPACE-MANUFACTURING' --sso",
+    "watch-productioncockpit_app": "cds watch --open productioncockpit_app/webapp/index.html?sap-ui-xx-viewCache=false",
+    "cds-bind-services-srv": "cds bind -2 zproduction_cockpit-auth-srv,zproduction_cockpit-destination,zproduction_cockpit-connectivity",
+    "cds-bind-srv": "cds bind --to-app-services zproduction_cockpit-html5-srv",
+    "cds-srv-hybrid-run": "cds watch --profile hybrid",
+    "approuter-hybrid-run": "npm run start-local --prefix app/"
+  },
+  "cds": {
+    "requires": {
+      "connectivity": true,
+      "destinations": true,
+      "html5-repo": true,
+      "[hybrid]": {
+        "auth": "xsuaa"
+      },
+      "[production]": {
+        "auth": "xsuaa",
+        "db": {
+          "kind": "sqlite",
+          "schema_evolution": "auto"
+        }
+      },
+      "ZZ1_I_COMBPRODORDAPI_CDS": {
+        "kind": "odata-v4",
+        "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_COMBPRODORDAPI_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_COMBPRODORDAPI_CDS"
+          }
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/productioncockpit_app"
+  ]
+}

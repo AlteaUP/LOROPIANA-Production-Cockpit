@@ -1,0 +1,168 @@
+_schema-version: "3.2"
+ID: zproduction_cockpit
+version: 1.0.0
+description: "Loro Piana CAP"
+modules:
+  - name: zproduction_cockpit-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: zproduction_cockpit-auth
+      - name: zproduction_cockpit-connectivity
+      - name: zproduction_cockpit-destination
+  - name: zproduction_cockpit-srv-dest-content
+    type: com.sap.application.content
+    requires:
+    - name: zproduction_cockpit-destination
+      parameters:
+        content-target: true
+    - name: zproduction_cockpit-html5-repo-host
+      parameters:
+        service-key:
+          name: zproduction_cockpit-html5-repo-host-key
+    - name: zproduction_cockpit-auth
+      parameters:
+        service-key:
+          name: zproduction_cockpit-auth-key   
+
+    parameters:
+            content:
+              instance:
+                destinations:
+                - Name: zproduction_cockpit-html5-repo-host
+                  ServiceInstanceName: zproduction_cockpit-html5-srv
+                  ServiceKeyName: zproduction_cockpit-html5-repo-host-key
+                  sap.cloud.service: lp.zproduction_cockpit
+                - Authentication: OAuth2UserTokenExchange
+                  Name: zproduction_cockpit-auth
+                  ServiceInstanceName: zproduction_cockpit-auth-srv
+                  ServiceKeyName: zproduction_cockpit-auth-key
+                  sap.cloud.service: lp.zproduction_cockpit
+                existing_destinations_policy: ignore
+    build-parameters:
+            no-source: true       
+  - name: zproduction_cockpit-approuter
+    type: approuter.nodejs
+    path: router/
+    parameters:
+      keep-existing-routes: true
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: zproduction_cockpit-auth
+      - name: zproduction_cockpit-destination
+      - name: zproduction_cockpit-html5-runtime
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}      
+  - name: zproduction_cockpit-app-deployer
+    type: com.sap.application.content
+    path: html5-deployer
+    requires:
+      - name: zproduction_cockpit-destination
+      - name: zproduction_cockpit-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources/
+      requires:
+        - name: productioncockpit_app
+          artifacts:
+            - productioncockpit_app.zip
+          target-path: resources/          
+
+  - name: productioncockpit_app
+    type: html5
+    path: app/productioncockpit_app
+
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm i
+        - npm run build
+      supported-platforms: 
+        []        
+resources:
+  - name: zproduction_cockpit-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: zproduction_cockpit-auth-srv
+      service-plan: application
+      service-keys:
+      - name: zproduction_cockpit-auth-key    
+      config:
+        xsappname: zproduction_cockpit-auth-srv
+        tenant-mode: dedicated      
+  - name: zproduction_cockpit-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+      service-keys:
+      - name: zproduction_cockpit-connectivity-key         
+  - name: zproduction_cockpit-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true    
+        init_data:
+          instance:
+            destinations:
+            - Authentication: NoAuthentication
+              HTML5.DynamicDestination: true
+              HTML5.ForwardAuthToken: true
+              Name: srv-api
+              ProxyType: Internet
+              Type: HTTP
+              URL: ~{srv-api/srv-url}
+            - Authentication: NoAuthentication
+              Name: ui5
+              ProxyType: Internet
+              Type: HTTP
+              URL: https://ui5.sap.com
+            existing_destinations_policy: update        
+      service: destination
+      service-keys:
+      - name: zproduction_cockpit-destination-key
+      service-name: zproduction_cockpit-destination
+      service-plan: lite
+    requires:
+    - name: srv-api        
+  - name: zproduction_cockpit-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: zproduction_cockpit-html5-srv
+      service-plan: app-host
+  - name: zproduction_cockpit-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm i
+        - npx cds build --production      

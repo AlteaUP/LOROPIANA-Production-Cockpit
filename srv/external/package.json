@@ -1,0 +1,15 @@
+{
+  "cds": {
+    "requires": {
+      "ZZ1_I_COMBPRODORDAPI_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS"
+      }
+    }
+  },
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^3",
+    "@sap-cloud-sdk/http-client": "^3",
+    "@sap-cloud-sdk/resilience": "^3"
+  }
+}

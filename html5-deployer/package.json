@@ -1,0 +1,13 @@
+{
+    "name": "zproduction_cockpit-app-deployer",
+    "version": "1.0.0",
+    "dependencies": {
+        "@sap/html5-app-deployer": "^5.0.2"
+    },
+    "scripts": {
+        "start": "node node_modules/@sap/html5-app-deployer/index.js"
+    },
+    "devDependencies": {
+      "@sap/html5-repo-mock": "^2.1.10"
+    }
+}
