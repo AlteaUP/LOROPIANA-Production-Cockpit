@@ -60,7 +60,7 @@
         }
       },
       "ZZ1_I_COMBPRODORDAPI_CDS": {
-        "kind": "odata-v4",
+        "kind": "odata-v2",
         "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS",
         "csrf": true,
         "csrfInBatch": true,
