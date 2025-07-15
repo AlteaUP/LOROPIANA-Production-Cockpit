@@ -2630,6 +2630,8 @@
 <Property Name="IsMarkedForDeletion" Type="Edm.Boolean" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Flag di canc." sap:quickinfo="Flag di cancellazione"/>
 <Property Name="ManufacturingOrderType" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo di ordine"/>
 <Property Name="ManufacturingOrderText" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo ordine" sap:quickinfo="Testo ordine di produzione"/>
+<Property Name="ProductionPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Div. di produzione" sap:quickinfo="Divisione di produzione"/>
+<Property Name="MRPController" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Responsabile MRP"/>
 </EntityType>
 <EntityType Name="ZZ1_C_COMBORDER_COMPType" sap:semantics="aggregate" sap:label="ZZ1_C_COMBORDER_COMP" sap:content-version="1">
 <Key>
@@ -2836,6 +2838,8 @@
 <Property Name="TotMfgOrderPlannedTotalQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:aggregation-role="measure" sap:required-in-filter="false" sap:unit="ProductionUnit" sap:label="TotMfgOrderPlannedTotalQty" sap:filterable="false"/>
 <Property Name="TotMfgOrderPlannedScrapQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:unit="ProductionUnit" sap:label="TotMfgOrderPlannedScrapQty"/>
 <Property Name="ActualDeliveredQuantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:unit="ProductionUnit" sap:label="ActualDeliveredQuantity"/>
+<Property Name="ProductionPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Div. di produzione" sap:quickinfo="Divisione di produzione"/>
+<Property Name="MRPController" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Responsabile MRP"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MFG_COMBINEDOPERType" sap:label="ZZ1_C_MFG_COMBINEDOPER" sap:content-version="1">
 <Key>

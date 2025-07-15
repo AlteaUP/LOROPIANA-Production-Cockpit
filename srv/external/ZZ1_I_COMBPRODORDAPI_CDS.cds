@@ -1,4 +1,4 @@
-/* checksum : c04bfe04a14a76f7a4d13e8c3dab2fef */
+/* checksum : b5f449801eee19c97e545fa684ef5637 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -9010,6 +9010,17 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.label : 'Testo ordine'
   @sap.quickinfo : 'Testo ordine di produzione'
   ManufacturingOrderText : String(40);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Div. di produzione'
+  @sap.quickinfo : 'Divisione di produzione'
+  ProductionPlant : String(4);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Responsabile MRP'
+  MRPController : String(3);
 };
 
 @cds.external : true
@@ -9718,6 +9729,17 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.unit : 'ProductionUnit'
   @sap.label : 'ActualDeliveredQuantity'
   ActualDeliveredQuantity : Decimal(13, 3);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Div. di produzione'
+  @sap.quickinfo : 'Divisione di produzione'
+  ProductionPlant : String(4);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Responsabile MRP'
+  MRPController : String(3);
 };
 
 @cds.external : true

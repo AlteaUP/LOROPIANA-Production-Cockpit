@@ -104,6 +104,8 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
     ],
     UI.SelectionFields #filterBarMacro1 : [
         MasterProductionOrder,
+        ProductionPlant,
+        MRPController,
     ],
 );
 
@@ -155,4 +157,12 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
         },
     ]
 );
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    ProductionPlant @Common.Label : 'ProductionPlant'
+};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    MRPController @Common.Label : 'MRPController'
+};
 
