@@ -34,3 +34,6 @@ mta_archives/
 @cds-models
 
 mta_archives/
+
+# Cartella di build output
+dist/

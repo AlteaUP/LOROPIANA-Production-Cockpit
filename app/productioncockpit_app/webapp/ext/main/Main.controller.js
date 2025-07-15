@@ -11,9 +11,10 @@ sap.ui.define(
              * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
              * @memberOf productioncockpitapp.ext.main.Main
              */
-            //  onInit: function () {
+            onInit: function () {
             //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
-            //  },
+                this.byId("IconTabFilterId").setSelectedKey("master");
+            },
 
             /**
              * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -40,6 +41,63 @@ sap.ui.define(
             //  onExit: function() {
             //
             //  }
+
+            selectIconTabFilter: function(oEvent){
+                if (oEvent.getSource().getSelectedKey() === "order") {
+                    // Ottieni la tabella
+                    var oTable = this.byId("Table"); // ID della tabella
+                    var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                    var filterArray = []
+            
+                    // Costruisci i filtri (in base al tuo scenario)
+                    if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
+                        for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
+                            var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                            filterArray.push(oFilter)
+                            // Applica il filtro
+                            if (oBinding) {
+                                oBinding.filter(filterArray);
+                            }
+                        }
+                    } else {
+                        oBinding.filter([]);
+                    }
+                                
+                } else if(oEvent.getSource().getSelectedKey() === "combined"){
+                    var oTable = this.byId("Table2"); // ID della tabella
+                    var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                    var filterArray = []
+            
+                    // Costruisci i filtri (in base al tuo scenario)
+                    if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
+                        for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
+                            if(this.byId("FilterBarMaster").getFilters().filters[i].sPath === 'MasterProductionOrder'){
+                                if(this.byId("Table1").getMDCTable().getRowBinding() !== undefined){
+                                    var value = this.byId("Table1").getMDCTable().getRowBinding().aContexts[0].getValue().CombinedOrder
+                                    var oFilter = new sap.ui.model.Filter("CombinedOrder", sap.ui.model.FilterOperator.EQ, value);
+                                    filterArray.push(oFilter)
+                                }
+                            } else {
+                                var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                                filterArray.push(oFilter)
+                            }
+                            if (oBinding) {
+                                oBinding.filter(filterArray);
+                            }
+                        }
+                    } else {
+                        oBinding.filter([]);
+                    }
+                }
+                /*if(oEvent.getSource().getSelectedKey() === 'master'){
+                    this.byId("FilterBarMaster").setVisible(true);
+                    this.byId("FilterBarCombined").setVisible(false);
+                } else if(oEvent.getSource().getSelectedKey() === 'combined') {
+                    this.byId("FilterBarMaster").setVisible(false);
+                    this.byId("FilterBarCombined").setVisible(true);
+                }*/
+            } 
+
         });
     }
 );

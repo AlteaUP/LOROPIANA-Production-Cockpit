@@ -12,4 +12,20 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
+    this.on('READ', "ZZ1_C_MASTERPRODORDER", async request => {
+        console.log("chiamata ZZ1_C_MASTERPRODORDER")
+        var data = await combProdOrd.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
+        console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
+        var data = await combProdOrd.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
 });

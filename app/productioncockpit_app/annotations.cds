@@ -3,6 +3,11 @@ annotate service.ZZ1_I_COMBPRODORDAPI with @(
     UI.LineItem #tableMacro : [
         {
             $Type : 'UI.DataField',
+            Value : ManufacturingOrder,
+            Label : 'ManufacturingOrder',
+        },
+        {
+            $Type : 'UI.DataField',
             Value : CprodOrd,
             Label : 'CprodOrd',
         },
@@ -25,9 +30,129 @@ annotate service.ZZ1_I_COMBPRODORDAPI with @(
             Value : ProductSeason,
             Label : 'ProductSeason',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : ActualDeliveredQuantity,
+            Label : 'ActualDeliveredQuantity',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductCollection,
+            Label : 'ProductCollection',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductSeasonYear,
+            Label : 'ProductSeasonYear',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductTheme,
+            Label : 'ProductTheme',
+        },
+
     ],
-    UI.SelectionFields #filterBarMacro : [
-        Product,
+);
+
+annotate service.ZZ1_C_MASTERPRODORDER with @(
+    UI.LineItem #tableMacro1 : [
+        {
+            $Type : 'UI.DataField',
+            Value : MasterProductionOrder,
+            Label : 'MasterProductionOrder',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : CombinedOrder,
+            Label : 'CombinedOrder',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ActualDeliveredQuantity,
+            Label : 'ActualDeliveredQuantity',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : CrossPlantConfigurableProduct,
+            Label : 'CrossPlantConfigurableProduct',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductCollection,
+            Label : 'ProductCollection',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductSeason,
+            Label : 'ProductSeason',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductSeasonYear,
+            Label : 'ProductSeasonYear',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductTheme,
+            Label : 'ProductTheme',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : TotMfgOrderPlannedTotalQty,
+            Label : 'TotMfgOrderPlannedTotalQty',
+        },
     ],
+    UI.SelectionFields #filterBarMacro1 : [
+        MasterProductionOrder,
+    ],
+);
+
+annotate service.ZZ1_I_COMBPRODORDAPI with {
+    ManufacturingOrder @Common.Label : 'ManufacturingOrder'
+};
+
+annotate service.ZZ1_C_COMBINEDPRODORDER with @(
+    UI.LineItem #tableMacro2 : [
+        {
+            $Type : 'UI.DataField',
+            Value : CombinedOrder,
+            Label : 'CombinedOrder',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : CrossPlantConfigurableProduct,
+            Label : 'CrossPlantConfigurableProduct',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ActualDeliveredQuantity,
+            Label : 'ActualDeliveredQuantity',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductCollection,
+            Label : 'ProductCollection',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductSeason,
+            Label : 'ProductSeason',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductSeasonYear,
+            Label : 'ProductSeasonYear',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductTheme,
+            Label : 'ProductTheme',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : TotMfgOrderPlannedTotalQty,
+            Label : 'TotMfgOrderPlannedTotalQty',
+        },
+    ]
 );
 
