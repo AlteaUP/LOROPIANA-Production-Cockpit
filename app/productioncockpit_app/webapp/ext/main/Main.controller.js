@@ -5,6 +5,8 @@ sap.ui.define(
     function(PageController) {
         'use strict';
 
+        var oController;
+
         return PageController.extend('productioncockpitapp.ext.main.Main', {
             /**
              * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -14,6 +16,18 @@ sap.ui.define(
             onInit: function () {
             //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
                 this.byId("IconTabFilterId").setSelectedKey("master");
+                oController = this;
+            //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
+                this.byId("IconTabFilterId").setSelectedKey("master");
+                this.byId("Table1").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::componentsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::operationsAction").setEnabled(true);
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::componentsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::operationsAction").setEnabled(false);
+                    }
+                });
             },
 
             /**

@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.main.Main">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.main.Main">
     <Page id="Main" title="{i18n&gt;MainTitle}">
         <content>
             <macros:FilterBar id="FilterBarMaster" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.SelectionFields#filterBarMacro1"/>
@@ -8,7 +8,12 @@
                     <macros:Table id="Table2" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2"/>
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
-                        <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster"/>
+                        <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster">
+                            <macros:actions>
+                                <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponents" placement="After" requiresSelection="true"/>
+                                <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperations" placement="After" requiresSelection="true"/>
+                            </macros:actions>
+                        </macros:Table>
                     </IconTabFilter>
                     <IconTabFilter text="Order" key="order">
                         <macros:Table id="Table" metaPath="/ZZ1_I_COMBPRODORDAPI/@com.sap.vocabularies.UI.v1.LineItem#tableMacro"/>
