@@ -52,6 +52,14 @@ annotate service.ZZ1_I_COMBPRODORDAPI with @(
         },
 
     ],
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Componenti',
+            ID : 'Componenti',
+            Target : 'to_ZZ1_C_MASTERORDER_COMP/@UI.LineItem#Componenti',
+        },
+    ],
 );
 
 annotate service.ZZ1_C_MASTERPRODORDER with @(
@@ -165,4 +173,46 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
 annotate service.ZZ1_C_MASTERPRODORDER with {
     MRPController @Common.Label : 'MRPController'
 };
+
+annotate service.ZZ1_C_MASTERORDER_COMP with @(
+    UI.LineItem #Componenti : [
+    ],
+    UI.LineItem #tableMacroComponents : [
+        {
+            $Type : 'UI.DataField',
+            Value : FshMprodOrd,
+            Label : 'FshMprodOrd',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Material,
+            Label : 'Material',
+        },
+    ],
+);
+
+annotate service.ZZ1_C_MFG_MASTEROPER with @(
+    UI.LineItem #tableMacroOperations : [
+        {
+            $Type : 'UI.DataField',
+            Value : MaterialGroup,
+            Label : 'MaterialGroup',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : BillOfOperationsSequence,
+            Label : 'BillOfOperationsSequence',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderOperation,
+            Label : 'ManufacturingOrderOperation',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderOperation_2,
+            Label : 'ManufacturingOrderOperation_2',
+        },
+    ]
+);
 

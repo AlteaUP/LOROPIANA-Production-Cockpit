@@ -26,18 +26,18 @@
       }
     },
     "crossNavigation": {
-    "inbounds": {
-      "prapp-display": {
-        "semanticObject": "zprodckpt",
-        "action": "display",
-        "title": "Production Cockpit",
-        "signature": {
-          "parameters": {},
-          "additionalParameters": "allowed"
+      "inbounds": {
+        "prapp-display": {
+          "semanticObject": "zprodckpt",
+          "action": "display",
+          "title": "Production Cockpit",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
-   }
   },
   "sap.ui": {
     "technology": "UI5",
@@ -63,7 +63,8 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.fe.core": {},
-        "sap.fe.macros": {}
+        "sap.fe.macros": {},
+        "sap.fe.templates": {}
       }
     },
     "contentDensities": {
@@ -101,6 +102,16 @@
           "name": "ZZ1_I_COMBPRODORDAPIMain",
           "pattern": ":?query:",
           "target": "ZZ1_I_COMBPRODORDAPIMain"
+        },
+        {
+          "name": "ZZ1_C_MASTERORDER_COMPComponentsPage",
+          "pattern": "ZZ1_C_MASTERORDER_COMP({ZZ1_C_MASTERORDER_COMPKey}):?query:",
+          "target": "ZZ1_C_MASTERORDER_COMPComponentsPage"
+        },
+        {
+          "name": "ZZ1_C_MASTERORDER_OPEROperationsPage",
+          "pattern": "ZZ1_C_MASTERORDER_OPER({ZZ1_C_MASTERORDER_OPERKey}):?query:",
+          "target": "ZZ1_C_MASTERORDER_OPEROperationsPage"
         }
       ],
       "targets": {
@@ -110,9 +121,39 @@
           "name": "sap.fe.core.fpm",
           "options": {
             "settings": {
-              "navigation": {},
+              "navigation": {
+                "ZZ1_C_MASTERORDER_COMP": {
+                  "detail": {
+                    "route": "ZZ1_C_MASTERORDER_COMPComponentsPage"
+                  }
+                }
+              },
               "contextPath": "/ZZ1_I_COMBPRODORDAPI",
               "viewName": "productioncockpitapp.ext.main.Main"
+            }
+          }
+        },
+        "ZZ1_C_MASTERORDER_COMPComponentsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_MASTERORDER_COMPComponentsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.Components"
+            }
+          }
+        },
+        "ZZ1_C_MASTERORDER_OPEROperationsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_MASTERORDER_OPEROperationsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.Operations"
             }
           }
         }
@@ -121,7 +162,7 @@
   },
   "sap.fiori": {
     "registrationIds": [],
-      "archeType": "transactional"
+    "archeType": "transactional"
   },
   "sap.cloud": {
     "public": true,

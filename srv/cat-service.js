@@ -36,4 +36,16 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
+    this.on('READ', "ZZ1_C_MFG_MASTEROPER", async request => {
+        console.log("chiamata ZZ1_C_MFG_MASTEROPER")
+        var data = await combProdOrd.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
+
+
+
+
 });

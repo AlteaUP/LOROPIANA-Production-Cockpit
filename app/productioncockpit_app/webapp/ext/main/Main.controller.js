@@ -110,7 +110,52 @@ sap.ui.define(
                     this.byId("FilterBarMaster").setVisible(false);
                     this.byId("FilterBarCombined").setVisible(true);
                 }*/
-            } 
+            },
+
+            onNavigateToComponents: function(oEvent){
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+                
+                var key = ""
+                for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    } else {            
+                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPComponentsPage", {
+                    ZZ1_C_MASTERORDER_COMPKey: key, "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+                  
+                
+            },
+
+            onNavigateToOperations: function(oEvent){
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+
+                var key = ""
+                for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    } else {            
+                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_MASTERORDER_OPEROperationsPage", {
+                    ZZ1_C_MASTERORDER_OPERKey: key, "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+            }
 
         });
     }
