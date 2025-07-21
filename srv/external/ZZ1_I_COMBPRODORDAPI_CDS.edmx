@@ -2879,13 +2879,6 @@
 <Property Name="WorkCenterTypeCode" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo centro lavoro" sap:quickinfo="Tipo di centro di lavoro"/>
 <Property Name="WorkCenterTypeCode_2" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo di centro di lavoro"/>
 <Property Name="OperationControlProfile" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Profilo di controllo" sap:quickinfo="Profilo di controllo operazione"/>
-<Property Name="ControlRecipeDestination" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Dest. ricetta contr." sap:quickinfo="Destinatario ricetta di controllo"/>
-<Property Name="OperationConfirmation" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Conferma" sap:quickinfo="Numero di conferma dell'operazione"/>
-<Property Name="NumberOfOperationConfirmations" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Numero di conferme"/>
-<Property Name="FactoryCalendar" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Calendario fabbrica" sap:quickinfo="ID calendario di fabbrica"/>
-<Property Name="CapacityRequirement" Type="Edm.String" MaxLength="12" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Fabbisogno capacità" sap:quickinfo="ID del record fabbisogno capacità"/>
-<Property Name="CapacityRequirementItem" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Pos. fabb. capacità" sap:quickinfo="Posizione fabbisogno di capacità"/>
-<Property Name="ChangeNumber" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Numero di modifica"/>
 <Property Name="ObjectInternalID" Type="Edm.String" MaxLength="22" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Numero oggetto" sap:quickinfo="ID interno oggetto"/>
 <Property Name="OperationTrackingNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Numero fabbisogno"/>
 <Property Name="BillOfOperationsType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo DO" sap:quickinfo="Tipo distinta delle operazioni"/>
@@ -2914,7 +2907,6 @@
 <Property Name="UnloadingPointName" Type="Edm.String" MaxLength="25" sap:required-in-filter="false" sap:label="Punto di scarico"/>
 <Property Name="MaterialGroup" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Gruppo merci"/>
 <Property Name="OpExternalProcessingCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Divisa" sap:quickinfo="Chiave divisa" sap:semantics="currency-code"/>
-<Property Name="OpExternalProcessingPrice" Type="Edm.Decimal" Precision="12" Scale="3" sap:required-in-filter="false" sap:unit="OpExternalProcessingCurrency" sap:label="OpExternalProcessingPrice"/>
 <Property Name="NumberOfOperationPriceUnits" Type="Edm.Decimal" Precision="5" Scale="0" sap:required-in-filter="false" sap:label="Unità di prezzo mat." sap:quickinfo="Quantità unità di prezzo materiale"/>
 <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Società"/>
 <Property Name="BusinessArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Settore contabile"/>
@@ -2993,6 +2985,7 @@
 <Property Name="LatestScheduledWaitStartTime" Type="Edm.Time" Precision="0" sap:required-in-filter="false" sap:label="LatestScheduledWaitStartTime"/>
 <Property Name="LatestScheduledWaitEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="false" sap:label="LatestScheduledWaitEndDate"/>
 <Property Name="LatestScheduledWaitEndTime" Type="Edm.Time" Precision="0" sap:required-in-filter="false" sap:label="LatestScheduledWaitEndTime"/>
+<Property Name="OpExternalProcessingPrice" Type="Edm.Decimal" Precision="12" Scale="3" sap:required-in-filter="false" sap:unit="OpExternalProcessingCurrency" sap:label="OpExternalProcessingPrice"/>
 <Property Name="BreakDurationUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="UM durata pausa" sap:quickinfo="Unità per durata pausa" sap:semantics="unit-of-measure"/>
 <Property Name="SumPlannedBreakDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="BreakDurationUnit" sap:label="SumPlannedBreakDuration"/>
 <Property Name="SumConfirmedBreakDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="BreakDurationUnit" sap:label="SumConfirmedBreakDuration"/>
@@ -3007,7 +3000,6 @@
 <Property Name="StandardQueueDurationUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="Utà durata coda std" sap:quickinfo="Unità per la durata coda standard" sap:semantics="unit-of-measure"/>
 <Property Name="SumStandardQueueDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="StandardQueueDurationUnit" sap:label="SumStandardQueueDuration"/>
 <Property Name="MinimumQueueDurationUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="Unità dur. coda min." sap:quickinfo="Unità per durata coda minima" sap:semantics="unit-of-measure"/>
-<Property Name="SumMinimumQueueDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="MinimumQueueDurationUnit" sap:label="SumMinimumQueueDuration"/>
 <Property Name="MinimumMoveDurationUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="UM tempo trasf. min." sap:quickinfo="Unità del tempo minimo di trasferimento" sap:semantics="unit-of-measure"/>
 <Property Name="SumMinimumMoveDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="MinimumMoveDurationUnit" sap:label="SumMinimumMoveDuration"/>
 <Property Name="SumOperationStandardDuration" Type="Edm.Decimal" Precision="5" Scale="1" sap:required-in-filter="false" sap:unit="OperationStandardDurationUnit" sap:label="SumOperationStandardDuration"/>
@@ -3191,7 +3183,6 @@
 <Property Name="UnloadingPointName" Type="Edm.String" MaxLength="25" sap:required-in-filter="false" sap:label="Punto di scarico"/>
 <Property Name="MaterialGroup" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Gruppo merci"/>
 <Property Name="OpExternalProcessingCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Divisa" sap:quickinfo="Chiave divisa" sap:semantics="currency-code"/>
-<Property Name="OpExternalProcessingPrice" Type="Edm.Decimal" Precision="12" Scale="3" sap:required-in-filter="false" sap:unit="OpExternalProcessingCurrency" sap:label="OpExternalProcessingPrice"/>
 <Property Name="NumberOfOperationPriceUnits" Type="Edm.Decimal" Precision="5" Scale="0" sap:required-in-filter="false" sap:label="Unità di prezzo mat." sap:quickinfo="Quantità unità di prezzo materiale"/>
 <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Società"/>
 <Property Name="BusinessArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Settore contabile"/>
@@ -3270,6 +3261,7 @@
 <Property Name="LatestScheduledWaitStartTime" Type="Edm.Time" Precision="0" sap:required-in-filter="false" sap:label="LatestScheduledWaitStartTime"/>
 <Property Name="LatestScheduledWaitEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="false" sap:label="LatestScheduledWaitEndDate"/>
 <Property Name="LatestScheduledWaitEndTime" Type="Edm.Time" Precision="0" sap:required-in-filter="false" sap:label="LatestScheduledWaitEndTime"/>
+<Property Name="OpExternalProcessingPrice" Type="Edm.Decimal" Precision="12" Scale="3" sap:required-in-filter="false" sap:unit="OpExternalProcessingCurrency" sap:label="OpExternalProcessingPrice"/>
 <Property Name="BreakDurationUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="UM durata pausa" sap:quickinfo="Unità per durata pausa" sap:semantics="unit-of-measure"/>
 <Property Name="SumPlannedBreakDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="BreakDurationUnit" sap:label="SumPlannedBreakDuration"/>
 <Property Name="SumConfirmedBreakDuration" Type="Edm.Decimal" Precision="9" Scale="3" sap:required-in-filter="false" sap:unit="BreakDurationUnit" sap:label="SumConfirmedBreakDuration"/>

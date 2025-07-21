@@ -188,6 +188,26 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             Value : Material,
             Label : 'Material',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : EntryUnit,
+            Label : 'EntryUnit',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ComponentScrapInPercent,
+            Label : 'ComponentScrapInPercent',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : OperationScrapInPercent,
+            Label : 'OperationScrapInPercent',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : StockSegment,
+            Label : 'StockSegment',
+        },
     ],
 );
 

@@ -1,4 +1,4 @@
-/* checksum : b5f449801eee19c97e545fa684ef5637 */
+/* checksum : c6c4b6b6b160a78a81be3106b7308059 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -9908,39 +9908,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
   OperationControlProfile : String(4);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Dest. ricetta contr.'
-  @sap.quickinfo : 'Destinatario ricetta di controllo'
-  ControlRecipeDestination : String(2);
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Conferma'
-  @sap.quickinfo : 'Numero di conferma dell''operazione'
-  OperationConfirmation : String(10);
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Numero di conferme'
-  NumberOfOperationConfirmations : String(8);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Calendario fabbrica'
-  @sap.quickinfo : 'ID calendario di fabbrica'
-  FactoryCalendar : String(2);
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Fabbisogno capacità'
-  @sap.quickinfo : 'ID del record fabbisogno capacità'
-  CapacityRequirement : String(12);
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Pos. fabb. capacità'
-  @sap.quickinfo : 'Posizione fabbisogno di capacità'
-  CapacityRequirementItem : String(8);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Numero di modifica'
-  ChangeNumber : String(12);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
   @sap.label : 'Numero oggetto'
   @sap.quickinfo : 'ID interno oggetto'
   ObjectInternalID : String(22);
@@ -10068,10 +10035,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
   @sap.quickinfo : 'Chiave divisa'
   @sap.semantics : 'currency-code'
   OpExternalProcessingCurrency : String(5);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpExternalProcessingCurrency'
-  @sap.label : 'OpExternalProcessingPrice'
-  OpExternalProcessingPrice : Decimal(12, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità di prezzo mat.'
   @sap.quickinfo : 'Quantità unità di prezzo materiale'
@@ -10372,6 +10335,10 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
   @sap.label : 'LatestScheduledWaitEndTime'
   LatestScheduledWaitEndTime : Time;
   @sap.required.in.filter : 'false'
+  @sap.unit : 'OpExternalProcessingCurrency'
+  @sap.label : 'OpExternalProcessingPrice'
+  OpExternalProcessingPrice : Decimal(12, 3);
+  @sap.required.in.filter : 'false'
   @sap.label : 'UM durata pausa'
   @sap.quickinfo : 'Unità per durata pausa'
   @sap.semantics : 'unit-of-measure'
@@ -10434,10 +10401,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
   @sap.quickinfo : 'Unità per durata coda minima'
   @sap.semantics : 'unit-of-measure'
   MinimumQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumQueueDurationUnit'
-  @sap.label : 'SumMinimumQueueDuration'
-  SumMinimumQueueDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'UM tempo trasf. min.'
   @sap.quickinfo : 'Unità del tempo minimo di trasferimento'
@@ -11244,10 +11207,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {
   @sap.semantics : 'currency-code'
   OpExternalProcessingCurrency : String(5);
   @sap.required.in.filter : 'false'
-  @sap.unit : 'OpExternalProcessingCurrency'
-  @sap.label : 'OpExternalProcessingPrice'
-  OpExternalProcessingPrice : Decimal(12, 3);
-  @sap.required.in.filter : 'false'
   @sap.label : 'Unità di prezzo mat.'
   @sap.quickinfo : 'Quantità unità di prezzo materiale'
   NumberOfOperationPriceUnits : Decimal(5, 0);
@@ -11546,6 +11505,10 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {
   @sap.required.in.filter : 'false'
   @sap.label : 'LatestScheduledWaitEndTime'
   LatestScheduledWaitEndTime : Time;
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'OpExternalProcessingCurrency'
+  @sap.label : 'OpExternalProcessingPrice'
+  OpExternalProcessingPrice : Decimal(12, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'UM durata pausa'
   @sap.quickinfo : 'Unità per durata pausa'

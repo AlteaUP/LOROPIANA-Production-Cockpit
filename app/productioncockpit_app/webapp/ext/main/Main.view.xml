@@ -8,7 +8,7 @@
                     <macros:Table id="Table2" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2"/>
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
-                        <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster">
+                        <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
                             <macros:actions>
                                 <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponents" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperations" placement="After" requiresSelection="true"/>
