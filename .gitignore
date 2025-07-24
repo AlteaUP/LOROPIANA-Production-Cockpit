@@ -37,3 +37,4 @@ mta_archives/
 
 # Cartella di build output
 dist/
+**/dist/
