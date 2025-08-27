@@ -6,6 +6,8 @@ sap.ui.define(
         'use strict';
 
         var oController;
+        var dataOrderTable;
+        var dataMasterTable;
 
         return PageController.extend('productioncockpitapp.ext.main.Main', {
             /**
@@ -28,6 +30,19 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::operationsAction").setEnabled(false);
                     }
                 });
+                this.byId("Table2").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(true);
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(false);
+                    }
+                });
+                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content").setSelectionMode("Multi")
+                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content").setSelectionMode("Multi")
             },
 
             /**
@@ -44,9 +59,23 @@ sap.ui.define(
              * This hook is the same one that SAPUI5 controls get after being rendered.
              * @memberOf productioncockpitapp.ext.main.Main
              */
-            //  onAfterRendering: function() {
-            //
-            //  },
+            onAfterRendering: function() {                
+                sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--FilterBarMaster-content-btnSearch").firePress()
+                // recupero dati tabella ordini
+                var oTable = this.byId("Table");
+                var oBinding = oTable.getRowBinding()
+                oBinding.requestContexts(0, 10000).then(function(aContexts) {
+                    dataOrderTable = aContexts.map(ctx => ctx.getObject());
+                    console.log("Order Table length "+dataOrderTable.length)
+                });
+                // recupero dati tabella master ordini
+                var oTable1 = this.byId("Table1");
+                var oBinding1 = oTable1.getRowBinding()
+                oBinding1.requestContexts(0, 10000).then(function(aContexts) {
+                    dataMasterTable = aContexts.map(ctx => ctx.getObject());
+                    console.log("Master Table length "+dataMasterTable.length)
+                });
+            },
 
             /**
              * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
@@ -155,6 +184,84 @@ sap.ui.define(
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });
+            },
+
+            onNavigateToComponentsOrder: function(oEvent){
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+                
+                var key = ""
+                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    } else {            
+                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPComponentsPage", {
+                    ZZ1_C_MASTERORDER_COMPKey: key, "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+                  
+                
+            },
+
+            onNavigateToOperationsOrder: function(oEvent){
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+
+                var key = ""
+                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    } else {            
+                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_MASTERORDER_OPEROperationsPage", {
+                    ZZ1_C_MASTERORDER_OPERKey: key, "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+            },
+
+            onCloseOrder: function(oEvent){
+                var dataProductionOrder = oController.getProductionOrder()
+            },
+
+            onTechnicalCompleteOrder: function(oEvent){
+                var dataProductionOrder = oController.getProductionOrder()
+            },
+
+            onRelaseOrder: function(oEvent){
+                var dataProductionOrder = oController.getProductionOrder()
+                alert(JSON.stringify(dataProductionOrder))
+            },
+
+            getProductionOrder: function(){
+                // recupero ordini di produzione
+                var arrayProductionOrder = []
+                for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2").getSelectedContexts().length; i++){
+                    var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2").getSelectedContexts()[i].getObject().CombinedOrder
+                    for(var y = 0; y < dataMasterTable.length; y++){
+                        if(dataMasterTable[y].CombinedOrder === combinedOrder){
+                            var masterOrder = dataMasterTable[y].MasterProductionOrder
+                            for(var z = 0; z < dataOrderTable.length; z++){
+                                if(dataOrderTable[z].MasterProductionOrder === masterOrder){
+                                    arrayProductionOrder.push(dataOrderTable[z].ManufacturingOrder)
+                                }
+                            }
+                        }
+                    }   
+                }
+                
+                return arrayProductionOrder
             }
 
         });

@@ -1685,6 +1685,8 @@
 <Property Name="DfsReturnDelivery" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Valore di ritorno"/>
 <Property Name="DfsLogisticsLevel" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Rit.fino a liv.log." sap:quickinfo="Ritorno fino al livello logistico"/>
 <Property Name="DfsNationalItemIdnNumber" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:label="Cd. fornitura NATO" sap:quickinfo="Codice di fornitura NATO"/>
+<Property Name="ZZ1_SPESSOREPELLAME_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_SPESSOREPELLAME_PRDU" sap:label="Spessore Pellame" sap:quickinfo="SPESSOREPELLAME"/>
+<Property Name="ZZ1_SPESSOREPELLAME_PRDU" Type="Edm.String" MaxLength="3" sap:label="Spessore Pellame UoM" sap:quickinfo="SPESSOREPELLAME (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
 <NavigationProperty Name="to_AdjustmentProfile_2" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_158D3462CD8FE6F9E39C55C657CED59F" FromRole="FromRole_assoc_158D3462CD8FE6F9E39C55C657CED59F" ToRole="ToRole_assoc_158D3462CD8FE6F9E39C55C657CED59F"/>
 <NavigationProperty Name="to_AssortmentListType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_82A1FC39D1E6684867788000454A4BAB" FromRole="FromRole_assoc_82A1FC39D1E6684867788000454A4BAB" ToRole="ToRole_assoc_82A1FC39D1E6684867788000454A4BAB"/>
 <NavigationProperty Name="to_BaseUnitOfMeasure" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_029F998F8F1078DDDD41C0B50BC505DE" FromRole="FromRole_assoc_029F998F8F1078DDDD41C0B50BC505DE" ToRole="ToRole_assoc_029F998F8F1078DDDD41C0B50BC505DE"/>
@@ -2679,8 +2681,8 @@
 <Property Name="ManufacturingOrderOperation" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Operazione" sap:quickinfo="Operazione ordine di produzione"/>
 <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Fornitore" sap:quickinfo="Numero conto del fornitore"/>
 <Property Name="StockSegment" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Segmento di stock"/>
-<Property Name="ParentStockSegment" Type="Edm.String" MaxLength="20" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="ParentStockSegment"/>
-<Property Name="RequirementSegment" Type="Edm.String" MaxLength="20" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="RequirementSegment"/>
+<Property Name="ParentStockSegment" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="ParentStockSegment" sap:quickinfo="Segmento di stock"/>
+<Property Name="RequirementSegment" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="RequirementSegment" sap:quickinfo="Segmento fabbisogno"/>
 <Property Name="InventorySpecialStockType" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tp. stock speciale" sap:quickinfo="Tipo di stock inventario speciale"/>
 <Property Name="WorkCenter" Type="Edm.String" MaxLength="8" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Centro di lavoro"/>
 <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Cliente" sap:quickinfo="Codice cliente"/>
@@ -2799,8 +2801,8 @@
 <Property Name="ManufacturingOrderOperation" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Operazione" sap:quickinfo="Operazione ordine di produzione"/>
 <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Fornitore" sap:quickinfo="Numero conto del fornitore"/>
 <Property Name="StockSegment" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Segmento di stock"/>
-<Property Name="ParentStockSegment" Type="Edm.String" Nullable="false" MaxLength="20" sap:required-in-filter="false" sap:label="ParentStockSegment"/>
-<Property Name="RequirementSegment" Type="Edm.String" Nullable="false" MaxLength="20" sap:required-in-filter="false" sap:label="RequirementSegment"/>
+<Property Name="ParentStockSegment" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="ParentStockSegment" sap:quickinfo="Segmento di stock"/>
+<Property Name="RequirementSegment" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="RequirementSegment" sap:quickinfo="Segmento fabbisogno"/>
 <Property Name="InventorySpecialStockType" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tp. stock speciale" sap:quickinfo="Tipo di stock inventario speciale"/>
 <Property Name="WorkCenter" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Centro di lavoro"/>
 <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Cliente" sap:quickinfo="Codice cliente"/>
@@ -8400,6 +8402,74 @@
 </Record>
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="IsChemicalComplianceRelevant_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_SPESSOREPELLAME_PRDU">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Unit of Measure"/>
+<PropertyValue Property="CollectionPath" String="I_UnitOfMeasure"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_SPESSOREPELLAME_PRDU"/>
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasure"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasure_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureSAPCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureISOCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="IsPrimaryUnitForISOCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureNumberOfDecimals"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureIsCommercial"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureDimension"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="SIUnitCnvrsnRateNumerator"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="SIUnitCnvrsnRateDenominator"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="SIUnitCnvrsnRateExponent"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="SIUnitCnvrsnAdditiveValue"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureDspExponent"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureDspNmbrOfDcmls"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureTemperature"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasureTemperatureUnit"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasurePressure"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="UnitOfMeasurePressureUnit"/>
 </Record>
 </Collection>
 </PropertyValue>

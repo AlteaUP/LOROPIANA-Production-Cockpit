@@ -29,6 +29,7 @@ service CatalogService {
 
     entity ZZ1_C_MASTERPRODORDER as projection on mainService.ZZ1_C_MASTERPRODORDER{
         key ID,
+        key MRPController,
         *
     };
 

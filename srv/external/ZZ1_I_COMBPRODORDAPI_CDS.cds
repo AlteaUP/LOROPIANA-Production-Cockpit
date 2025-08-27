@@ -1,4 +1,4 @@
-/* checksum : c6c4b6b6b160a78a81be3106b7308059 */
+/* checksum : d54cb41a7cfd21c714ca447fae247e8b */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -6014,6 +6014,15 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.label : 'Cd. fornitura NATO'
   @sap.quickinfo : 'Codice di fornitura NATO'
   DfsNationalItemIdnNumber : String(9);
+  @sap.unit : 'ZZ1_SPESSOREPELLAME_PRDU'
+  @sap.label : 'Spessore Pellame'
+  @sap.quickinfo : 'SPESSOREPELLAME'
+  ZZ1_SPESSOREPELLAME_PRD : Decimal(15, 3);
+  @sap.label : 'Spessore Pellame UoM'
+  @sap.quickinfo : 'SPESSOREPELLAME (Unit)'
+  @sap.value.list : 'standard'
+  @sap.semantics : 'unit-of-measure'
+  ZZ1_SPESSOREPELLAME_PRDU : String(3);
   to_AdjustmentProfile_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {  };
   to_AssortmentListType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {  };
   to_BaseUnitOfMeasure : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
@@ -9254,13 +9263,17 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.label : 'Segmento di stock'
   StockSegment : String(40);
   @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'ParentStockSegment'
-  ParentStockSegment : String(20);
+  @sap.quickinfo : 'Segmento di stock'
+  ParentStockSegment : String(40);
   @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'RequirementSegment'
-  RequirementSegment : String(20);
+  @sap.quickinfo : 'Segmento fabbisogno'
+  RequirementSegment : String(40);
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -9554,12 +9567,16 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.required.in.filter : 'false'
   @sap.label : 'Segmento di stock'
   key StockSegment : String(40) not null;
+  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'ParentStockSegment'
-  key ParentStockSegment : String(20) not null;
+  @sap.quickinfo : 'Segmento di stock'
+  key ParentStockSegment : String(40) not null;
+  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'RequirementSegment'
-  key RequirementSegment : String(20) not null;
+  @sap.quickinfo : 'Segmento fabbisogno'
+  key RequirementSegment : String(40) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tp. stock speciale'
