@@ -1,8 +1,10 @@
 sap.ui.define(
     [
-        'sap/fe/core/PageController'
+        'sap/fe/core/PageController',
+        "sap/m/Dialog",
+        'sap/m/MessageToast'
     ],
-    function(PageController) {
+    function(PageController, Dialog, MessageToast) {
         'use strict';
 
         var oController;
@@ -233,15 +235,137 @@ sap.ui.define(
 
             onCloseOrder: function(oEvent){
                 var dataProductionOrder = oController.getProductionOrder()
+                //alert(JSON.stringify(dataProductionOrder))
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/CloseOrder(...)");
+
+                oBindingContext.setParameter("OrderID", 
+                    dataProductionOrder //'1234567'
+                );
+                
+                oBindingContext.execute().then((oResult) => {
+                    var oContext = oBindingContext.getBoundContext();
+                    if(oContext.getObject().value.indexOf("Error") > -1){
+                        var errorMessage = ""
+                        var errorArray = oContext.getObject().value.split("|")
+                        if(errorArray.length === 0){
+                            errorMessage = oContext.getObject().value
+                            oController.openDialogMessageText(errorMessage, "E");
+                        } else {
+                            sap.m.MessageBox.error(
+                                oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
+                                errorArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("errors")
+                                }
+                            );
+                        }
+                        
+                    } else { 
+
+                    }
+                    oBusyDialog.close();
+                }).catch((oError) => {
+                    oBusyDialog.close();
+                    if(oError.error !== undefined && oError.error !== null){
+                        oController.openDialogMessageText(oError.error.message, "E");
+                    } else {
+                        oController.openDialogMessageText(oError, "E");
+                    }
+                });
             },
 
             onTechnicalCompleteOrder: function(oEvent){
                 var dataProductionOrder = oController.getProductionOrder()
+                //alert(JSON.stringify(dataProductionOrder))
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/TechnicalCompleteOrder(...)");
+
+                oBindingContext.setParameter("OrderID", 
+                    dataProductionOrder //'1234567'
+                );
+                
+                oBindingContext.execute().then((oResult) => {
+                    var oContext = oBindingContext.getBoundContext();
+                    if(oContext.getObject().value.indexOf("Error") > -1){
+                        var errorMessage = ""
+                        var errorArray = oContext.getObject().value.split("|")
+                        if(errorArray.length === 0){
+                            errorMessage = oContext.getObject().value
+                            oController.openDialogMessageText(errorMessage, "E");
+                        } else {
+                            sap.m.MessageBox.error(
+                                oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
+                                errorArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("errors")
+                                }
+                            );
+                        }
+                        
+                    } else { 
+
+                    }
+                    oBusyDialog.close();
+                }).catch((oError) => {
+                    oBusyDialog.close();
+                    if(oError.error !== undefined && oError.error !== null){
+                        oController.openDialogMessageText(oError.error.message, "E");
+                    } else {
+                        oController.openDialogMessageText(oError, "E");
+                    }
+                });
             },
 
             onRelaseOrder: function(oEvent){
                 var dataProductionOrder = oController.getProductionOrder()
-                alert(JSON.stringify(dataProductionOrder))
+                //alert(JSON.stringify(dataProductionOrder))
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/ReleaseOrder(...)");
+
+                oBindingContext.setParameter("OrderID", 
+                    dataProductionOrder//'1234567'
+                );
+                
+                oBindingContext.execute().then((oResult) => {
+                    var oContext = oBindingContext.getBoundContext();
+                    if(oContext.getObject().value.indexOf("Error") > -1){
+                        var errorMessage = ""
+                        var errorArray = oContext.getObject().value.split("|")
+                        if(errorArray.length === 0){
+                            errorMessage = oContext.getObject().value
+                            oController.openDialogMessageText(errorMessage, "E");
+                        } else {
+                            sap.m.MessageBox.error(
+                                oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
+                                errorArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("errors")
+                                }
+                            );
+                        }
+                        
+                    } else { 
+
+                    }
+                    oBusyDialog.close();
+                }).catch((oError) => {
+                    oBusyDialog.close();
+                    if(oError.error !== undefined && oError.error !== null){
+                        oController.openDialogMessageText(oError.error.message, "E");
+                    } else {
+                        oController.openDialogMessageText(oError, "E");
+                    }
+                });
             },
 
             getProductionOrder: function(){
@@ -262,6 +386,41 @@ sap.ui.define(
                 }
                 
                 return arrayProductionOrder
+            },
+
+            openDialogMessageText: function (text, messType) {
+                var vTitle = "Message";
+                var vState = "Error";
+    
+                if (messType === "E") {
+                    vTitle = this.getResourceBundle().getText("errorTitle");
+                    vState = "Error";
+                } else
+                    if (messType === "I") {
+                        vTitle = this.getResourceBundle().getText("successTitle");
+                        vState = "Success";
+                    }
+    
+                var dialog = new Dialog({
+                    title: vTitle,
+                    type: "Message",
+                    state: vState,
+                    content: new sap.m.Text({
+                        text: text
+                    }),
+    
+                    beginButton: new sap.m.Button({
+                        text: "OK",
+                        press: function () {
+                            dialog.close();
+                        }
+                    }),
+                    afterClose: function () {
+                        dialog.destroy();
+                    }
+                });
+    
+                dialog.open();
             }
 
         });

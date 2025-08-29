@@ -1,0 +1,3374 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.1.0"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "API_PRODUCTION_ORDER_2_SRV": {
+   "kind": "service",
+   "@cds.external": true,
+   "@m.IsDefaultEntityContainer": "true",
+   "@sap.message.scope.supported": "true",
+   "@sap.supported.formats": "atom json xlsx"
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Componenti ordine di produzione",
+   "elements": {
+    "Reservation": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Impegno",
+     "@sap.quickinfo": "Numero dell'impegno / del fabbisogno dipendente",
+     "notNull": true
+    },
+    "ReservationItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione impegno",
+     "notNull": true
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo merci"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Codice materiale"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisione"
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione"
+    },
+    "ManufacturingOrderSequence": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sequenza"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Operazione",
+     "@sap.quickinfo": "Operazione ordine di produzione"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "OrderInternalBillOfOperations": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine"
+    },
+    "MatlCompRequirementDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fabbisogno",
+     "@sap.quickinfo": "Data fabbisogno componente materiale"
+    },
+    "MatlCompRequirementTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fabbisogno",
+     "@sap.quickinfo": "Ora fabbisogno del componente del materiale"
+    },
+    "ReservationIsFinallyIssued": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prel. fin.",
+     "@sap.quickinfo": "Prelievo finale dell'impegno"
+    },
+    "MatlCompIsMarkedForDeletion": {
+     "type": "cds.Boolean",
+     "@sap.label": "Marcato per canc.",
+     "@sap.quickinfo": "Marcato per la cancellazione"
+    },
+    "IsBulkMaterialComponent": {
+     "type": "cds.Boolean",
+     "@sap.label": "Merce sfusa",
+     "@sap.quickinfo": "Indicatore: merce sfusa"
+    },
+    "MatlCompIsMarkedForBackflush": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prelievo retroattivo",
+     "@sap.quickinfo": "Codice: prelievo retroattivo"
+    },
+    "MaterialCompIsCostRelevant": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Rilev. CCST",
+     "@sap.quickinfo": "Indice di rilevanza del CCST"
+    },
+    "OrderComponentLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di vendita"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. ordine vendita",
+     "@sap.quickinfo": "Posizione ordine di vendita"
+    },
+    "SortField": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Crit. class.",
+     "@sap.quickinfo": "Criterio di classificazione"
+    },
+    "BillOfMaterialCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Categoria Db",
+     "@sap.quickinfo": "Codice categoria distinta base"
+    },
+    "BOMItem": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione Db",
+     "@sap.quickinfo": "Pos. distinta base"
+    },
+    "BOMItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cat. pos .dist. base",
+     "@sap.quickinfo": "Categoria di posizione distinta base"
+    },
+    "BillOfMaterialItemNumber": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Pos. dist. base",
+     "@sap.quickinfo": "Numero posizione distinta base"
+    },
+    "BOMItemDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Testo posizione Db",
+     "@sap.quickinfo": "Testo posizione distinta base (riga 1)"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Partita",
+     "@sap.quickinfo": "Numero partita"
+    },
+    "BatchSplitType": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "GoodsMovementType": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo movimento",
+     "@sap.quickinfo": "Tipo movimento (gestione stock)"
+    },
+    "SupplyArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area di approvvigionamento produzione"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Destin. merci"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "@sap.label": "Punto di scarico"
+    },
+    "MaterialCompIsAlternativeItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Pos. alternativa",
+     "@sap.quickinfo": "Indicatore per posizione alternativa"
+    },
+    "AlternativeItemGroup": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo di posizioni alternative"
+    },
+    "AlternativeItemStrategy": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Strategia per posizione alternativa"
+    },
+    "AlternativeItemPriority": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Priorità posizione alternativa"
+    },
+    "UsageProbabilityPercent": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Prob. impiego",
+     "@sap.quickinfo": "Posizione alternativa: probabilità di impiego in %"
+    },
+    "MaterialComponentIsPhantomItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Posizione dummy",
+     "@sap.quickinfo": "Indicatore posizione dummy"
+    },
+    "LeadTimeOffset": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Scostamento nel lead time"
+    },
+    "QuantityIsFixed": {
+     "type": "cds.Boolean",
+     "@sap.label": "La quantità è fissa"
+    },
+    "IsNetScrap": {
+     "type": "cds.Boolean",
+     "@sap.label": "Codice: scarto netto"
+    },
+    "ComponentScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto comp. (%)",
+     "@sap.quickinfo": "Scarto del componente in percentuale"
+    },
+    "OperationScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto oper. in %",
+     "@sap.quickinfo": "Scarto operazione"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità misura base",
+     "@sap.quickinfo": "Unità di misura di base",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "BaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "BaseUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "RequiredQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità fabbisogno"
+    },
+    "WithdrawnQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità prelevata"
+    },
+    "ConfirmedAvailableQuantity": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità disponibile"
+    },
+    "MaterialCompOriginalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità originale",
+     "@sap.quickinfo": "Quantità originale di un componente del materiale"
+    },
+    "EntryUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "UM acquisizione",
+     "@sap.quickinfo": "Unità di misura di registrazione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "EntryUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "EntryUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "GoodsMovementEntryQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "EntryUnit",
+     "@sap.label": "Quantità",
+     "@sap.quickinfo": "Quantità in unità di misura di acquisizione"
+    },
+    "Currency": {
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisa",
+     "@sap.quickinfo": "Chiave divisa",
+     "@sap.semantics": "currency-code"
+    },
+    "WithdrawnQuantityAmount": {
+     "type": "cds.Decimal",
+     "precision": 14,
+     "scale": 3,
+     "@sap.unit": "Currency",
+     "@sap.label": "Valore prelevato"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_3": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Componenti ampliati dell'ordine di produzione",
+   "elements": {
+    "Reservation": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Impegno",
+     "@sap.quickinfo": "Numero dell'impegno / del fabbisogno dipendente",
+     "notNull": true
+    },
+    "ReservationItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione impegno",
+     "notNull": true
+    },
+    "ReservationRecordType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di record impegno",
+     "notNull": true
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo merci"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Codice materiale"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisione"
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione"
+    },
+    "ManufacturingOrderSequence": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sequenza"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Operazione o fase",
+     "@sap.quickinfo": "Numero operazione o fase"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "OrderInternalBillOfOperations": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine"
+    },
+    "MatlCompRequirementDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fabbisogno",
+     "@sap.quickinfo": "Data fabbisogno componente materiale"
+    },
+    "MatlCompRequirementTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fabbisogno",
+     "@sap.quickinfo": "Ora fabbisogno del componente del materiale"
+    },
+    "ReservationIsFinallyIssued": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prel. fin.",
+     "@sap.quickinfo": "Prelievo finale dell'impegno"
+    },
+    "MatlCompIsMarkedForDeletion": {
+     "type": "cds.Boolean",
+     "@sap.label": "Marcato per canc.",
+     "@sap.quickinfo": "Marcato per la cancellazione"
+    },
+    "IsBulkMaterialComponent": {
+     "type": "cds.Boolean",
+     "@sap.label": "Merce sfusa",
+     "@sap.quickinfo": "Indicatore: merce sfusa"
+    },
+    "MatlCompIsMarkedForBackflush": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prelievo retroattivo",
+     "@sap.quickinfo": "Codice: prelievo retroattivo"
+    },
+    "MaterialCompIsCostRelevant": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Rilev. CCST",
+     "@sap.quickinfo": "Indice di rilevanza del CCST"
+    },
+    "OrderComponentLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di vendita"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. ordine vendita",
+     "@sap.quickinfo": "Posizione ordine di vendita"
+    },
+    "MatlCompFreeDefinedAttribute": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Crit. class.",
+     "@sap.quickinfo": "Criterio di classificazione"
+    },
+    "BillOfMaterialCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Categoria Db",
+     "@sap.quickinfo": "Codice categoria distinta base"
+    },
+    "BOMItem": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione Db",
+     "@sap.quickinfo": "Pos. distinta base"
+    },
+    "BOMItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cat. pos .dist. base",
+     "@sap.quickinfo": "Categoria di posizione distinta base"
+    },
+    "BillOfMaterialItemNumber": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Numero di posizione distinta base"
+    },
+    "BOMItemDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Testo posizione Db",
+     "@sap.quickinfo": "Testo posizione distinta base (riga 1)"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Partita",
+     "@sap.quickinfo": "Numero partita"
+    },
+    "BatchSplitType": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "GoodsMovementType": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo movimento",
+     "@sap.quickinfo": "Tipo movimento (gestione stock)"
+    },
+    "SupplyArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area di approvvigionamento produzione"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Destin. merci"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "@sap.label": "Punto di scarico"
+    },
+    "MaterialCompIsAlternativeItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Pos. alternativa",
+     "@sap.quickinfo": "Indicatore per posizione alternativa"
+    },
+    "AlternativeItemGroup": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo di posizioni alternative"
+    },
+    "AlternativeItemStrategy": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Strategia per posizione alternativa"
+    },
+    "AlternativeItemPriority": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Priorità posizione alternativa"
+    },
+    "UsageProbabilityPercent": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Prob. impiego",
+     "@sap.quickinfo": "Posizione alternativa: probabilità di impiego in %"
+    },
+    "MaterialComponentIsPhantomItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Posizione dummy",
+     "@sap.quickinfo": "Indicatore posizione dummy"
+    },
+    "LeadTimeOffset": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Scostamento nel lead time"
+    },
+    "QuantityIsFixed": {
+     "type": "cds.Boolean",
+     "@sap.label": "La quantità è fissa"
+    },
+    "IsNetScrap": {
+     "type": "cds.Boolean",
+     "@sap.label": "Codice: scarto netto"
+    },
+    "ComponentScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto comp. (%)",
+     "@sap.quickinfo": "Scarto del componente in percentuale"
+    },
+    "OperationScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto oper. in %",
+     "@sap.quickinfo": "Scarto operazione"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità misura base",
+     "@sap.quickinfo": "Unità di misura di base",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "BaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "BaseUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "RequiredQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità fabbisogno"
+    },
+    "WithdrawnQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità prelevata"
+    },
+    "ConfirmedAvailableQuantity": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità disponibile"
+    },
+    "MaterialCompOriginalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità originale",
+     "@sap.quickinfo": "Quantità originale di un componente del materiale"
+    },
+    "EntryUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "UM acquisizione",
+     "@sap.quickinfo": "Unità di misura di registrazione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "EntryUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "EntryUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "GoodsMovementEntryQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "EntryUnit",
+     "@sap.label": "Quantità",
+     "@sap.quickinfo": "Quantità in unità di misura di acquisizione"
+    },
+    "Currency": {
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisa",
+     "@sap.quickinfo": "Chiave divisa",
+     "@sap.semantics": "currency-code"
+    },
+    "WithdrawnQuantityAmount": {
+     "type": "cds.Decimal",
+     "precision": 14,
+     "scale": 3,
+     "@sap.unit": "Currency",
+     "@sap.label": "Valore prelevato"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.String",
+     "length": 14,
+     "@sap.semantics": "duration"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_4": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Componenti ordine di produzione che utilizzano RAP BO",
+   "elements": {
+    "Reservation": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Impegno",
+     "@sap.quickinfo": "Numero dell'impegno / del fabbisogno dipendente",
+     "notNull": true
+    },
+    "ReservationItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione impegno",
+     "notNull": true
+    },
+    "ReservationRecordType": {
+     "key": true,
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di record impegno",
+     "notNull": true
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo merci"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Codice materiale"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisione"
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione"
+    },
+    "ManufacturingOrderSequence": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sequenza"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Operazione o fase",
+     "@sap.quickinfo": "Numero operazione o fase"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "OrderInternalBillOfOperations": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine"
+    },
+    "MatlCompRequirementDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fabbisogno",
+     "@sap.quickinfo": "Data fabbisogno componente materiale"
+    },
+    "MatlCompRequirementTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fabbisogno",
+     "@sap.quickinfo": "Ora fabbisogno del componente del materiale"
+    },
+    "ReservationIsFinallyIssued": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prel. fin.",
+     "@sap.quickinfo": "Prelievo finale dell'impegno"
+    },
+    "MatlCompIsMarkedForDeletion": {
+     "type": "cds.Boolean",
+     "@sap.label": "Marcato per canc.",
+     "@sap.quickinfo": "Marcato per la cancellazione"
+    },
+    "IsBulkMaterialComponent": {
+     "type": "cds.Boolean",
+     "@sap.label": "Merce sfusa",
+     "@sap.quickinfo": "Indicatore: merce sfusa"
+    },
+    "MatlCompIsMarkedForBackflush": {
+     "type": "cds.Boolean",
+     "@sap.label": "Prelievo retroattivo",
+     "@sap.quickinfo": "Codice: prelievo retroattivo"
+    },
+    "MaterialCompIsCostRelevant": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Rilev. CCST",
+     "@sap.quickinfo": "Indice di rilevanza del CCST"
+    },
+    "OrderComponentLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di vendita"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. ordine vendita",
+     "@sap.quickinfo": "Posizione ordine di vendita"
+    },
+    "MatlCompFreeDefinedAttribute": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Crit. class.",
+     "@sap.quickinfo": "Criterio di classificazione"
+    },
+    "BillOfMaterialCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Categoria Db",
+     "@sap.quickinfo": "Codice categoria distinta base"
+    },
+    "BOMItem": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione Db",
+     "@sap.quickinfo": "Pos. distinta base"
+    },
+    "BOMItemCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cat. pos .dist. base",
+     "@sap.quickinfo": "Categoria di posizione distinta base"
+    },
+    "BillOfMaterialItemNumber": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Numero di posizione distinta base"
+    },
+    "BOMItemDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Testo posizione Db",
+     "@sap.quickinfo": "Testo posizione distinta base (riga 1)"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Partita",
+     "@sap.quickinfo": "Numero partita"
+    },
+    "BatchSplitType": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "GoodsMovementType": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo movimento",
+     "@sap.quickinfo": "Tipo movimento (gestione stock)"
+    },
+    "SupplyArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area di approvvigionamento produzione"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Destin. merci"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "@sap.label": "Punto di scarico"
+    },
+    "MaterialCompIsAlternativeItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Pos. alternativa",
+     "@sap.quickinfo": "Indicatore per posizione alternativa"
+    },
+    "AlternativeItemGroup": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo di posizioni alternative"
+    },
+    "AlternativeItemStrategy": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Strategia per posizione alternativa"
+    },
+    "AlternativeItemPriority": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Priorità posizione alternativa"
+    },
+    "UsageProbabilityPercent": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Prob. impiego",
+     "@sap.quickinfo": "Posizione alternativa: probabilità di impiego in %"
+    },
+    "MaterialComponentIsPhantomItem": {
+     "type": "cds.Boolean",
+     "@sap.label": "Posizione dummy",
+     "@sap.quickinfo": "Indicatore posizione dummy"
+    },
+    "LeadTimeOffset": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Scostamento nel lead time"
+    },
+    "QuantityIsFixed": {
+     "type": "cds.Boolean",
+     "@sap.label": "La quantità è fissa"
+    },
+    "IsNetScrap": {
+     "type": "cds.Boolean",
+     "@sap.label": "Codice: scarto netto"
+    },
+    "ComponentScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto comp. (%)",
+     "@sap.quickinfo": "Scarto del componente in percentuale"
+    },
+    "OperationScrapInPercent": {
+     "type": "cds.Decimal",
+     "precision": 5,
+     "scale": 2,
+     "@sap.label": "Scarto oper. in %",
+     "@sap.quickinfo": "Scarto operazione"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità misura base",
+     "@sap.quickinfo": "Unità di misura di base",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "BaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "BaseUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "RequiredQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità fabbisogno"
+    },
+    "WithdrawnQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità prelevata"
+    },
+    "ConfirmedAvailableQuantity": {
+     "type": "cds.Decimal",
+     "precision": 15,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità disponibile"
+    },
+    "MaterialCompOriginalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità originale",
+     "@sap.quickinfo": "Quantità originale di un componente del materiale"
+    },
+    "EntryUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "UM acquisizione",
+     "@sap.quickinfo": "Unità di misura di registrazione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "EntryUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "EntryUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "GoodsMovementEntryQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "EntryUnit",
+     "@sap.label": "Quantità",
+     "@sap.quickinfo": "Quantità in unità di misura di acquisizione"
+    },
+    "Currency": {
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisa",
+     "@sap.quickinfo": "Chiave divisa",
+     "@sap.semantics": "currency-code"
+    },
+    "WithdrawnQuantityAmount": {
+     "type": "cds.Decimal",
+     "precision": 14,
+     "scale": 3,
+     "@sap.unit": "Currency",
+     "@sap.label": "Valore prelevato"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.String",
+     "length": 14,
+     "@sap.semantics": "duration"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderItem_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Posizioni dell'ordine di produzione",
+   "elements": {
+    "ManufacturingOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione",
+     "notNull": true
+    },
+    "ManufacturingOrderItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Posizione di ordine",
+     "@sap.quickinfo": "ID posizione ordine di produzione",
+     "notNull": true
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "IsCompletelyDelivered": {
+     "type": "cds.Boolean",
+     "@sap.label": "Consegna completata",
+     "@sap.quickinfo": "Codice di consegna finale"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Codice materiale per ordine"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. pianificazione",
+     "@sap.quickinfo": "Divisione di pianificazione per ordine"
+    },
+    "MRPArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area pian. MRP"
+    },
+    "QuantityDistributionKey": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Chiave distribuzione",
+     "@sap.quickinfo": "Chiave distribuzione pianif. fabbisogni"
+    },
+    "MaterialGoodsReceiptDuration": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Tempo elab. EM",
+     "@sap.quickinfo": "Durata elaborazione entrata merci in giorni"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "Batch": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Partita",
+     "@sap.quickinfo": "Numero partita"
+    },
+    "InventoryUsabilityCode": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Poss. util. stock",
+     "@sap.quickinfo": "Codice possibilità di utilizzo stock"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Destin. merci"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "@sap.label": "Punto di scarico"
+    },
+    "StockSegment": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Segmento di stock"
+    },
+    "MfgOrderItemPlndDeliveryDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Consegna pianificata",
+     "@sap.quickinfo": "Data di consegna da ordine pianificato"
+    },
+    "MfgOrderItemActualDeliveryDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data eff. consegna",
+     "@sap.quickinfo": "Data effettiva di consegna"
+    },
+    "ProductionUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità di produzione",
+     "@sap.quickinfo": "Unità di misura di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProductionUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "ProductionUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "MfgOrderItemPlannedTotalQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Quantità totale",
+     "@sap.quickinfo": "Posizione ordine: quantità pianificata totale"
+    },
+    "MfgOrderItemPlannedScrapQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Scarto previsto",
+     "@sap.quickinfo": "Posizione ordine: quantità pianificata di scarto"
+    },
+    "MfgOrderItemGoodsReceiptQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Quantità entrata merci",
+     "@sap.quickinfo": "Quantità di entrata merci per posizione ordine"
+    },
+    "MfgOrderItemActualDeviationQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Scostamento previsto",
+     "@sap.quickinfo": "Eccedenza/deficit previsto per l'entrata merci"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderOperation_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Operazioni ordine di produzione",
+   "elements": {
+    "OrderInternalBillOfOperations": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine",
+     "notNull": true
+    },
+    "OrderIntBillOfOperationsItem": {
+     "key": true,
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID int. operazione",
+     "@sap.quickinfo": "Identificatore interno di un'operazione o attività",
+     "notNull": true
+    },
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione"
+    },
+    "ManufacturingOrderSequence": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sequenza",
+     "@sap.quickinfo": "Sequenza ordine di produzione"
+    },
+    "MfgOrderSequenceText": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Testo sequenza",
+     "@sap.quickinfo": "Testo sequenza ordine di produzione"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.text": "MfgOrderOperationText",
+     "@sap.label": "Operazione",
+     "@sap.quickinfo": "Operazione ordine di produzione"
+    },
+    "ManufacturingOrderSubOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sotto-operazione",
+     "@sap.quickinfo": "Sotto-operazione dell'ordine di produzione"
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "MfgOrderOperationText": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Testo operazione",
+     "@sap.quickinfo": "Testo operazione ordine di produzione"
+    },
+    "OrderOperationLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "OrderSequenceLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "OperationIsCreated": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsReleased": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsPrinted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsConfirmed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsPartiallyConfirmed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsDeleted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsTechlyCompleted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsClosed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsScheduled": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsPartiallyDelivered": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OperationIsDelivered": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "WorkCenterInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Int. centro lav.",
+     "@sap.quickinfo": "ID interno centro di lavoro"
+    },
+    "WorkCenterTypeCode": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.label": "Codice tipo centro di lavoro"
+    },
+    "WorkCenter": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Centro di lavoro"
+    },
+    "OperationControlProfile": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Profilo di controllo",
+     "@sap.quickinfo": "Profilo di controllo operazione"
+    },
+    "OpErlstSchedldExecStrtDte": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data inizio esec.",
+     "@sap.quickinfo": "Prima data inizio effettiva schedulata"
+    },
+    "OpErlstSchedldExecStrtTme": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio esec.",
+     "@sap.quickinfo": "Prima ora inizio esecuzione schedulata"
+    },
+    "OpErlstSchedldExecEndDte": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "DataFinEsec p. prima",
+     "@sap.quickinfo": "Data fine esecuzione pianificata per prima"
+    },
+    "OpErlstSchedldExecEndTme": {
+     "type": "cds.Time",
+     "@sap.label": "OraFinEsec p. prima",
+     "@sap.quickinfo": "Ora fine esecuzione pianificata per prima"
+    },
+    "OpActualExecutionStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data di inizio esecuzione confermata",
+     "@sap.quickinfo": "Data confermata di inizio dell'esecuzione"
+    },
+    "OpActualExecutionStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora di inizio esecuzione confermata"
+    },
+    "OpActualExecutionEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data di fine esecuzione confermata"
+    },
+    "OpActualExecutionEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora di fine esecuzione confermata"
+    },
+    "OpErlstSchedldProcgStrtDte": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data inizio elab.",
+     "@sap.quickinfo": "Prima ora inizio elaborazione schedulata"
+    },
+    "OpErlstSchedldProcgStrtTme": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio elab.",
+     "@sap.quickinfo": "Prima ora inizio elaborazione schedulata"
+    },
+    "OpErlstSchedldTrdwnStrtDte": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data in. eff. dis.",
+     "@sap.quickinfo": "Prima data inizio disattrezzaggio schedulata"
+    },
+    "OpErlstSchedldTrdwnStrtTme": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio eff. dis.",
+     "@sap.quickinfo": "Prima ora inizio disattrezzaggio schedulata"
+    },
+    "ErlstSchedldExecDurnInWorkdays": {
+     "type": "cds.Integer",
+     "@sap.label": "Durata esecuzione pianificata",
+     "@sap.quickinfo": "Prima durata di esecuzione pianificata in giorni lavorativi"
+    },
+    "OpActualExecutionDays": {
+     "type": "cds.Integer",
+     "@sap.label": "Durata esecuzione effettiva",
+     "@sap.quickinfo": "Durata esecuzione effettiva in giorni lavorativi"
+    },
+    "OperationUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità operazione",
+     "@sap.quickinfo": "Unità di misura operazione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "OperationUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "OperationUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "OpPlannedTotalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "OperationUnit",
+     "@sap.label": "Quantità operazione",
+     "@sap.quickinfo": "Quantità totale operazione"
+    },
+    "OpTotalConfirmedYieldQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "OperationUnit",
+     "@sap.label": "Qtà ott. conf.",
+     "@sap.quickinfo": "Qtà ottenuta confermata totale"
+    },
+    "WorkCenterStandardWorkQtyUnit1": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 1",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 1",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit1ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit1SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty1": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit1",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "WorkCenterStandardWorkQtyUnit2": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 2",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 2",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit2ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit2SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty2": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit2",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "WorkCenterStandardWorkQtyUnit3": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 3",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 3",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit3ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit3SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty3": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit3",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "WorkCenterStandardWorkQtyUnit4": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 4",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 4",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit4ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit4SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty4": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit4",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "WorkCenterStandardWorkQtyUnit5": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 5",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 5",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit5ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit5SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty5": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit5",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "WorkCenterStandardWorkQtyUnit6": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Un. quant. lavoro 6",
+     "@sap.quickinfo": "Unità di quantità di lavoro standard 6",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "StdWrkQtyUnit6ISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "StdWrkQtyUnit6SAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "WorkCenterStandardWorkQty6": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "WorkCenterStandardWorkQtyUnit6",
+     "@sap.label": "Valore default",
+     "@sap.quickinfo": "Valore standard"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.String",
+     "length": 14
+    }
+   },
+   "actions": {
+    "ScheduleProductionOrderOperation": {
+     "kind": "action",
+     "params": {
+      "ManufacturingOrder": {
+       "type": "cds.String",
+       "length": 12,
+       "@sap.label": "Ordine",
+       "notNull": true
+      },
+      "OpSchedldStartDate": {
+       "type": "cds.DateTime",
+       "@odata.Type": "Edm.DateTime",
+       "@sap.label": "Data inizio esec."
+      },
+      "OpSchedldStartTime": {
+       "type": "cds.Time",
+       "@sap.label": "Ora inizio esec."
+      },
+      "OpSchedldEndDate": {
+       "type": "cds.DateTime",
+       "@odata.Type": "Edm.DateTime",
+       "@sap.label": "Data fine esecuzione"
+      },
+      "OpSchedldEndTime": {
+       "type": "cds.Time",
+       "@sap.label": "Ora fine eff. esec."
+      },
+      "OpSchedulingMode": {
+       "type": "cds.String",
+       "length": 1,
+       "@sap.label": "Tipo schedulazione",
+       "notNull": true
+      },
+      "OpSchedulingStatus": {
+       "type": "cds.String",
+       "length": 4,
+       "@sap.label": "Stato"
+      },
+      "OpSchedulingStrategy": {
+       "type": "cds.String",
+       "length": 4,
+       "@sap.label": "Componente del numero versione",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.SchedldProdOrdOpMessage"
+     }
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderStatus_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Stato ordine di produzione",
+   "elements": {
+    "ManufacturingOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione",
+     "notNull": true
+    },
+    "StatusCode": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Stato",
+     "@sap.quickinfo": "Stato singolo di un oggetto",
+     "notNull": true
+    },
+    "IsUserStatus": {
+     "type": "cds.Boolean",
+     "@sap.label": "È stato utente",
+     "@sap.quickinfo": "È uno stato utente"
+    },
+    "StatusShortName": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.label": "Stato",
+     "@sap.quickinfo": "Stato singolo di un oggetto (forma breve)"
+    },
+    "StatusName": {
+     "type": "cds.String",
+     "length": 30,
+     "@sap.label": "Stato",
+     "@sap.quickinfo": "Stato singolo di un oggetto"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrder_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Ordine di produzione",
+   "elements": {
+    "ManufacturingOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione",
+     "notNull": true
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria ordine",
+     "@sap.quickinfo": "Categoria dell'ordine"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine"
+    },
+    "OrderLongText": {
+     "type": "cds.LargeString",
+     "@sap.label": "Testo esteso"
+    },
+    "ManufacturingOrderImportance": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Importanza ordine",
+     "@sap.quickinfo": "Codice importanza ordine"
+    },
+    "OrderIsCreated": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsReleased": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsPrinted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsConfirmed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsPartiallyConfirmed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsDelivered": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsDeleted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsPreCosted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "SettlementRuleIsCreated": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsPartiallyReleased": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsLocked": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsTechnicallyCompleted": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsClosed": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsPartiallyDelivered": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsMarkedForDeletion": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "SettlementRuleIsCrtedManually": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsScheduled": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderHasGeneratedOperations": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "OrderIsToBeHandledInBatches": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "MaterialAvailyIsNotChecked": {
+     "type": "cds.String",
+     "length": 1
+    },
+    "MfgOrderCreationDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data di cr. ordine",
+     "@sap.quickinfo": "Data di creazione ordine"
+    },
+    "MfgOrderCreationTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora creazione ordine",
+     "@sap.quickinfo": "Ora di creazione ordine"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.String",
+     "length": 14
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Codice materiale per ordine"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "GoodsRecipientName": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Destin. merci"
+    },
+    "UnloadingPointName": {
+     "type": "cds.String",
+     "length": 25,
+     "@sap.label": "Punto di scarico"
+    },
+    "InventoryUsabilityCode": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Poss. util. stock",
+     "@sap.quickinfo": "Codice possibilità di utilizzo stock"
+    },
+    "MaterialGoodsReceiptDuration": {
+     "type": "cds.Decimal",
+     "precision": 3,
+     "scale": 0,
+     "@sap.label": "Tempo elab. EM",
+     "@sap.quickinfo": "Durata elaborazione entrata merci in giorni"
+    },
+    "QuantityDistributionKey": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Chiave distribuzione",
+     "@sap.quickinfo": "Chiave distribuzione pianif. fabbisogni"
+    },
+    "StockSegment": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Segmento di stock"
+    },
+    "OrderInternalBillOfOperations": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. pianificazione",
+     "@sap.quickinfo": "Divisione di pianificazione per ordine"
+    },
+    "MRPArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area pian. MRP"
+    },
+    "MRPController": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Responsabile MRP"
+    },
+    "ProductionSupervisor": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Responsabile di produzione"
+    },
+    "ProductionVersion": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Versione di prod.",
+     "@sap.quickinfo": "Versione di produzione"
+    },
+    "PlannedOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine pianificato"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di vendita"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. ordine vendita",
+     "@sap.quickinfo": "Posizione ordine di vendita"
+    },
+    "BasicSchedulingType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di pianificazione base"
+    },
+    "ManufacturingObject": {
+     "type": "cds.String",
+     "length": 22,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Numero oggetto",
+     "@sap.quickinfo": "ID interno oggetto"
+    },
+    "ProductConfiguration": {
+     "type": "cds.String",
+     "length": 18,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Config. prodotto",
+     "@sap.quickinfo": "Configurazione prodotto"
+    },
+    "OrderSequenceNumber": {
+     "type": "cds.String",
+     "length": 14,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Numero progressivo",
+     "@sap.quickinfo": "Numero progressivo dell'ordine"
+    },
+    "BusinessArea": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Settore contabile"
+    },
+    "CompanyCode": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Società"
+    },
+    "ProfitCenter": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Profit center"
+    },
+    "ActualCostsCostingVariant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Variante del calcolo costi effettiva",
+     "@sap.quickinfo": "Variante di calcolo dei costi effettivi"
+    },
+    "PlannedCostsCostingVariant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Variante di calcolo costi pianificati",
+     "@sap.quickinfo": "Variante di calcolo dei costi pianificati"
+    },
+    "FunctionalArea": {
+     "type": "cds.String",
+     "length": 16,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area funzionale"
+    },
+    "MfgOrderPlannedStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data inizio pian.",
+     "@sap.quickinfo": "Data inizio pianificata per ordine di produzione"
+    },
+    "MfgOrderPlannedStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio pian.",
+     "@sap.quickinfo": "Ora inizio pianificata per ordine di produzione"
+    },
+    "MfgOrderPlannedEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Dt.fine pian.",
+     "@sap.quickinfo": "Data di fine pianificata ordine di produzione"
+    },
+    "MfgOrderPlannedEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora di fine pian.",
+     "@sap.quickinfo": "Ora di fine pianificata per ordine di produzione"
+    },
+    "MfgOrderScheduledStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data inizio sched.",
+     "@sap.quickinfo": "Data inizio schedulata per ordine di produzione"
+    },
+    "MfgOrderScheduledStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio sched.",
+     "@sap.quickinfo": "Ora inizio schedulata per ordine di produzione"
+    },
+    "MfgOrderScheduledEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fine schedulata",
+     "@sap.quickinfo": "Data fine schedulata per ordine di produzione"
+    },
+    "MfgOrderScheduledEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fine schedulata",
+     "@sap.quickinfo": "Ora fine schedulata per ordine di produzione"
+    },
+    "MfgOrderActualReleaseDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data ril. effettiva",
+     "@sap.quickinfo": "Data di rilascio effettivo dell'ordine di produzione"
+    },
+    "ProductionUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità di produzione",
+     "@sap.quickinfo": "Unità di misura di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProductionUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "ProductionUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "TotalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Quantità totale",
+     "@sap.quickinfo": "Quantità totale pianificata per ordine di produzione"
+    },
+    "MfgOrderPlannedScrapQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Quantità di scarto",
+     "@sap.quickinfo": "Quantità di scarto pianificata per ordine di produzione"
+    },
+    "MfgOrderConfirmedYieldQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "ProductionUnit",
+     "@sap.label": "Qtà ott. conf.",
+     "@sap.quickinfo": "Qtà ottenuta confermata dalla conferma d'ordine"
+    },
+    "CustomerName": {
+     "type": "cds.String",
+     "length": 80,
+     "@sap.label": "Nome del cliente"
+    },
+    "WBSElementExternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Elemento WBS",
+     "@sap.quickinfo": "Elemento WBS (editato)"
+    },
+    "MasterProductionOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine prod. princ.",
+     "@sap.quickinfo": "Numero ordine di produzione principale"
+    },
+    "to_ProductionOrderComponent": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_2",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionOrderComponentExt": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_3",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionOrderComponentExt4": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderComponent_4",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionOrderItem": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderItem_2",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionOrderOperation": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderOperation_2",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionOrderStatus": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrderStatus_2",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "to_ProductionRsceTools": {
+     "type": "cds.Association",
+     "target": "API_PRODUCTION_ORDER_2_SRV.A_ProductionRsceTools_2",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "ReleaseOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "ReleaseOperation": {
+     "kind": "action",
+     "params": {
+      "ManufacturingOrderOperation": {
+       "type": "cds.String",
+       "length": 4
+      },
+      "ManufacturingOrderSequence": {
+       "type": "cds.LargeString"
+      }
+     },
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "TechlyCmpltOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "CloseOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "DeletionFlagOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "DeletionIndOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "DiscardOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "DeliveryCompletedOrder": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    },
+    "OrderReleasedByMES": {
+     "kind": "action",
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.FunctionMessage"
+     }
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_ProductionRsceTools_2": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.creatable": "false",
+   "@sap.updatable": "false",
+   "@sap.deletable": "false",
+   "@sap.content.version": "1",
+   "@sap.label": "Mezzi e attrezzature di produzione",
+   "elements": {
+    "OrderInternalBillOfOperations": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID interno ordine",
+     "@sap.quickinfo": "ID interno dell'ordine",
+     "notNull": true
+    },
+    "MfgOrderOpProdnRsceToolIntID": {
+     "key": true,
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Contatore pos. MAP",
+     "@sap.quickinfo": "Contatore posizioni mezzi e attrezzature di produzione",
+     "notNull": true
+    },
+    "ProductionResourceTool": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Mezzi e attrezzature di produzione",
+     "@sap.quickinfo": "Numero mezzi e attrezzature di produzione"
+    },
+    "ProdnRsceToolCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo MAP",
+     "@sap.quickinfo": "Tipo dei mezzi e attrezzature di produzione"
+    },
+    "ProdnRsceToolCategoryName": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Nome categoria MAP",
+     "@sap.quickinfo": "Descrizione dipendente da lingua della categoria MAP"
+    },
+    "ProdnRsceToolControlProfile": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Profilo contr. MAP",
+     "@sap.quickinfo": "Profilo controllo gestione mezzi e attrezzature di prod."
+    },
+    "ProdnRsceToolPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisione"
+    },
+    "OrderOperationInternalID": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "ID int. operazione",
+     "@sap.quickinfo": "Identificatore interno di un'operazione o attività"
+    },
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di produzione"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Operazione o fase",
+     "@sap.quickinfo": "Numero operazione o fase"
+    },
+    "ManufacturingOrderCategory": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Categoria di ordine",
+     "@sap.quickinfo": "Categoria ordine di produzione"
+    },
+    "ManufacturingOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo di ordine",
+     "@sap.quickinfo": "Tipo di ordine di produzione"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "BillOfOperationsType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo ciclo"
+    },
+    "BillOfOperationsGroup": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo",
+     "@sap.quickinfo": "Chiave per gruppo di cicli"
+    },
+    "EarliestSchedldUsageStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Prima data di inizio",
+     "@sap.quickinfo": "Prima data di inizio pianificata per impiego MAP"
+    },
+    "EarliestSchedldUsageStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Prima ora di inizio",
+     "@sap.quickinfo": "Prima ora di inizio pianificato per impiego MAP"
+    },
+    "EarliestSchedldUsageEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Prima data fine",
+     "@sap.quickinfo": "Prima data di fine pianificata dell'impiego MAP"
+    },
+    "EarliestSchedldUsageEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Prima ora fine",
+     "@sap.quickinfo": "Prima ora di fine pianificata dell'impiego MAP"
+    },
+    "LatestSchedldUsageStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Ultima data d'inizio",
+     "@sap.quickinfo": "Ultima data di inizio pianificata per impiego MAP"
+    },
+    "LatestSchedldUsageStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ultima ora inizio",
+     "@sap.quickinfo": "Ultima ora d'inizio pianificata per impiego MAP"
+    },
+    "LatestSchedldUsageEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Ultima data fine",
+     "@sap.quickinfo": "Ultima data di fine pianificata per impiego MAP"
+    },
+    "LatestSchedldUsageEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ultima ora fine",
+     "@sap.quickinfo": "Ultima ora di fine pianificata per impiego MAP"
+    },
+    "ActualUsageStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "In. eff.",
+     "@sap.quickinfo": "Data di inizio effettiva dell'impiego MAP"
+    },
+    "ActualUsageStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio effettiva",
+     "@sap.quickinfo": "Ora di inizio effettiva dell'impiego MAP"
+    },
+    "ActualUsageEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fine effettiva",
+     "@sap.quickinfo": "Data di fine effettiva dell'impiego MAP"
+    },
+    "ActualUsageEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fine effettiva",
+     "@sap.quickinfo": "Ora di fine effettiva dell'impiego MAP"
+    },
+    "ProdnRsceToolUsageDurnUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Utà durata impiego",
+     "@sap.quickinfo": "Unità della durata dell'impiego MAP",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProdnRsceToolUsageDuration": {
+     "type": "cds.Double",
+     "@sap.label": "Durata impiego",
+     "@sap.quickinfo": "Durata dell'impiego MAP"
+    },
+    "PRTUsageDurationUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "PRTUsageDurationUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "ProdnRsceToolTotQtyCalcFormula": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Formula quantità",
+     "@sap.quickinfo": "Formula per il calcolo quantità tot. mezzi e attr. di prod."
+    },
+    "ProdnRsceToolUsageQtyCalcFmla": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Formula val.impiego",
+     "@sap.quickinfo": "Formula per calcolo val. tot. impiego mezzi e attr. di prod."
+    },
+    "ProdnRsceToolStdWorkQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità qtà",
+     "@sap.quickinfo": "Unità quantità mezzi e attrezzature di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProdnRsceToolStandardWorkQty": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "ProdnRsceToolStdWorkQtyUnit",
+     "@sap.label": "Quantità",
+     "@sap.quickinfo": "Quantità mezzi e attrezzature di produzione: valore default"
+    },
+    "PRTStdWorkQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "PRTStdWorkQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "PlannedProdnRsceToolQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità per quantità pianificata di MAP",
+     "@sap.quickinfo": "Unità per quantità pianif. totale di mezzi e attr. di prod.",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "PlannedTotalProdnRsceToolQty": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "PlannedProdnRsceToolQtyUnit",
+     "@sap.label": "Quantità pianificata",
+     "@sap.quickinfo": "Qtà pianificata totale di mezzi e attrezzature di produzione"
+    },
+    "PlannedPRTQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "PlannedPRTQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "ConfirmedProdnRsceToolQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità per quantità effettiva MAP",
+     "@sap.quickinfo": "Unità per qtà effettiva di mezzi e attrezzature di prod.",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ConfirmedProdnRsceToolQty": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "ConfirmedProdnRsceToolQtyUnit",
+     "@sap.label": "Qtà eff.",
+     "@sap.quickinfo": "Quantità effettiva dei mezzi e attrezzature di produzione"
+    },
+    "ConfirmedPRTQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "ConfirmedPRTQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "ProdnRsceToolUsageQuantityUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Utà valore d'impiego",
+     "@sap.quickinfo": "Unità valore d'impiego di mezzi e attrezzature di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProdnRsceToolUsageQuantity": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "ProdnRsceToolUsageQuantityUnit",
+     "@sap.label": "Val. d'imp. standard",
+     "@sap.quickinfo": "Val. d'impiego standard per mezzi e attrezzature produzione"
+    },
+    "PRTUsageQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "PRTUsageQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "PlndProdnRsceToolUsageQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità di quantità di utilizzo pian.",
+     "@sap.quickinfo": "Unità per qtà util. pian. di mezzi e attrezz. di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "PlannedProdnRsceToolUsageQty": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "PlndProdnRsceToolUsageQtyUnit",
+     "@sap.label": "Val. d'imp. pian.",
+     "@sap.quickinfo": "Val. d'impiego pian. tot. mezzi e attrezzature di produzione"
+    },
+    "PlannedPRTUsageQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "PlannedPRTUsageQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "ConfdProdnRsceToolUsageQtyUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità di quantità di utilizzo effett.",
+     "@sap.quickinfo": "Unità per qtà util. eff. di mezzi e attrezz. di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ConfirmedProdnRsceToolUsageQty": {
+     "type": "cds.Decimal",
+     "precision": 9,
+     "scale": 3,
+     "@sap.unit": "ConfdProdnRsceToolUsageQtyUnit",
+     "@sap.label": "Val. d'imp. effett.",
+     "@sap.quickinfo": "Valore d'impiego eff. per mezzi e attrezzature di produzione"
+    },
+    "ConfdPRTUsageQtyUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "ConfdPRTUsageQtyUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    },
+    "ProdnRsceToolBaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità misura base",
+     "@sap.quickinfo": "Unità di misura di base mezzi e attrezzature di produzione",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "ProdnRsceToolBaseUnitISOCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cd. ISO",
+     "@sap.quickinfo": "Codice ISO unità di misura"
+    },
+    "ProdnRsceToolBaseUnitSAPCode": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Codice SAP interno",
+     "@sap.quickinfo": "Unità di misura, codice SAP interno (senza conversione)"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.A_PlannedOrderType": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@sap.label": "Ordine pianificato",
+   "@sap.content.version": "1",
+   "elements": {
+    "PlannedOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine pianificato",
+     "notNull": true
+    },
+    "PlannedOrderType": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo ordine pian.",
+     "@sap.quickinfo": "Tipo di ordine pianificato"
+    },
+    "PlannedOrderProfile": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Profilo ordine pian.",
+     "@sap.quickinfo": "Profilo ordine pianificato"
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Materiale",
+     "@sap.quickinfo": "Materiale pianif."
+    },
+    "MaterialName": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Descr. materiale",
+     "@sap.quickinfo": "Descrizione materiale"
+    },
+    "ProductionPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Div. di produzione",
+     "@sap.quickinfo": "Divisione di produzione"
+    },
+    "MRPPlant": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Divisione pian.",
+     "@sap.quickinfo": "Divisione di pianificazione"
+    },
+    "MRPArea": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Area pian. MRP"
+    },
+    "ProductionVersion": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Versione di prod.",
+     "@sap.quickinfo": "Versione di produzione"
+    },
+    "MaterialProcurementCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cat. approvv.",
+     "@sap.quickinfo": "Categoria approvvigionamento materiale"
+    },
+    "MaterialProcurementType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo approvv.",
+     "@sap.quickinfo": "Tipo di approvvigionamento materiale"
+    },
+    "StorageLocation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Magazzino"
+    },
+    "BaseUnit": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Unità misura base",
+     "@sap.quickinfo": "Unità di misura di base",
+     "@sap.semantics": "unit-of-measure"
+    },
+    "TotalQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Qtà totale ordine",
+     "@sap.quickinfo": "Quantità totale ordine pianificato"
+    },
+    "PlndOrderPlannedScrapQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità di scarto",
+     "@sap.quickinfo": "Quantità di scarto pianificata"
+    },
+    "GoodsReceiptQty": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità ricevuta",
+     "@sap.quickinfo": "Quantità entrata merci"
+    },
+    "IssuedQuantity": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@sap.unit": "BaseUnit",
+     "@sap.label": "Quantità uscita"
+    },
+    "PlndOrderPlannedStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data d'inizio ordine",
+     "@sap.quickinfo": "Data d'inizio dell'ordine pianificato"
+    },
+    "PlndOrderPlannedStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio ordine",
+     "@sap.quickinfo": "Ora d'inizio dell'ordine pianificato"
+    },
+    "PlndOrderPlannedEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fine ordine",
+     "@sap.quickinfo": "Data di fine dell'ordine pianificato"
+    },
+    "PlndOrderPlannedEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora fine ordine",
+     "@sap.quickinfo": "Ora di fine dell'ordine pianificato"
+    },
+    "PlannedOrderOpeningDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data apertura ordine",
+     "@sap.quickinfo": "Data apertura pianificata nell'ordine pianificato"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.DateTime",
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@sap.label": "Mod. timestamp",
+     "@sap.quickinfo": "Ultima modifica ordine pianificato: timestamp"
+    },
+    "ProductionStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data di inizio produzione"
+    },
+    "ProductionEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Data fine prod.",
+     "@sap.quickinfo": "Data di fine produzione"
+    },
+    "SalesOrder": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ordine di vendita"
+    },
+    "SalesOrderItem": {
+     "type": "cds.String",
+     "length": 6,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. ordine vendita",
+     "@sap.quickinfo": "Posizione ordine di vendita"
+    },
+    "Customer": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cliente",
+     "@sap.quickinfo": "Codice cliente"
+    },
+    "WBSElementInternalID": {
+     "type": "cds.String",
+     "length": 24,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Elemento WBS interno",
+     "@sap.quickinfo": "ID interno dell'elemento WBS"
+    },
+    "WBSElement": {
+     "type": "cds.String",
+     "length": 24,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Elem. WBS"
+    },
+    "WBSDescription": {
+     "type": "cds.String",
+     "length": 40,
+     "@sap.label": "Nome elemento WBS",
+     "@sap.quickinfo": "Nome elemento Work Breakdown Structure"
+    },
+    "AccountAssignmentCategory": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Categoria di contabilizzazione"
+    },
+    "Reservation": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Impegno",
+     "@sap.quickinfo": "Numero dell'impegno / del fabbisogno dipendente"
+    },
+    "MRPController": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Responsabile MRP"
+    },
+    "ProductionSupervisor": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Responsabile di produzione"
+    },
+    "PurchasingGroup": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo acquisti"
+    },
+    "PurchasingOrganization": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Org. acquisti",
+     "@sap.quickinfo": "Organizzazione acquisti"
+    },
+    "FixedSupplier": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Fornitore fisso"
+    },
+    "PurchasingDocument": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Accordo di acquisto",
+     "@sap.quickinfo": "Schedulazione piano di consegna/contratto quadro"
+    },
+    "PurchasingDocumentItem": {
+     "type": "cds.String",
+     "length": 5,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. contratto",
+     "@sap.quickinfo": "Schedulazione piano di consegna/posizione contratto quadro"
+    },
+    "QuotaArrangement": {
+     "type": "cds.String",
+     "length": 10,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Sudd. in quote",
+     "@sap.quickinfo": "Suddivisione in quote"
+    },
+    "QuotaArrangementItem": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Pos. suddivisione",
+     "@sap.quickinfo": "Posizione suddivisione in quote"
+    },
+    "SupplierName": {
+     "type": "cds.String",
+     "length": 80,
+     "@sap.label": "Nome del fornitore"
+    },
+    "PlannedOrderIsFirm": {
+     "type": "cds.Boolean",
+     "@sap.label": "Cd. fissazione",
+     "@sap.quickinfo": "Codice di fissazione per dati ordine pianificato"
+    },
+    "PlannedOrderIsConvertible": {
+     "type": "cds.Boolean",
+     "@sap.label": "Indic. conversione",
+     "@sap.quickinfo": "Indicatore conversione dell'ordine pianificato"
+    },
+    "PlannedOrderBOMIsFixed": {
+     "type": "cds.Boolean",
+     "@sap.label": "Codice fiss.dist.bse",
+     "@sap.quickinfo": "Codice di fissazione per esplosione distinta base"
+    },
+    "PlannedOrderCapacityIsDsptchd": {
+     "type": "cds.Boolean",
+     "@sap.label": "Capacità pianificata",
+     "@sap.quickinfo": "Codice: capacità per ordine di pianificazione è pianificata"
+    },
+    "CapacityRequirement": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "NonNegative",
+     "@sap.label": "Fabbisogno capacità",
+     "@sap.quickinfo": "ID del record fabbisogno capacità"
+    },
+    "CapacityRequirementOrigin": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Orig. fabb. capacità",
+     "@sap.quickinfo": "Origine del fabbisogno di capacità"
+    },
+    "BillOfOperationsType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo ciclo"
+    },
+    "BillOfOperationsGroup": {
+     "type": "cds.String",
+     "length": 8,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Gruppo",
+     "@sap.quickinfo": "Chiave per gruppo di cicli"
+    },
+    "BillOfOperations": {
+     "type": "cds.String",
+     "length": 2,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Cont. gruppi cicli",
+     "@sap.quickinfo": "Contatore gruppi cicli"
+    },
+    "LastScheduledDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Schedul. il",
+     "@sap.quickinfo": "Data dell'ultima schedulazione"
+    },
+    "ScheduledBasicEndDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Fine schedulata"
+    },
+    "ScheduledBasicEndTime": {
+     "type": "cds.Time",
+     "@sap.label": "Fine al più presto",
+     "@sap.quickinfo": "Fine al più presto operazione (ora)"
+    },
+    "ScheduledBasicStartDate": {
+     "type": "cds.Date",
+     "@sap.display.format": "Date",
+     "@sap.label": "Inizio schedulato"
+    },
+    "ScheduledBasicStartTime": {
+     "type": "cds.Time",
+     "@sap.label": "Ora inizio + presto",
+     "@sap.quickinfo": "Inizio al più presto schedulato: esecuzione (ora)"
+    },
+    "SchedulingType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Tipo schedulazione",
+     "@sap.quickinfo": "Tipo di schedulazione"
+    },
+    "MasterPlannedOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.display.format": "UpperCase",
+     "@sap.label": "Ord. pian. princ.",
+     "@sap.quickinfo": "Numero ordine pianificato principale"
+    },
+    "ZZ1_MFI_CR_TYPE_PLA": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Order type"
+    },
+    "ZZ1_MFI_CRORDER_PERSON_PLA": {
+     "type": "cds.String",
+     "length": 20,
+     "@sap.label": "Order Personalization"
+    }
+   },
+   "actions": {
+    "ConvertPlndOrder": {
+     "kind": "action",
+     "params": {
+      "ManufacturingOrder": {
+       "type": "cds.String",
+       "length": 12
+      },
+      "ManufacturingOrderType": {
+       "type": "cds.LargeString"
+      },
+      "MasterProductionOrder": {
+       "type": "cds.LargeString"
+      }
+     },
+     "returns": {
+      "type": "API_PRODUCTION_ORDER_2_SRV.A_ProductionOrder_2"
+     }
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.SchedldProdOrdOpMessage": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "ManufacturingOrder": {
+     "type": "cds.String",
+     "length": 12,
+     "@sap.label": "Ordine"
+    },
+    "OrderInternalBillOfOperations": {
+     "type": "cds.LargeString"
+    },
+    "OrderIntBillOfOperationsItem": {
+     "type": "cds.LargeString"
+    },
+    "ManufacturingOrderOperation": {
+     "type": "cds.String",
+     "length": 4,
+     "@sap.label": "Operazione"
+    },
+    "Message": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "API_PRODUCTION_ORDER_2_SRV.FunctionMessage": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "SystemMessageType": {
+     "type": "cds.String",
+     "length": 1,
+     "@sap.label": "Categoria messaggio"
+    },
+    "SystemMessageIdentification": {
+     "type": "cds.String",
+     "length": 20,
+     "@sap.label": "Classe messaggi"
+    },
+    "SystemMessageNumber": {
+     "type": "cds.String",
+     "length": 3,
+     "@sap.label": "Numero messaggio"
+    },
+    "SystemMessageLongText": {
+     "type": "cds.String",
+     "length": 220,
+     "@sap.label": "Testo mess."
+    },
+    "SystemMessageVariable1": {
+     "type": "cds.String",
+     "length": 50,
+     "@sap.label": "Variabile messaggio"
+    },
+    "SystemMessageVariable2": {
+     "type": "cds.String",
+     "length": 50,
+     "@sap.label": "Variabile messaggio"
+    },
+    "SystemMessageVariable3": {
+     "type": "cds.String",
+     "length": 50,
+     "@sap.label": "Variabile messaggio"
+    },
+    "SystemMessageVariable4": {
+     "type": "cds.String",
+     "length": 50,
+     "@sap.label": "Variabile messaggio"
+    }
+   }
+  }
+ }
+}

@@ -3,6 +3,7 @@ const { default: cds } = require("@sap/cds");
 module.exports = cds.service.impl(async function (srv) {
 
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
+    const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -44,8 +45,127 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
+    this.on("ReleaseOrder", async (req) => {
 
+        const { OrderID } = req.data;
+        var response = ""
 
+        if(OrderID.length > 1){
+            // array di valori
+            for(var i=0; i<OrderID.length; i++){
+                try {
+                    const result = await changeOrderProduction.send({
+                        method: 'POST',  
+                        path: "ReleaseOrder?ManufacturingOrder='"+OrderID[i]+"'"
+                    });
+                    response = response + ";" + result
+                } catch (error) {
+                    console.log("ERRORE "+error)
+                    if(response !== "" ){
+                        response = response + "|"+ error
+                    } else {
+                        response = error
+                    }
+                }
+            }
 
+        } else {
+            try {
+                const result = await changeOrderProduction.send({
+                    method: 'POST',  
+                    path: "ReleaseOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                });
+                return result
+            } catch (error) {
+                //console.log("ERRORE "+error)
+                return error
+            }
+        }
+
+        return response
+       
+    });
+
+    this.on("TechnicalCompleteOrder", async (req) => {
+
+        const { OrderID } = req.data;
+        var response = ""
+
+        if(OrderID.length > 1){
+            // array di valori
+            for(var i=0; i<OrderID.length; i++){
+                try {
+                    const result = await changeOrderProduction.send({
+                        method: 'POST',  
+                        path: "TechlyCmpltOrder?ManufacturingOrder='"+OrderID[i]+"'"
+                    });
+                    response = response + ";" + result
+                } catch (error) {
+                    console.log("ERRORE "+error)
+                    if(response !== "" ){
+                        response = response + "|"+ error
+                    } else {
+                        response = error
+                    }
+                }
+            }
+
+        } else {
+            try {
+                const result = await changeOrderProduction.send({
+                    method: 'POST',  
+                    path: "TechlyCmpltOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                });
+                return result
+            } catch (error) {
+                //console.log("ERRORE "+error)
+                return error
+            }
+        }
+
+        return response
+       
+    });
+
+    this.on("CloseOrder", async (req) => {
+
+        const { OrderID } = req.data;
+        var response = ""
+
+        if(OrderID.length > 1){
+            // array di valori
+            for(var i=0; i<OrderID.length; i++){
+                try {
+                    const result = await changeOrderProduction.send({
+                        method: 'POST',  
+                        path: "CloseOrder?ManufacturingOrder='"+OrderID[i]+"'"
+                    });
+                    response = response + ";" + result
+                } catch (error) {
+                    console.log("ERRORE "+error)
+                    if(response !== "" ){
+                        response = response + "|"+ error
+                    } else {
+                        response = error
+                    }
+                }
+            }
+
+        } else {
+            try {
+                const result = await changeOrderProduction.send({
+                    method: 'POST',  
+                    path: "CloseOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                });
+                return result
+            } catch (error) {
+                //console.log("ERRORE "+error)
+                return error
+            }
+        }
+
+        return response
+       
+    })
 
 });

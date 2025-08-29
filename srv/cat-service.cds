@@ -4,6 +4,7 @@ using {
 } from '@sap/cds/common';
 
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
+using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
 
 service CatalogService {
 
@@ -34,5 +35,11 @@ service CatalogService {
     };
 
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER;
+
+    action ReleaseOrder (OrderID : array of String) returns String;
+
+    action TechnicalCompleteOrder (OrderID : array of String) returns String;
+
+    action CloseOrder (OrderID : array of String) returns String;
 
 }

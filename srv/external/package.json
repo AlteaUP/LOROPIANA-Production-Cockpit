@@ -4,6 +4,10 @@
       "ZZ1_I_COMBPRODORDAPI_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS"
+      },
+      "API_PRODUCTION_ORDER_2_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_PRODUCTION_ORDER_2_SRV"
       }
     }
   },
