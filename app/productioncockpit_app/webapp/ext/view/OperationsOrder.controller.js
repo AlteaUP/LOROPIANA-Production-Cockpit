@@ -12,7 +12,17 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.view.OperationsOrder
              */
 
-            
+            onInit: function () {
+                this.getView().attachModelContextChange(() => {
+                    const ctx = this.getView().getBindingContext();
+                    if(ctx !== undefined){
+                        var newPathSplitted = ctx.sPath.split("/"); 
+                        var newPath = newPathSplitted[0] + "/" + newPathSplitted[1];
+                        ctx.sPath = newPath
+                    }
+                    console.log("View binding context:", ctx && ctx.getPath());
+                });
+            }
 
             /**
              * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

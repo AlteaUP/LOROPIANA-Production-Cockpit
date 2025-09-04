@@ -11,7 +11,17 @@ sap.ui.define(
              * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
              * @memberOf productioncockpitapp.ext.view.OperationsOrder
              */
-
+            onInit: function () {
+                this.getView().attachModelContextChange(() => {
+                    const ctx = this.getView().getBindingContext();
+                    if(ctx !== undefined){
+                        var newPathSplitted = ctx.sPath.split("/"); 
+                        var newPath = newPathSplitted[0] + "/" + newPathSplitted[1];
+                        ctx.sPath = newPath
+                    }
+                    console.log("View binding context:", ctx && ctx.getPath());
+                });
+            }
             
 
             /**

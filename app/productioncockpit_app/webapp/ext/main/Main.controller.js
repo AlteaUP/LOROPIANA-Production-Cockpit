@@ -236,8 +236,8 @@ sap.ui.define(
                 }
 
                 this.oRouter.navTo("ZZ1_C_MFG_OrderOperationsPage", {
-                    ZZ1_C_MFG_OrderOperKey: "'"+key+"'", "?query": {
-                        //layout: "ThreeColumnsMidExpanded"
+                    ZZ1_C_MFG_OrderOperKey: "'" + key + "'", "?query": {
+
                     }
                 });
             },

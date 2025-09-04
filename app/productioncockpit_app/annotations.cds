@@ -260,11 +260,6 @@ annotate service.ZZ1_C_MFG_ORDEROPE  with @(
     UI.LineItem #tableMacroOperationsorder : [
         {
             $Type : 'UI.DataField',
-            Value : Material,
-            Label : 'Material',
-        },
-        {
-            $Type : 'UI.DataField',
             Value : MaterialGroup,
             Label : 'MaterialGroup',
         },
