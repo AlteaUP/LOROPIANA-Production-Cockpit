@@ -112,6 +112,16 @@
           "name": "ZZ1_C_MASTERORDER_OPEROperationsPage",
           "pattern": "ZZ1_C_MASTERORDER_OPER({ZZ1_C_MASTERORDER_OPERKey}):?query:",
           "target": "ZZ1_C_MASTERORDER_OPEROperationsPage"
+        },
+        {
+          "name": "ZZ1_C_MFG_OrderComponentsPage",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderCompKey}):?query:",
+          "target": "ZZ1_C_MFG_OrderComponentsPage"
+        },
+        {
+          "name": "ZZ1_C_MFG_OrderOperationsPage",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderOperKey}):?query:",
+          "target": "ZZ1_C_MFG_OrderOperationsPage"
         }
       ],
       "targets": {
@@ -154,6 +164,30 @@
               "navigation": {},
               "contextPath": "/ZZ1_I_COMBPRODORDAPI",
               "viewName": "productioncockpitapp.ext.view.Operations"
+            }
+          }
+        },
+        "ZZ1_C_MFG_OrderComponentsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_MFG_OrderComponentsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.ComponentsOrder"
+            }
+          }
+        },
+        "ZZ1_C_MFG_OrderOperationsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_MFG_OrderOperationsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.OperationsOrder"
             }
           }
         }

@@ -39,6 +39,7 @@
     "build": "rimraf resources mta_archives && mbt build --mtar archive -m verbose",
     "deploy": "cf deploy mta_archives/archive.mtar --delete-service-brokers --delete-service-keys --delete-services",
     "cf-login": "cf login -a https://api.cf.eu30.hana.ondemand.com -o 'Loro Piana S.p.A._btp-development-loro-piana-82xq0cpc' -s 'DEV-SPACE-MANUFACTURING' --sso",
+    "cf-login_dfr": "cf login -a https://api.cf.eu10-004.hana.ondemand.com -o 'alteaup-fashion' -s 'dev' --sso",
     "watch-productioncockpit_app": "cds watch --open productioncockpit_app/webapp/index.html?sap-ui-xx-viewCache=false",
     "cds-bind-services-srv": "cds bind -2 zproduction_cockpit-auth-srv,zproduction_cockpit-destination,zproduction_cockpit-connectivity",
     "cds-bind-srv": "cds bind --to-app-services zproduction_cockpit-html5-srv",
@@ -77,6 +78,26 @@
             "requestTimeout": 300000,
             "destination": "S4HANA",
             "path": "/sap/opu/odata/sap/ZZ1_I_COMBPRODORDAPI_CDS"
+          }
+        }
+      },
+      "API_PRODUCTION_ORDER_2_SRV": {
+        "kind": "odata-v4",
+        "model": "srv/external/API_PRODUCTION_ORDER_2_SRV",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/API_PRODUCTION_ORDER_2_SRV"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/API_PRODUCTION_ORDER_2_SRV"
           }
         }
       }

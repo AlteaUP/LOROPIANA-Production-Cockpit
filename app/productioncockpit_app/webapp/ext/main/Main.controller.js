@@ -43,6 +43,15 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(false);
                     }
                 });
+                this.byId("Table").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(true);
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(false);
+                    }
+                });
                 //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content").setSelectionMode("Multi")
                 //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content").setSelectionMode("Multi")
             },
@@ -195,16 +204,16 @@ sap.ui.define(
                 this.oRouter = oComponent.getRouter();
                 
                 var key = ""
-                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("Table").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = this.byId("Table").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = key + ";" + this.byId("Table").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
-                this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPComponentsPage", {
-                    ZZ1_C_MASTERORDER_COMPKey: key, "?query": {
+                this.oRouter.navTo("ZZ1_C_MFG_OrderComponentsPage", {
+                    ZZ1_C_MFG_OrderCompKey: "'"+key+"'", "?query": {
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });
@@ -216,18 +225,18 @@ sap.ui.define(
                 const oComponent = this.getOwnerComponent().getExtensionComponent();
 
                 this.oRouter = oComponent.getRouter();
-
+                
                 var key = ""
-                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("Table").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = this.byId("Table").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = key + ";" + this.byId("Table").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
-                this.oRouter.navTo("ZZ1_C_MASTERORDER_OPEROperationsPage", {
-                    ZZ1_C_MASTERORDER_OPERKey: key, "?query": {
+                this.oRouter.navTo("ZZ1_C_MFG_OrderOperationsPage", {
+                    ZZ1_C_MFG_OrderOperKey: "'"+key+"'", "?query": {
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });
@@ -248,24 +257,29 @@ sap.ui.define(
                 
                 oBindingContext.execute().then((oResult) => {
                     var oContext = oBindingContext.getBoundContext();
-                    if(oContext.getObject().value.indexOf("Error") > -1){
-                        var errorMessage = ""
-                        var errorArray = oContext.getObject().value.split("|")
-                        if(errorArray.length === 0){
-                            errorMessage = oContext.getObject().value
-                            oController.openDialogMessageText(errorMessage, "E");
-                        } else {
+                    
+                    var message = ""
+                    var messageArray = oContext.getObject().value.split("|")
+                    if(messageArray.length === 0){
+                        message = oContext.getObject().value
+                        oController.openDialogMessageText(message, "E");
+                    } else {
+                        if(oContext.getObject().value.indexOf("Error") > -1){
                             sap.m.MessageBox.error(
                                 oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
-                                errorArray.join("\n"),
+                                messageArray.join("\n"),
                                 {
                                     title: oController.getResourceBundle().getText("errors")
                                 }
                             );
+                        } else {
+                            sap.m.MessageBox.success(
+                                messageArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("success")
+                                }
+                            );
                         }
-                        
-                    } else { 
-
                     }
                     oBusyDialog.close();
                 }).catch((oError) => {
@@ -293,24 +307,29 @@ sap.ui.define(
                 
                 oBindingContext.execute().then((oResult) => {
                     var oContext = oBindingContext.getBoundContext();
-                    if(oContext.getObject().value.indexOf("Error") > -1){
-                        var errorMessage = ""
-                        var errorArray = oContext.getObject().value.split("|")
-                        if(errorArray.length === 0){
-                            errorMessage = oContext.getObject().value
-                            oController.openDialogMessageText(errorMessage, "E");
-                        } else {
+                    
+                    var message = ""
+                    var messageArray = oContext.getObject().value.split("|")
+                    if(messageArray.length === 0){
+                        message = oContext.getObject().value
+                        oController.openDialogMessageText(message, "E");
+                    } else {
+                        if(oContext.getObject().value.indexOf("Error") > -1){
                             sap.m.MessageBox.error(
                                 oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
-                                errorArray.join("\n"),
+                                messageArray.join("\n"),
                                 {
                                     title: oController.getResourceBundle().getText("errors")
                                 }
                             );
+                        } else {
+                            sap.m.MessageBox.success(
+                                messageArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("success")
+                                }
+                            );
                         }
-                        
-                    } else { 
-
                     }
                     oBusyDialog.close();
                 }).catch((oError) => {
@@ -338,24 +357,29 @@ sap.ui.define(
                 
                 oBindingContext.execute().then((oResult) => {
                     var oContext = oBindingContext.getBoundContext();
-                    if(oContext.getObject().value.indexOf("Error") > -1){
-                        var errorMessage = ""
-                        var errorArray = oContext.getObject().value.split("|")
-                        if(errorArray.length === 0){
-                            errorMessage = oContext.getObject().value
-                            oController.openDialogMessageText(errorMessage, "E");
-                        } else {
+                    
+                    var message = ""
+                    var messageArray = oContext.getObject().value.split("|")
+                    if(messageArray.length === 0){
+                        message = oContext.getObject().value
+                        oController.openDialogMessageText(message, "E");
+                    } else {
+                        if(oContext.getObject().value.indexOf("Error") > -1){
                             sap.m.MessageBox.error(
                                 oController.getResourceBundle().getText("followingErrorsFound")+"\n\n" + 
-                                errorArray.join("\n"),
+                                messageArray.join("\n"),
                                 {
                                     title: oController.getResourceBundle().getText("errors")
                                 }
                             );
+                        } else {
+                            sap.m.MessageBox.success(
+                                messageArray.join("\n"),
+                                {
+                                    title: oController.getResourceBundle().getText("success")
+                                }
+                            );
                         }
-                        
-                    } else { 
-
                     }
                     oBusyDialog.close();
                 }).catch((oError) => {

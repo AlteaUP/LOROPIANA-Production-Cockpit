@@ -10,17 +10,32 @@ service CatalogService {
 
     @readonly
     entity ZZ1_I_COMBPRODORDAPI as projection on mainService.ZZ1_I_COMBPRODORDAPI{
-        key ID,
+        key ID : String(50),
         *,
         to_ZZ1_C_MASTERORDER_COMP     : Composition of many ZZ1_C_MASTERORDER_COMP
                                         on  FshMprodOrd                      = $self.FshMprodOrd,
 
         to_ZZ1_C_MFG_MASTEROPER       : Composition of many ZZ1_C_MFG_MASTEROPER
-                                        on FshMprodOrd                      = $self.FshMprodOrd
+                                        on FshMprodOrd                      = $self.FshMprodOrd,
+
+        to_ZZ1_C_MFG_OrderComp       : Composition of many ZZ1_C_MFG_OrderComp
+                                        on ManufacturingOrder               = $self.ManufacturingOrder,
+
+        to_ZZ1_C_MFG_ORDEROPE       : Composition of many ZZ1_C_MFG_ORDEROPE
+                                        on ManufacturingOrder               = $self.ManufacturingOrder                                        
     }
 
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP;
 
+    entity ZZ1_C_MFG_OrderComp as projection on mainService.ZZ1_C_MFG_OrderComp{
+        key ID,
+        *
+    };
+
+    entity ZZ1_C_MFG_ORDEROPE as projection on mainService.ZZ1_C_MFG_ORDEROPE{
+        *
+    };
+ 
     entity ZZ1_C_MFG_MASTEROPER as projection on mainService.ZZ1_C_MFG_MASTEROPER{
         key MasterProductionOrder,
         key ManufacturingOrderSequence,

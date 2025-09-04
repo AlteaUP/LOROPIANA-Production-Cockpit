@@ -1,4 +1,4 @@
-/* checksum : d54cb41a7cfd21c714ca447fae247e8b */
+/* checksum : eacfe3134efa80004ec566c511b28858 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -513,7 +513,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {
   DefaultProfitCenter : String(10);
   @sap.display.format : 'UpperCase'
   @sap.text : 'CtrlgStdFinStatementVersion_Text'
-  @sap.label : 'Str. stato patr. controlling princ.'
+  @sap.label : `Str. stato patr.
+ controlling princ.`
   @sap.quickinfo : 'Struttura stato patrimoniale controlling principale'
   @sap.value.list : 'standard'
   CtrlgStdFinStatementVersion : String(42);
@@ -13009,13 +13010,28 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'ZZ1_C_MFG_ORDEROPER'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
+@sap.label : 'ZZ1_C_MFG_ORDEROPE'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'ID interno ordine'
+  @sap.quickinfo : 'ID interno dell''ordine'
+  key MfgOrderInternalID : String(10) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'ID int. operazione'
+  @sap.quickinfo : 'Identificatore interno di un''operazione o attività'
+  key OrderOperationInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ordine prod. princ.'
   @sap.quickinfo : 'Numero ordine di produzione principale'
-  key MasterProductionOrder : String(12) not null;
+  MasterProductionOrder : String(12);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ordine di produzione'
+  @sap.quickinfo : 'ID ordine di produzione'
+  ManufacturingOrder : String(12);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sequenza'
@@ -13275,6 +13291,11 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.label : 'Gruppo acquisti'
   @sap.quickinfo : 'Gruppo acquisti per attività di elaborazione esterna'
   PurchasingGroup : String(3);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Richiesta d''acquisto'
+  @sap.quickinfo : 'Numero della richiesta d''acquisto'
+  PurchaseRequisition : String(10);
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione della richiesta d''acquisto'
@@ -13326,7 +13347,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpExternalProcessingCurrency : String(5);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpExternalProcessingCurrency'
-  @sap.label : 'OpExternalProcessingPrice'
+  @sap.label : 'Prezzo'
   OpExternalProcessingPrice : Decimal(12, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità di prezzo mat.'
@@ -13441,6 +13462,13 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.required.in.filter : 'false'
   @sap.label : 'Prod.a flusso cont.'
   OperationsIsAlwaysOverlapping : Boolean;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Sudd. obbligatoria'
+  @sap.quickinfo : 'Suddivisione obbligatoria'
+  OperationSplitIsRequired : Boolean;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'N. max suddivisioni'
+  MaximumNumberOfSplits : Decimal(3, 0);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Strat.riduzione'
@@ -13453,137 +13481,208 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpSchedldReductionLevel : String(1);
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtDte'
+  @sap.label : 'Prima data inizio effettiva schedulata'
   OpErlstSchedldExecStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtTme'
+  @sap.label : 'Prima ora inizio esecuzione schedulata'
   OpErlstSchedldExecStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtDte'
+  @sap.label : 'Prima ora inizio elaborazione schedulata'
   OpErlstSchedldProcgStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtTme'
+  @sap.label : 'Prima ora inizio elaborazione schedulata'
   OpErlstSchedldProcgStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtDte'
+  @sap.label : 'Prima data inizio disattr. schedulata'
+  @sap.quickinfo : 'Prima data inizio disattrezzaggio schedulata'
   OpErlstSchedldTrdwnStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtTme'
+  @sap.label : 'Prima ora inizio disattr. schedulata'
+  @sap.quickinfo : 'Prima ora inizio disattrezzaggio schedulata'
   OpErlstSchedldTrdwnStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecEndDte'
+  @sap.label : 'Prima data di fine esec. pianificata'
+  @sap.quickinfo : 'Prima data di fine esecuzione pianificata'
   OpErlstSchedldExecEndDte : Date;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Prima ora di fine esecuzione pianificata'
+  OpErlstSchedldExecEndTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtDte'
+  @sap.label : 'Ultima data inizio esecuzione schedulata'
+  @sap.quickinfo : 'Ultima data di inizio esecuzione schedulata'
   OpLtstSchedldExecStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtTme'
+  @sap.label : 'Ultima ora inizio esecuzione schedualta'
+  @sap.quickinfo : 'Ultima ora di inizio esecuzione schedulata'
   OpLtstSchedldExecStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtDte'
+  @sap.label : 'Ultima data inizio elaborazione pianif.'
+  @sap.quickinfo : 'Ultima data di inizio dell''elaborazione pianificata'
   OpLtstSchedldProcgStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtTme'
+  @sap.label : 'Ora inizio di elab. schedulata p. ultima'
+  @sap.quickinfo : 'Ora di inizio di elaborazione schedulata per ultima'
   OpLtstSchedldProcgStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtDte'
+  @sap.label : 'Data inizio dis. schedulata per ultima'
+  @sap.quickinfo : 'Data di inizio disattrezzaggio schedulata per ultima'
   OpLtstSchedldTrdwnStrtDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtTme'
+  @sap.label : 'Ultima ora inizio disattrezzaggio pian.'
+  @sap.quickinfo : 'Ultima ora di inizio del disattrezzaggio pianificato'
   OpLtstSchedldTrdwnStrtTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndDte'
+  @sap.label : 'Data fine esec. pianificata per ultima'
+  @sap.quickinfo : 'Data fine esecuzione pianificata per ultima'
   OpLtstSchedldExecEndDte : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndTme'
+  @sap.label : 'Ora fine esec. pianificata per ultima'
+  @sap.quickinfo : 'Ora fine esecuzione pianificata per ultima'
   OpLtstSchedldExecEndTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartDate'
+  @sap.label : 'Data iniziale prev. + presto'
+  @sap.quickinfo : 'Prima data d''inizio prev. pianificata'
   SchedldFcstdEarliestStartDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartTime'
+  @sap.label : 'Prima ora iniziale prev.'
+  @sap.quickinfo : 'Prima ora d''inizio prevista pianificata'
   SchedldFcstdEarliestStartTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndDate'
+  @sap.label : 'Prima data finale prev.'
+  @sap.quickinfo : 'Prima data di fine prev. pianificata'
   SchedldFcstdEarliestEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndTime'
+  @sap.label : 'Prima ora utile di fine prevista'
+  @sap.quickinfo : 'Prima ora di fine prev. pianificata'
   SchedldFcstdEarliestEndTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdStartDate'
+  @sap.label : 'Ultima data di inizio prevista'
+  @sap.quickinfo : 'Ultima data di inizio prevista pianificata'
   LatestSchedldFcstdStartDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdLatestStartTime'
+  @sap.label : 'Ultima ora di inizio prevista'
+  @sap.quickinfo : 'Ultima ora di inizio prevista pianificata'
   SchedldFcstdLatestStartTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdEndDate'
+  @sap.label : 'Ultima data di fine prevista'
+  @sap.quickinfo : 'Ultima data di fine prevista pianificata'
   LatestSchedldFcstdEndDate : Date;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ultima ora di fine prevista'
+  @sap.quickinfo : 'Ultima ora di fine prevista pianificata'
+  SchedldFcstdLatestEndTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndDate'
+  @sap.label : 'Data inizio conferm.'
+  @sap.quickinfo : 'Data di inizio dell''operazione confermata'
+  OperationConfirmedStartDate : Date;
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Data fine confermata'
+  @sap.quickinfo : 'Data fine confermata operazione'
+  OperationConfirmedEndDate : Date;
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Data di inizio esecuzione confermata'
+  @sap.quickinfo : 'Data confermata di inizio dell''esecuzione'
+  OpActualExecutionStartDate : Date;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ora di inizio esecuzione confermata'
+  OpActualExecutionStartTime : Time;
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Data di fine attrezzaggio confermata'
   OpActualSetupEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndTime'
+  @sap.label : 'Ora di fine attrezzaggio confermata'
   OpActualSetupEndTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartDate'
+  @sap.label : 'Data di inizio elaborazione confermata'
   OpActualProcessingStartDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartTime'
+  @sap.label : 'Ora di inizio elaborazione confermata'
   OpActualProcessingStartTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndDate'
+  @sap.label : 'Data di fine elaborazione confermata'
+  @sap.quickinfo : 'Data di fine di elaborazione confermata'
   OpActualProcessingEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndTime'
+  @sap.label : 'Ora fine eff. elab. confermata'
+  @sap.quickinfo : 'Ora di fine di elaborazione confermata'
   OpActualProcessingEndTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartDate'
+  @sap.label : 'Data inizio disattrezzaggio confermata'
+  @sap.quickinfo : 'Data di inizio del disattrezzaggio confermata'
   OpActualTeardownStartDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartTme'
+  @sap.label : 'Ora inizio disattrezzaggio confermata'
+  @sap.quickinfo : 'Ora di inizio del disattrezzaggio confermata'
   OpActualTeardownStartTme : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionEndDate'
+  @sap.label : 'Data di fine esecuzione confermata'
   OpActualExecutionEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitStartTime'
+  @sap.label : 'Ora di fine esecuzione confermata'
+  OpActualExecutionEndTime : Time;
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Data fine prev.'
+  @sap.quickinfo : 'Data fine prev. effettiva'
+  ActualForecastEndDate : Date;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ora fine prev.'
+  @sap.quickinfo : 'Ora fine prev. effettiva'
+  ActualForecastEndTime : Time;
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Prima data in. att.'
+  @sap.quickinfo : 'Prima data di inizio attesa schedulata'
+  EarliestScheduledWaitStartDate : Date;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Prima ora in. att.'
+  @sap.quickinfo : 'Prima ora di inizio attesa schedulata'
   EarliestScheduledWaitStartTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndDate'
+  @sap.label : 'Prima data fine att.'
+  @sap.quickinfo : 'Prima data di fine attesa schedulata'
   EarliestScheduledWaitEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndTime'
+  @sap.label : 'Prima ora fine att.'
+  @sap.quickinfo : 'Prima ora di fine attesa schedulata'
   EarliestScheduledWaitEndTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartDate'
+  @sap.label : 'UltDtInizioAttPoss'
+  @sap.quickinfo : 'Ultima data di inizio attesa schedulata possibile'
   LatestScheduledWaitStartDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartTime'
+  @sap.label : 'Ult. ora inizio att.'
+  @sap.quickinfo : 'Ultima ora di inizio attesa schedulata'
   LatestScheduledWaitStartTime : Time;
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndDate'
+  @sap.label : 'Ult.data fine attesa'
+  @sap.quickinfo : 'Ultima data di fine attesa schedulata'
   LatestScheduledWaitEndDate : Date;
   @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndTime'
+  @sap.label : 'Ultima ora fine att.'
+  @sap.quickinfo : 'Ultima ora di fine attesa schedulata'
   LatestScheduledWaitEndTime : Time;
   @sap.required.in.filter : 'false'
   @sap.label : 'UM durata pausa'
@@ -13592,8 +13691,42 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   BreakDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'BreakDurationUnit'
-  @sap.label : 'SumPlannedBreakDuration'
-  SumPlannedBreakDuration : Decimal(9, 3);
+  @sap.label : 'Tempo recupero'
+  PlannedBreakDuration : Decimal(9, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'BreakDurationUnit'
+  @sap.label : 'Tempo recupero'
+  @sap.quickinfo : 'Tempo di recupero confermato'
+  ConfirmedBreakDuration : Decimal(9, 3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Unità di tempo minimo di sovrapposizione'
+  @sap.quickinfo : 'Unità del tempo minimo di sovrapposizione'
+  @sap.semantics : 'unit-of-measure'
+  OverlapMinimumDurationUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'OverlapMinimumDurationUnit'
+  @sap.label : 'Tempo min. sovrapp.'
+  @sap.quickinfo : 'Tempo minimo di sovrapp.'
+  OverlapMinimumDuration : Decimal(9, 3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'UM tmp.max attesa'
+  @sap.quickinfo : 'Unità del tempo di attesa massimo'
+  @sap.semantics : 'unit-of-measure'
+  MaximumWaitDurationUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'MaximumWaitDurationUnit'
+  @sap.label : 'Tmpo max di attesa'
+  @sap.quickinfo : 'Tempo massimo di attesa'
+  MaximumWaitDuration : Decimal(9, 3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'UM tempo att. rich.'
+  @sap.quickinfo : 'Unità di misura del tempo di attesa richiesto'
+  @sap.semantics : 'unit-of-measure'
+  MinimumWaitDurationUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'MinimumWaitDurationUnit'
+  @sap.label : 'Tempo attesa minimo'
+  MinimumWaitDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'UM tempo trasf. std'
   @sap.quickinfo : 'Unità del tempo di trasferimento standard'
@@ -13601,8 +13734,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   StandardMoveDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'StandardMoveDurationUnit'
-  @sap.label : 'SumStandardMoveDuration'
-  SumStandardMoveDuration : Decimal(9, 3);
+  @sap.label : 'Tmpo trasf. standard'
+  StandardMoveDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Utà durata coda std'
   @sap.quickinfo : 'Unità per la durata coda standard'
@@ -13610,8 +13743,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   StandardQueueDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'StandardQueueDurationUnit'
-  @sap.label : 'SumStandardQueueDuration'
-  SumStandardQueueDuration : Decimal(9, 3);
+  @sap.label : 'Tempo coda standard'
+  @sap.quickinfo : 'Tempo di coda standard'
+  StandardQueueDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità dur. coda min.'
   @sap.quickinfo : 'Unità per durata coda minima'
@@ -13619,8 +13753,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   MinimumQueueDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'MinimumQueueDurationUnit'
-  @sap.label : 'SumMinimumQueueDuration'
-  SumMinimumQueueDuration : Decimal(9, 3);
+  @sap.label : 'Tempo minimo di coda'
+  MinimumQueueDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'UM tempo trasf. min.'
   @sap.quickinfo : 'Unità del tempo minimo di trasferimento'
@@ -13628,12 +13762,14 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   MinimumMoveDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'MinimumMoveDurationUnit'
-  @sap.label : 'SumMinimumMoveDuration'
-  SumMinimumMoveDuration : Decimal(9, 3);
+  @sap.label : 'Tempo min.di trasf.'
+  @sap.quickinfo : 'Tempo minimo di trasferimento'
+  MinimumMoveDuration : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OperationStandardDurationUnit'
-  @sap.label : 'SumOperationStandardDuration'
-  SumOperationStandardDuration : Decimal(5, 1);
+  @sap.label : 'Durata standard'
+  @sap.quickinfo : 'Durata standard dell''operazione'
+  OperationStandardDuration : Decimal(5, 1);
   @sap.required.in.filter : 'false'
   @sap.label : 'Utà durata std'
   @sap.quickinfo : 'Unità durata standard'
@@ -13641,8 +13777,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OperationStandardDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumMinimumDuration'
-  SumMinimumDuration : Decimal(5, 1);
+  @sap.label : 'Durata minima'
+  @sap.quickinfo : 'Durata minima dell''attività'
+  MinimumDuration : Decimal(5, 1);
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità per durata minima'
   @sap.quickinfo : 'Unità per la durata minima'
@@ -13650,8 +13787,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   MinimumDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumScheduledMoveDuration'
-  SumScheduledMoveDuration : Double;
+  @sap.label : 'Tempo trasf.'
+  @sap.quickinfo : 'Tempo trasferimento utilizzato per la schedulazione'
+  ScheduledMoveDuration : Double;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità tempo trasp.'
@@ -13659,8 +13797,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.semantics : 'unit-of-measure'
   ScheduledMoveDurationUnit : String(3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'SumScheduledQueueDuration'
-  SumScheduledQueueDuration : Double;
+  @sap.label : 'Tempo di coda'
+  @sap.quickinfo : 'Tempo di coda con cui viene eseguita la schedulazione'
+  ScheduledQueueDuration : Double;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità tempo coda'
@@ -13668,8 +13807,22 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.semantics : 'unit-of-measure'
   ScheduledQueueDurationUnit : String(3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedSetupDurn'
-  SumOpPlannedSetupDurn : Double;
+  @sap.label : 'Tempo di attesa'
+  @sap.quickinfo : 'Tempo di attesa per la schedulazione'
+  ScheduledWaitDuration : Double;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Unità tempo attesa'
+  @sap.quickinfo : 'Unità di misura per tempo di attesa'
+  @sap.semantics : 'unit-of-measure'
+  ScheduledWaitDurationUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Durata consegna'
+  @sap.quickinfo : 'Durata consegna pianificata del materiale in giorni'
+  PlannedDeliveryDuration : Decimal(3, 0);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Tempo attrezzaggio'
+  OpPlannedSetupDurn : Double;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità tempo attr.'
@@ -13677,8 +13830,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.semantics : 'unit-of-measure'
   OpPlannedSetupDurnUnit : String(3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedProcessingDurn'
-  SumOpPlannedProcessingDurn : Double;
+  @sap.label : 'Tempo di elab.'
+  @sap.quickinfo : 'Tempo di elaborazione'
+  OpPlannedProcessingDurn : Double;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità tempo lavor.'
@@ -13686,8 +13840,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.semantics : 'unit-of-measure'
   OpPlannedProcessingDurnUnit : String(3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedTeardownDurn'
-  SumOpPlannedTeardownDurn : Double;
+  @sap.label : 'Disattrezzare'
+  OpPlannedTeardownDurn : Double;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'UM disattrezzaggio'
@@ -13696,8 +13850,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpPlannedTeardownDurnUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'ActualForecastDurationUnit'
-  @sap.label : 'SumActualForecastDuration'
-  SumActualForecastDuration : Decimal(5, 1);
+  @sap.label : 'Durata previsione effettiva'
+  @sap.quickinfo : 'Durata di previsione dell''attività da conferma'
+  ActualForecastDuration : Decimal(5, 1);
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità di durata di previsione effettiva'
   @sap.quickinfo : 'Unità di durata di previsione da conferma'
@@ -13715,8 +13870,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   StartDateOffsetDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'StartDateOffsetDurationUnit'
-  @sap.label : 'SumStartDateOffsetDuration'
-  SumStartDateOffsetDuration : Decimal(5, 0);
+  @sap.label : 'Scostamento inizio'
+  @sap.quickinfo : 'Scostamento inizio sotto-operazione'
+  StartDateOffsetDuration : Decimal(5, 0);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Data fn. riferimento'
@@ -13729,8 +13885,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   EndDateOffsetDurationUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'EndDateOffsetDurationUnit'
-  @sap.label : 'SumEndDateOffsetDuration'
-  SumEndDateOffsetDuration : Decimal(5, 0);
+  @sap.label : 'Scostamento fine'
+  @sap.quickinfo : 'Scostamento fine sotto-operazione'
+  EndDateOffsetDuration : Decimal(5, 0);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Chiave val. standard'
@@ -13742,13 +13899,55 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.semantics : 'unit-of-measure'
   OperationUnit : String(3);
   @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyDnmntr'
-  SumOpQtyToBaseQtyDnmntr : Decimal(5, 0);
+  @sap.label : 'Denominatore'
+  @sap.quickinfo : 'Denominatore per conversione UM ciclo di lavoro e operazione'
+  OpQtyToBaseQtyDnmntr : Decimal(5, 0);
   @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyNmrtr'
-  SumOpQtyToBaseQtyNmrtr : Decimal(5, 0);
+  @sap.label : 'Contatore'
+  @sap.quickinfo : 'Numeratore per conversione UM ciclo di lavoro e operazione'
+  OpQtyToBaseQtyNmrtr : Decimal(5, 0);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Scarto'
+  @sap.quickinfo : 'Fattore di scarto'
+  OperationScrapPercent : Decimal(5, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Quantità di base'
+  OperationReferenceQuantity : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Quantità operazione'
+  @sap.quickinfo : 'Quantità totale operazione'
+  OpPlannedTotalQuantity : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Scarto previsto'
+  @sap.quickinfo : 'Quantità di scarto prevista nell''operazione'
+  OpPlannedScrapQuantity : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Quantità ottenuta pianificata'
+  OpPlannedYieldQuantity : Decimal(14, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Qtà ott. conf.'
+  @sap.quickinfo : 'Qtà ottenuta confermata totale'
+  OpTotalConfirmedYieldQty : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Scarto confermato'
+  @sap.quickinfo : 'Scarto tot. confermato'
+  OpTotalConfirmedScrapQty : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'Rifinitura conf.'
+  @sap.quickinfo : 'Quantità rifinitura confermata totale'
+  OperationConfirmedReworkQty : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Unità di produzione'
+  @sap.quickinfo : 'Unità di misura di produzione'
+  @sap.semantics : 'unit-of-measure'
+  ProductionUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'ProductionUnit'
   @sap.label : 'Qtà ott.in utà ord.'
@@ -13761,8 +13960,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpWorkQuantityUnit1 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpWorkQuantityUnit1'
-  @sap.label : 'SumOpConfirmedWorkQuantity1'
-  SumOpConfirmedWorkQuantity1 : Decimal(13, 3);
+  @sap.label : 'Quantità di lavoro confermata 1'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 1'
+  OpConfirmedWorkQuantity1 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna qtà lavoro restante 1 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà di lavoro restante 1 è prevista'
@@ -13774,8 +13974,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpWorkQuantityUnit2 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpWorkQuantityUnit2'
-  @sap.label : 'SumOpConfirmedWorkQuantity2'
-  SumOpConfirmedWorkQuantity2 : Decimal(13, 3);
+  @sap.label : 'Quantità di lavoro confermata 2'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 2'
+  OpConfirmedWorkQuantity2 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna qtà lavoro restante 2 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 2 prevista'
@@ -13787,8 +13988,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpWorkQuantityUnit3 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpWorkQuantityUnit3'
-  @sap.label : 'SumOpConfirmedWorkQuantity3'
-  SumOpConfirmedWorkQuantity3 : Decimal(13, 3);
+  @sap.label : 'Quantità di lavoro confermata 3'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 3'
+  OpConfirmedWorkQuantity3 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna qtà lavoro restante 3 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 3 prevista'
@@ -13800,8 +14002,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpWorkQuantityUnit4 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpWorkQuantityUnit4'
-  @sap.label : 'SumOpConfirmedWorkQuantity4'
-  SumOpConfirmedWorkQuantity4 : Decimal(13, 3);
+  @sap.label : 'Quantità di lavoro confermata 4'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 4'
+  OpConfirmedWorkQuantity4 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna qtà lavoro restante 4 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 4 prevista'
@@ -13813,12 +14016,23 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   OpWorkQuantityUnit5 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'OpWorkQuantityUnit5'
-  @sap.label : 'SumOpConfirmedWorkQuantity5'
-  SumOpConfirmedWorkQuantity5 : Decimal(13, 3);
+  @sap.label : 'Quantità di lavoro confermata 5'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 5'
+  OpConfirmedWorkQuantity5 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna qtà lavoro restante 5 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 5 prevista'
   NoFurtherOpWorkQuantity5IsExpd : Boolean;
+  @sap.required.in.filter : 'false'
+  @sap.label : 'UM per quantità di lavoro confermata 6'
+  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 6'
+  @sap.semantics : 'unit-of-measure'
+  OpWorkQuantityUnit6 : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'OpWorkQuantityUnit6'
+  @sap.label : 'Quantità di lavoro confermata 6'
+  @sap.quickinfo : 'Quantità di lavoro già confermata (attività) 6'
+  OpConfirmedWorkQuantity6 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Ness. qtà lavoro restante 6 prevista'
   @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 6 prevista'
@@ -13830,8 +14044,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   WorkCenterStandardWorkQtyUnit1 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit1'
-  @sap.label : 'SumWorkCenterStandardWorkQty1'
-  SumWorkCenterStandardWorkQty1 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro standard 1'
+  WorkCenterStandardWorkQty1 : Decimal(9, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di attività centro di costo 1'
@@ -13843,8 +14057,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   WorkCenterStandardWorkQtyUnit2 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit2'
-  @sap.label : 'SumWorkCenterStandardWorkQty2'
-  SumWorkCenterStandardWorkQty2 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro standard 2'
+  WorkCenterStandardWorkQty2 : Decimal(9, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di attività centro di costo 2'
@@ -13856,40 +14070,75 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   WorkCenterStandardWorkQtyUnit3 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit3'
-  @sap.label : 'SumWorkCenterStandardWorkQty3'
-  SumWorkCenterStandardWorkQty3 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro standard 3'
+  WorkCenterStandardWorkQty3 : Decimal(9, 3);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Tipo di attività centro di costo 3'
+  CostCtrActivityType3 : String(6);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Un. quant. lavoro 4'
+  @sap.quickinfo : 'Unità di quantità di lavoro standard 4'
+  @sap.semantics : 'unit-of-measure'
+  WorkCenterStandardWorkQtyUnit4 : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'WorkCenterStandardWorkQtyUnit4'
+  @sap.label : 'Quantità di lavoro standard 4'
+  WorkCenterStandardWorkQty4 : Decimal(9, 3);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Tipo di attività centro di costo 4'
+  CostCtrActivityType4 : String(6);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Un. quant. lavoro 5'
+  @sap.quickinfo : 'Unità di quantità di lavoro standard 5'
+  @sap.semantics : 'unit-of-measure'
+  WorkCenterStandardWorkQtyUnit5 : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'WorkCenterStandardWorkQtyUnit5'
+  @sap.label : 'Quantità di lavoro standard 5'
+  WorkCenterStandardWorkQty5 : Decimal(9, 3);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Tipo di attività centro di costo 5'
+  CostCtrActivityType5 : String(6);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Un. quant. lavoro 6'
+  @sap.quickinfo : 'Unità di quantità di lavoro standard 6'
+  @sap.semantics : 'unit-of-measure'
+  WorkCenterStandardWorkQtyUnit6 : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumWorkCenterStandardWorkQty6'
-  SumWorkCenterStandardWorkQty6 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro standard 6'
+  WorkCenterStandardWorkQty6 : Decimal(9, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di attività centro di costo 6'
   CostCtrActivityType6 : String(6);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity1'
-  SumForecastWorkQuantity1 : Decimal(9, 3);
+  @sap.label : 'Quantità lavoro previsto 1'
+  ForecastWorkQuantity1 : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity2'
-  SumForecastWorkQuantity2 : Decimal(9, 3);
+  @sap.label : 'Quantità lavoro previsto 2'
+  ForecastWorkQuantity2 : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity3'
-  SumForecastWorkQuantity3 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro di previsione 3'
+  ForecastWorkQuantity3 : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity4'
-  SumForecastWorkQuantity4 : Decimal(9, 3);
+  @sap.label : 'Quantità lavoro previsto 4'
+  ForecastWorkQuantity4 : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity5'
-  SumForecastWorkQuantity5 : Decimal(9, 3);
+  @sap.label : 'Quantità lavoro previsto 5'
+  ForecastWorkQuantity5 : Decimal(9, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity6'
-  SumForecastWorkQuantity6 : Decimal(9, 3);
+  @sap.label : 'Quantità di lavoro previsto 6'
+  ForecastWorkQuantity6 : Decimal(9, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Business process'
@@ -13901,8 +14150,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   BusinessProcessEntryUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'BusinessProcessEntryUnit'
-  @sap.label : 'SumBusinessProcessConfirmedQty'
-  SumBusinessProcessConfirmedQty : Decimal(13, 3);
+  @sap.label : 'Qtà di processo'
+  @sap.quickinfo : 'Qtà confermata/attività per business process'
+  BusinessProcessConfirmedQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Nessuna att. res.'
   @sap.quickinfo : 'Nessuna qtà residua prevista per business process'
@@ -13914,8 +14164,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   BusinessProcRemainingQtyUnit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'BusinessProcRemainingQtyUnit'
-  @sap.label : 'SumBusinessProcessRemainingQty'
-  SumBusinessProcessRemainingQty : Decimal(13, 3);
+  @sap.label : 'Rimanente quantità di business process'
+  @sap.quickinfo : 'Quantità residua per business process'
+  BusinessProcessRemainingQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'ID istanza attrezzaggio'
   @sap.quickinfo : 'Network att. operazione: ID istanza attrezzaggio'
@@ -13928,6 +14179,19 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.label : 'ID istanza disattrezzaggio'
   @sap.quickinfo : 'Network att. operazione: ID istanza disattrezzaggio'
   TeardownOpActyNtwkInstance : Integer;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Chiave campo'
+  @sap.quickinfo : 'ID parola chiave per campi utente'
+  FreeDefinedTableFieldSemantic : String(7);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Cmp utn. 20 car.'
+  @sap.quickinfo : 'Campo utente 20 caratteri'
+  FreeDefinedAttribute01 : String(20);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Cmp utn. 20 car.'
+  @sap.quickinfo : 'Campo utente 20 caratteri'
+  FreeDefinedAttribute02 : String(20);
   @sap.required.in.filter : 'false'
   @sap.label : 'CampoDefinDaUtente'
   @sap.quickinfo : 'Campo utente con 10 caratteri'
@@ -13943,8 +14207,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   FreeDefinedQuantity1Unit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'FreeDefinedQuantity1Unit'
-  @sap.label : 'SumFreeDefinedQuantity1'
-  SumFreeDefinedQuantity1 : Decimal(13, 3);
+  @sap.label : 'Campo utente qtà'
+  @sap.quickinfo : 'Campo utente quantità (lunghezza 10,3)'
+  FreeDefinedQuantity1 : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.label : 'Campo utente unità'
   @sap.quickinfo : 'Campo utente: unità per campi quantità'
@@ -13952,8 +14217,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   FreeDefinedQuantity2Unit : String(3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'FreeDefinedQuantity2Unit'
-  @sap.label : 'SumFreeDefinedQuantity2'
-  SumFreeDefinedQuantity2 : Decimal(13, 3);
+  @sap.label : 'Campo utente qtà'
+  @sap.quickinfo : 'Campo utente quantità (lunghezza 10,3)'
+  FreeDefinedQuantity2 : Decimal(13, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Campo utente unità'
@@ -13962,8 +14228,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   FreeDefinedAmount1Currency : String(5);
   @sap.required.in.filter : 'false'
   @sap.unit : 'FreeDefinedAmount1Currency'
-  @sap.label : 'SumFreeDefinedAmount1'
-  SumFreeDefinedAmount1 : Decimal(13, 3);
+  @sap.label : 'Campo utente val.'
+  @sap.quickinfo : 'Campo utente valori (lunghezza 10,3)'
+  FreeDefinedAmount1 : Decimal(13, 3);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Campo utente unità'
@@ -13972,8 +14239,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   FreeDefinedAmount2Currency : String(5);
   @sap.required.in.filter : 'false'
   @sap.unit : 'FreeDefinedAmount2Currency'
-  @sap.label : 'SumFreeDefinedAmount2'
-  SumFreeDefinedAmount2 : Decimal(13, 3);
+  @sap.label : 'Campo utente val.'
+  @sap.quickinfo : 'Campo utente valori (lunghezza 10,3)'
+  FreeDefinedAmount2 : Decimal(13, 3);
   @sap.display.format : 'Date'
   @sap.required.in.filter : 'false'
   @sap.label : 'Campo utente data'
@@ -13992,16 +14260,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {
   @sap.label : 'Cmp utente cd.'
   @sap.quickinfo : 'Campo utente: codici di valutazione'
   FreeDefinedIndicator2 : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di produzione'
-  @sap.quickinfo : 'Unità di misura di produzione'
-  @sap.semantics : 'unit-of-measure'
-  ProductionUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 6'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 6'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit6 : String(3);
 };
 
 @cds.external : true
@@ -14809,6 +15067,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
   to_ZZ1_C_MFG_COMBINEDOPER : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {  };
   to_ZZ1_C_MFG_MASTEROPER : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {  };
   to_ZZ1_C_MFG_OrderComp : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {  };
-  to_ZZ1_C_MFG_ORDEROPER : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPER {  };
+  to_ZZ1_C_MFG_ORDEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {  };
 };
 
