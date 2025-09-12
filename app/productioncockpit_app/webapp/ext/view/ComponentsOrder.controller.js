@@ -14,7 +14,7 @@ sap.ui.define(
             onInit: function () {
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
-                    if(ctx !== undefined){
+                    if(ctx !== undefined && ctx !== null){
                         var newPathSplitted = ctx.sPath.split("/"); 
                         var newPath = newPathSplitted[0] + "/" + newPathSplitted[1];
                         ctx.sPath = newPath

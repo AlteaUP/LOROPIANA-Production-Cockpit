@@ -33,7 +33,11 @@ service CatalogService {
                                         on ManufacturingOrder               = $self.ManufacturingOrder                                        
     }
 
-    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP;
+    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
+        key CprodOrd,
+        key Material,
+        *
+    }
 
     entity ZZ1_C_MFG_COMBINEDOPER as projection on mainService.ZZ1_C_MFG_COMBINEDOPER;
 

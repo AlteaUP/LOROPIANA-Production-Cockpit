@@ -78,8 +78,8 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-        this.on('READ', "ZZ1_C_COMBINEDORDER_COMP", async request => {
-        console.log("chiamata ZZ1_C_COMBINEDORDER_COMP")
+    this.on('READ', "ZZ1_C_COMBORDER_COMP", async request => {
+        console.log("chiamata ZZ1_C_COMBORDER_COMP")
 
         let id = null
         try {
@@ -94,7 +94,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         const data = await srv.send({
             method: 'GET',
-            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_COMBINEDORDER_COMP`
+            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_COMBORDER_COMP`
         })
 
         console.log("risultati COMBINED COMP: ", data.length)
