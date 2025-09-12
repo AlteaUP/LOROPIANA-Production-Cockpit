@@ -5,6 +5,7 @@ using {
 
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
+using {ZZ1_C_MASTERPRODORDERAPI_CDS as masterProdOrder} from './external/ZZ1_C_MASTERPRODORDERAPI_CDS';
 
 service CatalogService {
 
@@ -12,6 +13,13 @@ service CatalogService {
     entity ZZ1_I_COMBPRODORDAPI as projection on mainService.ZZ1_I_COMBPRODORDAPI{
         key ID : String(50),
         *,
+
+        to_ZZ1_C_COMBORDER_COMP     : Composition of many ZZ1_C_COMBORDER_COMP
+                                        on  CprodOrd                      = $self.CprodOrd,
+
+        to_ZZ1_C_MFG_COMBINEDOPE       : Composition of many ZZ1_C_MFG_COMBINEDOPER
+                                        on CprodOrd                      = $self.CprodOrd,
+        
         to_ZZ1_C_MASTERORDER_COMP     : Composition of many ZZ1_C_MASTERORDER_COMP
                                         on  FshMprodOrd                      = $self.FshMprodOrd,
 
@@ -24,6 +32,10 @@ service CatalogService {
         to_ZZ1_C_MFG_ORDEROPE       : Composition of many ZZ1_C_MFG_ORDEROPE
                                         on ManufacturingOrder               = $self.ManufacturingOrder                                        
     }
+
+    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP;
+
+    entity ZZ1_C_MFG_COMBINEDOPER as projection on mainService.ZZ1_C_MFG_COMBINEDOPER;
 
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP;
 

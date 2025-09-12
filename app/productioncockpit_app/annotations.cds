@@ -236,6 +236,41 @@ annotate service.ZZ1_C_MFG_MASTEROPER with @(
     ]
 );
 
+annotate service.ZZ1_C_MFG_COMBINEDOPER with @(
+    UI.LineItem #tableMacroCombinedOperations : [
+        {
+            $Type : 'UI.DataField',
+            Value : MaterialGroup,
+            Label : 'MaterialGroup',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : BillOfOperationsSequence,
+            Label : 'BillOfOperationsSequence',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderOperation,
+            Label : 'ManufacturingOrderOperation',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderOperation_2,
+            Label : 'ManufacturingOrderOperation_2',
+        },
+    ]
+);
+
+annotate service.ZZ1_C_COMBORDER_COMP with @(
+    UI.LineItem #tableMacroCombinedComponents : [
+        {
+            $Type : 'UI.DataField',
+            Value : Material,
+            Label : 'Material',
+        }
+    ]
+);
+
 annotate service.ZZ1_C_MFG_OrderComp  with @(
     UI.LineItem #tableMacroComponentsorder : [
         {
@@ -275,4 +310,5 @@ annotate service.ZZ1_C_MFG_ORDEROPE  with @(
         }
     ]
 );
+
 

@@ -105,22 +105,32 @@
         },
         {
           "name": "ZZ1_C_MASTERORDER_COMPComponentsPage",
-          "pattern": "ZZ1_C_MASTERORDER_COMP({ZZ1_C_MASTERORDER_COMPKey}):?query:",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_COMPKey})/componentsMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_COMPComponentsPage"
         },
         {
           "name": "ZZ1_C_MASTERORDER_OPEROperationsPage",
-          "pattern": "ZZ1_C_MASTERORDER_OPER({ZZ1_C_MFG_OrderCompKey}):?query:",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_OPERKey})/operationsMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_OPEROperationsPage"
+        },
+                {
+          "name": "ZZ1_C_COMBINEDORDER_COMPComponentsPage",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_COMPKey})/componentsCombinedOrder:?query:",
+          "target": "ZZ1_C_COMBINEDORDER_COMPComponentsPage"
+        },
+        {
+          "name": "ZZ1_C_COMBINEDORDER_OPEROperationsPage",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_OPERKey})/operationsCombinedOrder:?query:",
+          "target": "ZZ1_C_COMBINEDORDER_OPEROperationsPage"
         },
         {
           "name": "ZZ1_C_MFG_OrderComponentsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderCompKey})/components:?query:",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderCompKey})/componentsOrder:?query:",
           "target": "ZZ1_C_MFG_OrderComponentsPage"
         },
         {
           "name": "ZZ1_C_MFG_OrderOperationsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderOperKey})/operations:?query:",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderOperKey})/operationsOrder:?query:",
           "target": "ZZ1_C_MFG_OrderOperationsPage"
         }
       ],
@@ -151,7 +161,31 @@
             "settings": {
               "navigation": {},
               "contextPath": "/ZZ1_I_COMBPRODORDAPI",
-              "viewName": "productioncockpitapp.ext.view.Components"
+              "viewName": "productioncockpitapp.ext.view.ComponentsMasterOrder"
+            }
+          }
+        },
+        "ZZ1_C_COMBINEDORDER_OPEROperationsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_COMBINEDORDER_OPEROperationsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.OperationsCombinedOrder"
+            }
+          }
+        },
+        "ZZ1_C_COMBINEDORDER_COMPComponentsPage": {
+          "type": "Component",
+          "id": "ZZ1_C_COMBINEDORDER_COMPComponentsPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.ComponentsCombinedOrder"
             }
           }
         },
@@ -163,7 +197,7 @@
             "settings": {
               "navigation": {},
               "contextPath": "/ZZ1_I_COMBPRODORDAPI",
-              "viewName": "productioncockpitapp.ext.view.Operations"
+              "viewName": "productioncockpitapp.ext.view.OperationsMasterOrder"
             }
           }
         },

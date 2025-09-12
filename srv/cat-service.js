@@ -3,6 +3,7 @@ const { default: cds } = require("@sap/cds");
 module.exports = cds.service.impl(async function (srv) {
 
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
+    const masterProdOrd = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
@@ -14,7 +15,7 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZZ1_C_MASTERPRODORDER", async request => {
-        console.log("chiamata ZZ1_C_MASTERPRODORDER")
+        console.log("chiamata ZZ1_C_MASTERPRODORDER")        
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
 
@@ -22,7 +23,7 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
-        console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
+        console.log("chiamata ZZ1_C_COMBINEDPRODORDER")        
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
 
@@ -31,16 +32,96 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on('READ', "ZZ1_C_MASTERORDER_COMP", async request => {
         console.log("chiamata ZZ1_C_MASTERORDER_COMP")
-        var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+
+        let id = null
+        try {
+            id = request.query.SELECT.from.ref[0].where[2].val
+        } catch (err) {
+            console.error("impossibile estrarre l'ID ", err)
+        return []
+        }
+        console.log("ID estratto: ", id)
+
+        const srv = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS')
+
+        const data = await srv.send({
+            method: 'GET',
+            path: `/ZZ1_C_MASTERPRODORDERAPI('${id}')/to_ZZ1_C_MASTERORDER_COMP`
+        })
+
+        console.log("risultati MASTER COMP: ", data.length)
 
         return data;
     });
 
     this.on('READ', "ZZ1_C_MFG_MASTEROPER", async request => {
         console.log("chiamata ZZ1_C_MFG_MASTEROPER")
-        var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        
+        let id = null
+        try {
+            id = request.query.SELECT.from.ref[0].where[2].val
+        } catch (err) {
+            console.error("impossibile estrarre l'ID ", err)
+        return []
+        }
+        console.log("ID estratto: ", id)
+
+        const srv = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS')
+
+        const data = await srv.send({
+            method: 'GET',
+            path: `/ZZ1_C_MASTERPRODORDERAPI('${id}')/to_ZZ1_C_MFG_MASTEROPE`
+        })
+
+        console.log("risultati MASTER OPER: ", data.length)
+
+        return data;
+    });
+
+        this.on('READ', "ZZ1_C_COMBINEDORDER_COMP", async request => {
+        console.log("chiamata ZZ1_C_COMBINEDORDER_COMP")
+
+        let id = null
+        try {
+            id = request.query.SELECT.from.ref[0].where[2].val
+        } catch (err) {
+            console.error("impossibile estrarre l'ID ", err)
+        return []
+        }
+        console.log("ID estratto: ", id)
+
+        const srv = await cds.connect.to('ZZ1_C_COMBINEDPRODORDERAPI_CDS')
+
+        const data = await srv.send({
+            method: 'GET',
+            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_COMBINEDORDER_COMP`
+        })
+
+        console.log("risultati COMBINED COMP: ", data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_C_MFG_COMBINEDOPER", async request => {
+        console.log("chiamata ZZ1_C_MFG_COMBINEDOPER")
+        
+        let id = null
+        try {
+            id = request.query.SELECT.from.ref[0].where[2].val
+        } catch (err) {
+            console.error("impossibile estrarre l'ID ", err)
+        return []
+        }
+        console.log("ID estratto: ", id)
+
+        const srv = await cds.connect.to('ZZ1_C_COMBINEDPRODORDERAPI_CDS')
+
+        const data = await srv.send({
+            method: 'GET',
+            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_MFG_COMBINEDOPE`
+        })
+
+        console.log("risultati COMBINED OPER: ", data.length)
 
         return data;
     });
@@ -62,6 +143,28 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("lunghezza array "+data.length)
 
         return data;
+    });
+
+    this.on('READ', "ZZ1_C_MASTERPRODORDERAPI", async request => {
+        console.log("chiamata ZZ1_C_MASTERPRODORDERAPI")
+        var data = await masterProdOrd.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
+    this.on("READ", "ZZ1_C_MASTERORDER_COMP", async (req) => {
+        try {
+        // collego al servizio remoto
+        const masterSrv = await cds.connect.to("ZZ1_C_MASTERPRODORDERAPI_CDS");
+
+        // inoltro la query originale al servizio esterno
+        const result = await masterSrv.run(req.query);
+
+        return result;
+        } catch (err) {
+        req.error(500, `Errore durante la fetch da ZZ1_C_MASTERPRODORDERAPI_CDS: ${err.message}`);
+        }
     });
 
     this.on("ReleaseOrder", async (req) => {

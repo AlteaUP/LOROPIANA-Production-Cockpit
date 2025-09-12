@@ -10,14 +10,16 @@
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="technicalCompleteOrderID" key="technicalCompleteOrderAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="closeOrderID" key="closeOrderAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="componentsCombinedID" key="componentsCombinedAction" text="{i18n>components}" press=".onNavigateToComponentsCombinedOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="operationsCombinedID" key="operationsCombinedAction" text="{i18n>operations}" press=".onNavigateToOperationsCombinedOrder" placement="After" requiresSelection="true"/>
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
                         <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
                             <macros:actions>
-                                <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponents" placement="After" requiresSelection="true"/>
-                                <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperations" placement="After" requiresSelection="true"/>
+                                <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponentsMasterOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperationsMasterOrder" placement="After" requiresSelection="true"/>
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>

@@ -37,10 +37,14 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::componentsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::operationsCombinedAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::componentsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::operationsCombinedAction").setEnabled(false);
                     }
                 });
                 this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -152,7 +156,7 @@ sap.ui.define(
                 }*/
             },
 
-            onNavigateToComponents: function(oEvent){
+            onNavigateToComponentsMasterOrder: function(oEvent){
 
                 const oComponent = this.getOwnerComponent().getExtensionComponent();
 
@@ -161,14 +165,14 @@ sap.ui.define(
                 var key = ""
                 for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = this.byId("Table1").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
                 this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPComponentsPage", {
-                    ZZ1_C_MASTERORDER_COMPKey: key, "?query": {
+                    ZZ1_C_MASTERORDER_COMPKey: "'"+key+"'", "?query": {
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });
@@ -176,7 +180,52 @@ sap.ui.define(
                 
             },
 
-            onNavigateToOperations: function(oEvent){
+            onNavigateToOperationsCombinedOrder: function(oEvent){
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+
+                var key = ""
+                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                    } else {            
+                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_COMBINEDORDER_OPEROperationsPage", {
+                    ZZ1_C_COMBINEDORDER_OPERKey: "'"+key+"'", "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+            },
+
+            onNavigateToComponentsCombinedOrder: function(oEvent){
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+                
+                var key = ""
+                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                    } else {            
+                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
+                    ZZ1_C_COMBINEDORDER_COMPKey: "'"+key+"'", "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+                  
+                
+            },
+
+            onNavigateToOperationsMasterOrder: function(oEvent){
                 const oComponent = this.getOwnerComponent().getExtensionComponent();
 
                 this.oRouter = oComponent.getRouter();
@@ -184,14 +233,14 @@ sap.ui.define(
                 var key = ""
                 for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = this.byId("Table1").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().MasterProductionOrder
+                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
                 this.oRouter.navTo("ZZ1_C_MASTERORDER_OPEROperationsPage", {
-                    ZZ1_C_MASTERORDER_OPERKey: key, "?query": {
+                    ZZ1_C_MASTERORDER_OPERKey: "'"+key+"'", "?query": {
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });

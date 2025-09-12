@@ -15,6 +15,18 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.view.Components
              */
             onInit: function () {
+                this.getView().attachModelContextChange(() => {
+                    const ctx = this.getView().getBindingContext();
+                    if(ctx !== undefined){
+                        var newPathSplitted = ctx.sPath.split("/"); 
+                        var newPath = newPathSplitted[0] + "/" + newPathSplitted[1];
+                        ctx.sPath = newPath
+                    }
+                    console.log("View binding context:", ctx && ctx.getPath());
+                });
+            }
+
+            /*onInit: function () {
                 oController = this;
                 keyRouting = ""
                 console.log("ENTRATOOOOOO")
@@ -28,7 +40,7 @@ sap.ui.define(
             onObjectMatched: function(oEvent) {
                 console.log("objectMatched")
                 oController.keyRouting = oEvent.getParameter("arguments").ZZ1_C_MASTERORDER_COMPKey
-            },
+            },*/
 
 
             /**
@@ -45,10 +57,7 @@ sap.ui.define(
              * This hook is the same one that SAPUI5 controls get after being rendered.
              * @memberOf productioncockpitapp.ext.view.Components
              */
-            onAfterRendering: function() {
-                
-            },
-
+            /*
             modifyDataBeforeRebind: function(oEvent){
                 console.log("keyRouting "+oController.keyRouting)
                 if(oController.keyRouting.indexOf(";") > -1){
@@ -64,20 +73,9 @@ sap.ui.define(
                     oEvent.mParameters.collectionBindingInfo.collectionBindingInfo.filters = [new sap.ui.model.Filter("FshMprodOrd", sap.ui.model.FilterOperator.EQ, oController.keyRouting)]
                 }
                 
-                /*var mBindingParams = oEvent.getParameter("collectionBindingInfo");
-                //Event handlers for the binding
-                mBindingParams.collectionBindingInfo.events = {
-                    "dataReceived" : function(oEvent){
-                        var aReceivedData = oEvent.getParameter('data');
-                        // gestione errore
-                        if(oEvent.mParameters.error !== undefined && oEvent.mParameters.error !== null){
-                            oController.openDialogMessageText(oEvent.mParameters.error.message , "E");
-                        }
-                        },
-                        //More event handling can be done here
-                };*/
+                
                 console.log("FUNCTION modifyRebind")
-            },
+            },*/
 
             /**
              * Called when the Controller is destroyed. Use this one to free resources and finalize activities.

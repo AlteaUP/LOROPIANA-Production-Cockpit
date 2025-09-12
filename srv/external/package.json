@@ -8,6 +8,14 @@
       "API_PRODUCTION_ORDER_2_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/API_PRODUCTION_ORDER_2_SRV"
+      },
+      "ZZ1_C_MASTERPRODORDERAPI_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_C_MASTERPRODORDERAPI_CDS"
+      },
+      "ZZ1_C_COMBINEDPRODORDERAPI_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_C_COMBINEDPRODORDERAPI_CDS"
       }
     }
   },
