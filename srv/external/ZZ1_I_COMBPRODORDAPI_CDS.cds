@@ -1,4 +1,4 @@
-/* checksum : eacfe3134efa80004ec566c511b28858 */
+/* checksum : d3ebaa3173712665c4b6f12027de1486 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -513,8 +513,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {
   DefaultProfitCenter : String(10);
   @sap.display.format : 'UpperCase'
   @sap.text : 'CtrlgStdFinStatementVersion_Text'
-  @sap.label : `Str. stato patr.
- controlling princ.`
+  @sap.label : 'Str. stato patr. controlling princ.'
   @sap.quickinfo : 'Struttura stato patrimoniale controlling principale'
   @sap.value.list : 'standard'
   CtrlgStdFinStatementVersion : String(42);
@@ -6015,6 +6014,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.label : 'Cd. fornitura NATO'
   @sap.quickinfo : 'Codice di fornitura NATO'
   DfsNationalItemIdnNumber : String(9);
+  @sap.label : 'Coda'
+  @sap.quickinfo : 'CODA'
+  ZZ1_CODA_PRD : String(18);
   @sap.unit : 'ZZ1_SPESSOREPELLAME_PRDU'
   @sap.label : 'Spessore Pellame'
   @sap.quickinfo : 'SPESSOREPELLAME'
@@ -6024,6 +6026,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.value.list : 'standard'
   @sap.semantics : 'unit-of-measure'
   ZZ1_SPESSOREPELLAME_PRDU : String(3);
+  @sap.label : 'Gola'
+  @sap.quickinfo : 'GOLA'
+  ZZ1_GOLA_PRD : String(18);
   to_AdjustmentProfile_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {  };
   to_AssortmentListType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {  };
   to_BaseUnitOfMeasure : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
@@ -9766,8 +9771,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'ZZ1_C_MFG_COMBINEDOPER'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
+@sap.label : 'ZZ1_C_MFG_COMBINEDOPE'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. prod. combinato'
@@ -9777,1125 +9782,445 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
   @sap.required.in.filter : 'false'
   @sap.label : 'Sequenza'
   @sap.quickinfo : 'Sequenza ordine di produzione'
-  ManufacturingOrderSequence : String(6);
+  key ManufacturingOrderSequence : String(6) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione'
   @sap.quickinfo : 'Operazione ordine di produzione'
-  ManufacturingOrderOperation : String(4);
+  key ManufacturingOrderOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  ManufacturingOrderOperation_2 : String(4);
+  key ManufacturingOrderOperation_2 : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sotto-operazione'
   @sap.quickinfo : 'Sotto-operazione dell''ordine di produzione'
-  ManufacturingOrderSubOperation : String(4);
+  key ManufacturingOrderSubOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  ManufacturingOrdSubOperation_2 : String(4);
+  key ManufacturingOrdSubOperation_2 : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione'
   @sap.quickinfo : 'Numero operazione'
-  MfgOrderOperationOrSubOp : String(4);
+  key MfgOrderOperationOrSubOp : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  MfgOrderOperationOrSubOp_2 : String(4);
+  key MfgOrderOperationOrSubOp_2 : String(4) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Codice fase'
-  MfgOrderOperationIsPhase : Boolean;
+  key MfgOrderOperationIsPhase : Boolean not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Contatore'
   @sap.quickinfo : 'Contatore generale dell''ordine'
-  OrderIntBillOfOpItemOfPhase : String(8);
+  key OrderIntBillOfOpItemOfPhase : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
-  MfgOrderPhaseSuperiorOperation : String(4);
+  key MfgOrderPhaseSuperiorOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
-  SuperiorOperation_2 : String(4);
+  key SuperiorOperation_2 : String(4) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria di ordine'
   @sap.quickinfo : 'Categoria ordine di produzione'
-  ManufacturingOrderCategory : String(2);
+  key ManufacturingOrderCategory : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di ordine'
   @sap.quickinfo : 'Tipo di ordine di produzione'
-  ManufacturingOrderType : String(4);
+  key ManufacturingOrderType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile di produzione'
-  ProductionSupervisor : String(3);
+  key ProductionSupervisor : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile MRP'
-  MRPController : String(3);
+  key MRPController : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gr. resp. pian.'
   @sap.quickinfo : 'Gruppo di responsabili della pianificazione o reparto'
-  ResponsiblePlannerGroup : String(3);
+  key ResponsiblePlannerGroup : String(3) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Config. prodotto'
   @sap.quickinfo : 'Configurazione prodotto'
-  ProductConfiguration : String(18);
+  key ProductConfiguration : String(18) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Lotto di controllo'
   @sap.quickinfo : 'Numero lotto di controllo'
-  InspectionLot : String(12);
+  key InspectionLot : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Importanza ordine'
   @sap.quickinfo : 'Codice importanza ordine'
-  ManufacturingOrderImportance : String(1);
+  key ManufacturingOrderImportance : String(1) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Testo operazione'
   @sap.quickinfo : 'Testo operazione ordine di produzione'
-  MfgOrderOperationText : String(40);
+  key MfgOrderOperationText : String(40) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'ID testo standard operazione'
   @sap.quickinfo : 'ID interno testo standard operazione'
-  OperationStandardTextCode : String(7);
+  key OperationStandardTextCode : String(7) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Esiste testo esteso'
   @sap.quickinfo : 'Codice di ''esistenza testo esteso'''
-  OperationHasLongText : Boolean;
+  key OperationHasLongText : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Chiave lingua'
-  Language : String(2);
+  key Language : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Flag di canc.'
   @sap.quickinfo : 'Flag di cancellazione'
-  OperationIsToBeDeleted : Boolean;
+  key OperationIsToBeDeleted : Boolean not null;
   @odata.Type : 'Edm.Byte'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di capacità'
   @sap.quickinfo : 'Numero delle capacità richieste'
-  NumberOfCapacities : Integer;
+  key NumberOfCapacities : Integer not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'N. bolle conf.'
   @sap.quickinfo : 'Numero bolle di conferma'
-  NumberOfConfirmationSlips : String(3);
+  key NumberOfConfirmationSlips : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Priorità'
-  OperationImportance : String(1);
+  key OperationImportance : String(1) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Nodo oper. sovraord.'
   @sap.quickinfo : 'Numero nodo dell''operazione sovraordinata'
-  SuperiorOperationInternalID : String(8);
+  key SuperiorOperationInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisione'
-  Plant : String(4);
+  key Plant : String(4) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Int. centro lav.'
   @sap.quickinfo : 'ID interno centro di lavoro'
-  WorkCenterInternalID : String(8);
+  key WorkCenterInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo centro lavoro'
   @sap.quickinfo : 'Tipo di centro di lavoro'
-  WorkCenterTypeCode : String(1);
+  key WorkCenterTypeCode : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di centro di lavoro'
-  WorkCenterTypeCode_2 : String(2);
+  key WorkCenterTypeCode_2 : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Profilo di controllo'
   @sap.quickinfo : 'Profilo di controllo operazione'
-  OperationControlProfile : String(4);
+  key OperationControlProfile : String(4) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Dest. ricetta contr.'
+  @sap.quickinfo : 'Destinatario ricetta di controllo'
+  key ControlRecipeDestination : String(2) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Conferma'
+  @sap.quickinfo : 'Numero di conferma dell''operazione'
+  key OperationConfirmation : String(10) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Numero di conferme'
+  key NumberOfOperationConfirmations : String(8) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Calendario fabbrica'
+  @sap.quickinfo : 'ID calendario di fabbrica'
+  key FactoryCalendar : String(2) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Fabbisogno capacità'
+  @sap.quickinfo : 'ID del record fabbisogno capacità'
+  key CapacityRequirement : String(12) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Pos. fabb. capacità'
+  @sap.quickinfo : 'Posizione fabbisogno di capacità'
+  key CapacityRequirementItem : String(8) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Numero di modifica'
+  key ChangeNumber : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero oggetto'
   @sap.quickinfo : 'ID interno oggetto'
-  ObjectInternalID : String(22);
+  key ObjectInternalID : String(22) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero fabbisogno'
-  OperationTrackingNumber : String(10);
+  key OperationTrackingNumber : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo DO'
   @sap.quickinfo : 'Tipo distinta delle operazioni'
-  BillOfOperationsType : String(1);
+  key BillOfOperationsType : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo'
   @sap.quickinfo : 'Chiave per gruppo di cicli'
-  BillOfOperationsGroup : String(8);
+  key BillOfOperationsGroup : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Cont. gruppi cicli'
   @sap.quickinfo : 'Contatore gruppi cicli'
-  BillOfOperationsVariant : String(2);
+  key BillOfOperationsVariant : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sequenza distinta delle operazioni'
-  BillOfOperationsSequence : String(6);
+  key BillOfOperationsSequence : String(6) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Nodo ciclo'
   @sap.quickinfo : 'Numero del nodo ciclo'
-  BOOOperationInternalID : String(8);
+  key BOOOperationInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Vers. ciclo lavoro'
   @sap.quickinfo : 'Versione ciclo di lavoro'
-  BillOfOperationsVersion : String(4);
+  key BillOfOperationsVersion : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria Db'
   @sap.quickinfo : 'Codice categoria distinta base'
-  BillOfMaterialCategory : String(1);
+  key BillOfMaterialCategory : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Distinta base'
-  BillOfMaterialInternalID : String(8);
+  key BillOfMaterialInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Distinta base'
-  BillOfMaterialInternalID_2 : String(8);
+  key BillOfMaterialInternalID_2 : String(8) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione Db'
   @sap.quickinfo : 'Pos. distinta base'
-  BillOfMaterialItemNodeNumber : String(8);
+  key BillOfMaterialItemNodeNumber : String(8) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Contatore'
   @sap.quickinfo : 'Contatore interno'
-  BOMItemNodeCount : String(8);
+  key BOMItemNodeCount : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Lav. esterna'
   @sap.quickinfo : 'Indicatore: operazione elab. esterna con lavorazione esterna'
-  ExtProcgOperationHasSubcontrg : String(1);
+  key ExtProcgOperationHasSubcontrg : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Organizzazione acquisti'
-  PurchasingOrganization : String(4);
+  key PurchasingOrganization : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo acquisti'
   @sap.quickinfo : 'Gruppo acquisti per attività di elaborazione esterna'
-  PurchasingGroup : String(3);
+  key PurchasingGroup : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Richiesta d''acquisto'
   @sap.quickinfo : 'Numero della richiesta d''acquisto'
-  PurchaseRequisition : String(10);
+  key PurchaseRequisition : String(10) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione della richiesta d''acquisto'
   @sap.quickinfo : 'ID posizione della richiesta d''acquisto'
-  PurchaseRequisitionItem : String(5);
+  key PurchaseRequisitionItem : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. acquisto'
   @sap.quickinfo : 'Numero dell''ordine d''acquisto'
-  PurchaseOrder : String(10);
+  key PurchaseOrder : String(10) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Pos. ord. acq.'
   @sap.quickinfo : 'Numero posizione dell''ordine acquisto'
-  PurchaseOrderItem : String(5);
+  key PurchaseOrderItem : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Record info'
   @sap.quickinfo : 'Record info acquisti'
-  PurchasingInfoRecord : String(10);
+  key PurchasingInfoRecord : String(10) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Il prezzo è fisso'
   @sap.quickinfo : 'I dati del record info acquisti sono fissi'
-  PurgInfoRecdDataIsFixed : Boolean;
+  key PurgInfoRecdDataIsFixed : Boolean not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria record info acquisti'
-  PurchasingInfoRecordCategory : String(1);
+  key PurchasingInfoRecordCategory : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Fornitore'
   @sap.quickinfo : 'Numero conto del fornitore'
-  Supplier : String(10);
+  key Supplier : String(10) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Destin. merci'
-  GoodsRecipientName : String(12);
+  key GoodsRecipientName : String(12) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Punto di scarico'
-  UnloadingPointName : String(25);
+  key UnloadingPointName : String(25) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo merci'
-  MaterialGroup : String(9);
+  key MaterialGroup : String(9) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisa'
   @sap.quickinfo : 'Chiave divisa'
   @sap.semantics : 'currency-code'
-  OpExternalProcessingCurrency : String(5);
+  key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità di prezzo mat.'
   @sap.quickinfo : 'Quantità unità di prezzo materiale'
-  NumberOfOperationPriceUnits : Decimal(5, 0);
+  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
-  CompanyCode : String(4);
+  key CompanyCode : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Settore contabile'
-  BusinessArea : String(4);
+  key BusinessArea : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Controlling area'
-  ControllingArea : String(4);
+  key ControllingArea : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Profit center'
-  ProfitCenter : String(10);
+  key ProfitCenter : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'CdC richiedente'
   @sap.quickinfo : 'Centro di costo richiedente'
-  RequestingCostCenter : String(10);
+  key RequestingCostCenter : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Voce di costo'
-  CostElement : String(10);
+  key CostElement : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Variante CCST'
   @sap.quickinfo : 'Variante di calcolo costi'
-  CostingVariant : String(4);
+  key CostingVariant : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Schema CCST'
-  CostingSheet : String(6);
+  key CostingSheet : String(6) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'N. CCST'
   @sap.quickinfo : 'N. calcolo costi per CCST senza struttura quantitativa'
-  CostEstimate : String(12);
+  key CostEstimate : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisa oggetto'
   @sap.quickinfo : 'Divisa oggetto operazione network'
   @sap.semantics : 'currency-code'
-  ControllingObjectCurrency : String(5);
+  key ControllingObjectCurrency : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Classe dell''oggetto CO'
-  ControllingObjectClass : String(2);
+  key ControllingObjectClass : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Area funzionale'
-  FunctionalArea : String(16);
+  key FunctionalArea : String(16) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sede fiscale'
-  TaxJurisdiction : String(15);
+  key TaxJurisdiction : String(15) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Voce retr. dip.'
   @sap.quickinfo : 'Voce retributiva dipendente'
-  EmployeeWageType : String(4);
+  key EmployeeWageType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gr. retr. dipendente'
   @sap.quickinfo : 'Gruppo retributivo dipendente'
-  EmployeeWageGroup : String(3);
+  key EmployeeWageGroup : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Idoneità dipendente'
-  EmployeeSuitability : String(2);
+  key EmployeeSuitability : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'N. mod. ril.tempi'
   @sap.quickinfo : 'Numero moduli di rilevazione tempi'
-  NumberOfTimeTickets : Decimal(3, 0);
+  key NumberOfTimeTickets : Decimal(3, 0) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ris. um.'
   @sap.quickinfo : 'Codice identificativo dipendente'
-  Personnel : String(8);
+  key Personnel : String(8) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero dipendenti'
-  NumberOfEmployees : Decimal(5, 2);
+  key NumberOfEmployees : Decimal(5, 2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Cat. gr. attrezz.'
   @sap.quickinfo : 'Categoria gruppo attr. operazione'
-  OperationSetupGroupCategory : String(10);
+  key OperationSetupGroupCategory : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo attrezzaggio'
   @sap.quickinfo : 'Gruppo attr. operazione'
-  OperationSetupGroup : String(10);
+  key OperationSetupGroup : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo attrezzaggio'
   @sap.quickinfo : 'Tipo attr. operazione'
-  OperationSetupType : String(2);
+  key OperationSetupType : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sovrapposiz.obblig.'
   @sap.quickinfo : 'Sovrapposizione obbligatoria'
-  OperationOverlappingIsRequired : Boolean;
+  key OperationOverlappingIsRequired : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sovrapp. facoltativa'
   @sap.quickinfo : 'Sovrapposizione facoltativa'
-  OperationOverlappingIsPossible : Boolean;
+  key OperationOverlappingIsPossible : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Prod.a flusso cont.'
-  OperationsIsAlwaysOverlapping : Boolean;
+  key OperationsIsAlwaysOverlapping : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sudd. obbligatoria'
   @sap.quickinfo : 'Suddivisione obbligatoria'
-  OperationSplitIsRequired : Boolean;
+  key OperationSplitIsRequired : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'N. max suddivisioni'
-  MaximumNumberOfSplits : Decimal(3, 0);
+  key MaximumNumberOfSplits : Decimal(3, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Strat.riduzione'
   @sap.quickinfo : 'Strategia riduzione lead time operazione'
-  LeadTimeReductionStrategy : String(2);
+  key LeadTimeReductionStrategy : String(2) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
-  OpSchedldReductionLevel : String(1);
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtDte'
-  OpErlstSchedldExecStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtTme'
-  OpErlstSchedldExecStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtDte'
-  OpErlstSchedldProcgStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtTme'
-  OpErlstSchedldProcgStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtDte'
-  OpErlstSchedldTrdwnStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtTme'
-  OpErlstSchedldTrdwnStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecEndDte'
-  OpErlstSchedldExecEndDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecEndTme'
-  OpErlstSchedldExecEndTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtDte'
-  OpLtstSchedldExecStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtTme'
-  OpLtstSchedldExecStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtDte'
-  OpLtstSchedldProcgStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtTme'
-  OpLtstSchedldProcgStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtDte'
-  OpLtstSchedldTrdwnStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtTme'
-  OpLtstSchedldTrdwnStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndDte'
-  OpLtstSchedldExecEndDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndTme'
-  OpLtstSchedldExecEndTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartDate'
-  SchedldFcstdEarliestStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartTime'
-  SchedldFcstdEarliestStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndDate'
-  SchedldFcstdEarliestEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndTime'
-  SchedldFcstdEarliestEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdStartDate'
-  LatestSchedldFcstdStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdLatestStartTime'
-  SchedldFcstdLatestStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdEndDate'
-  LatestSchedldFcstdEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdLatestEndTime'
-  SchedldFcstdLatestEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationConfirmedStartDate'
-  OperationConfirmedStartDate : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationConfirmedEndDate'
-  OperationConfirmedEndDate : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionStartDate'
-  OpActualExecutionStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionStartTime'
-  OpActualExecutionStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndDate'
-  OpActualSetupEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndTime'
-  OpActualSetupEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartDate'
-  OpActualProcessingStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartTime'
-  OpActualProcessingStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndDate'
-  OpActualProcessingEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndTime'
-  OpActualProcessingEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartDate'
-  OpActualTeardownStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartTme'
-  OpActualTeardownStartTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionEndDate'
-  OpActualExecutionEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionEndTime'
-  OpActualExecutionEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ActualForecastEndDate'
-  ActualForecastEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ActualForecastEndTime'
-  ActualForecastEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitStartDate'
-  EarliestScheduledWaitStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitStartTime'
-  EarliestScheduledWaitStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndDate'
-  EarliestScheduledWaitEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndTime'
-  EarliestScheduledWaitEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartDate'
-  LatestScheduledWaitStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartTime'
-  LatestScheduledWaitStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndDate'
-  LatestScheduledWaitEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndTime'
-  LatestScheduledWaitEndTime : Time;
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpExternalProcessingCurrency'
-  @sap.label : 'OpExternalProcessingPrice'
-  OpExternalProcessingPrice : Decimal(12, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM durata pausa'
-  @sap.quickinfo : 'Unità per durata pausa'
-  @sap.semantics : 'unit-of-measure'
-  BreakDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BreakDurationUnit'
-  @sap.label : 'SumPlannedBreakDuration'
-  SumPlannedBreakDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BreakDurationUnit'
-  @sap.label : 'SumConfirmedBreakDuration'
-  SumConfirmedBreakDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di tempo minimo di sovrapposizione'
-  @sap.quickinfo : 'Unità del tempo minimo di sovrapposizione'
-  @sap.semantics : 'unit-of-measure'
-  OverlapMinimumDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OverlapMinimumDurationUnit'
-  @sap.label : 'SumOverlapMinimumDuration'
-  SumOverlapMinimumDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tmp.max attesa'
-  @sap.quickinfo : 'Unità del tempo di attesa massimo'
-  @sap.semantics : 'unit-of-measure'
-  MaximumWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MaximumWaitDurationUnit'
-  @sap.label : 'SumMaximumWaitDuration'
-  SumMaximumWaitDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo att. rich.'
-  @sap.quickinfo : 'Unità di misura del tempo di attesa richiesto'
-  @sap.semantics : 'unit-of-measure'
-  MinimumWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumWaitDurationUnit'
-  @sap.label : 'SumMinimumWaitDuration'
-  SumMinimumWaitDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo trasf. std'
-  @sap.quickinfo : 'Unità del tempo di trasferimento standard'
-  @sap.semantics : 'unit-of-measure'
-  StandardMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StandardMoveDurationUnit'
-  @sap.label : 'SumStandardMoveDuration'
-  SumStandardMoveDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Utà durata coda std'
-  @sap.quickinfo : 'Unità per la durata coda standard'
-  @sap.semantics : 'unit-of-measure'
-  StandardQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StandardQueueDurationUnit'
-  @sap.label : 'SumStandardQueueDuration'
-  SumStandardQueueDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità dur. coda min.'
-  @sap.quickinfo : 'Unità per durata coda minima'
-  @sap.semantics : 'unit-of-measure'
-  MinimumQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo trasf. min.'
-  @sap.quickinfo : 'Unità del tempo minimo di trasferimento'
-  @sap.semantics : 'unit-of-measure'
-  MinimumMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumMoveDurationUnit'
-  @sap.label : 'SumMinimumMoveDuration'
-  SumMinimumMoveDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationStandardDurationUnit'
-  @sap.label : 'SumOperationStandardDuration'
-  SumOperationStandardDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Utà durata std'
-  @sap.quickinfo : 'Unità durata standard'
-  @sap.semantics : 'unit-of-measure'
-  OperationStandardDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumMinimumDuration'
-  SumMinimumDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità per durata minima'
-  @sap.quickinfo : 'Unità per la durata minima'
-  @sap.semantics : 'unit-of-measure'
-  MinimumDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumScheduledMoveDuration'
-  SumScheduledMoveDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo trasp.'
-  @sap.quickinfo : 'Unità di misura per tempo di trasporto'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumScheduledQueueDuration'
-  SumScheduledQueueDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo coda'
-  @sap.quickinfo : 'Unità di misura per tempo di coda'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumScheduledWaitDuration'
-  SumScheduledWaitDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo attesa'
-  @sap.quickinfo : 'Unità di misura per tempo di attesa'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumPlannedDeliveryDuration'
-  SumPlannedDeliveryDuration : Decimal(3, 0);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedSetupDurn'
-  SumOpPlannedSetupDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo attr.'
-  @sap.quickinfo : 'Unità di misura tempo attrezzaggio'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedSetupDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedProcessingDurn'
-  SumOpPlannedProcessingDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo lavor.'
-  @sap.quickinfo : 'Unità di misura del tempo di lavorazione'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedProcessingDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedTeardownDurn'
-  SumOpPlannedTeardownDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM disattrezzaggio'
-  @sap.quickinfo : 'Unità di misura disattrezzaggio'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedTeardownDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ActualForecastDurationUnit'
-  @sap.label : 'SumActualForecastDuration'
-  SumActualForecastDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di durata di previsione effettiva'
-  @sap.quickinfo : 'Unità di durata di previsione da conferma'
-  @sap.semantics : 'unit-of-measure'
-  ActualForecastDurationUnit : String(3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Data in. riferimento'
-  @sap.quickinfo : 'Data di riferimento per inizio della sotto-operazione'
-  StartDateOffsetReferenceCode : String(2);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità offset inizio'
-  @sap.quickinfo : 'Unità per inizio offset'
-  @sap.semantics : 'unit-of-measure'
-  StartDateOffsetDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StartDateOffsetDurationUnit'
-  @sap.label : 'SumStartDateOffsetDuration'
-  SumStartDateOffsetDuration : Decimal(5, 0);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Data fn. riferimento'
-  @sap.quickinfo : 'Data di riferimento per fine della sotto-operazione'
-  EndDateOffsetReferenceCode : String(2);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità fine offset'
-  @sap.quickinfo : 'Unità per fine offset'
-  @sap.semantics : 'unit-of-measure'
-  EndDateOffsetDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EndDateOffsetDurationUnit'
-  @sap.label : 'SumEndDateOffsetDuration'
-  SumEndDateOffsetDuration : Decimal(5, 0);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Chiave val. standard'
-  @sap.quickinfo : 'Chiave valore standard'
-  StandardWorkFormulaParamGroup : String(4);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità operazione'
-  @sap.quickinfo : 'Unità di misura operazione'
-  @sap.semantics : 'unit-of-measure'
-  OperationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyDnmntr'
-  SumOpQtyToBaseQtyDnmntr : Decimal(5, 0);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyNmrtr'
-  SumOpQtyToBaseQtyNmrtr : Decimal(5, 0);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOperationScrapPercent'
-  SumOperationScrapPercent : Decimal(5, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationReferenceQuantity'
-  SumOperationReferenceQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedTotalQuantity'
-  SumOpPlannedTotalQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedScrapQuantity'
-  SumOpPlannedScrapQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedYieldQuantity'
-  SumOpPlannedYieldQuantity : Decimal(14, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpTotalConfirmedYieldQty'
-  SumOpTotalConfirmedYieldQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpTotalConfirmedScrapQty'
-  SumOpTotalConfirmedScrapQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationConfirmedReworkQty'
-  SumOperationConfirmedReworkQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di produzione'
-  @sap.quickinfo : 'Unità di misura di produzione'
-  @sap.semantics : 'unit-of-measure'
-  ProductionUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'Qtà ott.in utà ord.'
-  @sap.quickinfo : 'Quantità ottenuta confermata in unità di misura ordine'
-  OpTotConfdYieldQtyInOrdQtyUnit : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 1'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 1'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit1 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit1'
-  @sap.label : 'SumOpConfirmedWorkQuantity1'
-  SumOpConfirmedWorkQuantity1 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 1 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà di lavoro restante 1 è prevista'
-  NoFurtherOpWorkQuantity1IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 2'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 2'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit2 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit2'
-  @sap.label : 'SumOpConfirmedWorkQuantity2'
-  SumOpConfirmedWorkQuantity2 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 2 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 2 prevista'
-  NoFurtherOpWorkQuantity2IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 3'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 3'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit3 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit3'
-  @sap.label : 'SumOpConfirmedWorkQuantity3'
-  SumOpConfirmedWorkQuantity3 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 3 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 3 prevista'
-  NoFurtherOpWorkQuantity3IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 4'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 4'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit4 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit4'
-  @sap.label : 'SumOpConfirmedWorkQuantity4'
-  SumOpConfirmedWorkQuantity4 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 4 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 4 prevista'
-  NoFurtherOpWorkQuantity4IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 5'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 5'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit5 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit5'
-  @sap.label : 'SumOpConfirmedWorkQuantity5'
-  SumOpConfirmedWorkQuantity5 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 5 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 5 prevista'
-  NoFurtherOpWorkQuantity5IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 6'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 6'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit6 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit6'
-  @sap.label : 'SumOpConfirmedWorkQuantity6'
-  SumOpConfirmedWorkQuantity6 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Ness. qtà lavoro restante 6 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 6 prevista'
-  NoFurtherOpWorkQuantity6IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 1'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 1'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit1 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit1'
-  @sap.label : 'SumWorkCenterStandardWorkQty1'
-  SumWorkCenterStandardWorkQty1 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 1'
-  CostCtrActivityType1 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 2'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 2'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit2 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit2'
-  @sap.label : 'SumWorkCenterStandardWorkQty2'
-  SumWorkCenterStandardWorkQty2 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 2'
-  CostCtrActivityType2 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 3'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 3'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit3 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit3'
-  @sap.label : 'SumWorkCenterStandardWorkQty3'
-  SumWorkCenterStandardWorkQty3 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 3'
-  CostCtrActivityType3 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 4'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 4'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit4 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit4'
-  @sap.label : 'SumWorkCenterStandardWorkQty4'
-  SumWorkCenterStandardWorkQty4 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 4'
-  CostCtrActivityType4 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 5'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 5'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit5 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit5'
-  @sap.label : 'SumWorkCenterStandardWorkQty5'
-  SumWorkCenterStandardWorkQty5 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 5'
-  CostCtrActivityType5 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 6'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 6'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit6 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumWorkCenterStandardWorkQty6'
-  SumWorkCenterStandardWorkQty6 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 6'
-  CostCtrActivityType6 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity1'
-  SumForecastWorkQuantity1 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity2'
-  SumForecastWorkQuantity2 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity3'
-  SumForecastWorkQuantity3 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity4'
-  SumForecastWorkQuantity4 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity5'
-  SumForecastWorkQuantity5 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity6'
-  SumForecastWorkQuantity6 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Business process'
-  BusinessProcess : String(12);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di processo'
-  @sap.quickinfo : 'Unità di misura della quantità per business process'
-  @sap.semantics : 'unit-of-measure'
-  BusinessProcessEntryUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BusinessProcessEntryUnit'
-  @sap.label : 'SumBusinessProcessConfirmedQty'
-  SumBusinessProcessConfirmedQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna att. res.'
-  @sap.quickinfo : 'Nessuna qtà residua prevista per business process'
-  NoFurtherBusinessProcQtyIsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità proc. residua'
-  @sap.quickinfo : 'Unità per la quantità residua di business process'
-  @sap.semantics : 'unit-of-measure'
-  BusinessProcRemainingQtyUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BusinessProcRemainingQtyUnit'
-  @sap.label : 'SumBusinessProcessRemainingQty'
-  SumBusinessProcessRemainingQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza attrezzaggio'
-  @sap.quickinfo : 'Network att. operazione: ID istanza attrezzaggio'
-  SetupOpActyNtwkInstance : Integer;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza produzione'
-  @sap.quickinfo : 'Network att. operazione: ID istanza produzione'
-  ProduceOpActyNtwkInstance : Integer;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza disattrezzaggio'
-  @sap.quickinfo : 'Network att. operazione: ID istanza disattrezzaggio'
-  TeardownOpActyNtwkInstance : Integer;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Chiave campo'
-  @sap.quickinfo : 'ID parola chiave per campi utente'
-  FreeDefinedTableFieldSemantic : String(7);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utn. 20 car.'
-  @sap.quickinfo : 'Campo utente 20 caratteri'
-  FreeDefinedAttribute01 : String(20);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utn. 20 car.'
-  @sap.quickinfo : 'Campo utente 20 caratteri'
-  FreeDefinedAttribute02 : String(20);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'CampoDefinDaUtente'
-  @sap.quickinfo : 'Campo utente con 10 caratteri'
-  FreeDefinedAttribute03 : String(10);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'CampoDefinDaUtente'
-  @sap.quickinfo : 'Campo utente con 10 caratteri'
-  FreeDefinedAttribute04 : String(10);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità per campi quantità'
-  @sap.semantics : 'unit-of-measure'
-  FreeDefinedQuantity1Unit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedQuantity1Unit'
-  @sap.label : 'SumFreeDefinedQuantity1'
-  SumFreeDefinedQuantity1 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità per campi quantità'
-  @sap.semantics : 'unit-of-measure'
-  FreeDefinedQuantity2Unit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedQuantity2Unit'
-  @sap.label : 'SumFreeDefinedQuantity2'
-  SumFreeDefinedQuantity2 : Decimal(13, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità campi valore'
-  @sap.semantics : 'currency-code'
-  FreeDefinedAmount1Currency : String(5);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedAmount1Currency'
-  @sap.label : 'SumFreeDefinedAmount1'
-  SumFreeDefinedAmount1 : Decimal(13, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità campi valore'
-  @sap.semantics : 'currency-code'
-  FreeDefinedAmount2Currency : String(5);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedAmount2Currency'
-  @sap.label : 'SumFreeDefinedAmount2'
-  SumFreeDefinedAmount2 : Decimal(13, 3);
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente data'
-  @sap.quickinfo : 'Campo utente per data'
-  FreeDefinedDate1 : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente data'
-  @sap.quickinfo : 'Campo utente per data'
-  FreeDefinedDate2 : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utente cd.'
-  @sap.quickinfo : 'Campo utente: codici di valutazione'
-  FreeDefinedIndicator1 : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utente cd.'
-  @sap.quickinfo : 'Campo utente: codici di valutazione'
-  FreeDefinedIndicator2 : Boolean;
+  key OpSchedldReductionLevel : String(1) not null;
 };
 
 @cds.external : true
@@ -10904,8 +10229,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'ZZ1_C_MFG_MASTEROPER'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {
+@sap.label : 'ZZ1_C_MFG_MASTEROPE'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ordine prod. princ.'
@@ -10915,1162 +10240,445 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {
   @sap.required.in.filter : 'false'
   @sap.label : 'Sequenza'
   @sap.quickinfo : 'Sequenza ordine di produzione'
-  ManufacturingOrderSequence : String(6);
+  key ManufacturingOrderSequence : String(6) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione'
   @sap.quickinfo : 'Operazione ordine di produzione'
-  ManufacturingOrderOperation : String(4);
+  key ManufacturingOrderOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  ManufacturingOrderOperation_2 : String(4);
+  key ManufacturingOrderOperation_2 : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sotto-operazione'
   @sap.quickinfo : 'Sotto-operazione dell''ordine di produzione'
-  ManufacturingOrderSubOperation : String(4);
+  key ManufacturingOrderSubOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  ManufacturingOrdSubOperation_2 : String(4);
+  key ManufacturingOrdSubOperation_2 : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione'
   @sap.quickinfo : 'Numero operazione'
-  MfgOrderOperationOrSubOp : String(4);
+  key MfgOrderOperationOrSubOp : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione o fase'
   @sap.quickinfo : 'Numero operazione o fase'
-  MfgOrderOperationOrSubOp_2 : String(4);
+  key MfgOrderOperationOrSubOp_2 : String(4) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Codice fase'
-  MfgOrderOperationIsPhase : Boolean;
+  key MfgOrderOperationIsPhase : Boolean not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Contatore'
   @sap.quickinfo : 'Contatore generale dell''ordine'
-  OrderIntBillOfOpItemOfPhase : String(8);
+  key OrderIntBillOfOpItemOfPhase : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
-  MfgOrderPhaseSuperiorOperation : String(4);
+  key MfgOrderPhaseSuperiorOperation : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
-  SuperiorOperation_2 : String(4);
+  key SuperiorOperation_2 : String(4) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria di ordine'
   @sap.quickinfo : 'Categoria ordine di produzione'
-  ManufacturingOrderCategory : String(2);
+  key ManufacturingOrderCategory : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di ordine'
   @sap.quickinfo : 'Tipo di ordine di produzione'
-  ManufacturingOrderType : String(4);
+  key ManufacturingOrderType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile di produzione'
-  ProductionSupervisor : String(3);
+  key ProductionSupervisor : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile MRP'
-  MRPController : String(3);
+  key MRPController : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gr. resp. pian.'
   @sap.quickinfo : 'Gruppo di responsabili della pianificazione o reparto'
-  ResponsiblePlannerGroup : String(3);
+  key ResponsiblePlannerGroup : String(3) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Config. prodotto'
   @sap.quickinfo : 'Configurazione prodotto'
-  ProductConfiguration : String(18);
+  key ProductConfiguration : String(18) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Lotto di controllo'
   @sap.quickinfo : 'Numero lotto di controllo'
-  InspectionLot : String(12);
+  key InspectionLot : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Importanza ordine'
   @sap.quickinfo : 'Codice importanza ordine'
-  ManufacturingOrderImportance : String(1);
+  key ManufacturingOrderImportance : String(1) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Testo operazione'
   @sap.quickinfo : 'Testo operazione ordine di produzione'
-  MfgOrderOperationText : String(40);
+  key MfgOrderOperationText : String(40) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'ID testo standard operazione'
   @sap.quickinfo : 'ID interno testo standard operazione'
-  OperationStandardTextCode : String(7);
+  key OperationStandardTextCode : String(7) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Esiste testo esteso'
   @sap.quickinfo : 'Codice di ''esistenza testo esteso'''
-  OperationHasLongText : Boolean;
+  key OperationHasLongText : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Chiave lingua'
-  Language : String(2);
+  key Language : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Flag di canc.'
   @sap.quickinfo : 'Flag di cancellazione'
-  OperationIsToBeDeleted : Boolean;
+  key OperationIsToBeDeleted : Boolean not null;
   @odata.Type : 'Edm.Byte'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di capacità'
   @sap.quickinfo : 'Numero delle capacità richieste'
-  NumberOfCapacities : Integer;
+  key NumberOfCapacities : Integer not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'N. bolle conf.'
   @sap.quickinfo : 'Numero bolle di conferma'
-  NumberOfConfirmationSlips : String(3);
+  key NumberOfConfirmationSlips : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Priorità'
-  OperationImportance : String(1);
+  key OperationImportance : String(1) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Nodo oper. sovraord.'
   @sap.quickinfo : 'Numero nodo dell''operazione sovraordinata'
-  SuperiorOperationInternalID : String(8);
+  key SuperiorOperationInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisione'
-  Plant : String(4);
+  key Plant : String(4) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Int. centro lav.'
   @sap.quickinfo : 'ID interno centro di lavoro'
-  WorkCenterInternalID : String(8);
+  key WorkCenterInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo centro lavoro'
   @sap.quickinfo : 'Tipo di centro di lavoro'
-  WorkCenterTypeCode : String(1);
+  key WorkCenterTypeCode : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo di centro di lavoro'
-  WorkCenterTypeCode_2 : String(2);
+  key WorkCenterTypeCode_2 : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Profilo di controllo'
   @sap.quickinfo : 'Profilo di controllo operazione'
-  OperationControlProfile : String(4);
+  key OperationControlProfile : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Dest. ricetta contr.'
   @sap.quickinfo : 'Destinatario ricetta di controllo'
-  ControlRecipeDestination : String(2);
+  key ControlRecipeDestination : String(2) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Conferma'
   @sap.quickinfo : 'Numero di conferma dell''operazione'
-  OperationConfirmation : String(10);
+  key OperationConfirmation : String(10) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di conferme'
-  NumberOfOperationConfirmations : String(8);
+  key NumberOfOperationConfirmations : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Calendario fabbrica'
   @sap.quickinfo : 'ID calendario di fabbrica'
-  FactoryCalendar : String(2);
+  key FactoryCalendar : String(2) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Fabbisogno capacità'
   @sap.quickinfo : 'ID del record fabbisogno capacità'
-  CapacityRequirement : String(12);
+  key CapacityRequirement : String(12) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Pos. fabb. capacità'
   @sap.quickinfo : 'Posizione fabbisogno di capacità'
-  CapacityRequirementItem : String(8);
+  key CapacityRequirementItem : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di modifica'
-  ChangeNumber : String(12);
+  key ChangeNumber : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero oggetto'
   @sap.quickinfo : 'ID interno oggetto'
-  ObjectInternalID : String(22);
+  key ObjectInternalID : String(22) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero fabbisogno'
-  OperationTrackingNumber : String(10);
+  key OperationTrackingNumber : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo DO'
   @sap.quickinfo : 'Tipo distinta delle operazioni'
-  BillOfOperationsType : String(1);
+  key BillOfOperationsType : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo'
   @sap.quickinfo : 'Chiave per gruppo di cicli'
-  BillOfOperationsGroup : String(8);
+  key BillOfOperationsGroup : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Cont. gruppi cicli'
   @sap.quickinfo : 'Contatore gruppi cicli'
-  BillOfOperationsVariant : String(2);
+  key BillOfOperationsVariant : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sequenza distinta delle operazioni'
-  BillOfOperationsSequence : String(6);
+  key BillOfOperationsSequence : String(6) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Nodo ciclo'
   @sap.quickinfo : 'Numero del nodo ciclo'
-  BOOOperationInternalID : String(8);
+  key BOOOperationInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Vers. ciclo lavoro'
   @sap.quickinfo : 'Versione ciclo di lavoro'
-  BillOfOperationsVersion : String(4);
+  key BillOfOperationsVersion : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria Db'
   @sap.quickinfo : 'Codice categoria distinta base'
-  BillOfMaterialCategory : String(1);
+  key BillOfMaterialCategory : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Distinta base'
-  BillOfMaterialInternalID : String(8);
+  key BillOfMaterialInternalID : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Distinta base'
-  BillOfMaterialInternalID_2 : String(8);
+  key BillOfMaterialInternalID_2 : String(8) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione Db'
   @sap.quickinfo : 'Pos. distinta base'
-  BillOfMaterialItemNodeNumber : String(8);
+  key BillOfMaterialItemNodeNumber : String(8) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Contatore'
   @sap.quickinfo : 'Contatore interno'
-  BOMItemNodeCount : String(8);
+  key BOMItemNodeCount : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Lav. esterna'
   @sap.quickinfo : 'Indicatore: operazione elab. esterna con lavorazione esterna'
-  ExtProcgOperationHasSubcontrg : String(1);
+  key ExtProcgOperationHasSubcontrg : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Organizzazione acquisti'
-  PurchasingOrganization : String(4);
+  key PurchasingOrganization : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo acquisti'
   @sap.quickinfo : 'Gruppo acquisti per attività di elaborazione esterna'
-  PurchasingGroup : String(3);
+  key PurchasingGroup : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Richiesta d''acquisto'
   @sap.quickinfo : 'Numero della richiesta d''acquisto'
-  PurchaseRequisition : String(10);
+  key PurchaseRequisition : String(10) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione della richiesta d''acquisto'
   @sap.quickinfo : 'ID posizione della richiesta d''acquisto'
-  PurchaseRequisitionItem : String(5);
+  key PurchaseRequisitionItem : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. acquisto'
   @sap.quickinfo : 'Numero dell''ordine d''acquisto'
-  PurchaseOrder : String(10);
+  key PurchaseOrder : String(10) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Pos. ord. acq.'
   @sap.quickinfo : 'Numero posizione dell''ordine acquisto'
-  PurchaseOrderItem : String(5);
+  key PurchaseOrderItem : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Record info'
   @sap.quickinfo : 'Record info acquisti'
-  PurchasingInfoRecord : String(10);
+  key PurchasingInfoRecord : String(10) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Il prezzo è fisso'
   @sap.quickinfo : 'I dati del record info acquisti sono fissi'
-  PurgInfoRecdDataIsFixed : Boolean;
+  key PurgInfoRecdDataIsFixed : Boolean not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Categoria record info acquisti'
-  PurchasingInfoRecordCategory : String(1);
+  key PurchasingInfoRecordCategory : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Fornitore'
   @sap.quickinfo : 'Numero conto del fornitore'
-  Supplier : String(10);
+  key Supplier : String(10) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Destin. merci'
-  GoodsRecipientName : String(12);
+  key GoodsRecipientName : String(12) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Punto di scarico'
-  UnloadingPointName : String(25);
+  key UnloadingPointName : String(25) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo merci'
-  MaterialGroup : String(9);
+  key MaterialGroup : String(9) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisa'
   @sap.quickinfo : 'Chiave divisa'
   @sap.semantics : 'currency-code'
-  OpExternalProcessingCurrency : String(5);
+  key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Unità di prezzo mat.'
   @sap.quickinfo : 'Quantità unità di prezzo materiale'
-  NumberOfOperationPriceUnits : Decimal(5, 0);
+  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
-  CompanyCode : String(4);
+  key CompanyCode : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Settore contabile'
-  BusinessArea : String(4);
+  key BusinessArea : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Controlling area'
-  ControllingArea : String(4);
+  key ControllingArea : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Profit center'
-  ProfitCenter : String(10);
+  key ProfitCenter : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'CdC richiedente'
   @sap.quickinfo : 'Centro di costo richiedente'
-  RequestingCostCenter : String(10);
+  key RequestingCostCenter : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Voce di costo'
-  CostElement : String(10);
+  key CostElement : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Variante CCST'
   @sap.quickinfo : 'Variante di calcolo costi'
-  CostingVariant : String(4);
+  key CostingVariant : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Schema CCST'
-  CostingSheet : String(6);
+  key CostingSheet : String(6) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'N. CCST'
   @sap.quickinfo : 'N. calcolo costi per CCST senza struttura quantitativa'
-  CostEstimate : String(12);
+  key CostEstimate : String(12) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Divisa oggetto'
   @sap.quickinfo : 'Divisa oggetto operazione network'
   @sap.semantics : 'currency-code'
-  ControllingObjectCurrency : String(5);
+  key ControllingObjectCurrency : String(5) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Classe dell''oggetto CO'
-  ControllingObjectClass : String(2);
+  key ControllingObjectClass : String(2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Area funzionale'
-  FunctionalArea : String(16);
+  key FunctionalArea : String(16) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Sede fiscale'
-  TaxJurisdiction : String(15);
+  key TaxJurisdiction : String(15) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Voce retr. dip.'
   @sap.quickinfo : 'Voce retributiva dipendente'
-  EmployeeWageType : String(4);
+  key EmployeeWageType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gr. retr. dipendente'
   @sap.quickinfo : 'Gruppo retributivo dipendente'
-  EmployeeWageGroup : String(3);
+  key EmployeeWageGroup : String(3) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Idoneità dipendente'
-  EmployeeSuitability : String(2);
+  key EmployeeSuitability : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'N. mod. ril.tempi'
   @sap.quickinfo : 'Numero moduli di rilevazione tempi'
-  NumberOfTimeTickets : Decimal(3, 0);
+  key NumberOfTimeTickets : Decimal(3, 0) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ris. um.'
   @sap.quickinfo : 'Codice identificativo dipendente'
-  Personnel : String(8);
+  key Personnel : String(8) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero dipendenti'
-  NumberOfEmployees : Decimal(5, 2);
+  key NumberOfEmployees : Decimal(5, 2) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Cat. gr. attrezz.'
   @sap.quickinfo : 'Categoria gruppo attr. operazione'
-  OperationSetupGroupCategory : String(10);
+  key OperationSetupGroupCategory : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Gruppo attrezzaggio'
   @sap.quickinfo : 'Gruppo attr. operazione'
-  OperationSetupGroup : String(10);
+  key OperationSetupGroup : String(10) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Tipo attrezzaggio'
   @sap.quickinfo : 'Tipo attr. operazione'
-  OperationSetupType : String(2);
+  key OperationSetupType : String(2) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sovrapposiz.obblig.'
   @sap.quickinfo : 'Sovrapposizione obbligatoria'
-  OperationOverlappingIsRequired : Boolean;
+  key OperationOverlappingIsRequired : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sovrapp. facoltativa'
   @sap.quickinfo : 'Sovrapposizione facoltativa'
-  OperationOverlappingIsPossible : Boolean;
+  key OperationOverlappingIsPossible : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Prod.a flusso cont.'
-  OperationsIsAlwaysOverlapping : Boolean;
+  key OperationsIsAlwaysOverlapping : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Sudd. obbligatoria'
   @sap.quickinfo : 'Suddivisione obbligatoria'
-  OperationSplitIsRequired : Boolean;
+  key OperationSplitIsRequired : Boolean not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'N. max suddivisioni'
-  MaximumNumberOfSplits : Decimal(3, 0);
+  key MaximumNumberOfSplits : Decimal(3, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Strat.riduzione'
   @sap.quickinfo : 'Strategia riduzione lead time operazione'
-  LeadTimeReductionStrategy : String(2);
+  key LeadTimeReductionStrategy : String(2) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
-  OpSchedldReductionLevel : String(1);
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtDte'
-  OpErlstSchedldExecStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecStrtTme'
-  OpErlstSchedldExecStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtDte'
-  OpErlstSchedldProcgStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldProcgStrtTme'
-  OpErlstSchedldProcgStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtDte'
-  OpErlstSchedldTrdwnStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldTrdwnStrtTme'
-  OpErlstSchedldTrdwnStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecEndDte'
-  OpErlstSchedldExecEndDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpErlstSchedldExecEndTme'
-  OpErlstSchedldExecEndTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtDte'
-  OpLtstSchedldExecStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecStrtTme'
-  OpLtstSchedldExecStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtDte'
-  OpLtstSchedldProcgStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldProcgStrtTme'
-  OpLtstSchedldProcgStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtDte'
-  OpLtstSchedldTrdwnStrtDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldTrdwnStrtTme'
-  OpLtstSchedldTrdwnStrtTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndDte'
-  OpLtstSchedldExecEndDte : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpLtstSchedldExecEndTme'
-  OpLtstSchedldExecEndTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartDate'
-  SchedldFcstdEarliestStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestStartTime'
-  SchedldFcstdEarliestStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndDate'
-  SchedldFcstdEarliestEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdEarliestEndTime'
-  SchedldFcstdEarliestEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdStartDate'
-  LatestSchedldFcstdStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdLatestStartTime'
-  SchedldFcstdLatestStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestSchedldFcstdEndDate'
-  LatestSchedldFcstdEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SchedldFcstdLatestEndTime'
-  SchedldFcstdLatestEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationConfirmedStartDate'
-  OperationConfirmedStartDate : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationConfirmedEndDate'
-  OperationConfirmedEndDate : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionStartDate'
-  OpActualExecutionStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionStartTime'
-  OpActualExecutionStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndDate'
-  OpActualSetupEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualSetupEndTime'
-  OpActualSetupEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartDate'
-  OpActualProcessingStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingStartTime'
-  OpActualProcessingStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndDate'
-  OpActualProcessingEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualProcessingEndTime'
-  OpActualProcessingEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartDate'
-  OpActualTeardownStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualTeardownStartTme'
-  OpActualTeardownStartTme : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionEndDate'
-  OpActualExecutionEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OpActualExecutionEndTime'
-  OpActualExecutionEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ActualForecastEndDate'
-  ActualForecastEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ActualForecastEndTime'
-  ActualForecastEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitStartDate'
-  EarliestScheduledWaitStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitStartTime'
-  EarliestScheduledWaitStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndDate'
-  EarliestScheduledWaitEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'EarliestScheduledWaitEndTime'
-  EarliestScheduledWaitEndTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartDate'
-  LatestScheduledWaitStartDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitStartTime'
-  LatestScheduledWaitStartTime : Time;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndDate'
-  LatestScheduledWaitEndDate : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'LatestScheduledWaitEndTime'
-  LatestScheduledWaitEndTime : Time;
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpExternalProcessingCurrency'
-  @sap.label : 'OpExternalProcessingPrice'
-  OpExternalProcessingPrice : Decimal(12, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM durata pausa'
-  @sap.quickinfo : 'Unità per durata pausa'
-  @sap.semantics : 'unit-of-measure'
-  BreakDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BreakDurationUnit'
-  @sap.label : 'SumPlannedBreakDuration'
-  SumPlannedBreakDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BreakDurationUnit'
-  @sap.label : 'SumConfirmedBreakDuration'
-  SumConfirmedBreakDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di tempo minimo di sovrapposizione'
-  @sap.quickinfo : 'Unità del tempo minimo di sovrapposizione'
-  @sap.semantics : 'unit-of-measure'
-  OverlapMinimumDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OverlapMinimumDurationUnit'
-  @sap.label : 'SumOverlapMinimumDuration'
-  SumOverlapMinimumDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tmp.max attesa'
-  @sap.quickinfo : 'Unità del tempo di attesa massimo'
-  @sap.semantics : 'unit-of-measure'
-  MaximumWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MaximumWaitDurationUnit'
-  @sap.label : 'SumMaximumWaitDuration'
-  SumMaximumWaitDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo att. rich.'
-  @sap.quickinfo : 'Unità di misura del tempo di attesa richiesto'
-  @sap.semantics : 'unit-of-measure'
-  MinimumWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumWaitDurationUnit'
-  @sap.label : 'SumMinimumWaitDuration'
-  SumMinimumWaitDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo trasf. std'
-  @sap.quickinfo : 'Unità del tempo di trasferimento standard'
-  @sap.semantics : 'unit-of-measure'
-  StandardMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StandardMoveDurationUnit'
-  @sap.label : 'SumStandardMoveDuration'
-  SumStandardMoveDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Utà durata coda std'
-  @sap.quickinfo : 'Unità per la durata coda standard'
-  @sap.semantics : 'unit-of-measure'
-  StandardQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StandardQueueDurationUnit'
-  @sap.label : 'SumStandardQueueDuration'
-  SumStandardQueueDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità dur. coda min.'
-  @sap.quickinfo : 'Unità per durata coda minima'
-  @sap.semantics : 'unit-of-measure'
-  MinimumQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumQueueDurationUnit'
-  @sap.label : 'SumMinimumQueueDuration'
-  SumMinimumQueueDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM tempo trasf. min.'
-  @sap.quickinfo : 'Unità del tempo minimo di trasferimento'
-  @sap.semantics : 'unit-of-measure'
-  MinimumMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumMoveDurationUnit'
-  @sap.label : 'SumMinimumMoveDuration'
-  SumMinimumMoveDuration : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationStandardDurationUnit'
-  @sap.label : 'SumOperationStandardDuration'
-  SumOperationStandardDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Utà durata std'
-  @sap.quickinfo : 'Unità durata standard'
-  @sap.semantics : 'unit-of-measure'
-  OperationStandardDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumMinimumDuration'
-  SumMinimumDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità per durata minima'
-  @sap.quickinfo : 'Unità per la durata minima'
-  @sap.semantics : 'unit-of-measure'
-  MinimumDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'MinimumDurationUnit'
-  @sap.label : 'SumScheduledMoveDuration'
-  SumScheduledMoveDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo trasp.'
-  @sap.quickinfo : 'Unità di misura per tempo di trasporto'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledMoveDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumScheduledQueueDuration'
-  SumScheduledQueueDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo coda'
-  @sap.quickinfo : 'Unità di misura per tempo di coda'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledQueueDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumScheduledWaitDuration'
-  SumScheduledWaitDuration : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo attesa'
-  @sap.quickinfo : 'Unità di misura per tempo di attesa'
-  @sap.semantics : 'unit-of-measure'
-  ScheduledWaitDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumPlannedDeliveryDuration'
-  SumPlannedDeliveryDuration : Decimal(3, 0);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedSetupDurn'
-  SumOpPlannedSetupDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo attr.'
-  @sap.quickinfo : 'Unità di misura tempo attrezzaggio'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedSetupDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedProcessingDurn'
-  SumOpPlannedProcessingDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità tempo lavor.'
-  @sap.quickinfo : 'Unità di misura del tempo di lavorazione'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedProcessingDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'SumOpPlannedTeardownDurn'
-  SumOpPlannedTeardownDurn : Double;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM disattrezzaggio'
-  @sap.quickinfo : 'Unità di misura disattrezzaggio'
-  @sap.semantics : 'unit-of-measure'
-  OpPlannedTeardownDurnUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ActualForecastDurationUnit'
-  @sap.label : 'SumActualForecastDuration'
-  SumActualForecastDuration : Decimal(5, 1);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di durata di previsione effettiva'
-  @sap.quickinfo : 'Unità di durata di previsione da conferma'
-  @sap.semantics : 'unit-of-measure'
-  ActualForecastDurationUnit : String(3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Data in. riferimento'
-  @sap.quickinfo : 'Data di riferimento per inizio della sotto-operazione'
-  StartDateOffsetReferenceCode : String(2);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità offset inizio'
-  @sap.quickinfo : 'Unità per inizio offset'
-  @sap.semantics : 'unit-of-measure'
-  StartDateOffsetDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'StartDateOffsetDurationUnit'
-  @sap.label : 'SumStartDateOffsetDuration'
-  SumStartDateOffsetDuration : Decimal(5, 0);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Data fn. riferimento'
-  @sap.quickinfo : 'Data di riferimento per fine della sotto-operazione'
-  EndDateOffsetReferenceCode : String(2);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità fine offset'
-  @sap.quickinfo : 'Unità per fine offset'
-  @sap.semantics : 'unit-of-measure'
-  EndDateOffsetDurationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EndDateOffsetDurationUnit'
-  @sap.label : 'SumEndDateOffsetDuration'
-  SumEndDateOffsetDuration : Decimal(5, 0);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Chiave val. standard'
-  @sap.quickinfo : 'Chiave valore standard'
-  StandardWorkFormulaParamGroup : String(4);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità operazione'
-  @sap.quickinfo : 'Unità di misura operazione'
-  @sap.semantics : 'unit-of-measure'
-  OperationUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyDnmntr'
-  SumOpQtyToBaseQtyDnmntr : Decimal(5, 0);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOpQtyToBaseQtyNmrtr'
-  SumOpQtyToBaseQtyNmrtr : Decimal(5, 0);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OperationUnit'
-  @sap.label : 'SumOperationScrapPercent'
-  SumOperationScrapPercent : Decimal(5, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationReferenceQuantity'
-  SumOperationReferenceQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedTotalQuantity'
-  SumOpPlannedTotalQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedScrapQuantity'
-  SumOpPlannedScrapQuantity : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpPlannedYieldQuantity'
-  SumOpPlannedYieldQuantity : Decimal(14, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpTotalConfirmedYieldQty'
-  SumOpTotalConfirmedYieldQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpTotalConfirmedScrapQty'
-  SumOpTotalConfirmedScrapQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationConfirmedReworkQty'
-  SumOperationConfirmedReworkQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di produzione'
-  @sap.quickinfo : 'Unità di misura di produzione'
-  @sap.semantics : 'unit-of-measure'
-  ProductionUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'Qtà ott.in utà ord.'
-  @sap.quickinfo : 'Quantità ottenuta confermata in unità di misura ordine'
-  OpTotConfdYieldQtyInOrdQtyUnit : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 1'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 1'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit1 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit1'
-  @sap.label : 'SumOpConfirmedWorkQuantity1'
-  SumOpConfirmedWorkQuantity1 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 1 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà di lavoro restante 1 è prevista'
-  NoFurtherOpWorkQuantity1IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 2'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 2'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit2 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit2'
-  @sap.label : 'SumOpConfirmedWorkQuantity2'
-  SumOpConfirmedWorkQuantity2 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 2 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 2 prevista'
-  NoFurtherOpWorkQuantity2IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 3'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 3'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit3 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit3'
-  @sap.label : 'SumOpConfirmedWorkQuantity3'
-  SumOpConfirmedWorkQuantity3 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 3 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 3 prevista'
-  NoFurtherOpWorkQuantity3IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 4'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 4'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit4 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit4'
-  @sap.label : 'SumOpConfirmedWorkQuantity4'
-  SumOpConfirmedWorkQuantity4 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 4 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 4 prevista'
-  NoFurtherOpWorkQuantity4IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 5'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 5'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit5 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit5'
-  @sap.label : 'SumOpConfirmedWorkQuantity5'
-  SumOpConfirmedWorkQuantity5 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna qtà lavoro restante 5 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 5 prevista'
-  NoFurtherOpWorkQuantity5IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM per quantità di lavoro confermata 6'
-  @sap.quickinfo : 'Unità di misura per quantità di lavoro confermata 6'
-  @sap.semantics : 'unit-of-measure'
-  OpWorkQuantityUnit6 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'OpWorkQuantityUnit6'
-  @sap.label : 'SumOpConfirmedWorkQuantity6'
-  SumOpConfirmedWorkQuantity6 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Ness. qtà lavoro restante 6 prevista'
-  @sap.quickinfo : 'Indicatore: nessuna qtà lavoro restante 6 prevista'
-  NoFurtherOpWorkQuantity6IsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 1'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 1'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit1 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit1'
-  @sap.label : 'SumWorkCenterStandardWorkQty1'
-  SumWorkCenterStandardWorkQty1 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 1'
-  CostCtrActivityType1 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 2'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 2'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit2 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit2'
-  @sap.label : 'SumWorkCenterStandardWorkQty2'
-  SumWorkCenterStandardWorkQty2 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 2'
-  CostCtrActivityType2 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 3'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 3'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit3 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit3'
-  @sap.label : 'SumWorkCenterStandardWorkQty3'
-  SumWorkCenterStandardWorkQty3 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 3'
-  CostCtrActivityType3 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 4'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 4'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit4 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit4'
-  @sap.label : 'SumWorkCenterStandardWorkQty4'
-  SumWorkCenterStandardWorkQty4 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 4'
-  CostCtrActivityType4 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 5'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 5'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit5 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit5'
-  @sap.label : 'SumWorkCenterStandardWorkQty5'
-  SumWorkCenterStandardWorkQty5 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 5'
-  CostCtrActivityType5 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Un. quant. lavoro 6'
-  @sap.quickinfo : 'Unità di quantità di lavoro standard 6'
-  @sap.semantics : 'unit-of-measure'
-  WorkCenterStandardWorkQtyUnit6 : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumWorkCenterStandardWorkQty6'
-  SumWorkCenterStandardWorkQty6 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di attività centro di costo 6'
-  CostCtrActivityType6 : String(6);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity1'
-  SumForecastWorkQuantity1 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity2'
-  SumForecastWorkQuantity2 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity3'
-  SumForecastWorkQuantity3 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity4'
-  SumForecastWorkQuantity4 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity5'
-  SumForecastWorkQuantity5 : Decimal(9, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'WorkCenterStandardWorkQtyUnit6'
-  @sap.label : 'SumForecastWorkQuantity6'
-  SumForecastWorkQuantity6 : Decimal(9, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Business process'
-  BusinessProcess : String(12);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di processo'
-  @sap.quickinfo : 'Unità di misura della quantità per business process'
-  @sap.semantics : 'unit-of-measure'
-  BusinessProcessEntryUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BusinessProcessEntryUnit'
-  @sap.label : 'SumBusinessProcessConfirmedQty'
-  SumBusinessProcessConfirmedQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Nessuna att. res.'
-  @sap.quickinfo : 'Nessuna qtà residua prevista per business process'
-  NoFurtherBusinessProcQtyIsExpd : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Unità proc. residua'
-  @sap.quickinfo : 'Unità per la quantità residua di business process'
-  @sap.semantics : 'unit-of-measure'
-  BusinessProcRemainingQtyUnit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'BusinessProcRemainingQtyUnit'
-  @sap.label : 'SumBusinessProcessRemainingQty'
-  SumBusinessProcessRemainingQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza attrezzaggio'
-  @sap.quickinfo : 'Network att. operazione: ID istanza attrezzaggio'
-  SetupOpActyNtwkInstance : Integer;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza produzione'
-  @sap.quickinfo : 'Network att. operazione: ID istanza produzione'
-  ProduceOpActyNtwkInstance : Integer;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'ID istanza disattrezzaggio'
-  @sap.quickinfo : 'Network att. operazione: ID istanza disattrezzaggio'
-  TeardownOpActyNtwkInstance : Integer;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Chiave campo'
-  @sap.quickinfo : 'ID parola chiave per campi utente'
-  FreeDefinedTableFieldSemantic : String(7);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utn. 20 car.'
-  @sap.quickinfo : 'Campo utente 20 caratteri'
-  FreeDefinedAttribute01 : String(20);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utn. 20 car.'
-  @sap.quickinfo : 'Campo utente 20 caratteri'
-  FreeDefinedAttribute02 : String(20);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'CampoDefinDaUtente'
-  @sap.quickinfo : 'Campo utente con 10 caratteri'
-  FreeDefinedAttribute03 : String(10);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'CampoDefinDaUtente'
-  @sap.quickinfo : 'Campo utente con 10 caratteri'
-  FreeDefinedAttribute04 : String(10);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità per campi quantità'
-  @sap.semantics : 'unit-of-measure'
-  FreeDefinedQuantity1Unit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedQuantity1Unit'
-  @sap.label : 'SumFreeDefinedQuantity1'
-  SumFreeDefinedQuantity1 : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità per campi quantità'
-  @sap.semantics : 'unit-of-measure'
-  FreeDefinedQuantity2Unit : String(3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedQuantity2Unit'
-  @sap.label : 'SumFreeDefinedQuantity2'
-  SumFreeDefinedQuantity2 : Decimal(13, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità campi valore'
-  @sap.semantics : 'currency-code'
-  FreeDefinedAmount1Currency : String(5);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedAmount1Currency'
-  @sap.label : 'SumFreeDefinedAmount1'
-  SumFreeDefinedAmount1 : Decimal(13, 3);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente unità'
-  @sap.quickinfo : 'Campo utente: unità campi valore'
-  @sap.semantics : 'currency-code'
-  FreeDefinedAmount2Currency : String(5);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'FreeDefinedAmount2Currency'
-  @sap.label : 'SumFreeDefinedAmount2'
-  SumFreeDefinedAmount2 : Decimal(13, 3);
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente data'
-  @sap.quickinfo : 'Campo utente per data'
-  FreeDefinedDate1 : Date;
-  @sap.display.format : 'Date'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Campo utente data'
-  @sap.quickinfo : 'Campo utente per data'
-  FreeDefinedDate2 : Date;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utente cd.'
-  @sap.quickinfo : 'Campo utente: codici di valutazione'
-  FreeDefinedIndicator1 : Boolean;
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Cmp utente cd.'
-  @sap.quickinfo : 'Campo utente: codici di valutazione'
-  FreeDefinedIndicator2 : Boolean;
+  key OpSchedldReductionLevel : String(1) not null;
 };
 
 @cds.external : true
@@ -15060,12 +13668,41 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
   @sap.label : 'Ord. prod. combinato'
   @sap.quickinfo : 'Ordine prod. principale comb.'
   CprodOrd : String(12);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ordine prod. princ.'
+  @sap.quickinfo : 'Numero ordine di produzione principale'
+  MasterProductionOrder_1 : String(12);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ordine prod. princ.'
+  @sap.quickinfo : 'Numero ordine di produzione principale'
+  FshMprodOrd_1 : String(12);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Tipo di fabbisogno'
+  requirementtype : String(2);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Materiale'
+  @sap.quickinfo : 'Codice materiale'
+  Material_1 : String(40);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Descrizione prodotto'
+  ProductDescription : String(40);
   to_ZZ1_C_COMBINEDPRODORDER : Association to ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {  };
   to_ZZ1_C_COMBORDER_COMP : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {  };
   to_ZZ1_C_MASTERORDER_COMP : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {  };
+  to_ZZ1_C_MASTERORDER_COMP_1 : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {  };
   to_ZZ1_C_MASTERPRODORDER : Association to ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {  };
-  to_ZZ1_C_MFG_COMBINEDOPER : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPER {  };
-  to_ZZ1_C_MFG_MASTEROPER : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPER {  };
+  to_ZZ1_C_MFG_COMBINEDOPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {  };
+  to_ZZ1_C_MFG_MASTEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {  };
+  to_ZZ1_C_MFG_MASTEROPE_1 : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {  };
   to_ZZ1_C_MFG_OrderComp : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {  };
   to_ZZ1_C_MFG_ORDEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {  };
 };

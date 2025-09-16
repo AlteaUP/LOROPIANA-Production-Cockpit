@@ -5,8 +5,9 @@ using {
 
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
-using {ZZ1_C_MASTERPRODORDERAPI_CDS as masterProdOrder} from './external/ZZ1_C_MASTERPRODORDERAPI_CDS';
 
+@cds.query.limit.default: 500
+@cds.query.limit.max: 500
 service CatalogService {
 
     @readonly
@@ -17,13 +18,13 @@ service CatalogService {
         to_ZZ1_C_COMBORDER_COMP     : Composition of many ZZ1_C_COMBORDER_COMP
                                         on  CprodOrd                      = $self.CprodOrd,
 
-        to_ZZ1_C_MFG_COMBINEDOPE       : Composition of many ZZ1_C_MFG_COMBINEDOPER
+        to_ZZ1_C_MFG_COMBINEDOPE       : Composition of many ZZ1_C_MFG_COMBINEDOPE
                                         on CprodOrd                      = $self.CprodOrd,
         
         to_ZZ1_C_MASTERORDER_COMP     : Composition of many ZZ1_C_MASTERORDER_COMP
                                         on  FshMprodOrd                      = $self.FshMprodOrd,
 
-        to_ZZ1_C_MFG_MASTEROPER       : Composition of many ZZ1_C_MFG_MASTEROPER
+        to_ZZ1_C_MFG_MASTEROPE       : Composition of many ZZ1_C_MFG_MASTEROPE
                                         on FshMprodOrd                      = $self.FshMprodOrd,
 
         to_ZZ1_C_MFG_OrderComp       : Composition of many ZZ1_C_MFG_OrderComp
@@ -39,7 +40,7 @@ service CatalogService {
         *
     }
 
-    entity ZZ1_C_MFG_COMBINEDOPER as projection on mainService.ZZ1_C_MFG_COMBINEDOPER;
+    entity ZZ1_C_MFG_COMBINEDOPE as projection on mainService.ZZ1_C_MFG_COMBINEDOPE;
 
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP;
 
@@ -52,10 +53,7 @@ service CatalogService {
         *
     };
  
-    entity ZZ1_C_MFG_MASTEROPER as projection on mainService.ZZ1_C_MFG_MASTEROPER{
-        key MasterProductionOrder,
-        key ManufacturingOrderSequence,
-        key ManufacturingOrderOperation,
+    entity ZZ1_C_MFG_MASTEROPE as projection on mainService.ZZ1_C_MFG_MASTEROPE{
         *
     }
 

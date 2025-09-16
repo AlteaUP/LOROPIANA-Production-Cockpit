@@ -81,46 +81,6 @@
           }
         }
       },
-      "ZZ1_C_MASTERPRODORDERAPI_CDS": {
-        "kind": "odata-v2",
-        "model": "srv/external/ZZ1_C_MASTERPRODORDERAPI_CDS",
-        "csrf": true,
-        "csrfInBatch": true,
-        "[hybrid]": {
-          "credentials": {
-            "requestTimeout": 300000,
-            "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_C_MASTERPRODORDERAPI_CDS"
-          }
-        },
-        "[production]": {
-          "credentials": {
-            "requestTimeout": 300000,
-            "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_C_MASTERPRODORDERAPI_CDS"
-          }
-        }
-      },
-      "ZZ1_C_COMBINEDPRODORDERAPI_CDS": {
-        "kind": "odata-v2",
-        "model": "srv/external/ZZ1_C_COMBINEDPRODORDERAPI_CDS",
-        "csrf": true,
-        "csrfInBatch": true,
-        "[hybrid]": {
-          "credentials": {
-            "requestTimeout": 300000,
-            "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_C_COMBINEDPRODORDERAPI_CDS"
-          }
-        },
-        "[production]": {
-          "credentials": {
-            "requestTimeout": 300000,
-            "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_C_COMBINEDPRODORDERAPI_CDS"
-          }
-        }
-      },
       "API_PRODUCTION_ORDER_2_SRV": {
         "kind": "odata-v4",
         "model": "srv/external/API_PRODUCTION_ORDER_2_SRV",

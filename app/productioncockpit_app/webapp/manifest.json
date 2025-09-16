@@ -224,18 +224,6 @@
               "viewName": "productioncockpitapp.ext.view.OperationsOrder"
             }
           }
-        },
-        "pippo": {
-          "type": "Component",
-          "id": "pippo",
-          "name": "sap.fe.core.fpm",
-          "options": {
-            "settings": {
-              "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
-              "viewName": "productioncockpitapp.ext.view.OperationsOrder"
-            }
-          }
         }
       }
     }

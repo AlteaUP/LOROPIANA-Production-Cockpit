@@ -175,6 +175,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
 };
 
 annotate service.ZZ1_C_MASTERORDER_COMP with @(
+    UI.SelectionFields #MasterComp : [Material],
     UI.LineItem #Componenti : [
     ],
     UI.LineItem #tableMacroComponents : [
@@ -211,7 +212,7 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
     ],
 );
 
-annotate service.ZZ1_C_MFG_MASTEROPER with @(
+annotate service.ZZ1_C_MFG_MASTEROPE with @(
     UI.LineItem #tableMacroOperations : [
         {
             $Type : 'UI.DataField',
@@ -236,7 +237,7 @@ annotate service.ZZ1_C_MFG_MASTEROPER with @(
     ]
 );
 
-annotate service.ZZ1_C_MFG_COMBINEDOPER with @(
+annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
     UI.LineItem #tableMacroCombinedOperations : [
         {
             $Type : 'UI.DataField',

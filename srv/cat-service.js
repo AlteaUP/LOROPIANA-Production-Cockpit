@@ -3,7 +3,6 @@ const { default: cds } = require("@sap/cds");
 module.exports = cds.service.impl(async function (srv) {
 
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
-    const masterProdOrd = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
@@ -42,11 +41,13 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        const srv = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS')
+        id = id.split('~')[1]
+
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
         const data = await srv.send({
             method: 'GET',
-            path: `/ZZ1_C_MASTERPRODORDERAPI('${id}')/to_ZZ1_C_MASTERORDER_COMP`
+            path: "/ZZ1_C_MASTERORDER_COMP?$filter=FshMprodOrd eq '"+ id +"'"
         })
 
         console.log("risultati MASTER COMP: ", data.length)
@@ -54,8 +55,8 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-    this.on('READ', "ZZ1_C_MFG_MASTEROPER", async request => {
-        console.log("chiamata ZZ1_C_MFG_MASTEROPER")
+    this.on('READ', "ZZ1_C_MFG_MASTEROPE", async request => {
+        console.log("chiamata ZZ1_C_MFG_MASTEROPE")
         
         let id = null
         try {
@@ -66,11 +67,13 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        const srv = await cds.connect.to('ZZ1_C_MASTERPRODORDERAPI_CDS')
+        id = id.split('~')[1]
+
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
 
         const data = await srv.send({
             method: 'GET',
-            path: `/ZZ1_C_MASTERPRODORDERAPI('${id}')/to_ZZ1_C_MFG_MASTEROPE`
+            path: "/ZZ1_C_MFG_MASTEROPE?$filter=MasterProductionOrder eq '"+ id +"'"
         })
 
         console.log("risultati MASTER OPER: ", data.length)
@@ -81,6 +84,8 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_C_COMBORDER_COMP", async request => {
         console.log("chiamata ZZ1_C_COMBORDER_COMP")
 
+        console.log("SELECT COMPONENTI" +JSON.stringify(request.query.SELECT))
+
         let id = null
         try {
             id = request.query.SELECT.from.ref[0].where[2].val
@@ -90,11 +95,13 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        const srv = await cds.connect.to('ZZ1_C_COMBINEDPRODORDERAPI_CDS')
+        id = id.split('~')[1]
+
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
         const data = await srv.send({
             method: 'GET',
-            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_COMBORDER_COMP`
+            path: "/ZZ1_C_COMBORDER_COMP?$filter=CprodOrd eq '"+ id +"'"
         })
 
         console.log("risultati COMBINED COMP: ", data.length)
@@ -102,8 +109,8 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-    this.on('READ', "ZZ1_C_MFG_COMBINEDOPER", async request => {
-        console.log("chiamata ZZ1_C_MFG_COMBINEDOPER")
+    this.on('READ', "ZZ1_C_MFG_COMBINEDOPE", async request => {
+        console.log("chiamata ZZ1_C_MFG_COMBINEDOPE")
         
         let id = null
         try {
@@ -114,11 +121,13 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        const srv = await cds.connect.to('ZZ1_C_COMBINEDPRODORDERAPI_CDS')
+        id = id.split('~')[1]
+
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
         const data = await srv.send({
             method: 'GET',
-            path: `/ZZ1_C_COMBINEDPRODORDERAPI('${id}')/to_ZZ1_C_MFG_COMBINEDOPE`
+            path: "/ZZ1_C_MFG_COMBINEDOPE?$filter=CprodOrd eq '"+ id +"'"
         })
 
         console.log("risultati COMBINED OPER: ", data.length)
@@ -140,14 +149,6 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("chiamata ZZ1_C_MFG_ORDEROPE")
         console.log("BBBBBB "+request.query)
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
-
-        return data;
-    });
-
-    this.on('READ', "ZZ1_C_MASTERPRODORDERAPI", async request => {
-        console.log("chiamata ZZ1_C_MASTERPRODORDERAPI")
-        var data = await masterProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
 
         return data;
