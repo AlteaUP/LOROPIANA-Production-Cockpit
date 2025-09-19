@@ -101,16 +101,24 @@ module.exports = cds.service.impl(async function (srv) {
             console.error("impossibile estrarre l'ID ", err)
         return []
         }
-        console.log("ID estratto: ", id)
+        console.log("ID estratto: ", id) 
 
         id = id.split('~')[1]
 
+        const where = request.query.SELECT?.where  // array già parsato
+
         const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
-        const data = await srv.send({
-            method: 'GET',
-            path: "/ZZ1_C_COMBORDER_COMP?$filter=CprodOrd eq '"+ id +"'"
-        })
+        let data
+        if (where && where.length > 0) {
+            // aggiungo anche CprodOrder come AND
+            const combinedWhere = [
+                { ref: ['CprodOrd'] }, '=', { val: id }, 'and', ...where
+            ]
+            data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
+        } else {
+            data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id })
+        }
 
         console.log("risultati COMBINED COMP: ", data.length)
 

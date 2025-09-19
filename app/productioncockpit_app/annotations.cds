@@ -263,6 +263,7 @@ annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
 );
 
 annotate service.ZZ1_C_COMBORDER_COMP with @(
+    UI.SelectionFields #CombinedComp : [Material],
     UI.LineItem #tableMacroCombinedComponents : [
         {
             $Type : 'UI.DataField',
