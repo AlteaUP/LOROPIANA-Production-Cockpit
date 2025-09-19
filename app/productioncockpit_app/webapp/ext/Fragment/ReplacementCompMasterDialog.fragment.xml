@@ -74,7 +74,7 @@
       </content>
       <beginButton>
         <Button 
-          id="CloseManualAccountingDialog" 
+          id="CloseReplacementCompMasterDialogButton" 
           type="Emphasized"
           width="47.5%"
           icon="sap-icon://decline"
@@ -83,7 +83,7 @@
         </beginButton>
         <endButton>
         <Button 
-          id="ConfirmManualAccountingDialog" 
+          id="ConfirmReplacementCompMasterDialogButton" 
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"
