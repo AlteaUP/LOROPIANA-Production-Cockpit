@@ -43,12 +43,20 @@ module.exports = cds.service.impl(async function (srv) {
 
         id = id.split('~')[1]
 
+        const where = request.query.SELECT?.where  // array già parsato
+
         const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
-        const data = await srv.send({
-            method: 'GET',
-            path: "/ZZ1_C_MASTERORDER_COMP?$filter=FshMprodOrd eq '"+ id +"'"
-        })
+        let data
+        if (where && where.length > 0) {
+            // aggiungo anche FshMprodOrd come AND
+            const combinedWhere = [
+                { ref: ['FshMprodOrd'] }, '=', { val: id }, 'and', ...where
+            ]
+            data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
+        } else {
+            data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: id })
+        }
 
         console.log("risultati MASTER COMP: ", data.length)
 
@@ -156,13 +164,15 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on("READ", "ZZ1_C_MASTERORDER_COMP", async (req) => {
         try {
-        // collego al servizio remoto
-        const masterSrv = await cds.connect.to("ZZ1_C_MASTERPRODORDERAPI_CDS");
+            // collego al servizio remoto
+            const masterSrv = await cds.connect.to("ZZ1_C_MASTERPRODORDERAPI_CDS");
 
-        // inoltro la query originale al servizio esterno
-        const result = await masterSrv.run(req.query);
+            // inoltro la query originale al servizio esterno
+            const result = await masterSrv.run(req.query);
 
-        return result;
+            console.log("ENTRATOOOOOOOOOOO")
+
+            return result;
         } catch (err) {
         req.error(500, `Errore durante la fetch da ZZ1_C_MASTERPRODORDERAPI_CDS: ${err.message}`);
         }

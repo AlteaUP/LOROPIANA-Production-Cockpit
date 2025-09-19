@@ -5,6 +5,8 @@ sap.ui.define(
     function(PageController) {
         'use strict';
 
+        var oController;
+
         return PageController.extend('productioncockpitapp.ext.view.Operations', {
             /**
              * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -12,6 +14,7 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.view.Operations
              */
             onInit: function () {
+                oController = this;
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
                     if(ctx !== undefined && ctx !== null){
@@ -20,6 +23,19 @@ sap.ui.define(
                         ctx.sPath = newPath
                     }
                     console.log("View binding context:", ctx && ctx.getPath());
+                });
+                this.byId("TableCombinedOperations").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::changeWCCombAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::addPhaseCombAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::deletePhaseCombAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::movePhaseCombAction").setEnabled(true);                        
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::changeWCCombAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::addPhaseCombAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::deletePhaseCombAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::movePhaseCombAction").setEnabled(false);                        
+                    }
                 });
             }
 

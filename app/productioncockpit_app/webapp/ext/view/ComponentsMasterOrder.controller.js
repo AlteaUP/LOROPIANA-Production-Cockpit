@@ -1,8 +1,9 @@
 sap.ui.define(
     [
-        'sap/fe/core/PageController'
+        'sap/fe/core/PageController',
+        'sap/ui/model/json/JSONModel'
     ],
-    function(PageController) {
+    function(PageController, JSONModel) {
         'use strict';
 
         var oController;
@@ -15,6 +16,7 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.view.Components
              */
             onInit: function () {
+                oController = this;
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
                     if(ctx !== undefined && ctx !== null){
@@ -24,6 +26,51 @@ sap.ui.define(
                     }
                     console.log("View binding context:", ctx && ctx.getPath());
                 });
+                this.byId("TableComponents").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::replacementCompMasterAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::integrationCompMasterAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::deleteCompMasterAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::closeCompMasterAction").setEnabled(true);                        
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::replacementCompMasterAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::integrationCompMasterAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::deleteCompMasterAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::closeCompMasterAction").setEnabled(false);                        
+                    }
+                });
+            },
+
+            onAfterRendering: function() {                
+                sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--FilterBarMasterComp-content-btnSearch").firePress()
+            },
+
+            onReplacementCompMaster: function(){
+                if(oController.pReplacementCompMasterDialog === null || oController.pReplacementCompMasterDialog === undefined){
+                    oController.pReplacementCompMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ReplacementCompMasterDialog", oController);
+                    oController.getView().addDependent(oController.pReplacementCompMasterDialog);
+                }
+
+                oController.pReplacementCompMasterDialog.open();
+
+                 var selectedComponentsMasterArray = []
+                 for(var i=0; i<oController.byId("TableComponents").getSelectedContexts().length; i++){
+                    selectedComponentsMasterArray.push(oController.byId("TableComponents").getSelectedContexts()[i].getObject())
+                 }
+
+                 var oTable = oController.byId("ReplacementCompMasterTableId");
+                    
+                var oModel = new JSONModel();
+                oModel.setData({ SelectedComponentsMaster: selectedComponentsMasterArray})
+                oTable.setModel(oModel);
+            },
+
+            onCloseReplacementCompMasterDialog: function(){
+                oController.pReplacementCompMasterDialog.close();
+            }, 
+
+            onConfirmReplacementCompMasterDialog: function(){
+                oController.pReplacementCompMasterDialog.close();
             }
 
             /*onInit: function () {

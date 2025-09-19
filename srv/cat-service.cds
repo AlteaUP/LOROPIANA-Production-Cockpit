@@ -34,35 +34,43 @@ service CatalogService {
                                         on ManufacturingOrder               = $self.ManufacturingOrder                                        
     }
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
         key CprodOrd,
         key Material,
         *
     }
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_COMBINEDOPE as projection on mainService.ZZ1_C_MFG_COMBINEDOPE;
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP;
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_OrderComp as projection on mainService.ZZ1_C_MFG_OrderComp{
         key ID,
         *
     };
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_ORDEROPE as projection on mainService.ZZ1_C_MFG_ORDEROPE{
         *
     };
  
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_MASTEROPE as projection on mainService.ZZ1_C_MFG_MASTEROPE{
         *
     }
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERPRODORDER as projection on mainService.ZZ1_C_MASTERPRODORDER{
         key ID,
         key MRPController,
         *
     };
 
+    @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER;
 
     action ReleaseOrder (OrderID : array of String) returns String;

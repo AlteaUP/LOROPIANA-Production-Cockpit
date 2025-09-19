@@ -1,0 +1,94 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="ReplacementCompCombinedDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>replacementComp}">
+      <content>
+      	<Table id="ReplacementCompCombinedTableId"
+          items="{
+            path: '/SelectedComponentsCombined'
+          }">
+          <columns>
+                <Column>
+                    <Text text="{i18n>FshMprodOrd}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>plant}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>material}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ManufacturingOrderOperation}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ManufacturingOrderSequence}"  />
+                </Column>
+                <Column>
+                    <Text text="{i18n>quantity}"/>
+                </Column>
+                <Column id="lgort1ID">
+                    <Text text="{i18n>lgort1}"/>
+                </Column>
+                <Column id="lgort2ID">
+                    <Text text="{i18n>lgort2}"/>
+                </Column>
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+              <Input 
+                  value="{FshMprodOrd}" editable="false" />
+                <Input 
+                  value="{Plant}" editable="false" />
+                <Input 
+                  value="{Material}" editable="false" />
+                <Input 
+                  value="{Batch}" editable="false" />
+                <Input 
+                  value="{ManufacturingOrderOperation}" />
+                <Input 
+                  value="{ManufacturingOrderSequence}"  />
+                <Input 
+                  value="{TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
+                <Input 
+                  value="{Lgort1}" editable="false" />
+                <Input 
+                  value="{Lgort2}" editable="false" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseManualAccountingDialog" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseReplacementCompCombinedDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmManualAccountingDialog" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmReplacementCompCombinedDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

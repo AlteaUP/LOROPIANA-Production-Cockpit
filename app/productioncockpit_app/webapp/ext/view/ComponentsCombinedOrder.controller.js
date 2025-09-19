@@ -15,6 +15,7 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.view.Components
              */
             onInit: function () {
+                oController = this;
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
                     if(ctx !== undefined && ctx !== null){
@@ -24,6 +25,47 @@ sap.ui.define(
                     }
                     console.log("View binding context:", ctx && ctx.getPath());
                 });
+                this.byId("TableCombinedComponents").attachSelectionChange(function (oEvent) {
+                    if(oEvent.getParameters().selectedContext.length > 0){
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::replacementCompCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::deleteCompCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(true);                        
+                    } else {
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::replacementCompCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::deleteCompCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(false);                        
+                    }
+                });
+            },
+
+            onReplacementCompCombined: function(){
+                if(oController.pReplacementCompCombinedDialog === null || oController.pReplacementCompCombinedDialog === undefined){
+                    oController.pReplacementCompCombinedDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ReplacementCompCombinedDialog", oController);
+                    oController.getView().addDependent(oController.pReplacementCompCombinedDialog);
+                }
+
+                oController.pReplacementCompCombinedDialog.open();
+
+                 var selectedComponentsCombinedArray = []
+                 for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
+                    selectedComponentsCombinedArray.push(oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject())
+                 }
+
+                 var oTable = oController.byId("ReplacementCompCombinedTableId");
+                    
+                var oModel = new JSONModel();
+                oModel.setData({ SelectedComponentsCombined: selectedComponentsCombinedArray})
+                oTable.setModel(oModel);
+            },
+
+            onCloseReplacementCompCombinedDialog: function(){
+                oController.pReplacementCompCombinedDialog.close();
+            }, 
+
+            onConfirmReplacementCompCombinedDialog: function(){
+                oController.pReplacementCompCombinedDialog.close();
             }
 
             /*onInit: function () {
