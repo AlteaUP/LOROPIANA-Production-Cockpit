@@ -3,8 +3,11 @@ using {
     managed
 } from '@sap/cds/common';
 
+using {ProductionCockpit.zproduction_cockpit.db.TYPES as TYPES} from '../db/TYPES';
+
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
+using {ZMFG_SD_INT_COMP_H as componentsAction} from './external/ZMFG_SD_INT_COMP_H';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -35,11 +38,7 @@ service CatalogService {
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
-        key CprodOrd,
-        key Material,
-        *
-    }
+    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP;
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_COMBINEDOPE as projection on mainService.ZZ1_C_MFG_COMBINEDOPE;
@@ -73,10 +72,14 @@ service CatalogService {
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER;
 
+    entity intcomph as projection on componentsAction.intcomph;
+
     action ReleaseOrder (OrderID : array of String) returns String;
 
     action TechnicalCompleteOrder (OrderID : array of String) returns String;
 
     action CloseOrder (OrderID : array of String) returns String;
+
+    action Replacement (Record: many TYPES.ReplacementRecord) returns String;
 
 }

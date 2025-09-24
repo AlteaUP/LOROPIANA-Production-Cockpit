@@ -1,0 +1,359 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.1.0"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "ZMFG_SD_INT_COMP_H.intcomphCbAControl": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "to_intcomp": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dynamic CbA-Control",
+     "@Common.Heading": "Dynamic Create by Association Control",
+     "@Common.QuickInfo": "Dynamic Create via Association Control Property"
+    }
+   }
+  },
+  "ZMFG_SD_INT_COMP_H.EntityControl": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Deletable": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "Updatable": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    }
+   }
+  },
+  "ZMFG_SD_INT_COMP_H": {
+   "kind": "service",
+   "@cds.external": true,
+   "@CodeList.UnitsOfMeasure": {
+    "Url": "../../../../default/iwbep/common/0001/$metadata",
+    "CollectionPath": "UnitsOfMeasure"
+   },
+   "@Aggregation.ApplySupported": {
+    "Transformations": [
+     "aggregate",
+     "groupby",
+     "filter"
+    ],
+    "Rollup": {
+     "#": "None"
+    }
+   },
+   "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+   "@Capabilities.FilterFunctions": [
+    "eq",
+    "ne",
+    "gt",
+    "ge",
+    "lt",
+    "le",
+    "and",
+    "or",
+    "contains",
+    "startswith",
+    "endswith",
+    "any",
+    "all"
+   ],
+   "@Capabilities.SupportedFormats": [
+    "application/json",
+    "application/pdf"
+   ],
+   "@PDF.Features": {
+    "DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+    "DocumentDescriptionCollection": "MyDocumentDescriptions",
+    "ArchiveFormat": true,
+    "Border": true,
+    "CoverPage": true,
+    "FitToPage": true,
+    "FontName": true,
+    "FontSize": true,
+    "Margin": true,
+    "Padding": true,
+    "Signature": true,
+    "HeaderFooter": true,
+    "ResultSizeDefault": 20000,
+    "ResultSizeMaximum": 20000
+   },
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Capabilities.AsynchronousRequestsSupported": true
+  },
+  "ZMFG_SD_INT_COMP_H.intcomph": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "id": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "non utilizzato",
+     "@Common.QuickInfo": "Campo di testo a tre caratteri per IDocs"
+    },
+    "__CreateByAssociationControl": {
+     "type": "ZMFG_SD_INT_COMP_H.intcomphCbAControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dynamic CbA-Control",
+     "@Common.Heading": "Dynamic Create by Association Control",
+     "@Common.QuickInfo": "Dynamic Create via Association Control Property"
+    },
+    "__EntityControl": {
+     "type": "ZMFG_SD_INT_COMP_H.EntityControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "to_intcomp": {
+     "type": "cds.Composition",
+     "target": "ZMFG_SD_INT_COMP_H.intcompi",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": [],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Custom entity per integrazione componenti",
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "to_intcomp"
+     },
+     "InsertRestrictions": {
+      "Insertable": {
+       "=": "__CreateByAssociationControl/to_intcomp"
+      }
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "__CreateByAssociationControl",
+    "__EntityControl"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "__CreateByAssociationControl",
+    "__EntityControl"
+   ],
+   "@Capabilities.ReadRestrictions.Readable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": {
+    "=": "__EntityControl/Deletable"
+   },
+   "@Capabilities.UpdateRestrictions.Updatable": {
+    "=": "__EntityControl/Updatable"
+   },
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "ZMFG_SD_INT_COMP_H.intcompi": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "id": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "non utilizzato",
+     "@Common.QuickInfo": "Campo di testo a tre caratteri per IDocs"
+    },
+    "CprodOrd": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Ord. prod. combinato",
+     "@Common.Heading": "Ordine di produzione combinato",
+     "@Common.QuickInfo": "Ordine prod. principale comb."
+    },
+    "FshMprodOrd": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Ordine prod. princ.",
+     "@Common.Heading": "Ordine di produzione principale",
+     "@Common.QuickInfo": "Numero ordine di produzione principale"
+    },
+    "matnr_new": {
+     "key": true,
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Materiale",
+     "@Common.QuickInfo": "Codice materiale"
+    },
+    "matnr_old": {
+     "key": true,
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Materiale",
+     "@Common.QuickInfo": "Codice materiale"
+    },
+    "charg": {
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Partita",
+     "@Common.QuickInfo": "Numero partita"
+    },
+    "meins": {
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.IsUnit": true,
+     "@Common.Label": "Unità misura base",
+     "@Common.Heading": "UMO",
+     "@Common.QuickInfo": "Unità di misura di base"
+    },
+    "menge": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "notNull": true,
+     "@Measures.Unit": {
+      "=": "meins"
+     },
+     "@Common.Label": "Quantità"
+    },
+    "vornr": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Collegamento logico",
+     "@Common.Heading": "Collegamento logico di variabili a ricerca classi",
+     "@Common.QuickInfo": "Tipo di dati 4 caratteri"
+    },
+    "plnfl": {
+     "type": "cds.String",
+     "length": 6,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Sequenza",
+     "@Common.Heading": "Seq."
+    },
+    "note": {
+     "type": "cds.String",
+     "length": 50,
+     "notNull": true,
+     "@Common.Label": "c",
+     "@Common.QuickInfo": "Commento"
+    },
+    "reason": {
+     "type": "cds.String",
+     "length": 50,
+     "notNull": true,
+     "@Common.Label": "c",
+     "@Common.QuickInfo": "Commento"
+    },
+    "lgort": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Magazzino",
+     "@Common.Heading": "Mag."
+    },
+    "werks": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Divisione",
+     "@Common.Heading": "Div."
+    },
+    "stk_seg": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Segmento stock"
+    },
+    "action": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Collegamento logico",
+     "@Common.Heading": "Collegamento logico di variabili a ricerca classi",
+     "@Common.QuickInfo": "Tipo di dati 4 caratteri"
+    },
+    "__EntityControl": {
+     "type": "ZMFG_SD_INT_COMP_H.EntityControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "parent": {
+     "type": "cds.Association",
+     "target": "ZMFG_SD_INT_COMP_H.intcomph",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@Common.Label": "Custom entity per integrazione componenti",
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "parent"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "__EntityControl"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "__EntityControl"
+   ],
+   "@Capabilities.ReadRestrictions.Readable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": {
+    "=": "__EntityControl/Deletable"
+   },
+   "@Capabilities.UpdateRestrictions.Updatable": {
+    "=": "__EntityControl/Updatable"
+   },
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  }
+ }
+}

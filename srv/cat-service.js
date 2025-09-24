@@ -4,6 +4,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
+    const componentsCall = await cds.connect.to('ZMFG_SD_INT_COMP_H');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -320,6 +321,49 @@ module.exports = cds.service.impl(async function (srv) {
 
         return response
        
-    })
+    });
+
+    this.on("Replacement", async (req) => {
+        console.log("Replacement Action")
+
+        const Records = req.data.Record;
+        
+        var payload = {
+            "id": "001", "to_intcomp": Records
+        }
+
+        console.log("PAYLOAD "+JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+
+            let callCreate = await componentsCall.tx(req).post("/intcomph", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callCreate))
+            /*if(multipleDelivery){
+                var error = JSON.parse(JSON.stringify(callCreate)).DeliveryItems[0].FlErr
+                if(error){
+                    response = response + "; " + "Errore: " + JSON.parse(JSON.stringify(callCreate)).DeliveryItems[0].LogMess
+                } else {
+                    response = response + "; " + JSON.parse(JSON.stringify(callCreate)).DeliveryItems[0].vbeln
+                }
+            } else {
+                return callCreate
+            }*/
+
+        } catch (error) {
+
+            console.log("ERRORE "+error.message)
+
+            return error.message
+            
+            /*if(multipleDelivery){
+                response = response + "|| " + error.message
+            } else {
+                return error.message
+            }    */            
+        }
+    });
 
 });

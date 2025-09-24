@@ -23,28 +23,28 @@ sap.ui.define(
                 oController = this;
             //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
                 this.byId("IconTabFilterId").setSelectedKey("master");
-                this.byId("Table1").attachSelectionChange(function (oEvent) {
+                this.byId("TableMaster").attachSelectionChange(function (oEvent) {
                     if(oEvent.getParameters().selectedContext.length > 0){
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::componentsAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::operationsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::componentsAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table1-content::CustomAction::operationsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
                     }
                 });
-                this.byId("Table2").attachSelectionChange(function (oEvent) {
+                this.byId("TableCombined").attachSelectionChange(function (oEvent) {
                     if(oEvent.getParameters().selectedContext.length > 0){
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::componentsCombinedAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::operationsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::releaseOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::closeOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::componentsCombinedAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content::CustomAction::operationsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
                     }
                 });
                 this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -57,7 +57,7 @@ sap.ui.define(
                     }
                 });
                 //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content").setSelectionMode("Multi")
-                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2-content").setSelectionMode("Multi")
+                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content").setSelectionMode("Multi")
             },
 
             /**
@@ -84,8 +84,8 @@ sap.ui.define(
                     console.log("Order Table length "+dataOrderTable.length)
                 });
                 // recupero dati tabella master ordini
-                var oTable1 = this.byId("Table1");
-                var oBinding1 = oTable1.getRowBinding()
+                var oTableMaster = this.byId("TableMaster");
+                var oBinding1 = oTableMaster.getRowBinding()
                 oBinding1.requestContexts(0, 10000).then(function(aContexts) {
                     dataMasterTable = aContexts.map(ctx => ctx.getObject());
                     console.log("Master Table length "+dataMasterTable.length)
@@ -122,7 +122,7 @@ sap.ui.define(
                     }
                                 
                 } else if(oEvent.getSource().getSelectedKey() === "combined"){
-                    var oTable = this.byId("Table2"); // ID della tabella
+                    var oTable = this.byId("TableCombined"); // ID della tabella
                     var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
                     var filterArray = []
             
@@ -130,8 +130,8 @@ sap.ui.define(
                     if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
                         for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
                             if(this.byId("FilterBarMaster").getFilters().filters[i].sPath === 'MasterProductionOrder'){
-                                if(this.byId("Table1").getMDCTable().getRowBinding() !== undefined){
-                                    var value = this.byId("Table1").getMDCTable().getRowBinding().aContexts[0].getValue().CombinedOrder
+                                if(this.byId("TableMaster").getMDCTable().getRowBinding() !== undefined){
+                                    var value = this.byId("TableMaster").getMDCTable().getRowBinding().aContexts[0].getValue().CombinedOrder
                                     var oFilter = new sap.ui.model.Filter("CombinedOrder", sap.ui.model.FilterOperator.EQ, value);
                                     filterArray.push(oFilter)
                                 }
@@ -163,11 +163,11 @@ sap.ui.define(
                 this.oRouter = oComponent.getRouter();
                 
                 var key = ""
-                for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("TableMaster").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table1").getSelectedContexts()[i].getObject().ID
+                        key = this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().ID
+                        key = key + ";" + this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
@@ -186,11 +186,11 @@ sap.ui.define(
                 this.oRouter = oComponent.getRouter();
 
                 var key = ""
-                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("TableCombined").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                        key = this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                        key = key + ";" + this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
@@ -208,11 +208,11 @@ sap.ui.define(
                 this.oRouter = oComponent.getRouter();
                 
                 var key = ""
-                for(var i=0; i<this.byId("Table2").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("TableCombined").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                        key = this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table2").getSelectedContexts()[i].getObject().ID
+                        key = key + ";" + this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
@@ -231,11 +231,11 @@ sap.ui.define(
                 this.oRouter = oComponent.getRouter();
 
                 var key = ""
-                for(var i=0; i<this.byId("Table1").getSelectedContexts().length; i++){       
+                for(var i=0; i<this.byId("TableMaster").getSelectedContexts().length; i++){       
                     if(i ===  0){
-                        key = this.byId("Table1").getSelectedContexts()[i].getObject().ID
+                        key = this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
                     } else {            
-                        key = key + ";" + this.byId("Table1").getSelectedContexts()[i].getObject().ID
+                        key = key + ";" + this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
                     }
                 }
 
@@ -444,8 +444,8 @@ sap.ui.define(
             getProductionOrder: function(){
                 // recupero ordini di produzione
                 var arrayProductionOrder = []
-                for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2").getSelectedContexts().length; i++){
-                    var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table2").getSelectedContexts()[i].getObject().CombinedOrder
+                for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined").getSelectedContexts().length; i++){
+                    var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
                     for(var y = 0; y < dataMasterTable.length; y++){
                         if(dataMasterTable[y].CombinedOrder === combinedOrder){
                             var masterOrder = dataMasterTable[y].MasterProductionOrder

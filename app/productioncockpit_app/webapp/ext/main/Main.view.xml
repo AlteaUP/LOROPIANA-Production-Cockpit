@@ -5,7 +5,7 @@
             <IconTabBar id="IconTabFilterId" select=".selectIconTabFilter">
                 <items>
                     <IconTabFilter text="Combined" key="combined">
-                        <macros:Table id="Table2" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
+                        <macros:Table id="TableCombined" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
                             <macros:actions>
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="technicalCompleteOrderID" key="technicalCompleteOrderAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
@@ -16,7 +16,7 @@
                         </macros:Table>
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
-                        <macros:Table id="Table1" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
+                        <macros:Table id="TableMaster" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
                             <macros:actions>
                                 <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponentsMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperationsMasterOrder" placement="After" requiresSelection="true"/>

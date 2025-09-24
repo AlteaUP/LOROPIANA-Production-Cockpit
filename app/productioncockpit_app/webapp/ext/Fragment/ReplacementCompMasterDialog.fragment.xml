@@ -28,45 +28,50 @@
                     <Text text="{i18n>material}"/>
                 </Column>
                 <Column>
+                    <Text text="{i18n>newMaterial}"/>
+                </Column>
+                <Column>
                     <Text text="{i18n>batch}"/>
                 </Column>
                 <Column>
                     <Text text="{i18n>ManufacturingOrderOperation}"/>
                 </Column>
                 <Column>
-                    <Text text="{i18n>ManufacturingOrderSequence}"  />
-                </Column>
-                <Column>
                     <Text text="{i18n>quantity}"/>
                 </Column>
-                <Column id="lgort1ID">
+                <Column id="lgort1_ID">
                     <Text text="{i18n>lgort1}"/>
                 </Column>
-                <Column id="lgort2ID">
-                    <Text text="{i18n>lgort2}"/>
+                <Column id="note_ID">
+                    <Text text="{i18n>note}"/>
+                </Column>
+                <Column id="reason_ID">
+                    <Text text="{i18n>reason}"/>
                 </Column>
             </columns>
           <items>
             <ColumnListItem vAlign="Middle">
               <cells>
-              <Input 
+                <Input 
                   value="{FshMprodOrd}" editable="false" />
                 <Input 
                   value="{Plant}" editable="false" />
                 <Input 
                   value="{Material}" editable="false" />
                 <Input 
-                  value="{Batch}" editable="false" />
+                  value="{NewMaterial}" editable="true" />
                 <Input 
-                  value="{ManufacturingOrderOperation}" />
+                  value="{Batch}" editable="true" />
                 <Input 
-                  value="{ManufacturingOrderSequence}"  />
+                  value="{ManufacturingOrderOperation}" editable="true" />
                 <Input 
                   value="{TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
                 <Input 
-                  value="{Lgort1}" editable="false" />
+                  value="{Lgort1}" editable="true" />
                 <Input 
-                  value="{Lgort2}" editable="false" />
+                  value="{Note}" editable="true" />
+                <Input 
+                  value="{Reason}" editable="true" />
               </cells>
             </ColumnListItem>
           </items>

@@ -216,6 +216,11 @@ annotate service.ZZ1_C_MFG_MASTEROPE with @(
     UI.LineItem #tableMacroOperations : [
         {
             $Type : 'UI.DataField',
+            Value : MasterProductionOrder,
+            Label : 'MasterProductionOrder',
+        },
+        {
+            $Type : 'UI.DataField',
             Value : MaterialGroup,
             Label : 'MaterialGroup',
         },
@@ -229,10 +234,20 @@ annotate service.ZZ1_C_MFG_MASTEROPE with @(
             Value : ManufacturingOrderOperation,
             Label : 'ManufacturingOrderOperation',
         },
+                {
+            $Type : 'UI.DataField',
+            Value : MfgOrderOperationText,
+            Label : 'MfgOrderOperationText',
+        },
         {
             $Type : 'UI.DataField',
-            Value : ManufacturingOrderOperation_2,
-            Label : 'ManufacturingOrderOperation_2',
+            Value : Supplier,
+            Label : 'Supplier',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : WorkCenterInternalID,
+            Label : 'WorkCenterInternalID',
         },
     ]
 );
@@ -241,6 +256,11 @@ annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
     UI.LineItem #tableMacroCombinedOperations : [
         {
             $Type : 'UI.DataField',
+            Value : CprodOrd,
+            Label : 'CprodOrd',
+        },
+        {
+            $Type : 'UI.DataField',
             Value : MaterialGroup,
             Label : 'MaterialGroup',
         },
@@ -256,8 +276,18 @@ annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : ManufacturingOrderOperation_2,
-            Label : 'ManufacturingOrderOperation_2',
+            Value : MfgOrderOperationText,
+            Label : 'MfgOrderOperationText',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Supplier,
+            Label : 'Supplier',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : WorkCenterInternalID,
+            Label : 'WorkCenterInternalID',
         },
     ]
 );

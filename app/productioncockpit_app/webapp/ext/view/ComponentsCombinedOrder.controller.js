@@ -1,8 +1,10 @@
 sap.ui.define(
     [
-        'sap/fe/core/PageController'
+        'sap/fe/core/PageController',
+        'sap/ui/model/json/JSONModel',
+        "sap/m/Dialog",
     ],
-    function(PageController) {
+    function(PageController, JSONModel, Dialog) {
         'use strict';
 
         var oController;
@@ -44,24 +46,55 @@ sap.ui.define(
                 sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--FilterBarCombinedComp-content-btnSearch").firePress()
             },
 
-            onReplacementCompCombined: function(){
-                if(oController.pReplacementCompCombinedDialog === null || oController.pReplacementCompCombinedDialog === undefined){
-                    oController.pReplacementCompCombinedDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ReplacementCompCombinedDialog", oController);
-                    oController.getView().addDependent(oController.pReplacementCompCombinedDialog);
+            onActionComponentsCombined: function(oEvent){
+                var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
+                // controllo quale pulsante ho selezionato
+                switch(buttonId) {
+                case "replacementCompCombinedAction":
+                    // code block
+                    oController.buttonSelected = "replacement"
+                    break;
+                case "integrationCompCombinedAction":
+                    // code block
+                    oController.buttonSelected = "integration"
+                    break;
+                case "deleteCompCombinedAction":
+                    // code block
+                    oController.buttonSelected = "delete"
+                    break;
+                case "closeCompCombinedAction":
+                    // code block
+                    oController.buttonSelected = "close"
+                    break;
+                default:
+                    // code block
+                    oController.buttonSelected = ""
                 }
+                if(oController.buttonSelected === "replacement" || oController.buttonSelected === "integration"){
+                    if(oController.pReplacementCompCombinedDialog === null || oController.pReplacementCompCombinedDialog === undefined){
+                        oController.pReplacementCompCombinedDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ReplacementCompCombinedDialog", oController);
+                        oController.getView().addDependent(oController.pReplacementCompCombinedDialog);
+                    }
 
-                oController.pReplacementCompCombinedDialog.open();
+                    oController.pReplacementCompCombinedDialog.open();
 
-                 var selectedComponentsCombinedArray = []
-                 for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
-                    selectedComponentsCombinedArray.push(oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject())
-                 }
+                    var selectedComponentsCombinedArray = []
+                    var selectedComponentsCombinedObject = {}
+                    for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
+                        selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
+                        selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
+                        selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
+                    }
 
-                 var oTable = oController.byId("ReplacementCompCombinedTableId");
-                    
-                var oModel = new JSONModel();
-                oModel.setData({ SelectedComponentsCombined: selectedComponentsCombinedArray})
-                oTable.setModel(oModel);
+                    var oTable = oController.byId("ReplacementCompCombinedTableId");
+                        
+                    var oModel = new JSONModel();
+                    oModel.setData({ SelectedComponentsCombined: selectedComponentsCombinedArray})
+                    oTable.setModel(oModel);
+                } else {
+                    oController.onDeleteCloseComponentsCombined()
+                }
+                
             },
 
             onCloseReplacementCompCombinedDialog: function(){
@@ -69,8 +102,172 @@ sap.ui.define(
             }, 
 
             onConfirmReplacementCompCombinedDialog: function(){
+                console.log("onConfirmReplacementCompCombinedDialog");
+                var dataToSend = []
+                var dataObjectToSend = {}
+                var table = this.byId("ReplacementCompCombinedTableId").getModel().oData.SelectedComponentsMaster
+
+                for(var i=0; i<table.length; i++){
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.CprodOrd = table[i].CprodOrd
+                    dataObjectToSend.FshMprodOrd = table[i].FshMprodOrd
+                    if(table[i].NewMaterial !== null && table[i].NewMaterial !== undefined){
+                        dataObjectToSend.matnr_new = table[i].NewMaterial
+                    } else {
+                        dataObjectToSend.matnr_new = ""
+                    }
+                    dataObjectToSend.matnr_old = table[i].Material
+                    dataObjectToSend.charg = table[i].Batch
+                    dataObjectToSend.meins = table[i].BaseUnit
+                    dataObjectToSend.menge = table[i].TotalConfdQtyForATPInBaseUoM
+                    dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
+                    dataObjectToSend.note = table[i].Note
+                    dataObjectToSend.reason = table[i].Reason
+                    dataObjectToSend.lgort = table[i].Lgort1 
+                    dataObjectToSend.werks = table[i].Plant
+                    dataObjectToSend.stk_seg = table[i].RequirementSegment                    
+                    if(oController.buttonSelected === 'replacement'){
+                        dataObjectToSend.action = "SOST"
+                    } else if(oController.buttonSelected === 'integration'){ 
+                        dataObjectToSend.action = "INTE"
+                    } else {
+                        dataObjectToSend.action = ""
+                    }
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/Replacement(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();    
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        oBusyDialog.close();
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    oBusyDialog.close();
+                }
                 oController.pReplacementCompCombinedDialog.close();
-            }
+            },
+
+            onDeleteCloseComponentsCombined: function (){
+                console.log("onDeleteCloseComponentsCombined");
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                for(var i=0; i<this.byId("TableCombinedComponents").getSelectedContexts().length; i++){
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.CprodOrd = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().CprodOrd
+                    dataObjectToSend.FshMprodOrd = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().FshMprodOrd
+                    dataObjectToSend.matnr_new = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().NewMaterial
+                    dataObjectToSend.matnr_old = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Material
+                    dataObjectToSend.charg = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Batch
+                    dataObjectToSend.meins = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().BaseUnit
+                    dataObjectToSend.menge = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().TotalConfdQtyForATPInBaseUoM
+                    dataObjectToSend.vornr = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderOperation
+                    dataObjectToSend.plnfl = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderSequence
+                    dataObjectToSend.note = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Note
+                    dataObjectToSend.reason = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Reason
+                    dataObjectToSend.lgort = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Lgort1 // o lgort2?
+                    dataObjectToSend.werks = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Plant
+                    dataObjectToSend.stk_seg = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().RequirementSegment
+                    if(oController.buttonSelected === 'delete'){
+                        dataObjectToSend.action = "CANC"
+                    } else if(oController.buttonSelected === 'close'){ 
+                        dataObjectToSend.action = "SFPF"
+                    } else {
+                        dataObjectToSend.action = ""
+                    }
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/Replacement(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();                            
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        oBusyDialog.close();                        
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                    if((this.byId("ReplacementCompMasterTableId").getModel().getData().SelectedComponentsMaster[0].QtyToIssue) > 0){
+                        oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    }
+                    oBusyDialog.close();
+                }
+
+            },
+
+            openDialogMessageText: function (text, messType) {
+                var vTitle = "Message";
+                var vState = "Error";
+    
+                if (messType === "E") {
+                    vTitle = this.getResourceBundle().getText("errorTitle");
+                    vState = "Error";
+                } else
+                    if (messType === "I") {
+                        vTitle = this.getResourceBundle().getText("successTitle");
+                        vState = "Success";
+                    }
+    
+                var dialog = new Dialog({
+                    title: vTitle,
+                    type: "Message",
+                    state: vState,
+                    content: new sap.m.Text({
+                        text: text
+                    }),
+    
+                    beginButton: new sap.m.Button({
+                        text: "OK",
+                        press: function () {
+                            dialog.close();
+                        }
+                    }),
+                    afterClose: function () {
+                        dialog.destroy();
+                    }
+                });
+    
+                dialog.open();
+            },
 
             /*onInit: function () {
                 oController = this;

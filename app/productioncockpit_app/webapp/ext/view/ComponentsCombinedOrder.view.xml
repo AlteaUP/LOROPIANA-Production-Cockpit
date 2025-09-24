@@ -4,10 +4,10 @@
             <macros:FilterBar metaPath="/ZZ1_C_COMBORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#CombinedComp" id="FilterBarCombinedComp"/>
             <macros:Table id="TableCombinedComponents" selectionMode="ForceMulti" rowCountMode="Auto" filterBar="FilterBarCombinedComp" rowCount="20" type="GridTable" metaPath="to_ZZ1_C_COMBORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroCombinedComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control">
                 <macros:actions>
-                    <table:Action id="replacementCompCombinedID" key="replacementCompCombinedAction" text="{i18n>replacementComp}" press=".onReplacementCompCombined" placement="After" requiresSelection="true"/>
-                    <table:Action id="integrationCompCombinedID" key="integrationCompCombinedAction" text="{i18n>integrationComp}" press=".onIntegrationCompCombined" placement="After" requiresSelection="true"/>
-                    <table:Action id="deleteCompCombinedID" key="deleteCompCombinedAction" text="{i18n>deleteComp}" press=".onDeleteCompCombined" placement="After" requiresSelection="true"/>
-                    <table:Action id="closeCompCombinedID" key="closeCompCombinedAction" text="{i18n>closeComp}" press=".onCloseCompCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="replacementCompCombinedID" key="replacementCompCombinedAction" text="{i18n>replacementComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="integrationCompCombinedID" key="integrationCompCombinedAction" text="{i18n>integrationComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="deleteCompCombinedID" key="deleteCompCombinedAction" text="{i18n>deleteComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="closeCompCombinedID" key="closeCompCombinedAction" text="{i18n>closeComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
                 </macros:actions>
             </macros:Table>
         </content>
