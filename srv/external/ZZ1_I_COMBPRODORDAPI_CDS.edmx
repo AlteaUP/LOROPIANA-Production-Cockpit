@@ -40,6 +40,68 @@
 <Property Name="ConsumptionPosting" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Registr. consumo" sap:quickinfo="Codice registrazione consumo rel. agli acquisti"/>
 <Property Name="InventorySpecialStockType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Stock speciale" sap:quickinfo="Codice stock speciale"/>
 </EntityType>
+<EntityType Name="I_AddressType" sap:label="Indirizzo" sap:content-version="1">
+<Key>
+<PropertyRef Name="AddressID"/>
+</Key>
+<Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Codice indirizzo"/>
+<Property Name="AddressUUID" Type="Edm.Guid" sap:label="UUID indirizzo" sap:quickinfo="UUID utilizzato nell'indirizzo"/>
+<Property Name="CareOfName" Type="Edm.String" MaxLength="40" sap:label="c/o" sap:quickinfo="Presso..."/>
+<Property Name="AdditionalStreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Via 5"/>
+<Property Name="CorrespondenceLanguage" Type="Edm.String" MaxLength="2" sap:label="Chiave lingua"/>
+<Property Name="PrfrdCommMediumType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Mod. di comun." sap:quickinfo="Mod. di comunicazione (chiave) (gestione indirizzi centrale)"/>
+<Property Name="POBox" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Casella postale"/>
+<Property Name="POBoxIsWithoutNumber" Type="Edm.Boolean" sap:label="Cas. post. senza n." sap:quickinfo="Flag 'Indicazione casella postale senza numero'"/>
+<Property Name="POBoxPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="CAP casella postale" sap:quickinfo="Codice di avviamento postale della casella postale"/>
+<Property Name="POBoxLobbyName" Type="Edm.String" MaxLength="40" sap:label="Staz. cas. postale" sap:quickinfo="Stazione casella postale (PO Box Lobby)"/>
+<Property Name="POBoxDeviatingCityName" Type="Edm.String" MaxLength="40" sap:label="Città cas.post." sap:quickinfo="Città della casella postale"/>
+<Property Name="POBoxDeviatingRegion" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Reg. per cas. post." sap:quickinfo="Regione per cas.post.(stato federale, land, provincia, ...)"/>
+<Property Name="POBoxDeviatingCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Paese/reg. cas.post." sap:quickinfo="Paese/regione rel. alla casella postale"/>
+<Property Name="DeliveryServiceTypeCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tp. serv. recap." sap:quickinfo="Tipo di servizio di recapito"/>
+<Property Name="DeliveryServiceNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="N. serv. recapito" sap:quickinfo="Numero del servizio di recapito"/>
+<Property Name="AddressTimeZone" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Fuso orario" sap:quickinfo="Fuso orario dell'indirizzo"/>
+<Property Name="CityFileTestStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Stato ctr./fileCittà" sap:quickinfo="Stato di controllo file città"/>
+<Property Name="AddressStreetUnusable" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Impossibilità recap." sap:quickinfo="Flag per impossibilità di recapito per indirizzo via"/>
+<Property Name="AddressPostBoxUnusable" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Impossibilità recap." sap:quickinfo="Flag per impossibilità di recapito per ind.casella postale"/>
+<Property Name="FullName" Type="Edm.String" MaxLength="80" sap:label="Nome completo" sap:quickinfo="Nome completo di un partner(Bus.Partner, utà org., ind.doc.)"/>
+<Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="Località"/>
+<Property Name="District" Type="Edm.String" MaxLength="40" sap:label="Frazione"/>
+<Property Name="CityCode" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="N. località" sap:quickinfo="Codifica località per file località e vie"/>
+<Property Name="HomeCityName" Type="Edm.String" MaxLength="40" sap:label="Domicilio altern." sap:quickinfo="Domicilio (diverso dalla località postale)"/>
+<Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="CAP" sap:quickinfo="Codice di avviamento postale della città"/>
+<Property Name="CompanyPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="CAP azienda" sap:quickinfo="Codice di avviamento postale dell'azienda"/>
+<Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Via"/>
+<Property Name="StreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Via 2"/>
+<Property Name="AdditionalStreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Via 3"/>
+<Property Name="StreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Via 4"/>
+<Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:label="Numero civico"/>
+<Property Name="HouseNumberSupplementText" Type="Edm.String" MaxLength="10" sap:label="Precisazione" sap:quickinfo="Precisazione relativa al numero civico"/>
+<Property Name="Building" Type="Edm.String" MaxLength="20" sap:label="Sigla edificio" sap:quickinfo="Edificio (numero o sigla)"/>
+<Property Name="Floor" Type="Edm.String" MaxLength="10" sap:label="Piano" sap:quickinfo="Piano dell'edificio"/>
+<Property Name="RoomNumber" Type="Edm.String" MaxLength="10" sap:label="Numero aula" sap:quickinfo="Numero abitazione, appartamento o aula"/>
+<Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Chiave paese/regione"/>
+<Property Name="Region" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Regione" sap:quickinfo="Regione (stato federale, stato federato, provincia, contea)"/>
+<Property Name="County" Type="Edm.String" MaxLength="40" sap:label="Distretto" sap:quickinfo="Distretto (US: County)"/>
+<Property Name="CountyCode" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Cd. distr." sap:quickinfo="Codice distretto per distretto"/>
+<Property Name="TownshipCode" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Codice città" sap:quickinfo="Codice città per città"/>
+<Property Name="TownshipName" Type="Edm.String" MaxLength="40" sap:label="Città"/>
+<Property Name="FormOfAddress" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Chiave intestazione"/>
+<Property Name="BusinessPartnerName1" Type="Edm.String" MaxLength="40" sap:label="Nome" sap:quickinfo="Nome 1"/>
+<Property Name="BusinessPartnerName2" Type="Edm.String" MaxLength="40" sap:label="Nome 2"/>
+<Property Name="Nation" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Versione indirizzo" sap:quickinfo="Codice versione per indirizzi internazionali"/>
+<Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Telefono" sap:quickinfo="Primo numero di telefono: prefisso + numero"/>
+<Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Fax" sap:quickinfo="Primo numero fax: prefisso + collegamento"/>
+<Property Name="SearchTerm1" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Criterio ricerca 1" sap:quickinfo="Criterio di ricerca 1"/>
+<Property Name="SearchTerm2" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Criterio ricerca 2" sap:quickinfo="Criterio di ricerca 2"/>
+<Property Name="StreetSearch" Type="Edm.String" MaxLength="25" sap:display-format="UpperCase" sap:label="Via" sap:quickinfo="Nome via a lettere maiuscole per l'help di ricerca"/>
+<Property Name="CitySearch" Type="Edm.String" MaxLength="25" sap:display-format="UpperCase" sap:label="Città" sap:quickinfo="Nome località a lettere maiuscole per l'help di ricerca"/>
+<Property Name="BusinessPartnerName3" Type="Edm.String" MaxLength="40" sap:label="Nome 3"/>
+<Property Name="BusinessPartnerName4" Type="Edm.String" MaxLength="40" sap:label="Nome 4"/>
+<Property Name="TaxJurisdiction" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Sede fiscale"/>
+<Property Name="TransportZone" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Zona di trasporto" sap:quickinfo="Zona di trasp. in cui e da cui le merci vengono consegnate"/>
+<Property Name="AddressCityPostBoxCode" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Numero località" sap:quickinfo="Codifica città relativa al codice di avv. post. (file città)"/>
+<Property Name="Person" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Numero persona"/>
+</EntityType>
 <EntityType Name="I_AssortmentListTypeType" sap:label="Tipo lista assortimento" sap:content-version="1">
 <Key>
 <PropertyRef Name="AssortmentListType"/>
@@ -496,6 +558,41 @@
 <Property Name="POBoxDeviatingCityName" Type="Edm.String" MaxLength="40" sap:label="Città cas.post." sap:quickinfo="Città della casella postale"/>
 <Property Name="BusinessPartnerFormOfAddress" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Chiave intestazione"/>
 </EntityType>
+<EntityType Name="I_Customer_VHType" sap:label="Cliente" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Customer"/>
+</Key>
+<Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="BPCustomerName" sap:label="Cliente" sap:quickinfo="Codice cliente"/>
+<Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="35" sap:label="Nome cliente 1" sap:quickinfo="Nome 1"/>
+<Property Name="BusinessPartnerName1" Type="Edm.String" MaxLength="40" sap:label="Nome business partner 1" sap:quickinfo="Nome 1"/>
+<Property Name="OrganizationBPName2" Type="Edm.String" MaxLength="35" sap:label="Nome cliente 2" sap:quickinfo="Nome 2"/>
+<Property Name="BusinessPartnerName2" Type="Edm.String" MaxLength="40" sap:label="Nome business partner 2" sap:quickinfo="Nome 2"/>
+<Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Paese/Regione" sap:quickinfo="Chiave paese/regione"/>
+<Property Name="CityName" Type="Edm.String" MaxLength="35" sap:label="Città"/>
+<Property Name="BPAddrCityName" Type="Edm.String" MaxLength="40" sap:label="Indirizzo business partner - città" sap:quickinfo="Località"/>
+<Property Name="StreetName" Type="Edm.String" MaxLength="35" sap:label="Via" sap:quickinfo="Via e numero civico"/>
+<Property Name="BPAddrStreetName" Type="Edm.String" MaxLength="60" sap:label="Indirizzo business partner - via" sap:quickinfo="Via"/>
+<Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Codice di avviamento postale"/>
+<Property Name="CustomerName" Type="Edm.String" MaxLength="80" sap:label="Nome del cliente"/>
+<Property Name="BPCustomerName" Type="Edm.String" MaxLength="81" sap:label="Nome del cliente business partner" sap:quickinfo="Nome del cliente"/>
+<Property Name="CustomerAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Gruppo conti" sap:quickinfo="Gruppo conti cliente"/>
+<Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Autorizzazione" sap:quickinfo="Gruppo di autorizzazione"/>
+<Property Name="IsBusinessPurposeCompleted" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Indicatore scopo raggiunto" sap:quickinfo="Indicatore per obiettivo commerciale raggiunto"/>
+<Property Name="IsCompetitor" Type="Edm.Boolean" sap:label="Concorrente" sap:quickinfo="Codice: concorrente"/>
+<Property Name="BusinessPartner" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Business partner" sap:quickinfo="Numero business partner"/>
+<Property Name="BusinessPartnerType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tipo di business partner" sap:quickinfo="Tipo business partner"/>
+<Property Name="DataControllerSet" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Imp. TitTrattDt" sap:quickinfo="BP: indicatore per impostare i titolari del trattamento dati"/>
+<Property Name="DataController1" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController2" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController3" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController4" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController5" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController6" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController7" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController8" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController9" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+<Property Name="DataController10" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Tit. tratt. dei dati" sap:quickinfo="BP: titolare del trattamento dati (solo utilizzo interno)"/>
+</EntityType>
 <EntityType Name="I_DebitCreditCodeType" sap:label="Codice Dare/Avere" sap:content-version="1">
 <Key>
 <PropertyRef Name="DebitCreditCode"/>
@@ -747,7 +844,7 @@
 <Property Name="ReferenceOrder" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Ordine riferimento" sap:quickinfo="Numero dell'ordine di riferimento"/>
 <Property Name="LeadingOrder" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Ordine principale" sap:quickinfo="Ordine principale all'interno della lavorazione in corso"/>
 <Property Name="Plant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Divisione" sap:value-list="standard"/>
-<Property Name="MainWorkCenter" Type="Edm.String" MaxLength="8" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Centro lavoro resp." sap:quickinfo="Centro di lavoro responsabile delle misure di manutenzione"/>
+<Property Name="MainWorkCenter" Type="Edm.String" MaxLength="8" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Centro lavoro resp." sap:quickinfo="Centro di lavoro responsabile delle misure di manutenzione" sap:value-list="standard"/>
 <Property Name="MainWorkCenterPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Div. per centro lav." sap:quickinfo="Divisione del centro di lavoro responsabile" sap:value-list="standard"/>
 <Property Name="MaintenanceObjectLocation" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Sede / Divisione" sap:quickinfo="Ubicazione"/>
 <Property Name="LocationPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:label="Divisione della sede"/>
@@ -1476,7 +1573,7 @@
 <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="PlantName" sap:label="Divisione"/>
 <Property Name="PlantName" Type="Edm.String" MaxLength="30" sap:label="Nome divisione"/>
 <Property Name="ValuationArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Area valorizzazione"/>
-<Property Name="PlantCustomer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Cd. cliente div." sap:quickinfo="Cd.cliente della divisione"/>
+<Property Name="PlantCustomer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Cd. cliente div." sap:quickinfo="Cd.cliente della divisione" sap:value-list="standard"/>
 <Property Name="PlantSupplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Cd.forn.div." sap:quickinfo="Codice fornitore della divisione" sap:value-list="standard"/>
 <Property Name="FactoryCalendar" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Calendario fabbrica" sap:quickinfo="Chiave calendario di fabbrica"/>
 <Property Name="DefaultPurchasingOrganization" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Org. acquisti" sap:quickinfo="Organizzazione acquisti"/>
@@ -1487,6 +1584,7 @@
 <Property Name="Division" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Sett. fattur.interna" sap:quickinfo="Settore per fatturazione interna"/>
 <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Chiave lingua"/>
 <Property Name="IsMarkedForArchiving" Type="Edm.Boolean" sap:label="Ind. archiviazione" sap:quickinfo="Marcatore archiviazione centrale per record anagrafico"/>
+<NavigationProperty Name="to_Address" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_6038730FDB68BB23A236C4E6A537C470" FromRole="FromRole_assoc_6038730FDB68BB23A236C4E6A537C470" ToRole="ToRole_assoc_6038730FDB68BB23A236C4E6A537C470"/>
 </EntityType>
 <EntityType Name="I_PlantStdVHType" sap:label="Divisione" sap:value-list="true" sap:content-version="1">
 <Key>
@@ -1685,10 +1783,10 @@
 <Property Name="DfsReturnDelivery" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Valore di ritorno"/>
 <Property Name="DfsLogisticsLevel" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Rit.fino a liv.log." sap:quickinfo="Ritorno fino al livello logistico"/>
 <Property Name="DfsNationalItemIdnNumber" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:label="Cd. fornitura NATO" sap:quickinfo="Codice di fornitura NATO"/>
-<Property Name="ZZ1_CODA_PRD" Type="Edm.String" MaxLength="18" sap:label="Coda" sap:quickinfo="CODA"/>
+<Property Name="ZZ1_CODA_PRD" Type="Edm.String" MaxLength="18" sap:label="Coda"/>
 <Property Name="ZZ1_SPESSOREPELLAME_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_SPESSOREPELLAME_PRDU" sap:label="Spessore Pellame" sap:quickinfo="SPESSOREPELLAME"/>
 <Property Name="ZZ1_SPESSOREPELLAME_PRDU" Type="Edm.String" MaxLength="3" sap:label="Spessore Pellame UoM" sap:quickinfo="SPESSOREPELLAME (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
-<Property Name="ZZ1_GOLA_PRD" Type="Edm.String" MaxLength="18" sap:label="Gola" sap:quickinfo="GOLA"/>
+<Property Name="ZZ1_GOLA_PRD" Type="Edm.String" MaxLength="18" sap:label="Gola"/>
 <NavigationProperty Name="to_AdjustmentProfile_2" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_158D3462CD8FE6F9E39C55C657CED59F" FromRole="FromRole_assoc_158D3462CD8FE6F9E39C55C657CED59F" ToRole="ToRole_assoc_158D3462CD8FE6F9E39C55C657CED59F"/>
 <NavigationProperty Name="to_AssortmentListType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_82A1FC39D1E6684867788000454A4BAB" FromRole="FromRole_assoc_82A1FC39D1E6684867788000454A4BAB" ToRole="ToRole_assoc_82A1FC39D1E6684867788000454A4BAB"/>
 <NavigationProperty Name="to_BaseUnitOfMeasure" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_029F998F8F1078DDDD41C0B50BC505DE" FromRole="FromRole_assoc_029F998F8F1078DDDD41C0B50BC505DE" ToRole="ToRole_assoc_029F998F8F1078DDDD41C0B50BC505DE"/>
@@ -2609,6 +2707,23 @@
 <Property Name="WorkCenterInternalID_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
 <Property Name="WorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Tipo oggetto" sap:quickinfo="CIM Resource Object Type"/>
 </EntityType>
+<EntityType Name="I_WorkCenterTypeType" sap:label="Tipo di centro di lavoro" sap:content-version="1">
+<Key>
+<PropertyRef Name="WorkCenterTypeCode"/>
+</Key>
+<Property Name="WorkCenterTypeCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:text="WorkCenterTypeCode_Text" sap:label="Tipo di risorsa" sap:quickinfo="Tipo di risorsa di produzione"/>
+<Property Name="WorkCenterTypeCode_Text" Type="Edm.String" MaxLength="60" sap:label="Nome tipo di risorsa" sap:quickinfo="Nome tipo di risorsa di produzione" sap:creatable="false" sap:updatable="false"/>
+</EntityType>
+<EntityType Name="I_WrkCtrBySemanticKeyStdVHType" sap:label="Centro di lavoro per chiave semantica" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Plant"/>
+<PropertyRef Name="WorkCenter"/>
+</Key>
+<Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Divisione"/>
+<Property Name="WorkCenter" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:text="WorkCenter_Text" sap:label="Centro di lavoro"/>
+<Property Name="WorkCenter_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
+<Property Name="WorkCenterInternalID" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="ID oggetto" sap:quickinfo="ID oggetto della risorsa"/>
+</EntityType>
 <EntityType Name="ZZ1_C_COMBINEDPRODORDERType" sap:semantics="aggregate" sap:label="ZZ1_C_COMBINEDPRODORDER" sap:content-version="1">
 <Key>
 <PropertyRef Name="ID"/>
@@ -3046,6 +3161,13 @@
 <Property Name="MaximumNumberOfSplits" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="0" sap:required-in-filter="false" sap:label="N. max suddivisioni"/>
 <Property Name="LeadTimeReductionStrategy" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Strat.riduzione" sap:quickinfo="Strategia riduzione lead time operazione"/>
 <Property Name="OpSchedldReductionLevel" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Livello di riduzione" sap:quickinfo="Livello di riduzione che riduce lead time dell'operazione"/>
+<Property Name="WorkCenterInternalID_1" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:required-in-filter="false" sap:text="WorkCenterInternalID_1_Text" sap:label="ID oggetto" sap:quickinfo="ID oggetto della risorsa"/>
+<Property Name="WorkCenterInternalID_1_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
+<Property Name="WorkCenterTypeCode_1" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_WorkCenterType/WorkCenterTypeCode_Text" sap:label="Tipo oggetto" sap:quickinfo="CIM Resource Object Type" sap:value-list="fixed-values"/>
+<Property Name="Plant_1" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_Plant/PlantName" sap:label="Divisione" sap:value-list="standard"/>
+<Property Name="WorkCenter" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Centro di lavoro" sap:value-list="standard"/>
+<NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F38F0A90A59EC683D8CD0FE1204CE58C" FromRole="FromRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C" ToRole="ToRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
+<NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_B469D6AFAA476768EDC55A34CDF034EB" FromRole="FromRole_assoc_B469D6AFAA476768EDC55A34CDF034EB" ToRole="ToRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MFG_MASTEROPEType" sap:label="ZZ1_C_MFG_MASTEROPE" sap:content-version="1">
 <Key>
@@ -3248,6 +3370,13 @@
 <Property Name="MaximumNumberOfSplits" Type="Edm.Decimal" Nullable="false" Precision="3" Scale="0" sap:required-in-filter="false" sap:label="N. max suddivisioni"/>
 <Property Name="LeadTimeReductionStrategy" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Strat.riduzione" sap:quickinfo="Strategia riduzione lead time operazione"/>
 <Property Name="OpSchedldReductionLevel" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Livello di riduzione" sap:quickinfo="Livello di riduzione che riduce lead time dell'operazione"/>
+<Property Name="Plant_1" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_Plant/PlantName" sap:label="Divisione" sap:value-list="standard"/>
+<Property Name="WorkCenter" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Centro di lavoro" sap:value-list="standard"/>
+<Property Name="WorkCenterInternalID_1" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:required-in-filter="false" sap:text="WorkCenterInternalID_1_Text" sap:label="ID oggetto" sap:quickinfo="ID oggetto della risorsa"/>
+<Property Name="WorkCenterInternalID_1_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
+<Property Name="WorkCenterTypeCode_1" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_WorkCenterType/WorkCenterTypeCode_Text" sap:label="Tipo oggetto" sap:quickinfo="CIM Resource Object Type" sap:value-list="fixed-values"/>
+<NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F8AAED82FC84FB15A920C228E092A258" FromRole="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258" ToRole="ToRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
+<NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" FromRole="FromRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" ToRole="ToRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MFG_OrderCompType" sap:semantics="aggregate" sap:label="ZZ1_C_MFG_OrderComp" sap:content-version="1">
 <Key>
@@ -3714,6 +3843,13 @@
 <Property Name="FreeDefinedDate2" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="false" sap:label="Campo utente data" sap:quickinfo="Campo utente per data"/>
 <Property Name="FreeDefinedIndicator1" Type="Edm.Boolean" sap:required-in-filter="false" sap:label="Cmp utente cd." sap:quickinfo="Campo utente: codici di valutazione"/>
 <Property Name="FreeDefinedIndicator2" Type="Edm.Boolean" sap:required-in-filter="false" sap:label="Cmp utente cd." sap:quickinfo="Campo utente: codici di valutazione"/>
+<Property Name="WorkCenterInternalID_1" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:required-in-filter="false" sap:text="WorkCenterInternalID_1_Text" sap:label="ID oggetto" sap:quickinfo="ID oggetto della risorsa"/>
+<Property Name="WorkCenterInternalID_1_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
+<Property Name="WorkCenterTypeCode_1" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_WorkCenterType/WorkCenterTypeCode_Text" sap:label="Tipo oggetto" sap:quickinfo="CIM Resource Object Type" sap:value-list="fixed-values"/>
+<Property Name="Plant_1" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:text="to_Plant/PlantName" sap:label="Divisione" sap:value-list="standard"/>
+<Property Name="WorkCenter" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Centro di lavoro" sap:value-list="standard"/>
+<NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_70C3B81F5E93BBBF64CE045E77AB8F42" FromRole="FromRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42" ToRole="ToRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
+<NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" FromRole="FromRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" ToRole="ToRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
 </EntityType>
 <EntityType Name="ZZ1_I_COMBPRODORDAPIType" sap:semantics="aggregate" sap:label="ZZ1_I_COMBPRODORDAPI" sap:content-version="1">
 <Key>
@@ -3875,6 +4011,30 @@
 <NavigationProperty Name="to_ZZ1_C_MFG_OrderComp" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_D98A4E6142E47E4BBDE131F434441772" FromRole="FromRole_assoc_D98A4E6142E47E4BBDE131F434441772" ToRole="ToRole_assoc_D98A4E6142E47E4BBDE131F434441772"/>
 <NavigationProperty Name="to_ZZ1_C_MFG_ORDEROPE" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_0703BBB1E1F8A67A08F054481C1BA9A4" FromRole="FromRole_assoc_0703BBB1E1F8A67A08F054481C1BA9A4" ToRole="ToRole_assoc_0703BBB1E1F8A67A08F054481C1BA9A4"/>
 </EntityType>
+<Association Name="assoc_F8AAED82FC84FB15A920C228E092A258" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType" Multiplicity="1" Role="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType" Multiplicity="1" Role="ToRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_F8AAED82FC84FB15A920C228E092A258">
+<PropertyRef Name="Plant"/>
+</Principal>
+<Dependent Role="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258">
+<PropertyRef Name="Plant_1"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType" Multiplicity="1" Role="FromRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterTypeType" Multiplicity="1" Role="ToRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4">
+<PropertyRef Name="WorkCenterTypeCode"/>
+</Principal>
+<Dependent Role="FromRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4">
+<PropertyRef Name="WorkCenterTypeCode_1"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
 <Association Name="assoc_D0798A1E738B2C551828A7E9B4EE051B" sap:content-version="1">
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentItemType" Multiplicity="1" Role="FromRole_assoc_D0798A1E738B2C551828A7E9B4EE051B"/>
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasureType" Multiplicity="0..1" Role="ToRole_assoc_D0798A1E738B2C551828A7E9B4EE051B"/>
@@ -4014,12 +4174,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocumentItemType" Multiplicity="0..1" Role="ToRole_assoc_33D92D12227EE5F1402EB6CFC5EF1191"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_33D92D12227EE5F1402EB6CFC5EF1191">
-<PropertyRef Name="PurchasingDocumentItem"/>
 <PropertyRef Name="PurchasingDocument"/>
+<PropertyRef Name="PurchasingDocumentItem"/>
 </Principal>
 <Dependent Role="FromRole_assoc_33D92D12227EE5F1402EB6CFC5EF1191">
-<PropertyRef Name="PurchasingDocumentItem"/>
 <PropertyRef Name="PurchasingDocument"/>
+<PropertyRef Name="PurchasingDocumentItem"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4085,6 +4245,30 @@
 </Dependent>
 </ReferentialConstraint>
 </Association>
+<Association Name="assoc_70C3B81F5E93BBBF64CE045E77AB8F42" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType" Multiplicity="1" Role="FromRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType" Multiplicity="1" Role="ToRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42">
+<PropertyRef Name="Plant"/>
+</Principal>
+<Dependent Role="FromRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42">
+<PropertyRef Name="Plant_1"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType" Multiplicity="1" Role="FromRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterTypeType" Multiplicity="1" Role="ToRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC">
+<PropertyRef Name="WorkCenterTypeCode"/>
+</Principal>
+<Dependent Role="FromRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC">
+<PropertyRef Name="WorkCenterTypeCode_1"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
 <Association Name="assoc_BE5383DAFB653A11C6A17794652A43B0" sap:content-version="1">
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocationType" Multiplicity="1" Role="FromRole_assoc_BE5383DAFB653A11C6A17794652A43B0"/>
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType" Multiplicity="1" Role="ToRole_assoc_BE5383DAFB653A11C6A17794652A43B0"/>
@@ -4094,6 +4278,30 @@
 </Principal>
 <Dependent Role="FromRole_assoc_BE5383DAFB653A11C6A17794652A43B0">
 <PropertyRef Name="Plant"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="assoc_F38F0A90A59EC683D8CD0FE1204CE58C" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPEType" Multiplicity="1" Role="FromRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType" Multiplicity="1" Role="ToRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C">
+<PropertyRef Name="Plant"/>
+</Principal>
+<Dependent Role="FromRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C">
+<PropertyRef Name="Plant_1"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="assoc_B469D6AFAA476768EDC55A34CDF034EB" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPEType" Multiplicity="1" Role="FromRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterTypeType" Multiplicity="1" Role="ToRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_B469D6AFAA476768EDC55A34CDF034EB">
+<PropertyRef Name="WorkCenterTypeCode"/>
+</Principal>
+<Dependent Role="FromRole_assoc_B469D6AFAA476768EDC55A34CDF034EB">
+<PropertyRef Name="WorkCenterTypeCode_1"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4114,12 +4322,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSchedulingProfileType" Multiplicity="0..1" Role="ToRole_assoc_63F7A98EF3076D1AB63F715D815EC301"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_63F7A98EF3076D1AB63F715D815EC301">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="ProductionSchedulingProfile"/>
+<PropertyRef Name="Plant"/>
 </Principal>
 <Dependent Role="FromRole_assoc_63F7A98EF3076D1AB63F715D815EC301">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="ProductionSchedulingProfile"/>
+<PropertyRef Name="Plant"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4176,12 +4384,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_MRPControllerType" Multiplicity="0..1" Role="ToRole_assoc_03259F433D0237C0EEDD3A109270A563"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_03259F433D0237C0EEDD3A109270A563">
-<PropertyRef Name="MRPController"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="MRPController"/>
 </Principal>
 <Dependent Role="FromRole_assoc_03259F433D0237C0EEDD3A109270A563">
-<PropertyRef Name="AssemblyMRPController"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="AssemblyMRPController"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4454,12 +4662,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocationType" Multiplicity="0..1" Role="ToRole_assoc_8B38A0D1BDEEF9884371F1C50C6B8810"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_8B38A0D1BDEEF9884371F1C50C6B8810">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="StorageLocation"/>
+<PropertyRef Name="Plant"/>
 </Principal>
 <Dependent Role="FromRole_assoc_8B38A0D1BDEEF9884371F1C50C6B8810">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="StorageLocation"/>
+<PropertyRef Name="Plant"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4548,12 +4756,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsGroupType" Multiplicity="0..1" Role="ToRole_assoc_E0CE1BBE8577F0CABBFC396A3978CD2E"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_E0CE1BBE8577F0CABBFC396A3978CD2E">
-<PropertyRef Name="BillOfOperationsType"/>
 <PropertyRef Name="BillOfOperationsGroup"/>
+<PropertyRef Name="BillOfOperationsType"/>
 </Principal>
 <Dependent Role="FromRole_assoc_E0CE1BBE8577F0CABBFC396A3978CD2E">
-<PropertyRef Name="BillOfOperationsType"/>
 <PropertyRef Name="BillOfOperationsGroup"/>
+<PropertyRef Name="BillOfOperationsType"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4592,14 +4800,14 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperationsType" Multiplicity="0..1" Role="ToRole_assoc_AC43A377312B3322CCC73322AE6EDFDB"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_AC43A377312B3322CCC73322AE6EDFDB">
-<PropertyRef Name="BillOfOperationsType"/>
 <PropertyRef Name="BillOfOperationsGroup"/>
 <PropertyRef Name="BillOfOperationsVariant"/>
+<PropertyRef Name="BillOfOperationsType"/>
 </Principal>
 <Dependent Role="FromRole_assoc_AC43A377312B3322CCC73322AE6EDFDB">
-<PropertyRef Name="BillOfOperationsType"/>
 <PropertyRef Name="BillOfOperationsGroup"/>
 <PropertyRef Name="BillOfOperationsVariant"/>
+<PropertyRef Name="BillOfOperationsType"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4686,12 +4894,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeWageGroupType" Multiplicity="0..1" Role="ToRole_assoc_5AC07762743D01314DFB69B9CDE2DDCE"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_5AC07762743D01314DFB69B9CDE2DDCE">
-<PropertyRef Name="EmployeeWageGroup"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="EmployeeWageGroup"/>
 </Principal>
 <Dependent Role="FromRole_assoc_5AC07762743D01314DFB69B9CDE2DDCE">
-<PropertyRef Name="EmployeeWageGroup"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="EmployeeWageGroup"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4748,12 +4956,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_LeadTimeReductionStrategyType" Multiplicity="0..1" Role="ToRole_assoc_BF7818CEEB6378586C229222D6BB8A58"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_BF7818CEEB6378586C229222D6BB8A58">
-<PropertyRef Name="LeadTimeReductionStrategy"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="LeadTimeReductionStrategy"/>
 </Principal>
 <Dependent Role="FromRole_assoc_BF7818CEEB6378586C229222D6BB8A58">
-<PropertyRef Name="LeadTimeReductionStrategy"/>
 <PropertyRef Name="Plant"/>
+<PropertyRef Name="LeadTimeReductionStrategy"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4840,12 +5048,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroupCategoryType" Multiplicity="0..1" Role="ToRole_assoc_E8C5152BE2C4AD6F813F61D88DDBE9AF"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_E8C5152BE2C4AD6F813F61D88DDBE9AF">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="OperationSetupGroupCategory"/>
+<PropertyRef Name="Plant"/>
 </Principal>
 <Dependent Role="FromRole_assoc_E8C5152BE2C4AD6F813F61D88DDBE9AF">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="OperationSetupGroupCategory"/>
+<PropertyRef Name="Plant"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -4918,12 +5126,12 @@
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_ResponsiblePlannerGroupType" Multiplicity="0..1" Role="ToRole_assoc_B588EE87FBE144D1944FEAD8442E88FE"/>
 <ReferentialConstraint>
 <Principal Role="ToRole_assoc_B588EE87FBE144D1944FEAD8442E88FE">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="ResponsiblePlannerGroup"/>
+<PropertyRef Name="Plant"/>
 </Principal>
 <Dependent Role="FromRole_assoc_B588EE87FBE144D1944FEAD8442E88FE">
-<PropertyRef Name="Plant"/>
 <PropertyRef Name="ResponsiblePlannerGroup"/>
+<PropertyRef Name="Plant"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -5088,6 +5296,18 @@
 </Principal>
 <Dependent Role="FromRole_assoc_9F03380DC69807A9D3379122674C604C">
 <PropertyRef Name="ResvnAcctAssgmtCategory"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<Association Name="assoc_6038730FDB68BB23A236C4E6A537C470" sap:content-version="1">
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType" Multiplicity="1" Role="FromRole_assoc_6038730FDB68BB23A236C4E6A537C470"/>
+<End Type="ZZ1_I_COMBPRODORDAPI_CDS.I_AddressType" Multiplicity="0..1" Role="ToRole_assoc_6038730FDB68BB23A236C4E6A537C470"/>
+<ReferentialConstraint>
+<Principal Role="ToRole_assoc_6038730FDB68BB23A236C4E6A537C470">
+<PropertyRef Name="AddressID"/>
+</Principal>
+<Dependent Role="FromRole_assoc_6038730FDB68BB23A236C4E6A537C470">
+<PropertyRef Name="AddressID"/>
 </Dependent>
 </ReferentialConstraint>
 </Association>
@@ -5457,6 +5677,7 @@
 </Association>
 <EntityContainer Name="ZZ1_I_COMBPRODORDAPI_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
 <EntitySet Name="I_AccountAssignmentCategory" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_AccountAssignmentCategoryType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="I_Address" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_AddressType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
 <EntitySet Name="I_AssortmentListType" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="I_BasicMaterial" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_BasicMaterialType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_BatchSplitType" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_BatchSplitTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
@@ -5485,6 +5706,7 @@
 <EntitySet Name="I_CostingVariant" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_CostingVariantType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="I_Currency" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_Customer" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_CustomerType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+<EntitySet Name="I_Customer_VH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_Customer_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_DebitCreditCode" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="I_Division" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_DivisionType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_EmployeeSuitability" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeSuitabilityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
@@ -5563,6 +5785,8 @@
 <EntitySet Name="I_UserContactCard" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_UserContactCardType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:addressable="false" sap:content-version="1"/>
 <EntitySet Name="I_WBSElementBasicDataStdVH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WBSElementBasicDataStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_WorkCenterStdVH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="I_WorkCenterType" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+<EntitySet Name="I_WrkCtrBySemanticKeyStdVH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_COMBINEDPRODORDER" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDERType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_COMBORDER_COMP" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_MASTERORDER_COMP" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
@@ -5808,13 +6032,25 @@
 <End EntitySet="ZZ1_C_MFG_OrderComp" Role="FromRole_assoc_320E361DCE5C0FC6EB17DE13F8737ECF"/>
 <End EntitySet="I_MRPController" Role="ToRole_assoc_320E361DCE5C0FC6EB17DE13F8737ECF"/>
 </AssociationSet>
+<AssociationSet Name="assoc_F38F0A90A59EC683D8CD0FE1204CE58C" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F38F0A90A59EC683D8CD0FE1204CE58C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_COMBINEDOPE" Role="FromRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
+<End EntitySet="I_Plant" Role="ToRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
+</AssociationSet>
 <AssociationSet Name="assoc_33D92D12227EE5F1402EB6CFC5EF1191" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_33D92D12227EE5F1402EB6CFC5EF1191" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ReservationDocumentItem" Role="FromRole_assoc_33D92D12227EE5F1402EB6CFC5EF1191"/>
 <End EntitySet="I_PurchasingDocumentItem" Role="ToRole_assoc_33D92D12227EE5F1402EB6CFC5EF1191"/>
 </AssociationSet>
+<AssociationSet Name="assoc_70C3B81F5E93BBBF64CE045E77AB8F42" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_70C3B81F5E93BBBF64CE045E77AB8F42" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_ORDEROPE" Role="FromRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
+<End EntitySet="I_Plant" Role="ToRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
+</AssociationSet>
 <AssociationSet Name="assoc_F2809AC343BD41E36FCD49325FE60D06" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F2809AC343BD41E36FCD49325FE60D06" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ManufacturingOrderOperation" Role="FromRole_assoc_F2809AC343BD41E36FCD49325FE60D06"/>
 <End EntitySet="I_OperationControlProfile" Role="ToRole_assoc_F2809AC343BD41E36FCD49325FE60D06"/>
+</AssociationSet>
+<AssociationSet Name="assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_ORDEROPE" Role="FromRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
+<End EntitySet="I_WorkCenterType" Role="ToRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
 </AssociationSet>
 <AssociationSet Name="assoc_D0798A1E738B2C551828A7E9B4EE051B" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_D0798A1E738B2C551828A7E9B4EE051B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ReservationDocumentItem" Role="FromRole_assoc_D0798A1E738B2C551828A7E9B4EE051B"/>
@@ -5831,6 +6067,10 @@
 <AssociationSet Name="assoc_5014945396E48C3FD490D3A5B8A3BDE7" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_5014945396E48C3FD490D3A5B8A3BDE7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ManufacturingOrderOperation" Role="FromRole_assoc_5014945396E48C3FD490D3A5B8A3BDE7"/>
 <End EntitySet="I_OrderOperationBasic" Role="ToRole_assoc_5014945396E48C3FD490D3A5B8A3BDE7"/>
+</AssociationSet>
+<AssociationSet Name="assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_MASTEROPE" Role="FromRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
+<End EntitySet="I_WorkCenterType" Role="ToRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
 </AssociationSet>
 <AssociationSet Name="assoc_2817FA7C90C962BD21E3ADA38F2DA585" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_2817FA7C90C962BD21E3ADA38F2DA585" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="ZZ1_C_MFG_OrderComp" Role="FromRole_assoc_2817FA7C90C962BD21E3ADA38F2DA585"/>
@@ -5915,6 +6155,10 @@
 <AssociationSet Name="assoc_8EAB60C423E4FF170A3DFC7A592BF2E3" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_8EAB60C423E4FF170A3DFC7A592BF2E3" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_Product" Role="FromRole_assoc_8EAB60C423E4FF170A3DFC7A592BF2E3"/>
 <End EntitySet="I_ItemCategoryGroup" Role="ToRole_assoc_8EAB60C423E4FF170A3DFC7A592BF2E3"/>
+</AssociationSet>
+<AssociationSet Name="assoc_6038730FDB68BB23A236C4E6A537C470" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_6038730FDB68BB23A236C4E6A537C470" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="I_Plant" Role="FromRole_assoc_6038730FDB68BB23A236C4E6A537C470"/>
+<End EntitySet="I_Address" Role="ToRole_assoc_6038730FDB68BB23A236C4E6A537C470"/>
 </AssociationSet>
 <AssociationSet Name="assoc_AAB9E3E8081B36C803DE3090BC5A5D5A" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_AAB9E3E8081B36C803DE3090BC5A5D5A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ManufacturingOrderOperation" Role="FromRole_assoc_AAB9E3E8081B36C803DE3090BC5A5D5A"/>
@@ -6072,6 +6316,10 @@
 <End EntitySet="ZZ1_C_MFG_OrderComp" Role="FromRole_assoc_F6A357757840A060B01377407833F114"/>
 <End EntitySet="I_ReservationDocRecordType" Role="ToRole_assoc_F6A357757840A060B01377407833F114"/>
 </AssociationSet>
+<AssociationSet Name="assoc_F8AAED82FC84FB15A920C228E092A258" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F8AAED82FC84FB15A920C228E092A258" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_MASTEROPE" Role="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
+<End EntitySet="I_Plant" Role="ToRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
+</AssociationSet>
 <AssociationSet Name="assoc_9655DB293C9CEBCCD6B06687959CE3BB" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_9655DB293C9CEBCCD6B06687959CE3BB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_MRPController" Role="FromRole_assoc_9655DB293C9CEBCCD6B06687959CE3BB"/>
 <End EntitySet="I_PurchasingGroup" Role="ToRole_assoc_9655DB293C9CEBCCD6B06687959CE3BB"/>
@@ -6107,6 +6355,10 @@
 <AssociationSet Name="assoc_36D21A065E5E749E6E012B432CE6FA2C" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_36D21A065E5E749E6E012B432CE6FA2C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="ZZ1_I_COMBPRODORDAPI" Role="FromRole_assoc_36D21A065E5E749E6E012B432CE6FA2C"/>
 <End EntitySet="ZZ1_C_MFG_COMBINEDOPE" Role="ToRole_assoc_36D21A065E5E749E6E012B432CE6FA2C"/>
+</AssociationSet>
+<AssociationSet Name="assoc_B469D6AFAA476768EDC55A34CDF034EB" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_B469D6AFAA476768EDC55A34CDF034EB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_C_MFG_COMBINEDOPE" Role="FromRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
+<End EntitySet="I_WorkCenterType" Role="ToRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
 </AssociationSet>
 <AssociationSet Name="assoc_247ECA3016396D7872A2C130D03A9DA9" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_247ECA3016396D7872A2C130D03A9DA9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ProductionSupplyArea" Role="FromRole_assoc_247ECA3016396D7872A2C130D03A9DA9"/>
@@ -6279,6 +6531,32 @@
 </Record>
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="PlantName"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_LogisticsOrderType/MainWorkCenter">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center By Semantic Key"/>
+<PropertyValue Property="CollectionPath" String="I_WrkCtrBySemanticKeyStdVH"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="MainWorkCenter"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenter"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenter_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterInternalID"/>
 </Record>
 </Collection>
 </PropertyValue>
@@ -7702,6 +7980,56 @@
 </Record>
 </Annotation>
 </Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType/PlantCustomer">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Customer"/>
+<PropertyValue Property="CollectionPath" String="I_Customer_VH"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="PlantCustomer"/>
+<PropertyValue Property="ValueListProperty" String="Customer"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="OrganizationBPName1"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="BusinessPartnerName1"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="OrganizationBPName2"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="BusinessPartnerName2"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Country"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="CityName"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="StreetName"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="PostalCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="CustomerName"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="BPCustomerName"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="BusinessPartner"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_PlantType/PlantSupplier">
 <Annotation Term="Common.ValueList">
 <Record>
@@ -9109,6 +9437,138 @@
 </Record>
 </Annotation>
 </Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPEType/WorkCenterTypeCode_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center Type"/>
+<PropertyValue Property="CollectionPath" String="I_WorkCenterType"/>
+<PropertyValue Property="SearchSupported" Bool="false"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenterTypeCode_1"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPEType/Plant_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Plant"/>
+<PropertyValue Property="CollectionPath" String="I_Plant"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="Plant_1"/>
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="PlantName"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPEType/WorkCenter">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center By Semantic Key"/>
+<PropertyValue Property="CollectionPath" String="I_WrkCtrBySemanticKeyStdVH"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenter"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenter"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenter_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterInternalID"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType/Plant_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Plant"/>
+<PropertyValue Property="CollectionPath" String="I_Plant"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="Plant_1"/>
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="PlantName"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType/WorkCenter">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center By Semantic Key"/>
+<PropertyValue Property="CollectionPath" String="I_WrkCtrBySemanticKeyStdVH"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenter"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenter"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenter_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterInternalID"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType/WorkCenterTypeCode_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center Type"/>
+<PropertyValue Property="CollectionPath" String="I_WorkCenterType"/>
+<PropertyValue Property="SearchSupported" Bool="false"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenterTypeCode_1"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderCompType/Reservation">
 <Annotation Term="Common.ValueList">
 <Record>
@@ -10086,6 +10546,72 @@
 </Record>
 </Annotation>
 </Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType/WorkCenterTypeCode_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center Type"/>
+<PropertyValue Property="CollectionPath" String="I_WorkCenterType"/>
+<PropertyValue Property="SearchSupported" Bool="false"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenterTypeCode_1"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterTypeCode_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType/Plant_1">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Plant"/>
+<PropertyValue Property="CollectionPath" String="I_Plant"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="Plant_1"/>
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="PlantName"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType/WorkCenter">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="Work Center By Semantic Key"/>
+<PropertyValue Property="CollectionPath" String="I_WrkCtrBySemanticKeyStdVH"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="WorkCenter"/>
+<PropertyValue Property="ValueListProperty" String="WorkCenter"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Plant"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenter_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="WorkCenterInternalID"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities">
 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
 </Annotations>
@@ -11026,6 +11552,24 @@
 </Record>
 </Annotation>
 </Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities/I_Plant">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Address"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities/I_Product">
 <Annotation Term="Capabilities.NavigationRestrictions">
 <Record>
@@ -11563,6 +12107,84 @@
 <Collection>
 <Record>
 <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Plant"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities/ZZ1_C_MFG_COMBINEDOPE">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Plant"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_WorkCenterType"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities/ZZ1_C_MFG_MASTEROPE">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Plant"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_WorkCenterType"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI_CDS_Entities/ZZ1_C_MFG_ORDEROPE">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Plant"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_WorkCenterType"/>
 <PropertyValue Property="InsertRestrictions">
 <Record>
 <PropertyValue Property="Insertable" Bool="false"/>

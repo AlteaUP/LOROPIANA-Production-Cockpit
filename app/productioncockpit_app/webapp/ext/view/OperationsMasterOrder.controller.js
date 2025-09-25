@@ -1,8 +1,11 @@
 sap.ui.define(
     [
-        'sap/fe/core/PageController'
+        'sap/fe/core/PageController',
+        'sap/ui/model/json/JSONModel',
+        "sap/m/Dialog",
+        
     ],
-    function(PageController) {
+    function(PageController, JSONModel, Dialog) {
         'use strict';
 
         var oController;
@@ -37,6 +40,77 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);                        
                     }
                 });
+            },
+
+            onActionOperationMaster: function(){
+                var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
+                // controllo quale pulsante ho selezionato
+                switch(buttonId) {
+                case "changeWCMasterAction":
+                    // code block
+                    oController.buttonSelected = "changeWC"
+                    break;
+                case "addPhaseMasterAction":
+                    // code block
+                    oController.buttonSelected = "addPhase"
+                    break;
+                case "deletePhaseMasterAction":
+                    // code block
+                    oController.buttonSelected = "deletePhase"
+                    break;
+                case "movePhaseMasterAction":
+                    // code block
+                    oController.buttonSelected = "movePhase"
+                    break;
+                default:
+                    // code block
+                    oController.buttonSelected = ""
+                }
+                if(oController.buttonSelected === "changeWC"){
+                    if(oController.pOperationsChangeWCMasterDialog === null || oController.pOperationsChangeWCMasterDialog === undefined){
+                        oController.pOperationsChangeWCMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsChangeWCMasterDialog", oController);
+                        oController.getView().addDependent(oController.pOperationsChangeWCMasterDialog);
+                    }
+
+                    oController.pOperationsChangeWCMasterDialog.open();
+
+                    var selectedOperationsMasterArray = []
+                    var selectedOperationsMasterObject = {}
+                    for(var i=0; i<oController.byId("TableMasterOperations").getSelectedContexts().length; i++){
+                        selectedOperationsMasterObject = oController.byId("TableMasterOperations").getSelectedContexts()[i].getObject()
+                        selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                        selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                    }
+
+                    var oTable = oController.byId("OperationsChangeWCMasterTableId");
+                        
+                    var oModel = new JSONModel();
+                    oModel.setData({ SelectedOperationsChangeWCMaster: selectedOperationsMasterArray})
+                    oTable.setModel(oModel);
+                } else if(oController.buttonSelected === "addPhase"){
+                    if(oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined){
+                        oController.pOperationsAddPhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
+                        oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
+                    }
+
+                    oController.pOperationsAddPhaseMasterDialog.open();
+
+                    var selectedOperationsMasterArray = []
+                    var selectedOperationsMasterObject = {}
+                    for(var i=0; i<oController.byId("TableMasterOperations").getSelectedContexts().length; i++){
+                        selectedOperationsMasterObject = oController.byId("TableMasterOperations").getSelectedContexts()[i].getObject()
+                        selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                        selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                    }
+
+                    var oTable = oController.byId("OperationsAddPhaseMasterTableId");
+                        
+                    var oModel = new JSONModel();
+                    oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
+                    oTable.setModel(oModel);
+                } else {
+                    oController.onDeleteMoveOperationsMaster()
+                }
             }
 
             /**

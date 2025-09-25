@@ -1,7 +1,7 @@
 namespace ProductionCockpit.zproduction_cockpit.db.TYPES;
 
 type ReplacementRecord : {
-    CprodOrd       : String not null;
+    CprodOrd       : String;
     id             : String;
     FshMprodOrd    : String;
     matnr_new      : String;

@@ -3,7 +3,7 @@
 	 xmlns:f="sap.ui.layout.form"
    xmlns:core="sap.ui.core">
    <Dialog
-      id="ReplacementCompCombinedDialog"
+      id="OperationsAddPhaseCombinedDialog"
       contentHeight="60%"
       contentWidth="90%"
       beforeOpen=".clearFields"
@@ -11,42 +11,33 @@
       type="Message"
       state="None"
       icon="sap-icon://it-host"
-      title="{i18n>replacementComp}">
+      title="{i18n>addPhaseCombined}">
       <content>
-      	<Table id="ReplacementCompCombinedTableId"
+      	<Table id="OperationsAddPhaseCombinedTableId"
           items="{
-            path: '/SelectedComponentsCombined'
+            path: '/SelectedOperationsAddPhaseCombined'
           }">
           <columns>
                 <Column>
                     <Text text="{i18n>CprodOrd}"/>
                 </Column>
                 <Column>
-                    <Text text="{i18n>plant}"/>
-                </Column>
-                <Column>
-                    <Text text="{i18n>material}"/>
-                </Column>
-                <Column>
-                    <Text text="{i18n>newMaterial}"/>
-                </Column>
-                <Column>
-                    <Text text="{i18n>batch}"/>
+                    <Text text="{i18n>MaterialGroup}"/>
                 </Column>
                 <Column>
                     <Text text="{i18n>ManufacturingOrderOperation}"/>
                 </Column>
                 <Column>
-                    <Text text="{i18n>quantity}"/>
+                    <Text text="{i18n>MfgOrderOperationText}"/>
                 </Column>
-                <Column id="lgort1ID">
-                    <Text text="{i18n>lgort1}"/>
+                <Column>
+                    <Text text="{i18n>Supplier}"/>
                 </Column>
-                <Column id="noteID">
-                    <Text text="{i18n>note}"/>
+                <Column>
+                    <Text text="{i18n>WorkCenter}"/>
                 </Column>
-                <Column id="reasonID">
-                    <Text text="{i18n>reason}"/>
+                <Column>
+                    <Text text="{i18n>WorkCenterDesc}"/>
                 </Column>
             </columns>
           <items>
@@ -55,23 +46,17 @@
                 <Input 
                   value="{CprodOrd}" editable="false" />
                 <Input 
-                  value="{Plant}" editable="false" />
-                <Input 
-                  value="{Material}" editable="false" />
-                <Input 
-                  value="{NewMaterial}" editable="true" />
-                <Input 
-                  value="{Batch}" editable="true" />
+                  value="{MaterialGroup}" editable="true" />
                 <Input 
                   value="{ManufacturingOrderOperation}" editable="true" />
                 <Input 
-                  value="{TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
+                  value="{MfgOrderOperationText}" editable="true"/>
                 <Input 
-                  value="{Lgort1}" editable="true" />
+                  value="{Supplier}" editable="true"/>
                 <Input 
-                  value="{Note}" editable="true" />
+                  value="{WorkCenter}"/>
                 <Input 
-                  value="{Reason}" editable="true" />
+                  value="{WorkCenterInternalID_1_Text}" editable="false"/>
               </cells>
             </ColumnListItem>
           </items>
@@ -79,16 +64,16 @@
       </content>
       <beginButton>
         <Button 
-          id="CloseReplacementCompCombinedDialogButton" 
+          id="CloseOperationsAddPhaseCombinedDialogButton" 
           type="Emphasized"
           width="47.5%"
           icon="sap-icon://decline"
-          press=".onCloseReplacementCompCombinedDialog"
+          press=".onCloseOperationsAddPhaseCombinedDialog"
           text="{i18n>Close}"/>
         </beginButton>
         <endButton>
         <Button 
-          id="ConfirmReplacementCompCombinedDialogButton" 
+          id="ConfirmOperationsAddPhaseCombinedDialogButton" 
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"

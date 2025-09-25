@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="OperationsChangeWCMasterDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>changeWCMaster}">
+      <content>
+      	<Table id="OperationsChangeWCMasterTableId"
+          items="{
+            path: '/SelectedOperationsChangeWCMaster'
+          }">
+          <columns>
+                <Column>
+                    <Text text="{i18n>CprodOrd}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>MaterialGroup}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ManufacturingOrderOperation}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>MfgOrderOperationText}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>Supplier}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>WorkCenter}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>WorkCenterDesc}"/>
+                </Column>
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{CprodOrd}" editable="false" />
+                <Input 
+                  value="{MaterialGroup}" editable="false" />
+                <Input 
+                  value="{ManufacturingOrderOperation}" editable="false" />
+                <Input 
+                  value="{MfgOrderOperationText}" editable="false"/>
+                <Input 
+                  value="{Supplier}" editable="false"/>
+                <Input 
+                  value="{WorkCenter}"/>
+                <Input 
+                  value="{WorkCenterInternalID_1_Text}" editable="false"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseOperationsMasterDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseOperationsChangeWCMasterDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmOperationsMasterDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmReplacementCompMasterDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

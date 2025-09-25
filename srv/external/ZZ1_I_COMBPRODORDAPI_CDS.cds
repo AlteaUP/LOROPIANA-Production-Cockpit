@@ -1,4 +1,4 @@
-/* checksum : d3ebaa3173712665c4b6f12027de1486 */
+/* checksum : 44b2bd1d9bcf3b72682f4b4232433965 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -32,6 +32,200 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_AccountAssignmentCategory {
   @sap.label : 'Stock speciale'
   @sap.quickinfo : 'Codice stock speciale'
   InventorySpecialStockType : String(1);
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.addressable : 'false'
+@sap.content.version : '1'
+@sap.label : 'Indirizzo'
+entity ZZ1_I_COMBPRODORDAPI_CDS.I_Address {
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Codice indirizzo'
+  key AddressID : String(10) not null;
+  @sap.label : 'UUID indirizzo'
+  @sap.quickinfo : 'UUID utilizzato nell''indirizzo'
+  AddressUUID : UUID;
+  @sap.label : 'c/o'
+  @sap.quickinfo : 'Presso...'
+  CareOfName : String(40);
+  @sap.label : 'Via 5'
+  AdditionalStreetSuffixName : String(40);
+  @sap.label : 'Chiave lingua'
+  CorrespondenceLanguage : String(2);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Mod. di comun.'
+  @sap.quickinfo : 'Mod. di comunicazione (chiave) (gestione indirizzi centrale)'
+  PrfrdCommMediumType : String(3);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Casella postale'
+  POBox : String(10);
+  @sap.label : 'Cas. post. senza n.'
+  @sap.quickinfo : 'Flag ''Indicazione casella postale senza numero'''
+  POBoxIsWithoutNumber : Boolean;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'CAP casella postale'
+  @sap.quickinfo : 'Codice di avviamento postale della casella postale'
+  POBoxPostalCode : String(10);
+  @sap.label : 'Staz. cas. postale'
+  @sap.quickinfo : 'Stazione casella postale (PO Box Lobby)'
+  POBoxLobbyName : String(40);
+  @sap.label : 'Città cas.post.'
+  @sap.quickinfo : 'Città della casella postale'
+  POBoxDeviatingCityName : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Reg. per cas. post.'
+  @sap.quickinfo : 'Regione per cas.post.(stato federale, land, provincia, ...)'
+  POBoxDeviatingRegion : String(3);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Paese/reg. cas.post.'
+  @sap.quickinfo : 'Paese/regione rel. alla casella postale'
+  POBoxDeviatingCountry : String(3);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tp. serv. recap.'
+  @sap.quickinfo : 'Tipo di servizio di recapito'
+  DeliveryServiceTypeCode : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'N. serv. recapito'
+  @sap.quickinfo : 'Numero del servizio di recapito'
+  DeliveryServiceNumber : String(10);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Fuso orario'
+  @sap.quickinfo : 'Fuso orario dell''indirizzo'
+  AddressTimeZone : String(6);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Stato ctr./fileCittà'
+  @sap.quickinfo : 'Stato di controllo file città'
+  CityFileTestStatus : String(1);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Impossibilità recap.'
+  @sap.quickinfo : 'Flag per impossibilità di recapito per indirizzo via'
+  AddressStreetUnusable : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Impossibilità recap.'
+  @sap.quickinfo : 'Flag per impossibilità di recapito per ind.casella postale'
+  AddressPostBoxUnusable : String(4);
+  @sap.label : 'Nome completo'
+  @sap.quickinfo : 'Nome completo di un partner(Bus.Partner, utà org., ind.doc.)'
+  FullName : String(80);
+  @sap.label : 'Località'
+  CityName : String(40);
+  @sap.label : 'Frazione'
+  District : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'N. località'
+  @sap.quickinfo : 'Codifica località per file località e vie'
+  CityCode : String(12);
+  @sap.label : 'Domicilio altern.'
+  @sap.quickinfo : 'Domicilio (diverso dalla località postale)'
+  HomeCityName : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'CAP'
+  @sap.quickinfo : 'Codice di avviamento postale della città'
+  PostalCode : String(10);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'CAP azienda'
+  @sap.quickinfo : 'Codice di avviamento postale dell''azienda'
+  CompanyPostalCode : String(10);
+  @sap.label : 'Via'
+  StreetName : String(60);
+  @sap.label : 'Via 2'
+  StreetPrefixName : String(40);
+  @sap.label : 'Via 3'
+  AdditionalStreetPrefixName : String(40);
+  @sap.label : 'Via 4'
+  StreetSuffixName : String(40);
+  @sap.label : 'Numero civico'
+  HouseNumber : String(10);
+  @sap.label : 'Precisazione'
+  @sap.quickinfo : 'Precisazione relativa al numero civico'
+  HouseNumberSupplementText : String(10);
+  @sap.label : 'Sigla edificio'
+  @sap.quickinfo : 'Edificio (numero o sigla)'
+  Building : String(20);
+  @sap.label : 'Piano'
+  @sap.quickinfo : 'Piano dell''edificio'
+  Floor : String(10);
+  @sap.label : 'Numero aula'
+  @sap.quickinfo : 'Numero abitazione, appartamento o aula'
+  RoomNumber : String(10);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Chiave paese/regione'
+  Country : String(3);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Regione'
+  @sap.quickinfo : 'Regione (stato federale, stato federato, provincia, contea)'
+  Region : String(3);
+  @sap.label : 'Distretto'
+  @sap.quickinfo : 'Distretto (US: County)'
+  County : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Cd. distr.'
+  @sap.quickinfo : 'Codice distretto per distretto'
+  CountyCode : String(8);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Codice città'
+  @sap.quickinfo : 'Codice città per città'
+  TownshipCode : String(8);
+  @sap.label : 'Città'
+  TownshipName : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Chiave intestazione'
+  FormOfAddress : String(4);
+  @sap.label : 'Nome'
+  @sap.quickinfo : 'Nome 1'
+  BusinessPartnerName1 : String(40);
+  @sap.label : 'Nome 2'
+  BusinessPartnerName2 : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Versione indirizzo'
+  @sap.quickinfo : 'Codice versione per indirizzi internazionali'
+  Nation : String(1);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Telefono'
+  @sap.quickinfo : 'Primo numero di telefono: prefisso + numero'
+  PhoneNumber : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Fax'
+  @sap.quickinfo : 'Primo numero fax: prefisso + collegamento'
+  FaxNumber : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Criterio ricerca 1'
+  @sap.quickinfo : 'Criterio di ricerca 1'
+  SearchTerm1 : String(20);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Criterio ricerca 2'
+  @sap.quickinfo : 'Criterio di ricerca 2'
+  SearchTerm2 : String(20);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Via'
+  @sap.quickinfo : 'Nome via a lettere maiuscole per l''help di ricerca'
+  StreetSearch : String(25);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Città'
+  @sap.quickinfo : 'Nome località a lettere maiuscole per l''help di ricerca'
+  CitySearch : String(25);
+  @sap.label : 'Nome 3'
+  BusinessPartnerName3 : String(40);
+  @sap.label : 'Nome 4'
+  BusinessPartnerName4 : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Sede fiscale'
+  TaxJurisdiction : String(15);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Zona di trasporto'
+  @sap.quickinfo : 'Zona di trasp. in cui e da cui le merci vengono consegnate'
+  TransportZone : String(10);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Numero località'
+  @sap.quickinfo : 'Codifica città relativa al codice di avv. post. (file città)'
+  AddressCityPostBoxCode : String(12);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Numero persona'
+  Person : String(10);
 };
 
 @cds.external : true
@@ -1438,6 +1632,125 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer {
 @sap.creatable : 'false'
 @sap.updatable : 'false'
 @sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'Cliente'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer_VH {
+  @sap.display.format : 'UpperCase'
+  @sap.text : 'BPCustomerName'
+  @sap.label : 'Cliente'
+  @sap.quickinfo : 'Codice cliente'
+  key Customer : String(10) not null;
+  @sap.label : 'Nome cliente 1'
+  @sap.quickinfo : 'Nome 1'
+  OrganizationBPName1 : String(35);
+  @sap.label : 'Nome business partner 1'
+  @sap.quickinfo : 'Nome 1'
+  BusinessPartnerName1 : String(40);
+  @sap.label : 'Nome cliente 2'
+  @sap.quickinfo : 'Nome 2'
+  OrganizationBPName2 : String(35);
+  @sap.label : 'Nome business partner 2'
+  @sap.quickinfo : 'Nome 2'
+  BusinessPartnerName2 : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Paese/Regione'
+  @sap.quickinfo : 'Chiave paese/regione'
+  Country : String(3);
+  @sap.label : 'Città'
+  CityName : String(35);
+  @sap.label : 'Indirizzo business partner - città'
+  @sap.quickinfo : 'Località'
+  BPAddrCityName : String(40);
+  @sap.label : 'Via'
+  @sap.quickinfo : 'Via e numero civico'
+  StreetName : String(35);
+  @sap.label : 'Indirizzo business partner - via'
+  @sap.quickinfo : 'Via'
+  BPAddrStreetName : String(60);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Codice di avviamento postale'
+  PostalCode : String(10);
+  @sap.label : 'Nome del cliente'
+  CustomerName : String(80);
+  @sap.label : 'Nome del cliente business partner'
+  @sap.quickinfo : 'Nome del cliente'
+  BPCustomerName : String(81);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Gruppo conti'
+  @sap.quickinfo : 'Gruppo conti cliente'
+  CustomerAccountGroup : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Autorizzazione'
+  @sap.quickinfo : 'Gruppo di autorizzazione'
+  AuthorizationGroup : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Indicatore scopo raggiunto'
+  @sap.quickinfo : 'Indicatore per obiettivo commerciale raggiunto'
+  IsBusinessPurposeCompleted : String(1);
+  @sap.label : 'Concorrente'
+  @sap.quickinfo : 'Codice: concorrente'
+  IsCompetitor : Boolean;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Business partner'
+  @sap.quickinfo : 'Numero business partner'
+  BusinessPartner : String(10);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tipo di business partner'
+  @sap.quickinfo : 'Tipo business partner'
+  BusinessPartnerType : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Imp. TitTrattDt'
+  @sap.quickinfo : 'BP: indicatore per impostare i titolari del trattamento dati'
+  DataControllerSet : String(1);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController1 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController2 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController3 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController4 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController5 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController6 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController7 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController8 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController9 : String(30);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Tit. tratt. dei dati'
+  @sap.quickinfo : 'BP: titolare del trattamento dati (solo utilizzo interno)'
+  DataController10 : String(30);
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Codice Dare/Avere'
 entity ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {
@@ -2231,6 +2544,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_LogisticsOrder {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Centro lavoro resp.'
   @sap.quickinfo : 'Centro di lavoro responsabile delle misure di manutenzione'
+  @sap.value.list : 'standard'
   MainWorkCenter : String(8);
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
@@ -5196,6 +5510,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Cd. cliente div.'
   @sap.quickinfo : 'Cd.cliente della divisione'
+  @sap.value.list : 'standard'
   PlantCustomer : String(10);
   @sap.display.format : 'UpperCase'
   @sap.label : 'Cd.forn.div.'
@@ -5233,6 +5548,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {
   @sap.label : 'Ind. archiviazione'
   @sap.quickinfo : 'Marcatore archiviazione centrale per record anagrafico'
   IsMarkedForArchiving : Boolean;
+  to_Address : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Address {  };
 };
 
 @cds.external : true
@@ -6015,7 +6331,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.quickinfo : 'Codice di fornitura NATO'
   DfsNationalItemIdnNumber : String(9);
   @sap.label : 'Coda'
-  @sap.quickinfo : 'CODA'
   ZZ1_CODA_PRD : String(18);
   @sap.unit : 'ZZ1_SPESSOREPELLAME_PRDU'
   @sap.label : 'Spessore Pellame'
@@ -6027,7 +6342,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.semantics : 'unit-of-measure'
   ZZ1_SPESSOREPELLAME_PRDU : String(3);
   @sap.label : 'Gola'
-  @sap.quickinfo : 'GOLA'
   ZZ1_GOLA_PRD : String(18);
   to_AdjustmentProfile_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {  };
   to_AssortmentListType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {  };
@@ -8912,6 +9226,54 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterStdVH {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
+@sap.label : 'Tipo di centro di lavoro'
+entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {
+  @sap.display.format : 'UpperCase'
+  @sap.text : 'WorkCenterTypeCode_Text'
+  @sap.label : 'Tipo di risorsa'
+  @sap.quickinfo : 'Tipo di risorsa di produzione'
+  key WorkCenterTypeCode : String(2) not null;
+  @sap.label : 'Nome tipo di risorsa'
+  @sap.quickinfo : 'Nome tipo di risorsa di produzione'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  WorkCenterTypeCode_Text : String(60);
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'Centro di lavoro per chiave semantica'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVH {
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Divisione'
+  key Plant : String(4) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.text : 'WorkCenter_Text'
+  @sap.label : 'Centro di lavoro'
+  key WorkCenter : String(8) not null;
+  @sap.label : 'Testo centro lavoro'
+  @sap.quickinfo : 'Testo centro di lavoro'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  WorkCenter_Text : String(40);
+  @sap.display.format : 'NonNegative'
+  @sap.label : 'ID oggetto'
+  @sap.quickinfo : 'ID oggetto della risorsa'
+  WorkCenterInternalID : String(8);
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_COMBINEDPRODORDER'
 entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {
@@ -10221,6 +10583,37 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
   key OpSchedldReductionLevel : String(1) not null;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'WorkCenterInternalID_1_Text'
+  @sap.label : 'ID oggetto'
+  @sap.quickinfo : 'ID oggetto della risorsa'
+  WorkCenterInternalID_1 : String(8);
+  @sap.label : 'Testo centro lavoro'
+  @sap.quickinfo : 'Testo centro di lavoro'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  WorkCenterInternalID_1_Text : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_WorkCenterType/WorkCenterTypeCode_Text'
+  @sap.label : 'Tipo oggetto'
+  @sap.quickinfo : 'CIM Resource Object Type'
+  @sap.value.list : 'fixed-values'
+  WorkCenterTypeCode_1 : String(2);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_Plant/PlantName'
+  @sap.label : 'Divisione'
+  @sap.value.list : 'standard'
+  Plant_1 : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Centro di lavoro'
+  @sap.value.list : 'standard'
+  WorkCenter : String(8);
+  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true
@@ -10679,6 +11072,37 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
   key OpSchedldReductionLevel : String(1) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_Plant/PlantName'
+  @sap.label : 'Divisione'
+  @sap.value.list : 'standard'
+  Plant_1 : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Centro di lavoro'
+  @sap.value.list : 'standard'
+  WorkCenter : String(8);
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'WorkCenterInternalID_1_Text'
+  @sap.label : 'ID oggetto'
+  @sap.quickinfo : 'ID oggetto della risorsa'
+  WorkCenterInternalID_1 : String(8);
+  @sap.label : 'Testo centro lavoro'
+  @sap.quickinfo : 'Testo centro di lavoro'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  WorkCenterInternalID_1_Text : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_WorkCenterType/WorkCenterTypeCode_Text'
+  @sap.label : 'Tipo oggetto'
+  @sap.quickinfo : 'CIM Resource Object Type'
+  @sap.value.list : 'fixed-values'
+  WorkCenterTypeCode_1 : String(2);
+  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true
@@ -12868,6 +13292,37 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
   @sap.label : 'Cmp utente cd.'
   @sap.quickinfo : 'Campo utente: codici di valutazione'
   FreeDefinedIndicator2 : Boolean;
+  @sap.display.format : 'NonNegative'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'WorkCenterInternalID_1_Text'
+  @sap.label : 'ID oggetto'
+  @sap.quickinfo : 'ID oggetto della risorsa'
+  WorkCenterInternalID_1 : String(8);
+  @sap.label : 'Testo centro lavoro'
+  @sap.quickinfo : 'Testo centro di lavoro'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  WorkCenterInternalID_1_Text : String(40);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_WorkCenterType/WorkCenterTypeCode_Text'
+  @sap.label : 'Tipo oggetto'
+  @sap.quickinfo : 'CIM Resource Object Type'
+  @sap.value.list : 'fixed-values'
+  WorkCenterTypeCode_1 : String(2);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_Plant/PlantName'
+  @sap.label : 'Divisione'
+  @sap.value.list : 'standard'
+  Plant_1 : String(4);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Centro di lavoro'
+  @sap.value.list : 'standard'
+  WorkCenter : String(8);
+  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true

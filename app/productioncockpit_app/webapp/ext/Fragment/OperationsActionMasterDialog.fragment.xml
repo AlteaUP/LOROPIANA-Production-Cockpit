@@ -3,7 +3,7 @@
 	 xmlns:f="sap.ui.layout.form"
    xmlns:core="sap.ui.core">
    <Dialog
-      id="ReplacementCompCombinedDialog"
+      id="ReplacementCompMasterDialog"
       contentHeight="60%"
       contentWidth="90%"
       beforeOpen=".clearFields"
@@ -13,13 +13,13 @@
       icon="sap-icon://it-host"
       title="{i18n>replacementComp}">
       <content>
-      	<Table id="ReplacementCompCombinedTableId"
+      	<Table id="ReplacementCompMasterTableId"
           items="{
-            path: '/SelectedComponentsCombined'
+            path: '/SelectedComponentsMaster'
           }">
           <columns>
                 <Column>
-                    <Text text="{i18n>CprodOrd}"/>
+                    <Text text="{i18n>FshMprodOrd}"/>
                 </Column>
                 <Column>
                     <Text text="{i18n>plant}"/>
@@ -39,13 +39,13 @@
                 <Column>
                     <Text text="{i18n>quantity}"/>
                 </Column>
-                <Column id="lgort1ID">
+                <Column id="lgort1_ID">
                     <Text text="{i18n>lgort1}"/>
                 </Column>
-                <Column id="noteID">
+                <Column id="note_ID">
                     <Text text="{i18n>note}"/>
                 </Column>
-                <Column id="reasonID">
+                <Column id="reason_ID">
                     <Text text="{i18n>reason}"/>
                 </Column>
             </columns>
@@ -53,7 +53,7 @@
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
-                  value="{CprodOrd}" editable="false" />
+                  value="{FshMprodOrd}" editable="false" />
                 <Input 
                   value="{Plant}" editable="false" />
                 <Input 
@@ -79,20 +79,20 @@
       </content>
       <beginButton>
         <Button 
-          id="CloseReplacementCompCombinedDialogButton" 
+          id="CloseReplacementCompMasterDialogButton" 
           type="Emphasized"
           width="47.5%"
           icon="sap-icon://decline"
-          press=".onCloseReplacementCompCombinedDialog"
+          press=".onCloseReplacementCompMasterDialog"
           text="{i18n>Close}"/>
         </beginButton>
         <endButton>
         <Button 
-          id="ConfirmReplacementCompCombinedDialogButton" 
+          id="ConfirmReplacementCompMasterDialogButton" 
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"
-          press=".onConfirmReplacementCompCombinedDialog"
+          press=".onConfirmReplacementCompMasterDialog"
           text="{i18n>Create}"/>
       </endButton>
       </Dialog>

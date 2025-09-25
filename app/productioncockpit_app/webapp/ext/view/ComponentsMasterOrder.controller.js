@@ -122,7 +122,7 @@ sap.ui.define(
                     dataObjectToSend.matnr_old = table[i].Material
                     dataObjectToSend.charg = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
-                    dataObjectToSend.menge = table[i].TotalConfdQtyForATPInBaseUoM
+                    dataObjectToSend.menge = Number(table[i].TotalConfdQtyForATPInBaseUoM)
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
@@ -207,7 +207,7 @@ sap.ui.define(
                     dataObjectToSend.matnr_old = oController.byId("TableComponents").getSelectedContexts()[i].getObject().Material
                     dataObjectToSend.charg = oController.byId("TableComponents").getSelectedContexts()[i].getObject().Batch
                     dataObjectToSend.meins = oController.byId("TableComponents").getSelectedContexts()[i].getObject().BaseUnit
-                    dataObjectToSend.menge = oController.byId("TableComponents").getSelectedContexts()[i].getObject().TotalConfdQtyForATPInBaseUoM
+                    dataObjectToSend.menge = Number(oController.byId("TableComponents").getSelectedContexts()[i].getObject().TotalConfdQtyForATPInBaseUoM)
                     dataObjectToSend.vornr = oController.byId("TableComponents").getSelectedContexts()[i].getObject().ManufacturingOrderOperation
                     dataObjectToSend.plnfl = oController.byId("TableComponents").getSelectedContexts()[i].getObject().ManufacturingOrderSequence
                     dataObjectToSend.note = oController.byId("TableComponents").getSelectedContexts()[i].getObject().Note
