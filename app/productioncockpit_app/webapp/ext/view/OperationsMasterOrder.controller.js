@@ -42,7 +42,15 @@ sap.ui.define(
                 });
             },
 
-            onActionOperationMaster: function(){
+            onCloseOperationsChangeWCMasterDialog: function(){
+                oController.pOperationsChangeWCMasterDialog.close();
+            },
+
+            onCloseOperationsAddPhaseMasterDialog: function(){
+                oController.pOperationsAddPhaseMasterDialog.close();
+            },
+
+            onActionOperationMaster: function(oEvent){
                 var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
                 // controllo quale pulsante ho selezionato
                 switch(buttonId) {
@@ -76,8 +84,8 @@ sap.ui.define(
 
                     var selectedOperationsMasterArray = []
                     var selectedOperationsMasterObject = {}
-                    for(var i=0; i<oController.byId("TableMasterOperations").getSelectedContexts().length; i++){
-                        selectedOperationsMasterObject = oController.byId("TableMasterOperations").getSelectedContexts()[i].getObject()
+                    for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                        selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }
@@ -97,8 +105,8 @@ sap.ui.define(
 
                     var selectedOperationsMasterArray = []
                     var selectedOperationsMasterObject = {}
-                    for(var i=0; i<oController.byId("TableMasterOperations").getSelectedContexts().length; i++){
-                        selectedOperationsMasterObject = oController.byId("TableMasterOperations").getSelectedContexts()[i].getObject()
+                    for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                        selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }

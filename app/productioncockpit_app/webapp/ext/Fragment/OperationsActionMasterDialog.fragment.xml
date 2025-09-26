@@ -79,20 +79,20 @@
       </content>
       <beginButton>
         <Button 
-          id="CloseReplacementCompMasterDialogButton" 
+          id="CloseOperationActionMasterDialogButton" 
           type="Emphasized"
           width="47.5%"
           icon="sap-icon://decline"
-          press=".onCloseReplacementCompMasterDialog"
+          press=".onCloseOperationActionMasterDialog"
           text="{i18n>Close}"/>
         </beginButton>
         <endButton>
         <Button 
-          id="ConfirmReplacementCompMasterDialogButton" 
+          id="ConfirmOperationActionMasterDialogButton" 
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"
-          press=".onConfirmReplacementCompMasterDialog"
+          press=".onConfirmOperationActionMasterDialog"
           text="{i18n>Create}"/>
       </endButton>
       </Dialog>
