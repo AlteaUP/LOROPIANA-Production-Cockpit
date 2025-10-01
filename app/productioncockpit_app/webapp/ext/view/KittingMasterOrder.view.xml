@@ -1,0 +1,12 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.KittingMasterOrder">
+    <Page id="Kitting" title="{i18n>KittingTitle}">
+        <content>
+            <macros:FilterBar metaPath="/ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#MasterKitting" id="FilterBarMasterKitting"/>
+            <macros:Table id="TableKitting" selectionMode="ForceMulti" exportRequestSize="5000" rowCountMode="Auto" filterBar="FilterBarMasterKitting"  type="GridTable" metaPath="to_ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroKitting" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control" rowCount="20">
+                <macros:actions>
+                    <table:Action id="saveKittingMasterID" key="saveKittingMasterAction" text="{i18n>save}" press=".onActionSaveKittingMaster" placement="After" requiresSelection="true"/>
+                </macros:actions>
+            </macros:Table>
+        </content>
+    </Page>
+</mvc:View>

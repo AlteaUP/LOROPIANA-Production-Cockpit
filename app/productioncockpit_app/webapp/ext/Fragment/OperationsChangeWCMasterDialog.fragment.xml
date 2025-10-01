@@ -19,7 +19,7 @@
           }">
           <columns>
                 <Column>
-                    <Text text="{i18n>CprodOrd}"/>
+                    <Text text="{i18n>MasterProductionOrder}"/>
                 </Column>
                 <Column>
                     <Text text="{i18n>MaterialGroup}"/>
@@ -44,7 +44,7 @@
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
-                  value="{CprodOrd}" editable="false" />
+                  value="{MasterProductionOrder}" editable="false" />
                 <Input 
                   value="{MaterialGroup}" editable="false" />
                 <Input 

@@ -27,9 +27,11 @@ sap.ui.define(
                     if(oEvent.getParameters().selectedContext.length > 0){
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
                     }
                 });
                 this.byId("TableCombined").attachSelectionChange(function (oEvent) {
@@ -289,6 +291,30 @@ sap.ui.define(
 
                     }
                 });
+            },
+
+            onNavigateToKittingMasterOrder: function(oEvent){
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+                
+                var key = ""
+                for(var i=0; i<this.byId("TableMaster").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
+                    } else {            
+                        key = key + ";" + this.byId("TableMaster").getSelectedContexts()[i].getObject().ID
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPKittingPage", {
+                    ZZ1_C_MASTERORDER_KITTINGKey: "'"+key+"'", "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+                  
+                
             },
 
             onCloseOrder: function(oEvent){

@@ -212,6 +212,42 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
     ],
 );
 
+annotate service.ZZ1_C_MASTERORDER_COMP with @(
+    UI.SelectionFields #MasterKitting : [Material],
+    UI.LineItem #tableMacroKitting : [
+        {
+            $Type : 'UI.DataField',
+            Value : FshMprodOrd,
+            Label : 'FshMprodOrd',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Material,
+            Label : 'Material',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : EntryUnit,
+            Label : 'EntryUnit',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : 'Plant',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Lgort1,
+            Label : 'Lgort1',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : RequirementSegment,
+            Label : 'RequirementSegment',
+        },
+    ],
+);
+
 annotate service.ZZ1_C_MFG_MASTEROPE with @(
     UI.LineItem #tableMacroOperations : [
         {
