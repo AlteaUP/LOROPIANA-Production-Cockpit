@@ -288,8 +288,55 @@ sap.ui.define(
                 dialog.open();
             },
 
-            onActionSaveKittingMaster: function(oEvent){
-                alert("Salvato")
+            onActionSaveKittingMaster: async function() {
+                var objectToCreateMaterialDocument = {}
+                var arrayToCreateMaterialDocument = []
+                var oBusyDialog = new sap.m.BusyDialog();
+
+                for(var i=0; i<oController.byId("TableKitting").getSelectedContexts().length; i++){
+                    //objectToCreateMaterialDocument = oController.byId("TableKitting").getSelectedContexts()[i].getObject()
+                    objectToCreateMaterialDocument.Material = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Material
+                    objectToCreateMaterialDocument.Plant = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Plant
+                    objectToCreateMaterialDocument.Batch = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Batch
+                    arrayToCreateMaterialDocument.push(objectToCreateMaterialDocument)
+                }
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/CreateMaterialDocument(...)");
+
+                await oBindingContext.setParameter("Record", 
+                    arrayToCreateMaterialDocument
+                );
+
+                if(arrayToCreateMaterialDocument.length > 0){                    
+                    oBusyDialog.open();
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext(); 
+                        oBusyDialog.close();
+                        //if(oContext.getObject().value.indexOf("Error") > -1){
+                        if(oContext.getObject().value.MaterialDocument === undefined){
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {                                
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("materialDocument") + " " + oContext.getObject().value.MaterialDocument + " " + oController.getResourceBundle().getText("created2"), "I");
+                            oController.byId("TableKitting").getModel().refresh()
+                        }                            
+                        
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        // TODO - gestione errore
+                        if(oError.error === undefined || oError.error === null){
+                            oController.openDialogMessageText(oError, "E");
+                        } else {
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        }
+                        return
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSendforMaterialDocument"))
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSendforMaterialDocument"), "E");
+                    oBusyDialog.close();
+                }
             }
         });
     }

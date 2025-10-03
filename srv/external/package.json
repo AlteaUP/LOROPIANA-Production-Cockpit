@@ -20,6 +20,10 @@
       "ZMFG_SD_INT_COMP_H": {
         "kind": "odata",
         "model": "srv/external/ZMFG_SD_INT_COMP_H"
+      },
+      "API_MATERIAL_DOCUMENT_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_MATERIAL_DOCUMENT_SRV"
       }
     }
   },

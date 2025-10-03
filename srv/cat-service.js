@@ -5,6 +5,7 @@ module.exports = cds.service.impl(async function (srv) {
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
     const componentsCall = await cds.connect.to('ZMFG_SD_INT_COMP_H');
+    const apiMaterialDocumentCreate = await cds.connect.to('API_MATERIAL_DOCUMENT_SRV');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -366,4 +367,67 @@ module.exports = cds.service.impl(async function (srv) {
         }
     });
 
-});
+    this.on("CreateMaterialDocument", async (req) => {
+        console.log("Chiamata ACTION CreateMaterialDocument")
+
+        const Documents = req.data.Record;
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        var documentItemArray = []
+        var documentItemObject = {}
+        for (var i = 0; i < Documents.length; i++) {
+            documentItemObject = {}
+            documentItemObject.Material = Documents[i].Material
+            documentItemObject.Plant = Documents[i].Plant
+            documentItemObject.Batch = Documents[i].Batch
+            documentItemObject.GoodsMovementType = '261'
+            documentItemObject.QuantityInEntryUnit = (Documents[i].Quantity).toString()
+            documentItemObject.EntryUnit = Documents[i].UnitMeasure
+            documentItemObject.InventorySpecialStockType = 'O'
+            documentItemObject.PurchaseOrder = Documents[i].PurchaseOrder
+            documentItemObject.PurchaseOrderItem = Documents[i].PurchaseOrderItem
+            documentItemObject.Supplier = Documents[i].Supplier
+            documentItemObject.ManufacturingOrder = Documents[i].ManufacturingOrder
+            //documentItemObject.ManufacturingOrderItem = Documents[i].ManufacturingOrderOperation
+            documentItemArray.push(documentItemObject)
+        }
+
+        var postingCurrentDate = new Date()
+        var year = postingCurrentDate.getFullYear()
+        var month = postingCurrentDate.getMonth() + 1
+        if (month < 10) {
+            month = '0' + month.toString()
+        }
+        var day = postingCurrentDate.getDate()
+        var postingDate = year.toString() + '-' + month.toString() + '-' + day.toString()
+
+        var payload = {
+            "PostingDate": postingDate + "T00:00:00",
+            //"DocumentDate": "2025-04-22T00:00:00",
+            "GoodsMovementCode": "03",
+            //"ReferenceDocument": Documents[0].CprodOrd,
+            "to_MaterialDocumentItem": documentItemArray
+        }
+
+        try {
+
+            console.log("SUCCESSO!")
+
+            let callCreate = await apiMaterialDocumentCreate.tx(req).post("/A_MaterialDocumentHeader", payload)
+            console.log("RITORNO chiamata " + callCreate) 
+            console.log("Risultato chiamata " + JSON.stringify(callCreate))
+
+            return callCreate
+
+            //return apiMaterialDocumentCreate.tx(req).post("/A_MaterialDocumentHeader", payload)                 
+
+        } catch (error) {
+
+            console.log("MESSAGGIO ERRORE "+error.message)
+            return error.message
+        }
+    })
+
+})

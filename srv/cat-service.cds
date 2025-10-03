@@ -8,6 +8,7 @@ using {ProductionCockpit.zproduction_cockpit.db.TYPES as TYPES} from '../db/TYPE
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
 using {ZMFG_SD_INT_COMP_H as componentsAction} from './external/ZMFG_SD_INT_COMP_H';
+using { API_MATERIAL_DOCUMENT_SRV as material_document} from './external/API_MATERIAL_DOCUMENT_SRV';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -74,6 +75,8 @@ service CatalogService {
 
     entity intcomph as projection on componentsAction.intcomph;
 
+    entity A_MaterialDocumentHeader as projection on material_document.A_MaterialDocumentHeader;
+
     action ReleaseOrder (OrderID : array of String) returns String;
 
     action TechnicalCompleteOrder (OrderID : array of String) returns String;
@@ -81,5 +84,7 @@ service CatalogService {
     action CloseOrder (OrderID : array of String) returns String;
 
     action Replacement (Record: many TYPES.ReplacementRecord) returns String;
+
+    action CreateMaterialDocument(Record: many TYPES.MaterialCreateDocument) returns String;
 
 }
