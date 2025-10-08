@@ -3,8 +3,9 @@ sap.ui.define(
         'sap/fe/core/PageController',
         'sap/ui/model/json/JSONModel',
         "sap/m/Dialog",
+        'sap/m/MessageToast'
     ],
-    function(PageController, JSONModel, Dialog) {
+    function(PageController, JSONModel, Dialog, MessageToast) {
         'use strict';
 
         var oController;
@@ -57,7 +58,7 @@ sap.ui.define(
                     // code block
                     oController.buttonSelected = "deletePhase"
                     break;
-                case "movePhaseCombID":
+                case "movePhaseCombAction":
                     // code block
                     oController.buttonSelected = "movePhase"
                     break;
@@ -107,7 +108,32 @@ sap.ui.define(
                     var oModel = new JSONModel();
                     oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsCombinedArray})
                     oTable.setModel(oModel);
-                } else {
+                } else if(oController.buttonSelected === "movePhase"){
+                    if(oController.byId("TableCombinedOperations").getSelectedContexts().length === 1){
+                        if(oController.pOperationsMovePhaseCombinedDialog === null || oController.pOperationsMovePhaseCombinedDialog === undefined){
+                            oController.pOperationsMovePhaseCombinedDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseDialog", oController);
+                            oController.getView().addDependent(oController.pOperationsMovePhaseCombinedDialog);
+                        }
+
+                        oController.pOperationsMovePhaseCombinedDialog.open();
+
+                        /*var selectedOperationsCombinedArray = []
+                        var selectedOperationsCombinedObject = {}
+                        for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
+                            selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
+                            selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material
+                            selectedOperationsCombinedArray.push(selectedOperationsCombinedObject)
+                        }
+
+                        var oTable = oController.byId("OperationsAddPhaseCombinedTableId");
+                            
+                        var oModel = new JSONModel();
+                        oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsCombinedArray})
+                        oTable.setModel(oModel);*/
+                    } else {
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
+                    }                    
+                } else {                    
                     oController.onDeleteMoveOperationsCombined()
                 }
             },
@@ -118,6 +144,10 @@ sap.ui.define(
 
              onCloseOperationsChangeWCCombinedDialog: function(){
                 oController.pOperationsChangeWCCombinedDialog.close();
+            }, 
+
+            onCloseOperationsMovePhaseDialog: function(){
+                oController.pOperationsMovePhaseCombinedDialog.close();
             }, 
 
             onDeleteMoveOperationsCombined: function (){

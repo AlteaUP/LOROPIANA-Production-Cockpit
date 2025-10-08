@@ -3,9 +3,10 @@ sap.ui.define(
         'sap/fe/core/PageController',
         'sap/ui/model/json/JSONModel',
         "sap/m/Dialog",
+        'sap/m/MessageToast'
         
     ],
-    function(PageController, JSONModel, Dialog) {
+    function(PageController, JSONModel, Dialog, MessageToast) {
         'use strict';
 
         var oController;
@@ -48,6 +49,10 @@ sap.ui.define(
 
             onCloseOperationsAddPhaseMasterDialog: function(){
                 oController.pOperationsAddPhaseMasterDialog.close();
+            },
+
+            onCloseOperationsMovePhaseDialog: function(){
+                oController.pOperationsMovePhaseMasterDialog.close();
             },
 
             onActionOperationMaster: function(oEvent){
@@ -116,6 +121,31 @@ sap.ui.define(
                     var oModel = new JSONModel();
                     oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
                     oTable.setModel(oModel);
+                } else if(oController.buttonSelected === "movePhase"){ 
+                    if(oController.byId("TableOperations").getSelectedContexts().length === 1){
+                        if(oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined){
+                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseDialog", oController);
+                            oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
+                        }
+
+                        oController.pOperationsMovePhaseMasterDialog.open();
+
+                        /*var selectedOperationsMasterArray = []
+                        var selectedOperationsMasterObject = {}
+                        for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                            selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
+                            selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                            selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                        }
+
+                        var oTable = oController.byId("OperationsAddPhaseMasterTableId");
+                            
+                        var oModel = new JSONModel();
+                        oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
+                        oTable.setModel(oModel);*/
+                    } else {
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
+                    } 
                 } else {
                     oController.onDeleteMoveOperationsMaster()
                 }
