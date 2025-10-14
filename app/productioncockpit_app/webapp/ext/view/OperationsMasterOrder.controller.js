@@ -130,7 +130,7 @@ sap.ui.define(
 
                         oController.pOperationsMovePhaseMasterDialog.open();
 
-                        /*var selectedOperationsMasterArray = []
+                        var selectedOperationsMasterArray = []
                         var selectedOperationsMasterObject = {}
                         for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
                             selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
@@ -138,11 +138,11 @@ sap.ui.define(
                             selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                         }
 
-                        var oTable = oController.byId("OperationsAddPhaseMasterTableId");
+                        var oTable = oController.byId("OperationsMovePhaseTableId");
                             
                         var oModel = new JSONModel();
-                        oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
-                        oTable.setModel(oModel);*/
+                        oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray})
+                        oTable.setModel(oModel);
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
                     } 

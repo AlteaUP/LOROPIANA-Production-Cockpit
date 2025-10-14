@@ -73,21 +73,21 @@
                 <Input 
                   value="{CprodOrd}" editable="false" />
                 <Input 
-                  value="{MaterialGroup}" editable="false" />
+                  value="{SumOpPlannedTotalQuantity}" editable="false" />
                 <Input 
-                  value="{ManufacturingOrderOperation}" editable="false" />
+                  value="{SumOpTotalYieldQuantity}" editable="false" />
                 <Input 
-                  value="{MfgOrderOperationText}" editable="false"/>
+                  value="{SumOpTotalScrapQuantity}" editable="false"/>
                 <Input 
-                  value="{Supplier}" editable="true"/>
+                  value="{SumOperationConfirmedReworkQty}" editable="true"/>
                 <Input 
-                  value="{WorkCenter}"/>
+                  value=""/>
                 <Input 
-                  value="{WorkCenterInternalID_1_Text}" editable="true"/>
+                  value="" editable="true"/>
                 <Input 
-                  value="{WorkCenterInternalID_1_Text}" editable="true"/>
+                  value="" editable="true"/>
                 <Input 
-                  value="{WorkCenterInternalID_1_Text}" />
+                  value="" />
               </cells>
             </ColumnListItem>
           </items>

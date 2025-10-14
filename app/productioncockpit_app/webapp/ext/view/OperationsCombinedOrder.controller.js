@@ -117,7 +117,7 @@ sap.ui.define(
 
                         oController.pOperationsMovePhaseCombinedDialog.open();
 
-                        /*var selectedOperationsCombinedArray = []
+                        var selectedOperationsCombinedArray = []
                         var selectedOperationsCombinedObject = {}
                         for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
                             selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
@@ -125,11 +125,11 @@ sap.ui.define(
                             selectedOperationsCombinedArray.push(selectedOperationsCombinedObject)
                         }
 
-                        var oTable = oController.byId("OperationsAddPhaseCombinedTableId");
+                        var oTable = oController.byId("OperationsMovePhaseTableId");
                             
                         var oModel = new JSONModel();
-                        oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsCombinedArray})
-                        oTable.setModel(oModel);*/
+                        oModel.setData({ SelectedOperationsMovePhase: selectedOperationsCombinedArray})
+                        oTable.setModel(oModel);
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
                     }                    
