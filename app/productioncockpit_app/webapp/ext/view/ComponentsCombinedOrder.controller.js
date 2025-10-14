@@ -78,6 +78,12 @@ sap.ui.define(
 
                     oController.pReplacementCompCombinedDialog.open();
 
+                    if(oController.buttonSelected === "integration"){
+                        oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
+                    } else {
+                        oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
+                    }
+
                     var selectedComponentsCombinedArray = []
                     var selectedComponentsCombinedObject = {}
                     for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){

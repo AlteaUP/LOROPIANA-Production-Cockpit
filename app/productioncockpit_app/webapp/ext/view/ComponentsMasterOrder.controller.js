@@ -77,6 +77,12 @@ sap.ui.define(
                         oController.getView().addDependent(oController.pReplacementCompMasterDialog);
                     }
 
+                    if(oController.buttonSelected === "integration"){
+                        oController.byId("ReplacementCompMasterDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
+                    } else {
+                        oController.byId("ReplacementCompMasterDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
+                    }
+
                     oController.pReplacementCompMasterDialog.open();
 
                     var selectedComponentsMasterArray = []
