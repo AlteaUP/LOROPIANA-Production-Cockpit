@@ -111,7 +111,7 @@ sap.ui.define(
                 console.log("onConfirmReplacementCompCombinedDialog");
                 var dataToSend = []
                 var dataObjectToSend = {}
-                var table = this.byId("ReplacementCompCombinedTableId").getModel().oData.SelectedComponentsMaster
+                var table = this.byId("ReplacementCompCombinedTableId").getModel().oData.SelectedComponentsCombined
 
                 for(var i=0; i<table.length; i++){
                     dataObjectToSend = {}
