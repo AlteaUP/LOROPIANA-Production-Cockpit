@@ -31,7 +31,7 @@
           singleContainerFullSize="false" >
           <f:content>
             <Label text="{i18n>generateWIPbatch}" />
-            <CheckBox />
+            <CheckBox id="generateWIPbatchCheckBoxId"/>
           </f:content>
         </f:SimpleForm>
       	<Table id="OperationsMovePhaseTableId"
@@ -81,13 +81,13 @@
                 <Input 
                   value="{SumOperationConfirmedReworkQty}" editable="true"/>
                 <Input 
-                  value=""/>
+                  value="{QtyToConfirm}"/>
                 <Input 
-                  value="" editable="true"/>
+                  value="{QtyToDiscard}" editable="true"/>
                 <Input 
-                  value="" editable="true"/>
+                  value="{QtyToRework}" editable="true"/>
                 <Input 
-                  value="" />
+                  value="{Reason}" />
               </cells>
             </ColumnListItem>
           </items>
@@ -108,7 +108,7 @@
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"
-          press=".onConfirmReplacementCompCombinedDialog"
+          press=".onConfirmOperationsMovePhaseDialog"
           text="{i18n>Create}"/>
       </endButton>
       </Dialog>

@@ -55,6 +55,71 @@ sap.ui.define(
                 oController.pOperationsMovePhaseMasterDialog.close();
             },
 
+            onConfirmOperationsMovePhaseDialog: function(){
+                console.log("onConfirmOperationsMovePhaseDialog");
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                for(var i=0; i<this.byId("OperationsMovePhaseTableId").getItems().length; i++){
+                    var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext().sPath
+                    var object = this.byId("OperationsMovePhaseTableId").getModel().getObject(path)
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.CprodOrd = object.CprodOrd
+                    dataObjectToSend.FshMprodOrd = object.FshMprodOrd
+                    dataObjectToSend.matnr = object.Material
+                    dataObjectToSend.werks = object.Plant
+                    dataObjectToSend.meins = object.BaseUnit
+                    dataObjectToSend.yield = Number(object.QtyToConfirm)
+                    dataObjectToSend.scrap = Number(object.QtyToDiscard)
+                    dataObjectToSend.rework = Number(object.QtyToRework)
+                    dataObjectToSend.vornr = object.ManufacturingOrderOperation
+                    dataObjectToSend.plnfl = object.ManufacturingOrderSequence
+                    if(oController.byId("generateWIPbatchCheckBoxId").getSelected()){
+                        dataObjectToSend.flwip = "X"
+                    } else {
+                        dataObjectToSend.flwip = ""
+                    }
+                    dataObjectToSend.reason = object.Reason
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/MovePhase(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();                         
+                        if(oContext.getObject().value.indexOf("Error") > -1){
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            oController.openDialogMessageText(oContext.getObject().value, "S");
+                        }
+                        //MessageToast.show(oController.getResourceBundle().getText("done"))                            
+                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        oBusyDialog.close();                       
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");                    
+                    oBusyDialog.close();
+                }
+            },
+
             onActionOperationMaster: function(oEvent){
                 var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
                 // controllo quale pulsante ho selezionato
@@ -149,6 +214,41 @@ sap.ui.define(
                 } else {
                     oController.onDeleteMoveOperationsMaster()
                 }
+            },
+
+            openDialogMessageText: function (text, messType) {
+                var vTitle = "Message";
+                var vState = "Error";
+    
+                if (messType === "E") {
+                    vTitle = this.getResourceBundle().getText("errorTitle");
+                    vState = "Error";
+                } else
+                    if (messType === "I") {
+                        vTitle = this.getResourceBundle().getText("successTitle");
+                        vState = "Success";
+                    }
+    
+                var dialog = new Dialog({
+                    title: vTitle,
+                    type: "Message",
+                    state: vState,
+                    content: new sap.m.Text({
+                        text: text
+                    }),
+    
+                    beginButton: new sap.m.Button({
+                        text: "OK",
+                        press: function () {
+                            dialog.close();
+                        }
+                    }),
+                    afterClose: function () {
+                        dialog.destroy();
+                    }
+                });
+    
+                dialog.open();
             }
 
             /**

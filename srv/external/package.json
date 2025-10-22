@@ -24,6 +24,10 @@
       "API_MATERIAL_DOCUMENT_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/API_MATERIAL_DOCUMENT_SRV"
+      },
+      "ZMFG_SD_CONF_ODP_H": {
+        "kind": "odata",
+        "model": "srv/external/ZMFG_SD_CONF_ODP_H"
       }
     }
   },

@@ -5,6 +5,7 @@ module.exports = cds.service.impl(async function (srv) {
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
     const componentsCall = await cds.connect.to('ZMFG_SD_INT_COMP_H');
+    const confODP = await cds.connect.to('ZMFG_SD_CONF_ODP_H');
     const apiMaterialDocumentCreate = await cds.connect.to('API_MATERIAL_DOCUMENT_SRV');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
@@ -427,6 +428,40 @@ module.exports = cds.service.impl(async function (srv) {
 
             console.log("MESSAGGIO ERRORE "+error.message)
             return error.message
+        }
+    })
+
+    this.on("MovePhase", async (req) => {
+        console.log("MovePhase Action")
+
+        const Records = req.data.Record;
+        
+        var payload = {
+            "id": "001", 
+            "to_confodp": Records
+        }
+
+        console.log("PAYLOAD "+JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+
+            let callCreate = await confODP.tx(req).post("/confodph", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callCreate))
+
+        } catch (error) {
+
+            console.log("ERRORE "+error.message)
+
+            return error.message
+            
+            /*if(multipleDelivery){
+                response = response + "|| " + error.message
+            } else {
+                return error.message
+            }    */            
         }
     })
 

@@ -122,6 +122,26 @@
           }
         }
       },
+      "ZMFG_SD_CONF_ODP_H": {
+        "kind": "odata-v4",
+        "model": "srv/EXTERNAL/ZMFG_SD_CONF_ODP_H",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_conf_odp_deep/srvd/sap/zmfg_sd_conf_odp_h/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_conf_odp_deep/srvd/sap/zmfg_sd_conf_odp_h/0001"
+          }
+        }
+      },
       "API_MATERIAL_DOCUMENT_SRV": {
         "kind": "odata-v2",
         "model": "srv/EXTERNAL/API_MATERIAL_DOCUMENT_SRV",

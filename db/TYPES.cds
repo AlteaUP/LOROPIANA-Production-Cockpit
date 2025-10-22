@@ -42,3 +42,19 @@ type MaterialCreateDocument : {
     ManufacturingOrderOperation: String;
     //Wadak : String;
 }
+
+type MovePhase : {
+    id             : String;
+    CprodOrd       : String;
+    FshMprodOrd    : String;
+    matnr          : String;
+    meins          : String;
+    yield          : Decimal(9, 3);
+    scrap          : Decimal(9, 3);
+    rework         : Decimal(9, 3);
+    vornr          : String;
+    plnfl          : String;
+    flwip          : String;
+    reason         : String; 
+    werks          : String;
+}

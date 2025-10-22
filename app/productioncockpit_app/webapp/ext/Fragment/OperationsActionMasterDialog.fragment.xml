@@ -67,7 +67,7 @@
                 <Input 
                   value="{TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
                 <Input 
-                  value="{Lgort1}" editable="true" />
+                  value="{StorageLocation}" editable="true" />
                 <Input 
                   value="{Note}" editable="true" />
                 <Input 
