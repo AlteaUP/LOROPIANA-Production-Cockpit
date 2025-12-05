@@ -159,14 +159,14 @@ sap.ui.define(
                     var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext().sPath
                     var object = this.byId("OperationsMovePhaseTableId").getModel().getObject(path)
                     dataObjectToSend = {}
-                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.id = String(i+1).padStart(3, "0");//"001"                    
                     dataObjectToSend.CprodOrd = object.CprodOrd
-                    dataObjectToSend.FshMprodOrd = object.FshMprodOrd
-                    dataObjectToSend.matnr = object.Material
+                    dataObjectToSend.FshMprodOrd = object.MasterProductionOrder
+                    dataObjectToSend.matnr = ""
                     dataObjectToSend.werks = object.Plant
-                    dataObjectToSend.meins = object.BaseUnit
+                    dataObjectToSend.meins = object.ProductionUnit
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
-                    dataObjectToSend.scrap = Number(object.QtyToDiscard)
+                    /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
                     dataObjectToSend.rework = Number(object.QtyToRework)
                     dataObjectToSend.vornr = object.ManufacturingOrderOperation
                     dataObjectToSend.plnfl = object.ManufacturingOrderSequence
@@ -175,7 +175,7 @@ sap.ui.define(
                     } else {
                         dataObjectToSend.flwip = ""
                     }
-                    dataObjectToSend.reason = object.Reason
+                    dataObjectToSend.reason = object.Reason*/
                     dataToSend.push(dataObjectToSend)
                 }
 
@@ -183,7 +183,7 @@ sap.ui.define(
                 oBusyDialog.open();
 
                 const oModel = oController.getView().getModel();
-                var oBindingContext = oModel.bindContext("/MovePhase(...)");
+                var oBindingContext = oModel.bindContext("/ConfODP(...)");
                 oBindingContext.setParameter("Record", 
                     dataToSend
                 );

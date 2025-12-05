@@ -41,6 +41,23 @@ sap.ui.define(
                 sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPKittingPage--FilterBarMasterKitting-content-btnSearch").firePress()
             },
 
+            modifyDataBeforeRebind: function(oEvent){
+
+                var oMDCTable = this.byId("TableKitting").getMDCTable();
+
+                /*var intervalId = setInterval(function() {
+                    var aRows = oMDCTable._oTable.getRows();
+                    if (aRows.length > 0 && aRows[0].getCells()[3].getContent() !== undefined) {
+                        // Cella pronta, applica editMode
+                        aRows.forEach(function(oRow) {
+                            oRow.getCells()[3].getContent().setEditMode(true);
+                        });
+                        clearInterval(intervalId); // ferma il polling
+                    }
+                }, 100); */   
+                
+            },
+
             onActionComponentsMaster: function(oEvent){
                 var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
                 // controllo quale pulsante ho selezionato
@@ -289,38 +306,66 @@ sap.ui.define(
             },
 
             onActionSaveKittingMaster: async function() {
+                if(oController.pKittingMasterDialog === null || oController.pKittingMasterDialog === undefined){
+                    oController.pKittingMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.KittingMasterDialog", oController);
+                    oController.getView().addDependent(oController.pKittingMasterDialog);
+                }
+
+                oController.pKittingMasterDialog.open();
+
+                var selectedKittingMasterArray = []
+                var selectedKittingMasterObject = {}
+                for(var i=0; i<oController.byId("TableKitting").getSelectedContexts().length; i++){
+                    selectedKittingMasterObject = oController.byId("TableKitting").getSelectedContexts()[i].getObject()
+                    selectedKittingMasterArray.push(selectedKittingMasterObject)
+                }
+
+                var oTable = oController.byId("KittingMasterTableId");
+                    
+                var oModel = new JSONModel();
+                oModel.setData({ SelectedMasterKitting: selectedKittingMasterArray})
+                oTable.setModel(oModel);
+            },
+
+            onCloseKittingMasterDialog: function(){
+                oController.pKittingMasterDialog.close();
+            },
+
+            onConfirmKittingMasterDialog: async function() {
                 var objectToCreateMaterialDocument = {}
-                var arrayToCreateMaterialDocument = []
+                var arrayToKitting = []
                 var oBusyDialog = new sap.m.BusyDialog();
 
-                for(var i=0; i<oController.byId("TableKitting").getSelectedContexts().length; i++){
+                for(var i=0; i<oController.byId("KittingMasterTableId").getItems().length; i++){
+                    var path = this.byId("KittingMasterTableId").getItems()[i].getBindingContext().sPath
+                    var object = this.byId("KittingMasterTableId").getModel().getObject(path)
                     //objectToCreateMaterialDocument = oController.byId("TableKitting").getSelectedContexts()[i].getObject()
-                    objectToCreateMaterialDocument.Material = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Material
-                    objectToCreateMaterialDocument.Plant = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Plant
-                    objectToCreateMaterialDocument.Batch = oController.byId("TableKitting").getSelectedContexts()[i].getObject().Batch
-                    arrayToCreateMaterialDocument.push(objectToCreateMaterialDocument)
+                    objectToCreateMaterialDocument.id = String(i+1).padStart(3, "0");
+                    objectToCreateMaterialDocument.matnr = object.Material
+                    objectToCreateMaterialDocument.werks = object.Plant
+                    objectToCreateMaterialDocument.charg = object.Batch
+                    objectToCreateMaterialDocument.master_order = object.FshMprodOrd
+                    objectToCreateMaterialDocument.combined_order = ""
+                    objectToCreateMaterialDocument.meins = object.EntryUnit
+                    objectToCreateMaterialDocument.menge = parseFloat(object.TotalWithdrawnQuantity)
+                    objectToCreateMaterialDocument.lgort = object.StorageLocation
+                    arrayToKitting.push(objectToCreateMaterialDocument)
                 }
 
                 const oModel = oController.getView().getModel();
-                var oBindingContext = oModel.bindContext("/CreateMaterialDocument(...)");
+                var oBindingContext = oModel.bindContext("/DoKitting(...)");
 
-                await oBindingContext.setParameter("Record", 
-                    arrayToCreateMaterialDocument
+                oBindingContext.setParameter("Record", 
+                    arrayToKitting
                 );
 
-                if(arrayToCreateMaterialDocument.length > 0){                    
+                if(arrayToKitting.length > 0){                    
                     oBusyDialog.open();
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext(); 
                         oBusyDialog.close();
-                        //if(oContext.getObject().value.indexOf("Error") > -1){
-                        if(oContext.getObject().value.MaterialDocument === undefined){
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
-                        } else {                                
-                            oController.openDialogMessageText(oController.getResourceBundle().getText("materialDocument") + " " + oContext.getObject().value.MaterialDocument + " " + oController.getResourceBundle().getText("created2"), "I");
-                            oController.byId("TableKitting").getModel().refresh()
-                        }                            
-                        
+                        oController.pKittingMasterDialog.close();
+                        // TODO - gestione errore                                                   
                         
                     }).catch((oError) => {
                         oBusyDialog.close();
@@ -334,7 +379,7 @@ sap.ui.define(
                     });
                 } else {
                     //MessageToast.show(oController.getResourceBundle().getText("noDataToSendforMaterialDocument"))
-                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSendforMaterialDocument"), "E");
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSendforKitting"), "E");
                     oBusyDialog.close();
                 }
             }

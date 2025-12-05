@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="KittingMasterDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>kitting}">
+      <content>
+      	<Table id="KittingMasterTableId"
+          items="{
+            path: '/SelectedMasterKitting'
+          }">
+          <columns>
+                <Column>
+                    <Text text="{i18n>masterOrder}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>material}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>plant}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>storageLocation}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>qty}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>stockSegment}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{FshMprodOrd}" editable="false" />
+                <Input 
+                  value="{Material}" editable="false" />
+                <Input 
+                  value="{Plant}" editable="false" />
+                <Input 
+                  value="{StorageLocation}" editable="false"/>
+                <Input 
+                  value="{Menge}" editable="true" description="{EntryUnit}"/>
+                <Input 
+                  value="{RequirementSegment}" editable="false"/>
+                <Input 
+                  value="{Batch}" editable="false"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseKittingMasterDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseKittingMasterDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmKittingMasterDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmKittingMasterDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

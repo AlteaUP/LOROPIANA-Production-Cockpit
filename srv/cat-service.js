@@ -5,12 +5,23 @@ module.exports = cds.service.impl(async function (srv) {
     const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
     const componentsCall = await cds.connect.to('ZMFG_SD_INT_COMP_H');
-    const confODP = await cds.connect.to('ZMFG_SD_CONF_ODP_H');
+    //const confODP = await cds.connect.to('ZMFG_SD_CONF_ODP_H');
     const apiMaterialDocumentCreate = await cds.connect.to('API_MATERIAL_DOCUMENT_SRV');
+    const reasonSost = await cds.connect.to('ZZ1_MFG_REASON_SOST_CDS');
+    const createKitting = await cds.connect.to('ZMFG_SB_PRODUCTION_ORDERS_DEEP');
+    const confODP = await cds.connect.to('ZMFG_SB_CONF_ODP_DEEP');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
         var data = await combProdOrd.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_MFG_REASON_SOST", async request => {
+        console.log("chiamata ZZ1_MFG_REASON_SOST_CDS")
+        var data = await reasonSost.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
 
         return data;
@@ -429,7 +440,7 @@ module.exports = cds.service.impl(async function (srv) {
             console.log("MESSAGGIO ERRORE "+error.message)
             return error.message
         }
-    })
+    });
 
     this.on("MovePhase", async (req) => {
         console.log("MovePhase Action")
@@ -463,6 +474,64 @@ module.exports = cds.service.impl(async function (srv) {
                 return error.message
             }    */            
         }
-    })
+    });
+
+    this.on("DoKitting", async (req) => {
+        console.log("Chiamata ACTION DoKitting")
+
+        const Records = req.data.Record;
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        var payload = {
+            "id": "001",
+            "to_prod_ord": Records
+        }
+
+        try {
+
+            let callCreate = await createKitting.tx(req).post("/prodordh", payload)
+            console.log("Risultato chiamata prodordh " + JSON.stringify(callCreate))
+
+        } catch (error) {
+
+            console.log("ERRORE "+error.message)
+
+            return error.message                
+        }
+
+     });
+
+     this.on("ConfODP", async (req) => {
+        console.log("Chiamata ACTION ConfODP")
+
+        const Records = req.data.Record;
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        var payload = {
+            "id": "001",
+            "to_confodp": Records
+        }
+
+        try {
+
+            let callCreate = await confODP.tx(req).post("/confodph", payload)
+            console.log("Risultato chiamata prodordh " + JSON.stringify(callCreate))
+
+        } catch (error) {
+
+            console.log("ERRORE "+error.message)
+
+            return error.message                
+        }
+
+     });
+
+     this.on("Test", async (req) => {
+        console.log("ENTRATOOOO")
+     })
 
 })

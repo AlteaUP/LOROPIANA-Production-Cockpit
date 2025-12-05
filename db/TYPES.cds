@@ -58,3 +58,25 @@ type MovePhase : {
     reason         : String; 
     werks          : String;
 }
+
+type ConfODP : {
+    id             : String;
+    CprodOrd       : String;
+    FshMprodOrd    : String;
+    matnr          : String;
+    meins          : String;
+    yield          : Decimal(9, 3);
+    werks          : String;
+}
+
+type OrdersKittingRecord {
+    id             : String;
+    master_order   : String;
+    combined_order : String;
+    matnr          : String;
+    meins          : String;
+    menge          : Decimal(9, 3);
+    werks          : String;     
+    lgort          : String;
+    charg          : String; 
+}

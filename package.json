@@ -161,6 +161,66 @@
             "path": "/sap/opu/odata/sap/API_MATERIAL_DOCUMENT_SRV"
           }
         }
+      },
+      "ZZ1_MFG_REASON_SOST_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFG_REASON_SOST_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFG_REASON_SOST_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFG_REASON_SOST_CDS"
+          }
+        }
+      },
+      "ZMFG_SB_PRODUCTION_ORDERS_DEEP": {
+        "kind": "odata-v4",
+        "model": "srv/EXTERNAL/ZMFG_SB_PRODUCTION_ORDERS_DEEP",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_production_orders_deep/srvd/sap/zmfg_sd_production_orders_h/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_production_orders_deep/srvd/sap/zmfg_sd_production_orders_h/0001"
+          }
+        }
+      },
+      "ZMFG_SB_CONF_ODP_DEEP": {
+        "kind": "odata-v4",
+        "model": "srv/EXTERNAL/ZMFG_SB_CONF_ODP_DEEP",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_conf_odp_deep/srvd/sap/zmfg_sd_conf_odp_h/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_conf_odp_deep/srvd/sap/zmfg_sd_conf_odp_h/0001"
+          }
+        }
       }
     }
   },

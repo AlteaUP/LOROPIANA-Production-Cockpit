@@ -8,8 +8,11 @@ using {ProductionCockpit.zproduction_cockpit.db.TYPES as TYPES} from '../db/TYPE
 using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
 using {ZMFG_SD_INT_COMP_H as componentsAction} from './external/ZMFG_SD_INT_COMP_H';
-using {ZMFG_SD_CONF_ODP_H as confirmODP} from './external/ZMFG_SD_CONF_ODP_H';
-using { API_MATERIAL_DOCUMENT_SRV as material_document} from './external/API_MATERIAL_DOCUMENT_SRV';
+//using {ZMFG_SD_CONF_ODP_H as confirmODP} from './external/ZMFG_SD_CONF_ODP_H';
+using {ZMFG_SB_CONF_ODP_DEEP as confirmODP} from './external/ZMFG_SB_CONF_ODP_DEEP';
+using {API_MATERIAL_DOCUMENT_SRV as material_document} from './external/API_MATERIAL_DOCUMENT_SRV';
+using {ZZ1_MFG_REASON_SOST_CDS as reasonSost} from './external/ZZ1_MFG_REASON_SOST_CDS';
+using {ZMFG_SB_PRODUCTION_ORDERS_DEEP as create_kitting } from './external/ZMFG_SB_PRODUCTION_ORDERS_DEEP';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -80,6 +83,10 @@ service CatalogService {
 
     entity A_MaterialDocumentHeader as projection on material_document.A_MaterialDocumentHeader;
 
+    entity ZZ1_MFG_REASON_SOST as projection on reasonSost.ZZ1_MFG_REASON_SOST;
+
+    entity prodordh as projection on create_kitting.prodordh;
+
     action ReleaseOrder (OrderID : array of String) returns String;
 
     action TechnicalCompleteOrder (OrderID : array of String) returns String;
@@ -91,5 +98,9 @@ service CatalogService {
     action CreateMaterialDocument(Record: many TYPES.MaterialCreateDocument) returns String;
 
     action MovePhase (Record: many TYPES.MovePhase) returns String;
+
+    action ConfODP (Record: many TYPES.ConfODP) returns String;
+
+    action DoKitting (Record: many TYPES.OrdersKittingRecord) returns String;
 
 }

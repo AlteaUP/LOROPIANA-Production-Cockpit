@@ -28,6 +28,18 @@
       "ZMFG_SD_CONF_ODP_H": {
         "kind": "odata",
         "model": "srv/external/ZMFG_SD_CONF_ODP_H"
+      },
+      "ZZ1_MFG_REASON_SOST_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFG_REASON_SOST_CDS"
+      },
+      "ZMFG_SB_PRODUCTION_ORDERS_DEEP": {
+        "kind": "odata",
+        "model": "srv/external/ZMFG_SB_PRODUCTION_ORDERS_DEEP"
+      },
+      "ZMFG_SB_CONF_ODP_DEEP": {
+        "kind": "odata",
+        "model": "srv/external/ZMFG_SB_CONF_ODP_DEEP"
       }
     }
   },
