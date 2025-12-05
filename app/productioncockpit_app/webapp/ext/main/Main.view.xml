@@ -7,6 +7,7 @@
                     <IconTabFilter text="Combined" key="combined">
                         <macros:Table id="TableCombined" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
                             <macros:actions>
+                                <table:Action id="kittingCombinedID" key="kittingCombinedAction" text="{i18n>kitting}" press=".onNavigateToKittingCombinedOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="technicalCompleteOrderID" key="technicalCompleteOrderAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="closeOrderID" key="closeOrderAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>

@@ -274,6 +274,68 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
     ],
 );
 
+annotate service.ZZ1_C_COMBORDER_COMP with @(
+    UI.SelectionFields #CombinedKitting : [Material],
+    UI.LineItem #tableMacroCombinedKitting : [
+        {
+            $Type : 'UI.DataField',
+            Value : CprodOrd,
+            Label : '{i18n>masterOrder}',
+            ![@HTML5.CssDefaults] : {
+                width : '5%',
+            },
+        },        
+        {
+            $Type : 'UI.DataField',
+            Value : Material,
+            Label : '{i18n>material}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductDescription,
+            Label : '{i18n>materialDescription}',
+            ![@HTML5.CssDefaults] : {
+                width : '15%',
+            },
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : TotalWithdrawnQuantity,
+            Label : '{i18n>qty}'
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : TotalQuantityInEntryUnit,
+            Label : '{i18n>totalQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : EntryUnit,
+            Label : '{i18n>unitMeasure}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : '{i18n>plant}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : StorageLocation,
+            Label : '{i18n>storageLocation}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : RequirementSegment,
+            Label : '{i18n>stockSegment}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Batch,
+            Label : '{i18n>batch}',
+        },
+    ],
+);
+
 annotate service.ZZ1_C_MFG_MASTEROPE with @(
     UI.LineItem #tableMacroOperations : [
         {

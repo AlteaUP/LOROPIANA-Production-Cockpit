@@ -41,12 +41,14 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
                     }
                 });
                 this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -310,6 +312,30 @@ sap.ui.define(
 
                 this.oRouter.navTo("ZZ1_C_MASTERORDER_COMPKittingPage", {
                     ZZ1_C_MASTERORDER_KITTINGKey: "'"+key+"'", "?query": {
+                        //layout: "ThreeColumnsMidExpanded"
+                    }
+                });
+                  
+                
+            },
+
+            onNavigateToKittingCombinedOrder: function(oEvent){
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+
+                this.oRouter = oComponent.getRouter();
+                
+                var key = ""
+                for(var i=0; i<this.byId("TableCombined").getSelectedContexts().length; i++){       
+                    if(i ===  0){
+                        key = this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
+                    } else {            
+                        key = key + ";" + this.byId("TableCombined").getSelectedContexts()[i].getObject().ID
+                    }
+                }
+
+                this.oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPKittingPage", {
+                    ZZ1_C_COMBINEDORDER_KITTINGKey: "'"+key+"'", "?query": {
                         //layout: "ThreeColumnsMidExpanded"
                     }
                 });

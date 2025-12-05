@@ -18,7 +18,10 @@
             path: '/SelectedMasterKitting'
           }">
           <columns>
-                <Column>
+                <Column id="masterOrderID">
+                    <Text text="{i18n>masterOrder}"/>
+                </Column>
+                <Column id="combinedOrderID">
                     <Text text="{i18n>masterOrder}"/>
                 </Column>
                 <Column>
@@ -46,13 +49,15 @@
                 <Input 
                   value="{FshMprodOrd}" editable="false" />
                 <Input 
+                  value="{CprodOrd}" editable="false" />
+                <Input 
                   value="{Material}" editable="false" />
                 <Input 
                   value="{Plant}" editable="false" />
                 <Input 
                   value="{StorageLocation}" editable="false"/>
                 <Input 
-                  value="{Menge}" editable="true" description="{EntryUnit}"/>
+                  value="{TotalWithdrawnQuantity}" editable="true" description="{EntryUnit}"/>
                 <Input 
                   value="{RequirementSegment}" editable="false"/>
                 <Input 

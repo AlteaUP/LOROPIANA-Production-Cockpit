@@ -137,6 +137,11 @@
           "name": "ZZ1_C_MASTERORDER_COMPKittingPage",
           "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_KITTINGKey})/kittingMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_COMPKittingPage"
+        },
+        {
+          "name": "ZZ1_C_COMBINEDORDER_COMPKittingPage",
+          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_KITTINGKey})/kittingCombinedOrder:?query:",
+          "target": "ZZ1_C_COMBINEDORDER_COMPKittingPage"
         }
       ],
       "targets": {
@@ -239,6 +244,18 @@
               "navigation": {},
               "contextPath": "/ZZ1_I_COMBPRODORDAPI",
               "viewName": "productioncockpitapp.ext.view.KittingMasterOrder"
+            }
+          }
+        },
+        "ZZ1_C_COMBINEDORDER_COMPKittingPage": {
+          "type": "Component",
+          "id": "ZZ1_C_COMBINEDORDER_COMPKittingPage",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "viewName": "productioncockpitapp.ext.view.KittingCombinedOrder"
             }
           }
         }
