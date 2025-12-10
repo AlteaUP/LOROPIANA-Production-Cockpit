@@ -5,6 +5,7 @@
                 <macros:actions>
                     <table:Action id="changeWCCombID" key="changeWCCombAction" text="{i18n>changeWC}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="addPhaseCombID" key="addPhaseCombAction" text="{i18n>addPhase}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="modifyPhaseCombID" key="modifyPhaseCombAction" text="{i18n>modifyPhase}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="deletePhaseCombID" key="deletePhaseCombAction" text="{i18n>deletePhase}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="movePhaseCombID" key="movePhaseCombAction" text="{i18n>movePhase}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
                 </macros:actions>

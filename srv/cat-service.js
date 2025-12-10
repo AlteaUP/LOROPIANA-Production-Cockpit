@@ -10,6 +10,7 @@ module.exports = cds.service.impl(async function (srv) {
     const reasonSost = await cds.connect.to('ZZ1_MFG_REASON_SOST_CDS');
     const createKitting = await cds.connect.to('ZMFG_SB_PRODUCTION_ORDERS_DEEP');
     const confODP = await cds.connect.to('ZMFG_SB_CONF_ODP_DEEP');
+    const manageODPPhase = await cds.connect.to('ZMFG_SB_PRODOR_OPERATIONS');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -530,8 +531,32 @@ module.exports = cds.service.impl(async function (srv) {
 
      });
 
-     this.on("Test", async (req) => {
-        console.log("ENTRATOOOO")
-     })
+     this.on("ManageODPPhase", async (req) => {
+        console.log("ManageODPPhase Action")
+
+        const Records = req.data.Record;
+        
+        var payload = {
+            "id": "001", 
+            "to_operations": Records
+        }
+
+        console.log("PAYLOAD "+JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+
+            let callCreate = await manageODPPhase.tx(req).post("/operationh", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callCreate))
+
+        } catch (error) {
+
+            console.log("ERRORE "+error.message)
+
+            return error.message           
+        }
+    });
 
 })

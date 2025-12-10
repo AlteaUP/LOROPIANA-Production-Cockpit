@@ -13,6 +13,7 @@ using {ZMFG_SB_CONF_ODP_DEEP as confirmODP} from './external/ZMFG_SB_CONF_ODP_DE
 using {API_MATERIAL_DOCUMENT_SRV as material_document} from './external/API_MATERIAL_DOCUMENT_SRV';
 using {ZZ1_MFG_REASON_SOST_CDS as reasonSost} from './external/ZZ1_MFG_REASON_SOST_CDS';
 using {ZMFG_SB_PRODUCTION_ORDERS_DEEP as create_kitting } from './external/ZMFG_SB_PRODUCTION_ORDERS_DEEP';
+using {ZMFG_SB_PRODOR_OPERATIONS as managePhase } from './external/ZMFG_SB_PRODOR_OPERATIONS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -87,6 +88,8 @@ service CatalogService {
 
     entity prodordh as projection on create_kitting.prodordh;
 
+    entity operationh as projection on managePhase.operationh;
+
     action ReleaseOrder (OrderID : array of String) returns String;
 
     action TechnicalCompleteOrder (OrderID : array of String) returns String;
@@ -100,6 +103,8 @@ service CatalogService {
     action MovePhase (Record: many TYPES.MovePhase) returns String;
 
     action ConfODP (Record: many TYPES.ConfODP) returns String;
+
+    action ManageODPPhase (Record: many TYPES.ManageODPPhase) returns String;
 
     action DoKitting (Record: many TYPES.OrdersKittingRecord) returns String;
 

@@ -32,12 +32,14 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::changeWCCombAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::addPhaseCombAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::deletePhaseCombAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::movePhaseCombAction").setEnabled(true);                        
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::movePhaseCombAction").setEnabled(true);  
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::modifyPhaseCombAction").setEnabled(true);                        
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::changeWCCombAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::addPhaseCombAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::deletePhaseCombAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::movePhaseCombAction").setEnabled(false);                        
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content::CustomAction::modifyPhaseCombAction").setEnabled(false);
                     }
                 });
             },
@@ -61,6 +63,9 @@ sap.ui.define(
                 case "movePhaseCombAction":
                     // code block
                     oController.buttonSelected = "movePhase"
+                    break;
+                case "modifyPhaseCombAction":
+                    oController.buttonSelected = "modifyPhase"
                     break;
                 default:
                     // code block
@@ -134,7 +139,60 @@ sap.ui.define(
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
                     }                    
                 } else {                    
-                    oController.onDeleteMoveOperationsCombined()
+                    oController.onDeleteOperationsCombined()
+                }
+            },
+
+            
+            onDeleteOperationsCombined: function(oEvent){
+                console.log("onDeleteOperationsCombined");
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                var table = this.byId("TableCombinedOperations").getSelectedContexts()
+
+                for(var i=0; i<table.length; i++){
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.MasterProductionOrder = table[i].getObject().MasterProductionOrder
+                    dataObjectToSend.ManufacturingOrderOperation = table[i].getObject().ManufacturingOrderOperation
+                    dataObjectToSend.WorkCenter = table[i].getObject().WorkCenter
+                    dataObjectToSend.Plant = table[i].getObject().Plant
+                    dataObjectToSend.OperationControlProfile = table[i].getObject().OperationControlProfile
+                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText            
+                    dataObjectToSend.action = "DEL"
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/ManageODPPhase(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();                            
+                        //oController.byId("TableComponents").getModel().refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
+                        oBusyDialog.close();
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    
+                    oBusyDialog.close();
                 }
             },
 

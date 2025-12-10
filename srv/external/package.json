@@ -40,6 +40,10 @@
       "ZMFG_SB_CONF_ODP_DEEP": {
         "kind": "odata",
         "model": "srv/external/ZMFG_SB_CONF_ODP_DEEP"
+      },
+      "ZMFG_SB_PRODOR_OPERATIONS": {
+        "kind": "odata",
+        "model": "srv/external/ZMFG_SB_PRODOR_OPERATIONS"
       }
     }
   },

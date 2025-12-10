@@ -184,7 +184,7 @@
       },
       "ZMFG_SB_PRODUCTION_ORDERS_DEEP": {
         "kind": "odata-v4",
-        "model": "srv/EXTERNAL/ZMFG_SB_PRODUCTION_ORDERS_DEEP",
+        "model": "srv/external/ZMFG_SB_PRODUCTION_ORDERS_DEEP",
         "csrf": true,
         "csrfInBatch": true,
         "[hybrid]": {
@@ -204,7 +204,7 @@
       },
       "ZMFG_SB_CONF_ODP_DEEP": {
         "kind": "odata-v4",
-        "model": "srv/EXTERNAL/ZMFG_SB_CONF_ODP_DEEP",
+        "model": "srv/external/ZMFG_SB_CONF_ODP_DEEP",
         "csrf": true,
         "csrfInBatch": true,
         "[hybrid]": {
@@ -219,6 +219,26 @@
             "requestTimeout": 300000,
             "destination": "S4HANA",
             "path": "/sap/opu/odata4/sap/zmfg_sb_conf_odp_deep/srvd/sap/zmfg_sd_conf_odp_h/0001"
+          }
+        }
+      },
+      "ZMFG_SB_PRODOR_OPERATIONS": {
+        "kind": "odata-v4",
+        "model": "srv/external/ZMFG_SB_PRODOR_OPERATIONS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_prodor_operations/srvd/sap/zmfg_sd_prodor_operations/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_prodor_operations/srvd/sap/zmfg_sd_prodor_operations/0001"
           }
         }
       }

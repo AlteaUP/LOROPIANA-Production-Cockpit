@@ -1,0 +1,319 @@
+{
+ "meta": {
+  "creator": "cds-dk 9.1.0"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "ZMFG_SB_PRODOR_OPERATIONS.operationhCbAControl": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "to_operations": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dynamic CbA-Control",
+     "@Common.Heading": "Dynamic Create by Association Control",
+     "@Common.QuickInfo": "Dynamic Create via Association Control Property"
+    }
+   }
+  },
+  "ZMFG_SB_PRODOR_OPERATIONS.EntityControl": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Deletable": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "Updatable": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    }
+   }
+  },
+  "ZMFG_SB_PRODOR_OPERATIONS": {
+   "kind": "service",
+   "@cds.external": true,
+   "@CodeList.CurrencyCodes": {
+    "Url": "../../../../default/iwbep/common/0001/$metadata",
+    "CollectionPath": "Currencies"
+   },
+   "@Aggregation.ApplySupported": {
+    "Transformations": [
+     "aggregate",
+     "groupby",
+     "filter"
+    ],
+    "Rollup": {
+     "#": "None"
+    }
+   },
+   "@Common.ApplyMultiUnitBehaviorForSortingAndFiltering": true,
+   "@Capabilities.FilterFunctions": [
+    "eq",
+    "ne",
+    "gt",
+    "ge",
+    "lt",
+    "le",
+    "and",
+    "or",
+    "contains",
+    "startswith",
+    "endswith",
+    "any",
+    "all"
+   ],
+   "@Capabilities.SupportedFormats": [
+    "application/json",
+    "application/pdf"
+   ],
+   "@PDF.Features": {
+    "DocumentDescriptionReference": "../../../../default/iwbep/common/0001/$metadata",
+    "DocumentDescriptionCollection": "MyDocumentDescriptions",
+    "ArchiveFormat": true,
+    "Border": true,
+    "CoverPage": true,
+    "FitToPage": true,
+    "FontName": true,
+    "FontSize": true,
+    "Margin": true,
+    "Padding": true,
+    "Signature": true,
+    "HeaderFooter": true,
+    "ResultSizeDefault": 20000,
+    "ResultSizeMaximum": 20000
+   },
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Capabilities.AsynchronousRequestsSupported": true
+  },
+  "ZMFG_SB_PRODOR_OPERATIONS.operationh": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "id": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tabella R/2",
+     "@Common.Heading": "TABR2"
+    },
+    "__CreateByAssociationControl": {
+     "type": "ZMFG_SB_PRODOR_OPERATIONS.operationhCbAControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dynamic CbA-Control",
+     "@Common.Heading": "Dynamic Create by Association Control",
+     "@Common.QuickInfo": "Dynamic Create via Association Control Property"
+    },
+    "__EntityControl": {
+     "type": "ZMFG_SB_PRODOR_OPERATIONS.EntityControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "to_operations": {
+     "type": "cds.Composition",
+     "target": "ZMFG_SB_PRODOR_OPERATIONS.operationi",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": [],
+     "@Common.Composition": true
+    }
+   },
+   "@Common.Label": "Root view for operations",
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "to_operations"
+     },
+     "InsertRestrictions": {
+      "Insertable": {
+       "=": "__CreateByAssociationControl/to_operations"
+      }
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "__CreateByAssociationControl",
+    "__EntityControl"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "__CreateByAssociationControl",
+    "__EntityControl"
+   ],
+   "@Capabilities.ReadRestrictions.Readable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": {
+    "=": "__EntityControl/Deletable"
+   },
+   "@Capabilities.UpdateRestrictions.Updatable": {
+    "=": "__EntityControl/Updatable"
+   },
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  },
+  "ZMFG_SB_PRODOR_OPERATIONS.operationi": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "id": {
+     "key": true,
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Core.Computed": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tabella R/2",
+     "@Common.Heading": "TABR2"
+    },
+    "MasterProductionOrder": {
+     "key": true,
+     "type": "cds.String",
+     "length": 12,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Ordine prod. princ.",
+     "@Common.Heading": "Ordine di produzione principale",
+     "@Common.QuickInfo": "Numero ordine di produzione principale"
+    },
+    "ManufacturingOrderOperation": {
+     "key": true,
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Collegamento logico",
+     "@Common.Heading": "Collegamento logico di variabili a ricerca classi",
+     "@Common.QuickInfo": "Tipo di dati 4 caratteri"
+    },
+    "WorkCenter": {
+     "type": "cds.String",
+     "length": 8,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Centro di lavoro",
+     "@Common.Heading": "C. lav."
+    },
+    "Plant": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Divisione",
+     "@Common.Heading": "Div."
+    },
+    "OperationControlProfile": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Chiave di controllo",
+     "@Common.Heading": "Ctr."
+    },
+    "MfgOrderOperationText": {
+     "type": "cds.String",
+     "length": 40,
+     "notNull": true,
+     "@Common.Label": "Oper. testo breve",
+     "@Common.Heading": "Operazione testo breve",
+     "@Common.QuickInfo": "Operazione testo breve"
+    },
+    "MaterialGroup": {
+     "type": "cds.String",
+     "length": 9,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Gruppo merci",
+     "@Common.Heading": "Gr. merci"
+    },
+    "unit": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsCurrency": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Divisa",
+     "@Common.Heading": "Div.",
+     "@Common.QuickInfo": "Chiave divisa"
+    },
+    "price": {
+     "type": "cds.Decimal",
+     "precision": 11,
+     "notNull": true,
+     "@Measures.ISOCurrency": {
+      "=": "unit"
+     },
+     "@Common.Label": "Prezzo"
+    },
+    "action": {
+     "type": "cds.String",
+     "length": 4,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Collegamento logico",
+     "@Common.Heading": "Collegamento logico di variabili a ricerca classi",
+     "@Common.QuickInfo": "Tipo di dati 4 caratteri"
+    },
+    "__EntityControl": {
+     "type": "ZMFG_SB_PRODOR_OPERATIONS.EntityControl",
+     "@Core.Computed": true,
+     "@UI.HiddenFilter": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "Dyn. Method Control",
+     "@Common.Heading": "Dynamic Method Control",
+     "@Common.QuickInfo": "Dynamic Method Property"
+    },
+    "parent": {
+     "type": "cds.Association",
+     "target": "ZMFG_SB_PRODOR_OPERATIONS.operationh",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@Common.Label": "View for operations",
+   "@Capabilities.NavigationRestrictions.RestrictedProperties": [
+    {
+     "NavigationProperty": {
+      "=": "parent"
+     },
+     "InsertRestrictions": {
+      "Insertable": false
+     }
+    }
+   ],
+   "@Capabilities.SearchRestrictions.Searchable": false,
+   "@Capabilities.FilterRestrictions.NonFilterableProperties": [
+    "__EntityControl"
+   ],
+   "@Capabilities.SortRestrictions.NonSortableProperties": [
+    "__EntityControl"
+   ],
+   "@Capabilities.ReadRestrictions.Readable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.DeleteRestrictions.Deletable": {
+    "=": "__EntityControl/Deletable"
+   },
+   "@Capabilities.UpdateRestrictions.Updatable": {
+    "=": "__EntityControl/Updatable"
+   },
+   "@Capabilities.UpdateRestrictions.QueryOptions.SelectSupported": true
+  }
+ }
+}

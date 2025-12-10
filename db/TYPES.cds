@@ -80,3 +80,14 @@ type OrdersKittingRecord {
     lgort          : String;
     charg          : String; 
 }
+
+type ManageODPPhase {
+    id                          : String;
+    MasterProductionOrder       : String;
+    ManufacturingOrderOperation : String;
+    WorkCenter                  : String;
+    Plant                       : String;
+    OperationControlProfile     : String;
+    MfgOrderOperationText       : String;     
+    action                      : String;
+}

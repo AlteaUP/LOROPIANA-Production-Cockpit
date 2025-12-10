@@ -5,6 +5,7 @@
                 <macros:actions>
                     <table:Action id="changeWCMasterID" key="changeWCMasterAction" text="{i18n>changeWC}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="addPhaseMasterID" key="addPhaseMasterAction" text="{i18n>addPhase}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
+                    <table:Action id="modifyPhaseMasterID" key="modifyPhaseMasterAction" text="{i18n>modifyPhase}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="deletePhaseMasterID" key="deletePhaseMasterAction" text="{i18n>deletePhase}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="movePhaseMasterID" key="movePhaseMasterAction" text="{i18n>movePhase}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
                 </macros:actions>
