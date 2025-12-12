@@ -77,7 +77,7 @@
           type="Accept"
           width="47.5%"
           icon="sap-icon://accept"
-          press=".onConfirmReplacementCompCombinedDialog"
+          press=".onConfirmAddPhaseCombinedDialog "
           text="{i18n>Create}"/>
       </endButton>
       </Dialog>

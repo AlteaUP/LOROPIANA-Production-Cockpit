@@ -142,7 +142,7 @@ sap.ui.define(
                     // code block
                     oController.buttonSelected = "movePhase"
                     break;
-                case "modifyPhaseCombAction":
+                case "modifyPhaseMasterAction":
                     oController.buttonSelected = "modifyPhase"
                     break;
                 default:
@@ -191,10 +191,41 @@ sap.ui.define(
                     var oModel = new JSONModel();
                     oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
                     oTable.setModel(oModel);
+                } else if(oController.buttonSelected === "modifyPhase"){ 
+                    if(oController.byId("TableOperations").getSelectedContexts().length === 1){
+                        if(oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined){
+                            oController.pOperationsAddPhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
+                            oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
+                        }
+
+                        if(oController.buttonSelected = "modifyPhase"){
+                            oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseMaster"))
+                        } else {
+                            oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("addPhaseMaster"))
+                        }
+
+                        oController.pOperationsAddPhaseMasterDialog.open();
+
+                        var selectedOperationsMasterArray = []
+                        var selectedOperationsMasterObject = {}
+                        for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                            selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
+                            selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                            selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                        }
+
+                        var oTable = oController.byId("OperationsAddPhaseMasterDialog");
+                            
+                        var oModel = new JSONModel();
+                        oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
+                        oTable.setModel(oModel);
+                    } else {
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
+                    } 
                 } else if(oController.buttonSelected === "movePhase"){ 
                     if(oController.byId("TableOperations").getSelectedContexts().length === 1){
                         if(oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined){
-                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseDialog", oController);
+                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
                             oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
                         }
 
@@ -221,6 +252,64 @@ sap.ui.define(
                 }
             },
 
+            onConfirmAddPhaseMasterDialog: function(){
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                var table = this.byId("OperationsAddPhaseMasterTableId").getModel().oData.SelectedOperationsAddPhaseMaster
+
+                for(var i=0; i<table.length; i++){
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.MasterProductionOrder = table[i].MasterProductionOrder
+                    dataObjectToSend.ManufacturingOrderOperation = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.WorkCenter = table[i].WorkCenter
+                    dataObjectToSend.Plant = table[i].Plant
+                    dataObjectToSend.OperationControlProfile = table[i].OperationControlProfile
+                    dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
+                    dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
+                    dataObjectToSend.unit = ""//table[i].
+                    dataObjectToSend.price = ""//table[i].
+                    if(oController.buttonSelected === "modifyPhase"){
+                        dataObjectToSend.action = "UPD"
+                    } else {
+                        dataObjectToSend.action = "ADD"
+                    }          
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/ManageODPPhase(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();                            
+                        //oController.byId("TableComponents").getModel().refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()
+                        oBusyDialog.close();
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    
+                    oBusyDialog.close();
+                }
+            },
+
             onDeleteOperationsMaster: function(oEvent){
                 console.log("onDeleteOperationsMaster");
                 var dataToSend = []
@@ -236,7 +325,10 @@ sap.ui.define(
                     dataObjectToSend.WorkCenter = table[i].getObject().WorkCenter
                     dataObjectToSend.Plant = table[i].getObject().Plant
                     dataObjectToSend.OperationControlProfile = table[i].getObject().OperationControlProfile
-                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText            
+                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText   
+                    dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup 
+                    dataObjectToSend.unit = ""//table[i].getObject().
+                    dataObjectToSend.price = ""//table[i].getObject().           
                     dataObjectToSend.action = "DEL"
                     dataToSend.push(dataObjectToSend)
                 }

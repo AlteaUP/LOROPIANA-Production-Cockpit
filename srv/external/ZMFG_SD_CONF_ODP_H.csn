@@ -1,6 +1,6 @@
 {
  "meta": {
-  "creator": "cds-dk 9.1.0"
+  "creator": "cds-dk 8.9.6"
  },
  "$version": "2.0",
  "definitions": {
@@ -127,7 +127,6 @@
     },
     "to_confodp": {
      "type": "cds.Composition",
-     "target": "ZMFG_SD_CONF_ODP_H.confodpi",
      "cardinality": {
       "max": "*"
      },
@@ -305,7 +304,6 @@
     },
     "parent": {
      "type": "cds.Association",
-     "target": "ZMFG_SD_CONF_ODP_H.confodph",
      "cardinality": {
       "max": 1
      },

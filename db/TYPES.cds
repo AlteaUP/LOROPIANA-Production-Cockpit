@@ -88,6 +88,9 @@ type ManageODPPhase {
     WorkCenter                  : String;
     Plant                       : String;
     OperationControlProfile     : String;
-    MfgOrderOperationText       : String;     
+    MfgOrderOperationText       : String;
+    MaterialGroup               : String;
+    unit                        : String;
+    price                       : String;    
     action                      : String;
 }

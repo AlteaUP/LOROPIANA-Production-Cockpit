@@ -138,11 +138,99 @@ sap.ui.define(
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
                     }                    
+                } else if(oController.buttonSelected === "modifyPhase"){ 
+                    if(oController.byId("TableCombinedOperations").getSelectedContexts().length === 1){
+                        if(oController.pOperationsAddPhaseCombinedDialog === null || oController.pOperationsAddPhaseCombinedDialog === undefined){
+                            oController.pOperationsAddPhaseCombinedDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseCombinedDialog", oController);
+                            oController.getView().addDependent(oController.pOperationsAddPhaseCombinedDialog);
+                        }
+
+                        if(oController.buttonSelected = "modifyPhase"){
+                            oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseCombined"))
+                        } else {
+                            oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("addPhaseCombined"))
+                        }
+
+                        oController.pOperationsAddPhaseCombinedDialog.open();
+
+                        var selectedOperationsMasterArray = []
+                        var selectedOperationsMasterObject = {}
+                        for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
+                            selectedOperationsMasterObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
+                            selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                            selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                        }
+
+                        var oTable = oController.byId("OperationsAddPhaseCombinedDialog");
+                            
+                        var oModel = new JSONModel();
+                        oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsMasterArray})
+                        oTable.setModel(oModel);
+                    } else {
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
+                    } 
                 } else {                    
                     oController.onDeleteOperationsCombined()
                 }
             },
 
+            onConfirmAddPhaseCombinedDialog: function(){
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                var table = this.byId("OperationsAddPhaseCombinedTableId").getModel().oData.SelectedOperationsAddPhaseCombined
+
+                for(var i=0; i<table.length; i++){
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.MasterProductionOrder = table[i].MasterProductionOrder
+                    dataObjectToSend.ManufacturingOrderOperation = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.WorkCenter = table[i].WorkCenter
+                    dataObjectToSend.Plant = table[i].Plant
+                    dataObjectToSend.OperationControlProfile = table[i].OperationControlProfile
+                    dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
+                    dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
+                    dataObjectToSend.unit = ""//table[i].
+                    dataObjectToSend.price = ""//table[i].          
+                    if(oController.buttonSelected === "modifyPhase"){
+                        dataObjectToSend.action = "UPD"
+                    } else {
+                        dataObjectToSend.action = "ADD"
+                    }
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/ManageODPPhase(...)");
+                oBindingContext.setParameter("Record", 
+                    dataToSend
+                );
+
+                if(dataToSend.length > 0){
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();                            
+                        //oController.byId("TableComponents").getModel().refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
+                        oBusyDialog.close();
+                        
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if(oError.error !== undefined && oError.error !== null){
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    
+                    oBusyDialog.close();
+                }
+            },
             
             onDeleteOperationsCombined: function(oEvent){
                 console.log("onDeleteOperationsCombined");
@@ -159,7 +247,10 @@ sap.ui.define(
                     dataObjectToSend.WorkCenter = table[i].getObject().WorkCenter
                     dataObjectToSend.Plant = table[i].getObject().Plant
                     dataObjectToSend.OperationControlProfile = table[i].getObject().OperationControlProfile
-                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText            
+                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText  
+                    dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup 
+                    dataObjectToSend.unit = ""//table[i].getObject().
+                    dataObjectToSend.price = ""//table[i].getObject().         
                     dataObjectToSend.action = "DEL"
                     dataToSend.push(dataObjectToSend)
                 }
