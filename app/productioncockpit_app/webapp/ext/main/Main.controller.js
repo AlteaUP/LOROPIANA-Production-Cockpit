@@ -28,10 +28,12 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(true);
                     }
                 });
                 this.byId("TableCombined").attachSelectionChange(function (oEvent) {
@@ -341,6 +343,35 @@ sap.ui.define(
                 });
                   
                 
+            },
+
+            onCallServiceROL: function(oEvent){
+                const oidOrdine = "S000026497";
+
+                const oModel = oController.getView().getModel();
+                var oBindingContext = oModel.bindContext("/GetOrderDetails(...)");
+
+                oBindingContext.setParameter("oidOrdine", 
+                    oidOrdine
+                );
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+                oBindingContext.execute().then((oResult) => {
+                    var oContext = oBindingContext.getBoundContext(); 
+                    oBusyDialog.close();
+                    // TODO - gestione errore                                                   
+                    
+                }).catch((oError) => {
+                    oBusyDialog.close();
+                    // TODO - gestione errore
+                    if(oError.error === undefined || oError.error === null){
+                        oController.openDialogMessageText(oError, "E");
+                    } else {
+                        oController.openDialogMessageText(oError.error.message, "E");
+                    }
+                    return
+                });
             },
 
             onCloseOrder: function(oEvent){

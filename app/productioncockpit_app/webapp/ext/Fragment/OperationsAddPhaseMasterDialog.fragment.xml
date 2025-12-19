@@ -39,6 +39,15 @@
                 <Column>
                     <Text text="{i18n>WorkCenterDesc}"/>
                 </Column>
+                <Column>
+                    <Text text="{i18n>price}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>controlKey}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>freeFlag}"/>
+                </Column>
             </columns>
           <items>
             <ColumnListItem vAlign="Middle">
@@ -56,7 +65,12 @@
                 <Input 
                   value="{WorkCenter}"/>
                 <Input 
-                  value="{WorkCenterInternalID_1_Text}" editable="false"/>
+                  value="{WorkCenterInternalID_1_Text}" />
+                <Input 
+                  value="" />
+                <Input 
+                  value="{OperationControlProfile}" />
+                <CheckBox id="checkboxFreeFlagMasterId" ></CheckBox>
               </cells>
             </ColumnListItem>
           </items>

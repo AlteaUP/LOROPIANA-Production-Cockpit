@@ -1,4 +1,4 @@
-/* checksum : 8bd605899d3f43c8fbe94a0f79b6b071 */
+/* checksum : c0c157a096f11c0b9c989d18c176e005 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -6353,8 +6353,12 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.label : 'Cd. fornitura NATO'
   @sap.quickinfo : 'Codice di fornitura NATO'
   DfsNationalItemIdnNumber : String(9);
+  @sap.label : 'Dimensione Etichette'
+  @sap.value.list : 'standard'
+  ZZ1_DIMENSIONE_ETC_PRD : String(3);
   @sap.label : 'Tipo Gestione'
-  ZZ1_TipoGestione_PRD : String(1);
+  @sap.value.list : 'standard'
+  ZZ1_Tipo_Gestione_PRD : String(1);
   @sap.label : 'Terzista Campionario'
   ZZ1_TerzistaCampionari_PRD : String(10);
   @sap.unit : 'ZZ1_Grammatura_PRDU'
@@ -6365,11 +6369,28 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.value.list : 'standard'
   @sap.semantics : 'unit-of-measure'
   ZZ1_Grammatura_PRDU : String(3);
-  @sap.display.format : 'NonNegative'
-  @sap.label : 'Titolo Filato'
-  ZZ1_TitoloFilato_PRD : String(3);
+  @sap.label : 'Business Line'
+  @sap.value.list : 'standard'
+  ZZ1_BusinessLine_PRD : String(5);
+  @sap.label : 'Desc. Famiglia Comme'
+  @sap.quickinfo : 'Desc. Famiglia Commerciale'
+  ZZ1_FAM_COMM_DESCR_PRD : String(40);
+  @sap.label : 'Foderato'
+  ZZ1_FODERATO_PRD : String(1);
+  @sap.label : 'Luce Manici'
+  ZZ1_LUCE_MANICI_PRD : String(30);
+  @sap.label : 'Tipo Pelliccia'
+  ZZ1_TIPO_PELLICCIA_PRD : String(1);
+  @sap.label : 'Tipo Disegno'
+  @sap.value.list : 'standard'
+  ZZ1_TIPO_DISEGNO_PRD : String(3);
   @sap.label : 'Coda'
   ZZ1_CODA_PRD : String(18);
+  @sap.label : 'SKU Priority'
+  @sap.value.list : 'standard'
+  ZZ1_SKU_PRIORITY_PRD : String(3);
+  @sap.label : 'Shape'
+  ZZ1_SHAPE_PRD : String(2);
   @sap.unit : 'ZZ1_SPESSOREPELLAME_PRDU'
   @sap.label : 'Spessore Pellame'
   ZZ1_SPESSOREPELLAME_PRD : Decimal(15, 3);
@@ -6390,17 +6411,45 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.value.list : 'standard'
   @sap.semantics : 'unit-of-measure'
   ZZ1_AltezzaTeoricaPezz_PRDU : String(3);
-  @sap.label : 'Tipo Gestione Fiscal'
-  @sap.quickinfo : 'Tipo Gestione Fiscale'
-  ZZ1_TipoGestioneFiscal_PRD : String(1);
+  @sap.label : 'Flag Gestione Fiscal'
+  @sap.quickinfo : 'Flag Gestione Fiscale'
+  @sap.value.list : 'standard'
+  ZZ1_Flag_Gest_Fiscale_PRD : String(1);
+  @sap.label : 'Titolo Filato'
+  @sap.value.list : 'standard'
+  ZZ1_Titolo_Filato_PRD : String(3);
+  @sap.label : 'Kit'
+  @sap.value.list : 'standard'
+  ZZ1_KIT_VALUE_PRD : String(1);
   @sap.label : 'Contiene Pelle'
   ZZ1_ContienePelle_PRD : Boolean;
+  @sap.label : 'Ricamato'
+  ZZ1_RICAMATO_PRD : String(1);
+  @sap.label : 'Luce Tracolla'
+  ZZ1_LUCE_TRACOLLA_PRD : String(30);
   @sap.label : 'Numero Lavaggio'
   ZZ1_NumeroLavaggio_PRD : String(5);
+  @sap.label : 'Codice Terzista Prot'
+  @sap.quickinfo : 'Codice Terzista Prototipia'
+  ZZ1_CodiceTerzistaProt_PRD : String(10);
+  @sap.display.format : 'NonNegative'
+  @sap.label : 'Dimensione Piatto'
+  ZZ1_DIMENSIONE_PIATTO_PRD : String(3);
   @sap.label : 'Materiale Critico'
   ZZ1_MaterialeCritico_PRD : Boolean;
   @sap.label : 'Contiene Pelliccia'
   ZZ1_ContienePelliccia_PRD : String(1);
+  @sap.label : 'Famiglia Commerciale'
+  ZZ1_FAM_COMM_PRD : String(3);
+  @sap.label : 'Water Resistant'
+  @sap.value.list : 'standard'
+  ZZ1_Water_Resistant_PRD : String(1);
+  @sap.display.format : 'NonNegative'
+  @sap.label : 'Numero di fili'
+  ZZ1_NUMEROFILI_PRD : String(3);
+  @sap.label : 'Business Unit'
+  @sap.value.list : 'standard'
+  ZZ1_BusinessUnit_PRD : String(5);
   @sap.unit : 'ZZ1_LunghezzaTeorica_PRDU'
   @sap.label : 'Lunghezza Teorica'
   ZZ1_LunghezzaTeorica_PRD : Decimal(15, 3);
@@ -6413,8 +6462,16 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   ZZ1_TipoStruttura_PRD : String(5);
   @sap.label : 'Gola'
   ZZ1_GOLA_PRD : String(18);
+  @sap.label : 'Punto'
+  ZZ1_PUNTO_PRD : String(3);
+  @sap.label : 'Function of use'
+  ZZ1_FUNCTION_USE_PRD : String(2);
+  @sap.label : 'Dichiarazione 3'
+  ZZ1_DICHIARAZIONE3_PRD : String(3);
   @sap.label : 'Piuma'
   ZZ1_Piuma_PRD : Boolean;
+  @sap.label : 'Finezza'
+  ZZ1_FINEZZA_PRD : String(3);
   to_AdjustmentProfile_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {  };
   to_AssortmentListType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {  };
   to_BaseUnitOfMeasure : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
@@ -9010,11 +9067,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier {
   @sap.display.format : 'Date'
   @sap.label : 'PAN Valid From Date'
   BPPanValidFromDate : Date;
-  @sap.label : 'Proj Code 7'
-  @sap.quickinfo : 'PROJ7'
+  @sap.label : 'PROJ7'
   ZZ1_PROJ7_sup : String(7);
-  @sap.label : 'Proj Code 3'
-  @sap.quickinfo : 'PROJ3'
+  @sap.label : 'PROJ3'
   ZZ1_PROJ3_sup : String(3);
 };
 
@@ -9345,6 +9400,52 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVH {
 @sap.creatable : 'false'
 @sap.updatable : 'false'
 @sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_BusinessLine'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSLINE_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Business Line'
+  key Code : String(5) not null;
+  @sap.label : 'Business Line'
+  @sap.quickinfo : 'Business Line (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_BusinessUnit'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSUNIT_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Business Unit'
+  key Code : String(5) not null;
+  @sap.label : 'Business Unit'
+  @sap.quickinfo : 'Business Unit (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_COMBINEDPRODORDER'
@@ -9615,7 +9716,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Prodotto'
-  @sap.quickinfo : 'Codice prodotto'
+  @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   Product : String(40);
   @sap.aggregation.role : 'dimension'
   @sap.required.in.filter : 'false'
@@ -9651,11 +9752,10 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.label : 'Tipo di ordine'
   ManufacturingOrderType : String(4);
   @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
+  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Magazzino'
-  @sap.quickinfo : 'Magazzino produzione'
-  ProductionInvtryManagedLoc : String(4);
+  ProductionInvtryManagedLoc : String(1);
   @sap.aggregation.role : 'dimension'
   @sap.required.in.filter : 'false'
   @sap.label : 'Testo di lunghezza 4'
@@ -9965,7 +10065,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Prodotto'
-  @sap.quickinfo : 'Codice prodotto'
+  @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   Product : String(40);
   @sap.aggregation.role : 'dimension'
   @sap.required.in.filter : 'false'
@@ -10001,11 +10101,10 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.label : 'Tipo di ordine'
   ManufacturingOrderType : String(4);
   @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
+  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Magazzino'
-  @sap.quickinfo : 'Magazzino produzione'
-  ProductionInvtryManagedLoc : String(4);
+  ProductionInvtryManagedLoc : String(1);
   @sap.aggregation.role : 'dimension'
   @sap.required.in.filter : 'false'
   @sap.label : 'Testo di lunghezza 4'
@@ -10792,6 +10891,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'OperationIsDeleted'
+  OperationIsDeleted : String(1);
   to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
   to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
 };
@@ -11307,6 +11409,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'OperationIsDeleted'
+  OperationIsDeleted : String(1);
   to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
   to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
 };
@@ -13542,6 +13647,52 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
 @sap.creatable : 'false'
 @sap.updatable : 'false'
 @sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_DIMENSIONE_ETC'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_DIMENSIONE_ETC_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Dimensione Etichette'
+  key Code : String(3) not null;
+  @sap.label : 'Dimensione Etichette (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_Flag_Gest_Fiscale'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_FLAG_GEST_FISCALE_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Flag Gestione Fiscal'
+  @sap.quickinfo : 'Flag Gestione Fiscale'
+  key Code : String(1) not null;
+  @sap.label : 'Flag Gestione Fiscal'
+  @sap.quickinfo : 'Flag Gestione Fiscale (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_I_COMBPRODORDAPI'
@@ -14399,5 +14550,140 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
   to_ZZ1_C_MFG_MASTEROPE_1 : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {  };
   to_ZZ1_C_MFG_OrderComp : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {  };
   to_ZZ1_C_MFG_ORDEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {  };
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_KIT_VALUE'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_KIT_VALUE_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Kit'
+  key Code : String(1) not null;
+  @sap.label : 'Kit (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_SKU_PRIORITY'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_SKU_PRIORITY_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'SKU Priority'
+  key Code : String(3) not null;
+  @sap.label : 'SKU Priority (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_TIPO_DISEGNO'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_DISEGNO_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Tipo Disegno'
+  key Code : String(3) not null;
+  @sap.label : 'Tipo Disegno (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_Tipo_Gestione'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_GESTIONE_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Tipo Gestione'
+  key Code : String(1) not null;
+  @sap.label : 'Tipo Gestione'
+  @sap.quickinfo : 'Tipo Gestione (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_Titolo_Filato'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TITOLO_FILATO_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Titolo Filato'
+  key Code : String(3) not null;
+  @sap.label : 'Titolo Filato'
+  @sap.quickinfo : 'Titolo Filato (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_Water_Resistant'
+@sap.value.list : 'true'
+entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_WATER_RESISTANT_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Water Resistant'
+  key Code : String(1) not null;
+  @sap.label : 'Water Resistant'
+  @sap.quickinfo : 'Water Resistant (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
 };
 

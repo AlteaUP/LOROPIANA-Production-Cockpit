@@ -45,16 +45,60 @@ sap.ui.define(
                 });
             },
 
+            loadTableData: function(oEvent){
+                var mBindingParams = oEvent.getParameter("collectionBindingInfo");
+                //Event handlers for the binding
+                mBindingParams.collectionBindingInfo.events = {
+                    "dataReceived" : function(oEvent){
+                        var aReceivedData = oEvent.getParameter('data');
+
+                        // modifica DL - 16/12/2025 - colore righe se operazione chiusa e tolgo selezione
+                        var oMDCTable = oController.byId("TableOperations").getMDCTable();
+
+                        var intervalId = setInterval(function() {
+                            var aRows = oMDCTable._oTable.getItems();
+                            if (aRows.length > 0) {
+                                // Cella pronta, applica editMode
+                                aRows.forEach(function(oRow) {
+                                    // rimuovo classi precedenti
+                                    oRow.removeStyleClass("grayBackground");
+                                    
+                                    if(oRow.getBindingContext().getProperty("OperationIsDeleted") === "X"){
+                                        oRow.addStyleClass("grayBackground");
+                                        var idToRemove = oRow.getId() + "-selectMulti"
+                                        sap.ui.getCore().byId(idToRemove).setVisible(false)
+                                    }                                 
+                    
+                                });
+                                clearInterval(intervalId); // ferma il polling
+                            }
+                        }, 100); 
+                        // modifica DL - 16/12/2025 - colore righe se operazione chiusa e tolgo selezione - FINE
+
+                        // gestione errore
+                        if(oEvent.mParameters.error !== undefined && oEvent.mParameters.error !== null){
+                            oController.openDialogMessageText(oEvent.mParameters.error.message , "E");
+                        }
+                        },
+                        //More event handling can be done here
+                };                
+
+                //delete mBindingParams.collectionBindingInfo.parameters.$$getKeepAliveContext
+            },
+
             onCloseOperationsChangeWCMasterDialog: function(){
                 oController.pOperationsChangeWCMasterDialog.close();
+                oController.pOperationsChangeWCMasterDialog.destroy();
             },
 
             onCloseOperationsAddPhaseMasterDialog: function(){
                 oController.pOperationsAddPhaseMasterDialog.close();
+                 oController.pOperationsAddPhaseMasterDialog.destroy();
             },
 
             onCloseOperationsMovePhaseDialog: function(){
                 oController.pOperationsMovePhaseMasterDialog.close();
+                oController.pOperationsMovePhaseMasterDialog.destroy();
             },
 
             onConfirmOperationsMovePhaseDialog: function(){
@@ -120,6 +164,32 @@ sap.ui.define(
                     oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");                    
                     oBusyDialog.close();
                 }
+               /*var oModel = this.getView().getModel();
+
+                var payload = {
+                    id: "001",
+                    to_confodp: dataToSend
+                };
+
+                oBusyDialog.open();
+
+                oModel.callFunction("/MovePhase", {
+                    method: "POST",
+                    urlParameters: payload,
+                    success: function(oData, response) {
+                        // ✅ Qui hai il risultato della Action
+                        if(oData.status === "Error") {
+                            oController.openDialogMessageText(oData.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oData.message || "Operazione completata", "S");
+                        }
+                        oBusyDialog.close();
+                    },
+                    error: function(oError) {
+                        oController.openDialogMessageText(oError.message || "Errore sconosciuto", "E");
+                        oBusyDialog.close();
+                    }
+                });*/
             },
 
             onActionOperationMaster: function(oEvent){
@@ -225,7 +295,7 @@ sap.ui.define(
                 } else if(oController.buttonSelected === "movePhase"){ 
                     if(oController.byId("TableOperations").getSelectedContexts().length === 1){
                         if(oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined){
-                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
+                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseMasterDialog", oController);
                             oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
                         }
 

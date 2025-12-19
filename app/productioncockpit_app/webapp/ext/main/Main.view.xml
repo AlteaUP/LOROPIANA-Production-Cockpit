@@ -19,6 +19,7 @@
                     <IconTabFilter text="Master" key="master">
                         <macros:Table id="TableMaster" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
                             <macros:actions>
+                                <table:Action id="rolID" key="rolAction" text="{i18n>rol}" press=".onCallServiceROL" placement="After" requiresSelection="true"/>
                                 <table:Action id="kittingID" key="kittingAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponentsMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperationsMasterOrder" placement="After" requiresSelection="true"/>

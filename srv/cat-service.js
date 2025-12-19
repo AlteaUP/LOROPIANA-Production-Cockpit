@@ -1,4 +1,5 @@
 const { default: cds } = require("@sap/cds");
+const SapCfAxios = require('sap-cf-axios').default;
 
 module.exports = cds.service.impl(async function (srv) {
 
@@ -11,6 +12,8 @@ module.exports = cds.service.impl(async function (srv) {
     const createKitting = await cds.connect.to('ZMFG_SB_PRODUCTION_ORDERS_DEEP');
     const confODP = await cds.connect.to('ZMFG_SB_CONF_ODP_DEEP');
     const manageODPPhase = await cds.connect.to('ZMFG_SB_PRODOR_OPERATIONS');
+    const rol = await cds.connect.to("ZZ1_MFG_ROL_ORDERS_CDS");
+    const urlRolExternal = await cds.connect.to("ROL");
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -463,6 +466,8 @@ module.exports = cds.service.impl(async function (srv) {
             let callCreate = await confODP.tx(req).post("/confodph", payload)
             console.log("Risultato chiamata " + JSON.stringify(callCreate))
 
+            return callCreate
+
         } catch (error) {
 
             console.log("ERRORE "+error.message)
@@ -557,6 +562,68 @@ module.exports = cds.service.impl(async function (srv) {
 
             return error.message           
         }
+    });
+
+    this.on("GetOrderDetails", async (req) => {
+        console.log("GetOrderDetails Action")
+
+        const { oidOrdine } = req.data;
+        
+        const endpoint =
+        `/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=${oidOrdine}`;
+
+        /*try {
+            const result = await urlRolExternal.send({
+                method: "GET",
+                path: endpoint,
+                headers: {
+                Accept: "application/json"
+            }
+        });
+
+        return result;
+
+        } catch (err) {
+            console.error(err);
+            req.error(500, "Errore chiamando LP ROL");
+        }*/
+
+        const axios = SapCfAxios("ROL");
+        try {
+            const response = await axios({
+            method: 'GET',
+            url: '/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=S000026497'
+        });
+        console.log("LOG "+response)
+        } catch (error) {
+            console.log("ERROR "+error)
+        }
+        
+        // scrivo nel CBO
+        /*const newRecord = {
+            SAP_UUID: cds.utils.uuid(), // genera un UUID
+            numeroOrdineROL: "S000026497",
+            articoloCod: "FAF3792",
+            coloreCod: "WG77",
+            taglia: "46",
+            numeroPezzi: 1,
+            tessuto: "Filato Baby Cash 2/26 (SDM)",
+            //dataConsegnaBorgosesia: "",
+        };
+
+        await rol.run(
+            INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
+        );*/
+
+        return "" //JSON.stringify(response);
+    });
+
+    this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {
+        console.log("chiamata ZZ1_MFG_ROL_ORDERS")        
+        var data = await rol.tx(request).run(request.query);
+        console.log("lunghezza array "+data.length)
+
+        return data;
     });
 
 })

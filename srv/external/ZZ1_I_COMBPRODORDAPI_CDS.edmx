@@ -1790,27 +1790,49 @@
 <Property Name="DfsReturnDelivery" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Valore di ritorno"/>
 <Property Name="DfsLogisticsLevel" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Rit.fino a liv.log." sap:quickinfo="Ritorno fino al livello logistico"/>
 <Property Name="DfsNationalItemIdnNumber" Type="Edm.String" MaxLength="9" sap:display-format="UpperCase" sap:label="Cd. fornitura NATO" sap:quickinfo="Codice di fornitura NATO"/>
-<Property Name="ZZ1_TipoGestione_PRD" Type="Edm.String" MaxLength="1" sap:label="Tipo Gestione"/>
+<Property Name="ZZ1_DIMENSIONE_ETC_PRD" Type="Edm.String" MaxLength="3" sap:label="Dimensione Etichette" sap:value-list="standard"/>
+<Property Name="ZZ1_Tipo_Gestione_PRD" Type="Edm.String" MaxLength="1" sap:label="Tipo Gestione" sap:value-list="standard"/>
 <Property Name="ZZ1_TerzistaCampionari_PRD" Type="Edm.String" MaxLength="10" sap:label="Terzista Campionario"/>
 <Property Name="ZZ1_Grammatura_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_Grammatura_PRDU" sap:label="Grammatura"/>
 <Property Name="ZZ1_Grammatura_PRDU" Type="Edm.String" MaxLength="3" sap:label="Grammatura UoM" sap:quickinfo="Grammatura (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
-<Property Name="ZZ1_TitoloFilato_PRD" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Titolo Filato"/>
+<Property Name="ZZ1_BusinessLine_PRD" Type="Edm.String" MaxLength="5" sap:label="Business Line" sap:value-list="standard"/>
+<Property Name="ZZ1_FAM_COMM_DESCR_PRD" Type="Edm.String" MaxLength="40" sap:label="Desc. Famiglia Comme" sap:quickinfo="Desc. Famiglia Commerciale"/>
+<Property Name="ZZ1_FODERATO_PRD" Type="Edm.String" MaxLength="1" sap:label="Foderato"/>
+<Property Name="ZZ1_LUCE_MANICI_PRD" Type="Edm.String" MaxLength="30" sap:label="Luce Manici"/>
+<Property Name="ZZ1_TIPO_PELLICCIA_PRD" Type="Edm.String" MaxLength="1" sap:label="Tipo Pelliccia"/>
+<Property Name="ZZ1_TIPO_DISEGNO_PRD" Type="Edm.String" MaxLength="3" sap:label="Tipo Disegno" sap:value-list="standard"/>
 <Property Name="ZZ1_CODA_PRD" Type="Edm.String" MaxLength="18" sap:label="Coda"/>
+<Property Name="ZZ1_SKU_PRIORITY_PRD" Type="Edm.String" MaxLength="3" sap:label="SKU Priority" sap:value-list="standard"/>
+<Property Name="ZZ1_SHAPE_PRD" Type="Edm.String" MaxLength="2" sap:label="Shape"/>
 <Property Name="ZZ1_SPESSOREPELLAME_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_SPESSOREPELLAME_PRDU" sap:label="Spessore Pellame"/>
 <Property Name="ZZ1_SPESSOREPELLAME_PRDU" Type="Edm.String" MaxLength="3" sap:label="Spessore Pellame UoM" sap:quickinfo="Spessore Pellame (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
 <Property Name="ZZ1_CodiceTerzistaProd_PRD" Type="Edm.String" MaxLength="10" sap:label="Codice Terzista Prod" sap:quickinfo="Codice Terzista Produzione"/>
 <Property Name="ZZ1_AltezzaTeoricaPezz_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_AltezzaTeoricaPezz_PRDU" sap:label="Altezza Teor Pezza" sap:quickinfo="Altezza Teorica Pezza"/>
 <Property Name="ZZ1_AltezzaTeoricaPezz_PRDU" Type="Edm.String" MaxLength="3" sap:label="Altezza Teor Pez UoM" sap:quickinfo="Altezza Teorica Pezza (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
-<Property Name="ZZ1_TipoGestioneFiscal_PRD" Type="Edm.String" MaxLength="1" sap:label="Tipo Gestione Fiscal" sap:quickinfo="Tipo Gestione Fiscale"/>
+<Property Name="ZZ1_Flag_Gest_Fiscale_PRD" Type="Edm.String" MaxLength="1" sap:label="Flag Gestione Fiscal" sap:quickinfo="Flag Gestione Fiscale" sap:value-list="standard"/>
+<Property Name="ZZ1_Titolo_Filato_PRD" Type="Edm.String" MaxLength="3" sap:label="Titolo Filato" sap:value-list="standard"/>
+<Property Name="ZZ1_KIT_VALUE_PRD" Type="Edm.String" MaxLength="1" sap:label="Kit" sap:value-list="standard"/>
 <Property Name="ZZ1_ContienePelle_PRD" Type="Edm.Boolean" sap:label="Contiene Pelle"/>
+<Property Name="ZZ1_RICAMATO_PRD" Type="Edm.String" MaxLength="1" sap:label="Ricamato"/>
+<Property Name="ZZ1_LUCE_TRACOLLA_PRD" Type="Edm.String" MaxLength="30" sap:label="Luce Tracolla"/>
 <Property Name="ZZ1_NumeroLavaggio_PRD" Type="Edm.String" MaxLength="5" sap:label="Numero Lavaggio"/>
+<Property Name="ZZ1_CodiceTerzistaProt_PRD" Type="Edm.String" MaxLength="10" sap:label="Codice Terzista Prot" sap:quickinfo="Codice Terzista Prototipia"/>
+<Property Name="ZZ1_DIMENSIONE_PIATTO_PRD" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Dimensione Piatto"/>
 <Property Name="ZZ1_MaterialeCritico_PRD" Type="Edm.Boolean" sap:label="Materiale Critico"/>
 <Property Name="ZZ1_ContienePelliccia_PRD" Type="Edm.String" MaxLength="1" sap:label="Contiene Pelliccia"/>
+<Property Name="ZZ1_FAM_COMM_PRD" Type="Edm.String" MaxLength="3" sap:label="Famiglia Commerciale"/>
+<Property Name="ZZ1_Water_Resistant_PRD" Type="Edm.String" MaxLength="1" sap:label="Water Resistant" sap:value-list="standard"/>
+<Property Name="ZZ1_NUMEROFILI_PRD" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Numero di fili"/>
+<Property Name="ZZ1_BusinessUnit_PRD" Type="Edm.String" MaxLength="5" sap:label="Business Unit" sap:value-list="standard"/>
 <Property Name="ZZ1_LunghezzaTeorica_PRD" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="ZZ1_LunghezzaTeorica_PRDU" sap:label="Lunghezza Teorica"/>
 <Property Name="ZZ1_LunghezzaTeorica_PRDU" Type="Edm.String" MaxLength="3" sap:label="Lunghezza Teoric UoM" sap:quickinfo="Lunghezza Teorica (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
 <Property Name="ZZ1_TipoStruttura_PRD" Type="Edm.String" MaxLength="5" sap:label="Tipo Struttura"/>
 <Property Name="ZZ1_GOLA_PRD" Type="Edm.String" MaxLength="18" sap:label="Gola"/>
+<Property Name="ZZ1_PUNTO_PRD" Type="Edm.String" MaxLength="3" sap:label="Punto"/>
+<Property Name="ZZ1_FUNCTION_USE_PRD" Type="Edm.String" MaxLength="2" sap:label="Function of use"/>
+<Property Name="ZZ1_DICHIARAZIONE3_PRD" Type="Edm.String" MaxLength="3" sap:label="Dichiarazione 3"/>
 <Property Name="ZZ1_Piuma_PRD" Type="Edm.Boolean" sap:label="Piuma"/>
+<Property Name="ZZ1_FINEZZA_PRD" Type="Edm.String" MaxLength="3" sap:label="Finezza"/>
 <NavigationProperty Name="to_AdjustmentProfile_2" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_158D3462CD8FE6F9E39C55C657CED59F" FromRole="FromRole_assoc_158D3462CD8FE6F9E39C55C657CED59F" ToRole="ToRole_assoc_158D3462CD8FE6F9E39C55C657CED59F"/>
 <NavigationProperty Name="to_AssortmentListType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_82A1FC39D1E6684867788000454A4BAB" FromRole="FromRole_assoc_82A1FC39D1E6684867788000454A4BAB" ToRole="ToRole_assoc_82A1FC39D1E6684867788000454A4BAB"/>
 <NavigationProperty Name="to_BaseUnitOfMeasure" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_029F998F8F1078DDDD41C0B50BC505DE" FromRole="FromRole_assoc_029F998F8F1078DDDD41C0B50BC505DE" ToRole="ToRole_assoc_029F998F8F1078DDDD41C0B50BC505DE"/>
@@ -2639,8 +2661,8 @@
 <Property Name="BusinessPartnerPanNumber" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="PAN" sap:quickinfo="Permanent Account Number"/>
 <Property Name="BPPanReferenceNumber" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="PAN Reference Number"/>
 <Property Name="BPPanValidFromDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="PAN Valid From Date"/>
-<Property Name="ZZ1_PROJ7_sup" Type="Edm.String" MaxLength="7" sap:label="Proj Code 7" sap:quickinfo="PROJ7"/>
-<Property Name="ZZ1_PROJ3_sup" Type="Edm.String" MaxLength="3" sap:label="Proj Code 3" sap:quickinfo="PROJ3"/>
+<Property Name="ZZ1_PROJ7_sup" Type="Edm.String" MaxLength="7" sap:label="PROJ7"/>
+<Property Name="ZZ1_PROJ3_sup" Type="Edm.String" MaxLength="3" sap:label="PROJ3"/>
 </EntityType>
 <EntityType Name="I_Supplier_VHType" sap:label="Fornitore" sap:value-list="true" sap:content-version="1">
 <Key>
@@ -2748,6 +2770,22 @@
 <Property Name="WorkCenter_Text" Type="Edm.String" MaxLength="40" sap:label="Testo centro lavoro" sap:quickinfo="Testo centro di lavoro" sap:creatable="false" sap:updatable="false"/>
 <Property Name="WorkCenterInternalID" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="ID oggetto" sap:quickinfo="ID oggetto della risorsa"/>
 </EntityType>
+<EntityType Name="ZZ1_BUSINESSLINE_VType" sap:label="ZZ1_BusinessLine" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Code_Text" sap:label="Business Line"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Business Line" sap:quickinfo="Business Line (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_BUSINESSUNIT_VType" sap:label="ZZ1_BusinessUnit" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Code_Text" sap:label="Business Unit"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Business Unit" sap:quickinfo="Business Unit (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
 <EntityType Name="ZZ1_C_COMBINEDPRODORDERType" sap:semantics="aggregate" sap:label="ZZ1_C_COMBINEDPRODORDER" sap:content-version="1">
 <Key>
 <PropertyRef Name="ID"/>
@@ -2805,14 +2843,14 @@
 <Property Name="BOMItemDescription" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo posizione" sap:quickinfo="Testo posizione distinta base (riga 1)"/>
 <Property Name="BOMItemText2" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo posizione 2" sap:quickinfo="Testo posizione distinta base (riga 2)"/>
 <Property Name="IsMarkedForDeletion" Type="Edm.Boolean" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Flag di canc." sap:quickinfo="Flag di cancellazione"/>
-<Property Name="Product" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Prodotto" sap:quickinfo="Codice prodotto"/>
+<Property Name="Product" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Prodotto" sap:quickinfo="Prodotto configurabile valido per tutte le divisioni"/>
 <Property Name="ProductionUnit" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Unità di produzione" sap:quickinfo="Unità di misura di produzione" sap:semantics="unit-of-measure"/>
 <Property Name="ProductSeasonYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Esercizio stagionale"/>
 <Property Name="ProductSeason" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Stagione"/>
 <Property Name="ProductCollection" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Collezione" sap:quickinfo="Collezione fashion"/>
 <Property Name="ProductTheme" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tema" sap:quickinfo="Tema fashion"/>
 <Property Name="ManufacturingOrderType" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo di ordine"/>
-<Property Name="ProductionInvtryManagedLoc" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Magazzino" sap:quickinfo="Magazzino produzione"/>
+<Property Name="ProductionInvtryManagedLoc" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Magazzino"/>
 <Property Name="Lgort1" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
 <Property Name="Lgort2" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
 <Property Name="Lgort3" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
@@ -2875,14 +2913,14 @@
 <Property Name="BOMItemDescription" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo posizione" sap:quickinfo="Testo posizione distinta base (riga 1)"/>
 <Property Name="BOMItemText2" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo posizione 2" sap:quickinfo="Testo posizione distinta base (riga 2)"/>
 <Property Name="IsMarkedForDeletion" Type="Edm.Boolean" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Flag di canc." sap:quickinfo="Flag di cancellazione"/>
-<Property Name="Product" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Prodotto" sap:quickinfo="Codice prodotto"/>
+<Property Name="Product" Type="Edm.String" MaxLength="40" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Prodotto" sap:quickinfo="Prodotto configurabile valido per tutte le divisioni"/>
 <Property Name="ProductionUnit" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Unità di produzione" sap:quickinfo="Unità di misura di produzione" sap:semantics="unit-of-measure"/>
 <Property Name="ProductSeasonYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Esercizio stagionale"/>
 <Property Name="ProductSeason" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Stagione"/>
 <Property Name="ProductCollection" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Collezione" sap:quickinfo="Collezione fashion"/>
 <Property Name="ProductTheme" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tema" sap:quickinfo="Tema fashion"/>
 <Property Name="ManufacturingOrderType" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Tipo di ordine"/>
-<Property Name="ProductionInvtryManagedLoc" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Magazzino" sap:quickinfo="Magazzino produzione"/>
+<Property Name="ProductionInvtryManagedLoc" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Magazzino"/>
 <Property Name="Lgort1" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
 <Property Name="Lgort2" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
 <Property Name="Lgort3" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo di lunghezza 4"/>
@@ -3151,6 +3189,7 @@
 <Property Name="SumOpTotalConfirmedYieldQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:required-in-filter="false" sap:unit="ProductionUnit" sap:label="SumOpTotalConfirmedYieldQty"/>
 <Property Name="ProductionUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="Production Unit" sap:quickinfo="Unità di misura di produzione" sap:semantics="unit-of-measure"/>
 <Property Name="CrossPlantConfigurableProduct" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="PC val.per tt.div." sap:quickinfo="Prodotto configurabile valido per tutte le divisioni"/>
+<Property Name="OperationIsDeleted" Type="Edm.String" MaxLength="1" sap:required-in-filter="false" sap:label="OperationIsDeleted"/>
 <NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F38F0A90A59EC683D8CD0FE1204CE58C" FromRole="FromRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C" ToRole="ToRole_assoc_F38F0A90A59EC683D8CD0FE1204CE58C"/>
 <NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_B469D6AFAA476768EDC55A34CDF034EB" FromRole="FromRole_assoc_B469D6AFAA476768EDC55A34CDF034EB" ToRole="ToRole_assoc_B469D6AFAA476768EDC55A34CDF034EB"/>
 </EntityType>
@@ -3366,6 +3405,7 @@
 <Property Name="SumOperationConfirmedReworkQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:required-in-filter="false" sap:unit="ProductionUnit" sap:label="SumOperationConfirmedReworkQty"/>
 <Property Name="ProductionUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="Production Unit" sap:quickinfo="Unità di misura di produzione" sap:semantics="unit-of-measure"/>
 <Property Name="CrossPlantConfigurableProduct" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="PC val.per tt.div." sap:quickinfo="Prodotto configurabile valido per tutte le divisioni"/>
+<Property Name="OperationIsDeleted" Type="Edm.String" MaxLength="1" sap:required-in-filter="false" sap:label="OperationIsDeleted"/>
 <NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_F8AAED82FC84FB15A920C228E092A258" FromRole="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258" ToRole="ToRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
 <NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" FromRole="FromRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4" ToRole="ToRole_assoc_5CE2DCD3D4E25CCC73C12A90FC9015B4"/>
 </EntityType>
@@ -3843,6 +3883,22 @@
 <NavigationProperty Name="to_Plant" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_70C3B81F5E93BBBF64CE045E77AB8F42" FromRole="FromRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42" ToRole="ToRole_assoc_70C3B81F5E93BBBF64CE045E77AB8F42"/>
 <NavigationProperty Name="to_WorkCenterType" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" FromRole="FromRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC" ToRole="ToRole_assoc_74AB61EE3C398FBCC6B4FCC62A7A5FCC"/>
 </EntityType>
+<EntityType Name="ZZ1_DIMENSIONE_ETC_VType" sap:label="ZZ1_DIMENSIONE_ETC" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="Code_Text" sap:label="Dimensione Etichette"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Dimensione Etichette (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_FLAG_GEST_FISCALE_VType" sap:label="ZZ1_Flag_Gest_Fiscale" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="Code_Text" sap:label="Flag Gestione Fiscal" sap:quickinfo="Flag Gestione Fiscale"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Flag Gestione Fiscal" sap:quickinfo="Flag Gestione Fiscale (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
 <EntityType Name="ZZ1_I_COMBPRODORDAPIType" sap:semantics="aggregate" sap:label="ZZ1_I_COMBPRODORDAPI" sap:content-version="1">
 <Key>
 <PropertyRef Name="ID"/>
@@ -4007,6 +4063,54 @@
 <NavigationProperty Name="to_ZZ1_C_MFG_MASTEROPE_1" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_A93F8D9FC93F247C5E443D546A32F14F" FromRole="FromRole_assoc_A93F8D9FC93F247C5E443D546A32F14F" ToRole="ToRole_assoc_A93F8D9FC93F247C5E443D546A32F14F"/>
 <NavigationProperty Name="to_ZZ1_C_MFG_OrderComp" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_D98A4E6142E47E4BBDE131F434441772" FromRole="FromRole_assoc_D98A4E6142E47E4BBDE131F434441772" ToRole="ToRole_assoc_D98A4E6142E47E4BBDE131F434441772"/>
 <NavigationProperty Name="to_ZZ1_C_MFG_ORDEROPE" Relationship="ZZ1_I_COMBPRODORDAPI_CDS.assoc_0703BBB1E1F8A67A08F054481C1BA9A4" FromRole="FromRole_assoc_0703BBB1E1F8A67A08F054481C1BA9A4" ToRole="ToRole_assoc_0703BBB1E1F8A67A08F054481C1BA9A4"/>
+</EntityType>
+<EntityType Name="ZZ1_KIT_VALUE_VType" sap:label="ZZ1_KIT_VALUE" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="Code_Text" sap:label="Kit"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Kit (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_SKU_PRIORITY_VType" sap:label="ZZ1_SKU_PRIORITY" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="Code_Text" sap:label="SKU Priority"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="SKU Priority (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_TIPO_DISEGNO_VType" sap:label="ZZ1_TIPO_DISEGNO" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="Code_Text" sap:label="Tipo Disegno"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Tipo Disegno (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_TIPO_GESTIONE_VType" sap:label="ZZ1_Tipo_Gestione" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="Code_Text" sap:label="Tipo Gestione"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Tipo Gestione" sap:quickinfo="Tipo Gestione (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_TITOLO_FILATO_VType" sap:label="ZZ1_Titolo_Filato" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="Code_Text" sap:label="Titolo Filato"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Titolo Filato" sap:quickinfo="Titolo Filato (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
+</EntityType>
+<EntityType Name="ZZ1_WATER_RESISTANT_VType" sap:label="ZZ1_Water_Resistant" sap:value-list="true" sap:content-version="1">
+<Key>
+<PropertyRef Name="Code"/>
+</Key>
+<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="1" sap:text="Code_Text" sap:label="Water Resistant"/>
+<Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="Water Resistant" sap:quickinfo="Water Resistant (Desc.)" sap:creatable="false" sap:updatable="false"/>
+<Property Name="IsDisabled" Type="Edm.Boolean" sap:label="È disattivato" sap:quickinfo="Campo personalizzato: indicatore codice disattivato"/>
 </EntityType>
 <Association Name="assoc_F8AAED82FC84FB15A920C228E092A258" sap:content-version="1">
 <End Type="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType" Multiplicity="1" Role="FromRole_assoc_F8AAED82FC84FB15A920C228E092A258"/>
@@ -5785,6 +5889,8 @@
 <EntitySet Name="I_WorkCenterStdVH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="I_WorkCenterType" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="I_WrkCtrBySemanticKeyStdVH" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_BUSINESSLINE_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSLINE_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_BUSINESSUNIT_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSUNIT_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_COMBINEDPRODORDER" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDERType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_COMBORDER_COMP" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_MASTERORDER_COMP" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
@@ -5793,7 +5899,15 @@
 <EntitySet Name="ZZ1_C_MFG_MASTEROPE" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPEType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_MFG_OrderComp" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderCompType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
 <EntitySet Name="ZZ1_C_MFG_ORDEROPE" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPEType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+<EntitySet Name="ZZ1_DIMENSIONE_ETC_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_DIMENSIONE_ETC_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_FLAG_GEST_FISCALE_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_FLAG_GEST_FISCALE_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <EntitySet Name="ZZ1_I_COMBPRODORDAPI" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPIType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+<EntitySet Name="ZZ1_KIT_VALUE_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_KIT_VALUE_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_SKU_PRIORITY_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_SKU_PRIORITY_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_TIPO_DISEGNO_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_DISEGNO_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_TIPO_GESTIONE_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_GESTIONE_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_TITOLO_FILATO_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TITOLO_FILATO_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_WATER_RESISTANT_V" EntityType="ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_WATER_RESISTANT_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
 <AssociationSet Name="assoc_BF7818CEEB6378586C229222D6BB8A58" Association="ZZ1_I_COMBPRODORDAPI_CDS.assoc_BF7818CEEB6378586C229222D6BB8A58" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
 <End EntitySet="I_ManufacturingOrderOperation" Role="FromRole_assoc_BF7818CEEB6378586C229222D6BB8A58"/>
 <End EntitySet="I_LeadTimeReductionStrategy" Role="ToRole_assoc_BF7818CEEB6378586C229222D6BB8A58"/>
@@ -8684,6 +8798,46 @@
 </Record>
 </Annotation>
 </Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_DIMENSIONE_ETC_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_DIMENSIONE_ETC"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_DIMENSIONE_ETC_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_DIMENSIONE_ETC_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_Tipo_Gestione_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_Tipo_Gestione"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_TIPO_GESTIONE_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_Tipo_Gestione_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_Grammatura_PRDU">
 <Annotation Term="Common.ValueList">
 <Record>
@@ -8746,6 +8900,70 @@
 </Record>
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="UnitOfMeasurePressureUnit"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_BusinessLine_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_BusinessLine"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_BUSINESSLINE_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_BusinessLine_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+<Record Type="Common.ValueListParameterConstant">
+<PropertyValue Property="Constant" Bool="false"/>
+<PropertyValue Property="ValueListProperty" String="IsDisabled"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_TIPO_DISEGNO_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_TIPO_DISEGNO"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_TIPO_DISEGNO_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_TIPO_DISEGNO_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_SKU_PRIORITY_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_SKU_PRIORITY"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_SKU_PRIORITY_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_SKU_PRIORITY_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
 </Record>
 </Collection>
 </PropertyValue>
@@ -8882,6 +9100,106 @@
 </Record>
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="UnitOfMeasurePressureUnit"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_Flag_Gest_Fiscale_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_Flag_Gest_Fiscale"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_FLAG_GEST_FISCALE_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_Flag_Gest_Fiscale_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_Titolo_Filato_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_Titolo_Filato"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_TITOLO_FILATO_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_Titolo_Filato_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_KIT_VALUE_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_KIT_VALUE"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_KIT_VALUE_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_KIT_VALUE_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_Water_Resistant_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_Water_Resistant"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_WATER_RESISTANT_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_Water_Resistant_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_I_COMBPRODORDAPI_CDS.I_ProductType/ZZ1_BusinessUnit_PRD">
+<Annotation Term="Common.ValueList">
+<Record>
+<PropertyValue Property="Label" String="ZZ1_BusinessUnit"/>
+<PropertyValue Property="CollectionPath" String="ZZ1_BUSINESSUNIT_V"/>
+<PropertyValue Property="SearchSupported" Bool="true"/>
+<PropertyValue Property="Parameters">
+<Collection>
+<Record Type="Common.ValueListParameterInOut">
+<PropertyValue Property="LocalDataProperty" PropertyPath="ZZ1_BusinessUnit_PRD"/>
+<PropertyValue Property="ValueListProperty" String="Code"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="Code_Text"/>
 </Record>
 </Collection>
 </PropertyValue>

@@ -16,7 +16,8 @@
     "@sap/xssec": "^4",
     "axios": "^1.8.1",
     "express": "^4",
-    "npm-check-updates": "^18.0.1"
+    "npm-check-updates": "^18.0.1",
+    "sap-cf-axios": "^1.0.2"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.9.0",
@@ -239,6 +240,32 @@
             "requestTimeout": 300000,
             "destination": "S4HANA",
             "path": "/sap/opu/odata4/sap/zmfg_sb_prodor_operations/srvd/sap/zmfg_sd_prodor_operations/0001"
+          }
+        }
+      },
+      "ROL": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "ROL"
+        }
+      },
+      "ZZ1_MFG_ROL_ORDERS_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFG_ROL_ORDERS_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFG_ROL_ORDERS_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFG_ROL_ORDERS_CDS"
           }
         }
       }

@@ -44,6 +44,10 @@
       "ZMFG_SB_PRODOR_OPERATIONS": {
         "kind": "odata",
         "model": "srv/external/ZMFG_SB_PRODOR_OPERATIONS"
+      },
+      "ZZ1_MFG_ROL_ORDERS_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFG_ROL_ORDERS_CDS"
       }
     }
   },

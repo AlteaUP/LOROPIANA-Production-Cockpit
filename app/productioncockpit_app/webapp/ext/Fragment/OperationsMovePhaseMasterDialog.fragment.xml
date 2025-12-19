@@ -1,0 +1,115 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="OperationsMovePhaseDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>movePhase}">
+      <content>
+        <f:SimpleForm id="SimpleFormDisplay354"
+          editable="true"
+          layout="ResponsiveGridLayout"
+          labelSpanXL="3"
+          labelSpanL="3"
+          labelSpanM="3"
+          labelSpanS="12"
+          adjustLabelSpan="false"
+          emptySpanXL="4"
+          emptySpanL="4"
+          emptySpanM="4"
+          emptySpanS="0"
+          columnsXL="1"
+          columnsL="1"
+          columnsM="1"
+          singleContainerFullSize="false" >
+          <f:content>
+            <Label text="{i18n>generateWIPbatch}" />
+            <CheckBox id="generateWIPbatchCheckBoxId"/>
+          </f:content>
+        </f:SimpleForm>
+      	<Table id="OperationsMovePhaseTableId"
+          items="{
+            path: '/SelectedOperationsMovePhase'
+          }">
+          <columns>
+                <Column>
+                    <Text text="{i18n>FinishProduct}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>OperationQty}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ConfirmedQty}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ScrapQty}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ReWorkQty}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>QtyToConfirm}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>QtyToDiscard}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>QtyToRework}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>reason}"/>
+                </Column>
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{CprodOrd}" editable="false" />
+                <Input 
+                  value="{SumOpPlannedTotalQuantity}" editable="false" />
+                <Input 
+                  value="{SumOpTotalYieldQuantity}" editable="false" />
+                <Input 
+                  value="{SumOpTotalScrapQuantity}" editable="false"/>
+                <Input 
+                  value="{SumOperationConfirmedReworkQty}" editable="true"/>
+                <Input 
+                  value="{QtyToConfirm}"/>
+                <Input 
+                  value="{QtyToDiscard}" editable="true"/>
+                <Input 
+                  value="{QtyToRework}" editable="true"/>
+                <Input 
+                  value="{Reason}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseOperationsMovePhaseDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseOperationsMovePhaseDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmOperationsMovePhaseDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmOperationsMovePhaseDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

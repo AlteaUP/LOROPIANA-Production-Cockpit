@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.OperationsMasterOrder">
     <Page id="Operations" title="{i18n&gt;OperationsTitle}">
         <content>
-            <macros:Table id="TableOperations" metaPath="to_ZZ1_C_MFG_MASTEROPE/@com.sap.vocabularies.UI.v1.LineItem#tableMacroOperations">
+            <macros:Table id="TableOperations" beforeRebindTable=".loadTableData" metaPath="to_ZZ1_C_MFG_MASTEROPE/@com.sap.vocabularies.UI.v1.LineItem#tableMacroOperations">
                 <macros:actions>
                     <table:Action id="changeWCMasterID" key="changeWCMasterAction" text="{i18n>changeWC}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="addPhaseMasterID" key="addPhaseMasterAction" text="{i18n>addPhase}" press=".onActionOperationMaster" placement="After" requiresSelection="true"/>
