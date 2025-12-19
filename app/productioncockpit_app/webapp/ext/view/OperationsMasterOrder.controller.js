@@ -88,17 +88,14 @@ sap.ui.define(
 
             onCloseOperationsChangeWCMasterDialog: function(){
                 oController.pOperationsChangeWCMasterDialog.close();
-                oController.pOperationsChangeWCMasterDialog.destroy();
             },
 
             onCloseOperationsAddPhaseMasterDialog: function(){
                 oController.pOperationsAddPhaseMasterDialog.close();
-                 oController.pOperationsAddPhaseMasterDialog.destroy();
             },
 
             onCloseOperationsMovePhaseDialog: function(){
                 oController.pOperationsMovePhaseMasterDialog.close();
-                oController.pOperationsMovePhaseMasterDialog.destroy();
             },
 
             onConfirmOperationsMovePhaseDialog: function(){
@@ -246,6 +243,12 @@ sap.ui.define(
                         oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
                     }
 
+                    if(oController.buttonSelected === "modifyPhase"){
+                        oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseMaster"))
+                    } else {
+                        oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("addPhaseMaster"))
+                    }
+
                     oController.pOperationsAddPhaseMasterDialog.open();
 
                     var selectedOperationsMasterArray = []
@@ -268,7 +271,7 @@ sap.ui.define(
                             oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
                         }
 
-                        if(oController.buttonSelected = "modifyPhase"){
+                        if(oController.buttonSelected === "modifyPhase"){
                             oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseMaster"))
                         } else {
                             oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("addPhaseMaster"))
@@ -295,7 +298,7 @@ sap.ui.define(
                 } else if(oController.buttonSelected === "movePhase"){ 
                     if(oController.byId("TableOperations").getSelectedContexts().length === 1){
                         if(oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined){
-                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseMasterDialog", oController);
+                            oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseDialog", oController);
                             oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
                         }
 

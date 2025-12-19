@@ -33,7 +33,7 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false);
                     }
                 });
                 this.byId("TableCombined").attachSelectionChange(function (oEvent) {

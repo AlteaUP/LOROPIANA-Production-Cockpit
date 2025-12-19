@@ -98,6 +98,11 @@ sap.ui.define(
                         oController.getView().addDependent(oController.pOperationsAddPhaseCombinedDialog);
                     }
 
+                    if(oController.buttonSelected === "modifyPhase"){
+                        oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseCombined"))
+                    } else {
+                        oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("addPhaseCombined"))
+                    }
                     oController.pOperationsAddPhaseCombinedDialog.open();
 
                     var selectedOperationsCombinedArray = []
@@ -145,7 +150,7 @@ sap.ui.define(
                             oController.getView().addDependent(oController.pOperationsAddPhaseCombinedDialog);
                         }
 
-                        if(oController.buttonSelected = "modifyPhase"){
+                        if(oController.buttonSelected === "modifyPhase"){
                             oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseCombined"))
                         } else {
                             oController.pOperationsAddPhaseCombinedDialog.setTitle(oController.getResourceBundle().getText("addPhaseCombined"))
