@@ -139,10 +139,10 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();                         
-                        if(oContext.getObject().value.indexOf("Error") > -1){
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        if(oContext.getObject().value.to_confodp[0].fl_err_o){
+                            oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "E");
                         } else {
-                            oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
                         }
                         //MessageToast.show(oController.getResourceBundle().getText("done"))                            
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
@@ -446,7 +446,7 @@ sap.ui.define(
                     vTitle = this.getResourceBundle().getText("errorTitle");
                     vState = "Error";
                 } else
-                    if (messType === "I") {
+                    if (messType === "S") {
                         vTitle = this.getResourceBundle().getText("successTitle");
                         vState = "Success";
                     }

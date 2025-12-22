@@ -59,26 +59,59 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        id = id.split('~')[1]
+        // modifica DL - 22/12/2025 - gestione multi ordine
+        var idArray = []
+        if(id.indexOf(";") > -1){
+            idArray = id.split(";")
+        }
+        // modifica DL - 22/12/2025 - gestione multi ordine - FINE
 
         const where = request.query.SELECT?.where  // array già parsato
 
         const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
         let data
-        if (where && where.length > 0) {
-            // aggiungo anche FshMprodOrd come AND
-            const combinedWhere = [
-                { ref: ['FshMprodOrd'] }, '=', { val: id }, 'and', ...where
-            ]
-            data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
+        var finalData = []
+        if(idArray.length === 0){
+            id = id.split('~')[1]
+            if (where && where.length > 0) {
+                // aggiungo anche FshMprodOrd come AND
+                const combinedWhere = [
+                    { ref: ['FshMprodOrd'] }, '=', { val: id }, 'and', ...where
+                ]
+                data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
+            } else {
+                data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: id })
+            }
+        } else {            
+            for(var i=0; i<idArray.length; i++){
+                console.log("ID ARRAY: ", idArray[i])
+                idArray[i] = idArray[i].split('~')[1]
+                console.log("ID ARRAY POST SPLIT: ", idArray[i])
+                if (where && where.length > 0) {
+                    // aggiungo anche FshMprodOrd come AND
+                    const combinedWhere = [
+                        { ref: ['FshMprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
+                    ]
+                    data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
+                    console.log("DATAAAA "+JSON.stringify(data))
+                } else {
+                    data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: idArray[i] })
+                    console.log("DATAAAA "+JSON.stringify(data))
+                }
+                finalData.push(...data)
+            }
+           console.log("multi ordine chiamato")
+        }            
+
+        if(finalData.length > 0){
+            console.log("risultati MASTER COMP final Data: ", finalData.length)
+            return finalData;
         } else {
-            data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: id })
+            console.log("risultati MASTER COMP: ", data.length)
+            return data;
         }
-
-        console.log("risultati MASTER COMP: ", data.length)
-
-        return data;
+        
     });
 
     this.on('READ', "ZZ1_C_MFG_MASTEROPE", async request => {
@@ -121,26 +154,58 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id) 
 
-        id = id.split('~')[1]
+        // modifica DL - 22/12/2025 - gestione multi ordine
+        var idArray = []
+        if(id.indexOf(";") > -1){
+            idArray = id.split(";")
+        }
+        // modifica DL - 22/12/2025 - gestione multi ordine - FINE        
 
         const where = request.query.SELECT?.where  // array già parsato
 
         const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
 
         let data
-        if (where && where.length > 0) {
-            // aggiungo anche CprodOrder come AND
-            const combinedWhere = [
-                { ref: ['CprodOrd'] }, '=', { val: id }, 'and', ...where
-            ]
-            data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
-        } else {
-            data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id })
+        var finalData = []
+        if(idArray.length === 0){
+            id = id.split('~')[1]
+            if (where && where.length > 0) {
+                // aggiungo anche CprodOrder come AND
+                const combinedWhere = [
+                    { ref: ['CprodOrd'] }, '=', { val: id }, 'and', ...where
+                ]
+                data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
+            } else {
+                data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id })
+            }
+        } else {            
+            for(var i=0; i<idArray.length; i++){
+                console.log("ID ARRAY: ", idArray[i])
+                idArray[i] = idArray[i].split('~')[1]
+                console.log("ID ARRAY POST SPLIT: ", idArray[i])
+                if (where && where.length > 0) {
+                    // aggiungo anche CprodOrd come AND
+                    const combinedWhere = [
+                        { ref: ['CprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
+                    ]
+                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
+                    console.log("DATAAAA "+JSON.stringify(data))
+                } else {
+                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: idArray[i] })
+                    console.log("DATAAAA "+JSON.stringify(data))
+                }
+                finalData.push(...data)
+            }
+           console.log("multi ordine chiamato")
         }
 
-        console.log("risultati COMBINED COMP: ", data.length)
-
-        return data;
+        if(finalData.length > 0){
+            console.log("risultati COMBINED COMP final Data: ", finalData.length)
+            return finalData;
+        } else {
+            console.log("risultati COMBINED COMP: ", data.length)
+            return data;
+        }
     });
 
     this.on('READ', "ZZ1_C_MFG_COMBINEDOPE", async request => {
@@ -446,7 +511,7 @@ module.exports = cds.service.impl(async function (srv) {
         }
     });
 
-    this.on("MovePhase", async (req) => {
+    /*this.on("MovePhase", async (req) => {
         console.log("MovePhase Action")
 
         const Records = req.data.Record;
@@ -474,13 +539,13 @@ module.exports = cds.service.impl(async function (srv) {
 
             return error.message
             
-            /*if(multipleDelivery){
+            if(multipleDelivery){
                 response = response + "|| " + error.message
             } else {
                 return error.message
-            }    */            
+            }               
         }
-    });
+    });*/
 
     this.on("DoKitting", async (req) => {
         console.log("Chiamata ACTION DoKitting")
@@ -527,6 +592,8 @@ module.exports = cds.service.impl(async function (srv) {
             let callCreate = await confODP.tx(req).post("/confodph", payload)
             console.log("Risultato chiamata prodordh " + JSON.stringify(callCreate))
 
+            return callCreate
+
         } catch (error) {
 
             console.log("ERRORE "+error.message)
@@ -572,7 +639,7 @@ module.exports = cds.service.impl(async function (srv) {
         const endpoint =
         `/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=${oidOrdine}`;
 
-        /*try {
+        try {
             const result = await urlRolExternal.send({
                 method: "GET",
                 path: endpoint,
@@ -581,14 +648,16 @@ module.exports = cds.service.impl(async function (srv) {
             }
         });
 
+        console.log("LOG ROL "+JSON.stringify(result));
+
         return result;
 
         } catch (err) {
             console.error(err);
             req.error(500, "Errore chiamando LP ROL");
-        }*/
+        }
 
-        const axios = SapCfAxios("ROL");
+        /*const axios = SapCfAxios("ROL");
         try {
             const response = await axios({
             method: 'GET',
@@ -597,7 +666,7 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("LOG "+response)
         } catch (error) {
             console.log("ERROR "+error)
-        }
+        }*/
         
         // scrivo nel CBO
         /*const newRecord = {

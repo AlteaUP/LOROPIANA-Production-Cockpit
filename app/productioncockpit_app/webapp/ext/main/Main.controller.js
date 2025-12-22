@@ -135,11 +135,18 @@ sap.ui.define(
                     // Costruisci i filtri (in base al tuo scenario)
                     if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
                         for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
-                            if(this.byId("FilterBarMaster").getFilters().filters[i].sPath === 'MasterProductionOrder'){
+                            if(this.byId("FilterBarMaster").getFilters().filters[i].sPath === 'MasterProductionOrder' || this.byId("FilterBarMaster").getFilters().filters[0].aFilters !== undefined){
                                 if(this.byId("TableMaster").getMDCTable().getRowBinding() !== undefined){
-                                    var value = this.byId("TableMaster").getMDCTable().getRowBinding().aContexts[0].getValue().CombinedOrder
-                                    var oFilter = new sap.ui.model.Filter("CombinedOrder", sap.ui.model.FilterOperator.EQ, value);
-                                    filterArray.push(oFilter)
+                                    // modifica DL - 22/12/2025 - gestione ordini multipli
+                                    if(this.byId("FilterBarMaster").getFilters().filters[0].aFilters === undefined){
+                                        var value = this.byId("TableMaster").getMDCTable().getRowBinding().aContexts[0].getValue().CombinedOrder
+                                        var oFilter = new sap.ui.model.Filter("CombinedOrder", sap.ui.model.FilterOperator.EQ, value);
+                                        filterArray.push(oFilter)
+                                    } else {
+                                        for(var y=0; y<this.byId("TableMaster").getMDCTable().getRowBinding().aContexts.length; y++){                                       
+                                            filterArray.push(new sap.ui.model.Filter("CombinedOrder", sap.ui.model.FilterOperator.EQ, this.byId("TableMaster").getMDCTable().getRowBinding().aContexts[y].getValue().CombinedOrder ))
+                                        }
+                                    }
                                 }
                             } else {
                                 var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
