@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="ROLDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://detail-view"
+      title="{i18n>ROL}">
+      <content>
+      	<f:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanXL="4"
+            labelSpanL="4"
+            labelSpanM="4"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="0"
+            emptySpanL="0"
+            emptySpanM="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1">
+
+            <Label text="{i18n>orderNumber}" />
+            <Text text="{order>/numeroOrdineROL}" />
+
+            <Label text="{i18n>codeArticle}" />
+            <Text text="{order>/articoloCod}" />
+
+            <Label text="{i18n>codeColor}" />
+            <Text text="{order>/coloreCod}" />
+
+            <Label text="{i18n>size}" />
+            <Text text="{order>/taglia}" />
+
+            <Label text="{i18n>numPecies}" />
+            <Text text="{order>/numeroPezzi}" />
+
+            <Label text="{i18n>fabric}" />
+            <Text text="{order>/tessuto}" />
+
+        </f:SimpleForm>
+      </content>
+      <endButton>
+        <Button 
+        id="CloseROLDialogButton" 
+        type="Reject"
+        width="47.5%"
+        icon="sap-icon://decline"
+        press=".onCloseROLDialog"
+        text="{i18n>Close}"/>
+    </endButton>
+    </Dialog>
+</core:FragmentDefinition>

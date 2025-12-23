@@ -367,7 +367,24 @@ sap.ui.define(
                 oBindingContext.execute().then((oResult) => {
                     var oContext = oBindingContext.getBoundContext(); 
                     oBusyDialog.close();
-                    // TODO - gestione errore                                                   
+                    // apro popup in cui mostro risultati della chiamata del servizio
+                    if(oController.pROLDialog === null || oController.pROLDialog === undefined){
+                        oController.pROLDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ROL", oController);
+                        oController.getView().addDependent(oController.pROLDialog);
+                    }
+
+                    const oModel = new sap.ui.model.json.JSONModel({
+                        numeroOrdineROL: "S000026497",
+                        articoloCod: "FAF3792",
+                        coloreCod: "WG77",
+                        taglia: "46",
+                        numeroPezzi: 1,
+                        tessuto: "Filato Baby Cash 2/26 (SDM)"
+                    });
+
+                    oController.getView().setModel(oModel, "order");
+
+                    oController.pROLDialog.open()
                     
                 }).catch((oError) => {
                     oBusyDialog.close();
@@ -379,6 +396,10 @@ sap.ui.define(
                     }
                     return
                 });
+            },
+
+            onShowDialog: function () {
+                
             },
 
             onCloseOrder: function(oEvent){
@@ -584,6 +605,10 @@ sap.ui.define(
                 });
     
                 dialog.open();
+            },
+
+            onCloseROLDialog: function(){
+                oController.pROLDialog.close();
             }
 
         });

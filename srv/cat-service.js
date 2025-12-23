@@ -635,12 +635,13 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("GetOrderDetails Action")
 
         const { oidOrdine } = req.data;
+        var result
         
         const endpoint =
         `/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=${oidOrdine}`;
 
         try {
-            const result = await urlRolExternal.send({
+            result = await urlRolExternal.send({
                 method: "GET",
                 path: endpoint,
                 headers: {
@@ -648,10 +649,8 @@ module.exports = cds.service.impl(async function (srv) {
             }
         });
 
-        console.log("LOG ROL "+JSON.stringify(result));
-
-        return result;
-
+        console.log("LOG ROL "+JSON.stringify(result))
+        
         } catch (err) {
             console.error(err);
             req.error(500, "Errore chiamando LP ROL");
@@ -669,22 +668,34 @@ module.exports = cds.service.impl(async function (srv) {
         }*/
         
         // scrivo nel CBO
-        /*const newRecord = {
-            SAP_UUID: cds.utils.uuid(), // genera un UUID
-            numeroOrdineROL: "S000026497",
-            articoloCod: "FAF3792",
-            coloreCod: "WG77",
-            taglia: "46",
-            numeroPezzi: 1,
-            tessuto: "Filato Baby Cash 2/26 (SDM)",
-            //dataConsegnaBorgosesia: "",
-        };
+        if(result !== undefined && result !== null){
+            const newRecord = {
+                SAP_UUID: cds.utils.uuid(), // genera un UUID
+                numeroOrdineROL: result.numeroOrdineROL,
+                articoloCod: result.articoloCod,
+                coloreCod: result.coloreCod,
+                taglia: result.taglia,
+                numeroPezzi: result.numeroPezzi,
+                tessuto: result.tessuto,
+                //dataConsegnaBorgosesia: "",
+            };
 
-        await rol.run(
-            INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
-        );*/
+            // controllo se esiste già record con quell'ordine
+            var selectROL = await rol.run(
+                SELECT("ZZ1_MFG_ROL_ORDERS").where({ numeroOrdineROL: result.numeroOrdineROL })
+            );
 
-        return "" //JSON.stringify(response);
+            if(Object.keys(selectROL).length === 0){
+                await rol.run(
+                    INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
+                );
+            }
+
+            console.log("SALVO su CBO ")
+
+            return result;
+        }
+
     });
 
     this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {
