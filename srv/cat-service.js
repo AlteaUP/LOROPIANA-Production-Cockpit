@@ -565,6 +565,8 @@ module.exports = cds.service.impl(async function (srv) {
             let callCreate = await createKitting.tx(req).post("/prodordh", payload)
             console.log("Risultato chiamata prodordh " + JSON.stringify(callCreate))
 
+            return callCreate;
+
         } catch (error) {
 
             console.log("ERRORE "+error.message)
