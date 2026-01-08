@@ -230,6 +230,7 @@ sap.ui.define(
                 for(var i=0; i<oController.byId("KittingMasterTableId").getItems().length; i++){
                     var path = this.byId("KittingMasterTableId").getItems()[i].getBindingContext().sPath
                     var object = this.byId("KittingMasterTableId").getModel().getObject(path)
+                    objectToCreateMaterialDocument = {}
                     //objectToCreateMaterialDocument = oController.byId("TableCombinedKitting").getSelectedContexts()[i].getObject()
                     objectToCreateMaterialDocument.id = String(i+1).padStart(3, "0");
                     objectToCreateMaterialDocument.matnr = object.Material
@@ -256,7 +257,28 @@ sap.ui.define(
                         var oContext = oBindingContext.getBoundContext(); 
                         oBusyDialog.close();
                         oController.pKittingMasterDialog.close();
-                        // TODO - gestione errore                                                   
+                        // TODO - gestione errore 
+                        if(oContext.getObject().value.to_prod_ord[0].flag_error === 'true'){
+                            var error = oContext.getObject().value.to_prod_ord[0].msg
+                            if(error.indexOf("#") > -1){
+                                var errorArray = error.split("#")
+                                var message = ""
+                                for(var p=0; p<errorArray.length; p++){
+                                    if(errorArray[p] !== ""){
+                                        if(message === ""){
+                                            message = errorArray[p]
+                                        } else {
+                                            message = message + ", " +errorArray[p]
+                                        }                                                    
+                                    }
+                                }
+                                oController.openDialogMessageText(message, "E");
+                            } else {
+                                oController.openDialogMessageText(error, "E");
+                            }
+                        } else {
+                            oController.openDialogMessageText("Operazione completata con successo", "S"); 
+                        }                                                    
                         
                     }).catch((oError) => {
                         oBusyDialog.close();
