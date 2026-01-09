@@ -271,9 +271,12 @@ sap.ui.define(
 
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();                            
+                        var oContext = oBindingContext.getBoundContext();     
+                        if(oContext.getObject().value.indexOf("Error") > -1){
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        }                       
                         //oController.byId("TableComponents").getModel().refresh()
-                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
+                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
                         oBusyDialog.close();
                         
                     }).catch((oError) => {

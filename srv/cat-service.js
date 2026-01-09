@@ -625,6 +625,8 @@ module.exports = cds.service.impl(async function (srv) {
             let callCreate = await manageODPPhase.tx(req).post("/operationh", payload)
             console.log("Risultato chiamata " + JSON.stringify(callCreate))
 
+            return callCreate
+
         } catch (error) {
 
             console.log("ERRORE "+error.message)

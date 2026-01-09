@@ -1,0 +1,146 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+</edmx:Reference>
+<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="http://lpapps20.lp.corp:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+<edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
+</edmx:Reference>
+<edmx:DataServices m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZZ1_MFG_ROL_ORDERS_CDS" xml:lang="it" sap:schema-version="1">
+<EntityType Name="ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROLType" sap:label="MFG_ROL_ATTRIBUTES" sap:content-version="1">
+<Key>
+<PropertyRef Name="SAP_UUID"/>
+</Key>
+<Property Name="SAP_UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+<Property Name="SAP_PARENT_UUID" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+<Property Name="zlabel" Type="Edm.String" MaxLength="20" sap:label="zlabel"/>
+<Property Name="valore" Type="Edm.String" MaxLength="20" sap:label="valore"/>
+<NavigationProperty Name="to_MFG_ROL_ORDERS" Relationship="ZZ1_MFG_ROL_ORDERS_CDS.assoc_81F33DEDB22898A4F474E1CE46AF19BC" FromRole="ToRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC" ToRole="FromRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC"/>
+</EntityType>
+<EntityType Name="ZZ1_MFG_ROL_ORDERSType" sap:label="MFG_ROL_ORDERS" sap:content-version="1">
+<Key>
+<PropertyRef Name="SAP_UUID"/>
+</Key>
+<Property Name="SAP_UUID" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+<Property Name="numeroOrdineROL" Type="Edm.String" MaxLength="12" sap:label="numeroOrdineROL"/>
+<Property Name="articoloCod" Type="Edm.String" MaxLength="10" sap:label="articoloCod"/>
+<Property Name="coloreCod" Type="Edm.String" MaxLength="5" sap:label="coloreCod"/>
+<Property Name="taglia" Type="Edm.String" MaxLength="2" sap:label="taglia"/>
+<Property Name="numeroPezzi" Type="Edm.Decimal" Precision="6" Scale="0" sap:label="numeroPezzi"/>
+<Property Name="tessuto" Type="Edm.String" MaxLength="50" sap:label="tessuto"/>
+<Property Name="dataConsegnaBorgosesia" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="dataConsegnaBorgosesia"/>
+<NavigationProperty Name="to_MFG_ROL_ATTRIBUTES" Relationship="ZZ1_MFG_ROL_ORDERS_CDS.assoc_81F33DEDB22898A4F474E1CE46AF19BC" FromRole="FromRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC" ToRole="ToRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC"/>
+</EntityType>
+<Association Name="assoc_81F33DEDB22898A4F474E1CE46AF19BC" sap:content-version="1">
+<End Type="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType" Multiplicity="1" Role="FromRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC">
+<OnDelete Action="Cascade"/>
+</End>
+<End Type="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROLType" Multiplicity="*" Role="ToRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC"/>
+<ReferentialConstraint>
+<Principal Role="FromRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC">
+<PropertyRef Name="SAP_UUID"/>
+</Principal>
+<Dependent Role="ToRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC">
+<PropertyRef Name="SAP_PARENT_UUID"/>
+</Dependent>
+</ReferentialConstraint>
+</Association>
+<EntityContainer Name="ZZ1_MFG_ROL_ORDERS_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+<EntitySet Name="ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL" EntityType="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROLType" sap:searchable="true" sap:content-version="1"/>
+<EntitySet Name="ZZ1_MFG_ROL_ORDERS" EntityType="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType" sap:searchable="true" sap:content-version="1"/>
+<AssociationSet Name="assoc_81F33DEDB22898A4F474E1CE46AF19BC" Association="ZZ1_MFG_ROL_ORDERS_CDS.assoc_81F33DEDB22898A4F474E1CE46AF19BC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+<End EntitySet="ZZ1_MFG_ROL_ORDERS" Role="FromRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC"/>
+<End EntitySet="ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL" Role="ToRole_assoc_81F33DEDB22898A4F474E1CE46AF19BC"/>
+</AssociationSet>
+<FunctionImport Name="ZZ1_MFG_ROL_ORDERSSap_upsert" ReturnType="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType" EntitySet="ZZ1_MFG_ROL_ORDERS" m:HttpMethod="POST">
+<Parameter Name="numeroOrdineROL" Type="Edm.String" Mode="In" MaxLength="12" sap:label="Testo di lungh. 12"/>
+<Parameter Name="articoloCod" Type="Edm.String" Mode="In" MaxLength="10" sap:label="Testo di lungh. 10"/>
+<Parameter Name="coloreCod" Type="Edm.String" Mode="In" MaxLength="5" sap:label="Testo di lunghezza 5"/>
+<Parameter Name="taglia" Type="Edm.String" Mode="In" MaxLength="2" sap:label="Testo di lunghezza 2"/>
+<Parameter Name="numeroPezzi" Type="Edm.Decimal" Mode="In" Precision="6" Scale="0" sap:label="numeroPezzi"/>
+<Parameter Name="tessuto" Type="Edm.String" Mode="In" MaxLength="50" sap:label="Testo lunghezza 50"/>
+<Parameter Name="dataConsegnaBorgosesia" Type="Edm.DateTime" Mode="In" Precision="0" sap:label="dataConsegnaBorgosesia" sap:display-format="Date"/>
+</FunctionImport>
+</EntityContainer>
+<Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERS_CDS_Entities">
+<Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType/to_MFG_ROL_ATTRIBUTES">
+<Annotation Term="Common.Composition"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType/numeroOrdineROL">
+<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERS_CDS_Entities/ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_MFG_ROL_ORDERS"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERS_CDS_Entities/ZZ1_MFG_ROL_ORDERS">
+<Annotation Term="Capabilities.NavigationRestrictions">
+<Record>
+<PropertyValue Property="RestrictedProperties">
+<Collection>
+<Record>
+<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_MFG_ROL_ATTRIBUTES"/>
+<PropertyValue Property="InsertRestrictions">
+<Record>
+<PropertyValue Property="Insertable" Bool="true"/>
+</Record>
+</PropertyValue>
+</Record>
+</Collection>
+</PropertyValue>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZZ1_MFG_ROL_ORDERS_CDS.ZZ1_MFG_ROL_ORDERSType">
+<Annotation Term="Common.SemanticKey">
+<Collection>
+<PropertyPath>numeroOrdineROL</PropertyPath>
+</Collection>
+</Annotation>
+</Annotations>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="http://lpapps20.lp.corp:8000/sap/opu/odata/sap/ZZ1_MFG_ROL_ORDERS_CDS/$metadata"/>
+<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="http://lpapps20.lp.corp:8000/sap/opu/odata/sap/ZZ1_MFG_ROL_ORDERS_CDS/$metadata"/>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>
