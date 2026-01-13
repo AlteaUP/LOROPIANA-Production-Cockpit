@@ -126,18 +126,58 @@ module.exports = cds.service.impl(async function (srv) {
         }
         console.log("ID estratto: ", id)
 
-        id = id.split('~')[1]
+        // modifica DL - 13/01/2026 - gestione multi ordine
+        var idArray = []
+        if(id.indexOf(";") > -1){
+            idArray = id.split(";")
+        }
+        // modifica DL - 13/01/2026 - gestione multi ordine - FINE
+
+        const where = request.query.SELECT?.where  // array già parsato
 
         const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
 
-        const data = await srv.send({
-            method: 'GET',
-            path: "/ZZ1_C_MFG_MASTEROPE?$filter=MasterProductionOrder eq '"+ id +"'"
-        })
+        let data
+        var finalData = []
+        if(idArray.length === 0){
+            id = id.split('~')[1]
+            if (where && where.length > 0) {
+                // aggiungo anche MasterProductionOrder come AND
+                const combinedWhere = [
+                    { ref: ['MasterProductionOrder'] }, '=', { val: id }, 'and', ...where
+                ]
+                data = await srv.read('ZZ1_C_MFG_MASTEROPE').where(combinedWhere)
+            } else {
+                data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: id })
+            }
+        } else {            
+            for(var i=0; i<idArray.length; i++){
+                console.log("ID ARRAY: ", idArray[i])
+                idArray[i] = idArray[i].split('~')[1]
+                console.log("ID ARRAY POST SPLIT: ", idArray[i])
+                if (where && where.length > 0) {
+                    // aggiungo anche MasterProductionOrder come AND
+                    const combinedWhere = [
+                        { ref: ['MasterProductionOrder'] }, '=', { val: idArray[i] }, 'and', ...where
+                    ]
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPE').where(combinedWhere)
+                    console.log("DATAAAA "+JSON.stringify(data))
+                } else {
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: idArray[i] })
+                    console.log("DATAAAA "+JSON.stringify(data))
+                }
+                finalData.push(...data)
+            }
+           console.log("multi ordine chiamato")
+        }
 
-        console.log("risultati MASTER OPER: ", data.length)
-
-        return data;
+        if(finalData.length > 0){
+            console.log("risultati MASTER OPER final Data: ", finalData.length)
+            return finalData;
+        } else {
+            console.log("risultati MASTER OPER: ", data.length)
+            return data;
+        }
     });
 
     this.on('READ', "ZZ1_C_COMBORDER_COMP", async request => {

@@ -42,11 +42,11 @@
                 <Column id="lgort1_ID">
                     <Text text="{i18n>lgort1}"/>
                 </Column>
-                <Column id="note_ID">
-                    <Text text="{i18n>note}"/>
-                </Column>
                 <Column id="reason_ID">
                     <Text text="{i18n>reason}"/>
+                </Column>
+                <Column id="note_ID">
+                    <Text text="{i18n>note}"/>
                 </Column>
             </columns>
           <items>

@@ -112,8 +112,9 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
     ],
     UI.SelectionFields #filterBarMacro1 : [
         MasterProductionOrder,
+        CombinedOrder,
         ProductionPlant,
-        MRPController,
+        MRPController
     ],
 );
 
