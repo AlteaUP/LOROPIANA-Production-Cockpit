@@ -39,7 +39,12 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::deleteCompCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(false);                        
                     }
-                });                
+                });      
+                var reasonDataModel = new JSONModel({
+				    ReasonSet: []
+                });
+                reasonDataModel.setDefaultBindingMode("TwoWay");
+                this.setModel(reasonDataModel, "reasonServiceCombined");          
             },
 
             onAfterRendering: function() {                
@@ -49,7 +54,7 @@ sap.ui.define(
                 var oListBinding = oModel.bindList("/ZZ1_MFG_REASON_SOST");
 
                 oListBinding.requestContexts().then(aContexts => {
-                    oController.getView().getModel("reasonService").setProperty("/ReasonSet", aContexts.map(oContext => oContext.getObject()));
+                    oController.getView().getModel("reasonServiceCombined").setProperty("/ReasonSet", aContexts.map(oContext => oContext.getObject()));
                     console.log("Dati Reason letti:", aContexts.map(oContext => oContext.getObject()));                    
                 }).catch(err => {
                     console.error("Errore nella chiamata OData:", err);

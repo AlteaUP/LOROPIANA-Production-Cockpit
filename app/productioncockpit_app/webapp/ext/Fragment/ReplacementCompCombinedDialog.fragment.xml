@@ -72,10 +72,10 @@
                     forceSelection="true"
                     width="100%"
                     items="{
-                        path: 'reasonService>/ReasonSet',
+                        path: 'reasonServiceCombined>/ReasonSet',
                         sorter: { path: 'Reason' }
                     }">
-                    <core:Item id="_IDGenItem6" key="{reasonService>SAP_UUID}" text="{reasonService>Reason} - {reasonService>Note}" />
+                    <core:Item id="_IDGenItem6" key="{reasonServiceCombined>SAP_UUID}" text="{reasonServiceCombined>Reason} - {reasonServiceCombined>Note}" />
                 </Select>
                 <Input 
                   value="{Reason}" editable="true" />

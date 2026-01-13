@@ -40,11 +40,26 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::deleteCompMasterAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content::CustomAction::closeCompMasterAction").setEnabled(false);                        
                     }
+                });   
+                var reasonDataModel = new JSONModel({
+				    ReasonSet: []
                 });
+                reasonDataModel.setDefaultBindingMode("TwoWay");
+                this.setModel(reasonDataModel, "reasonServiceMaster");             
             },
 
             onAfterRendering: function() {                
                 sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--FilterBarMasterComp-content-btnSearch").firePress()
+                // recupero CDS delle reason
+                var oModel = this.getView().getModel(); // OData V4 Model
+                var oListBinding = oModel.bindList("/ZZ1_MFG_REASON_SOST");
+
+                oListBinding.requestContexts().then(aContexts => {
+                    oController.getView().getModel("reasonServiceMaster").setProperty("/ReasonSet", aContexts.map(oContext => oContext.getObject()));
+                    console.log("Dati Reason letti:", aContexts.map(oContext => oContext.getObject()));                    
+                }).catch(err => {
+                    console.error("Errore nella chiamata OData:", err);
+                });
             },
 
             onActionComponentsMaster: function(oEvent){
