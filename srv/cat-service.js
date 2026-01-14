@@ -14,6 +14,8 @@ module.exports = cds.service.impl(async function (srv) {
     const manageODPPhase = await cds.connect.to('ZMFG_SB_PRODOR_OPERATIONS');
     const rol = await cds.connect.to("ZZ1_MFG_ROL_ORDERS_CDS");
     const urlRolExternal = await cds.connect.to("ROL");
+    const zmfp_mrp_plant_f4 = await cds.connect.to("ZMFP_MRP_PLANT_F4");
+    const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
@@ -746,6 +748,18 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("chiamata ZZ1_MFG_ROL_ORDERS")        
         var data = await rol.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
+
+        return data;
+    });
+
+    this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
+      const result = await zmfp_mrp_plant_f4.run(req.query);
+      return result;
+    });
+
+    this.on('READ', "ZC_RFM_MRPCONTROLLER_F4", async request => {
+        request.query.SELECT.count = false
+        var data = await cdsMRPController.tx(request).run(request.query);
 
         return data;
     });

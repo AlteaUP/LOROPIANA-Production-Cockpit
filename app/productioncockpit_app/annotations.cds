@@ -167,13 +167,45 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
     ]
 );
 
-annotate service.ZZ1_C_MASTERPRODORDER with {
-    ProductionPlant @Common.Label : 'ProductionPlant'
-};
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    ProductionPlant @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'ZC_RFM_PRODUCTION_PLANT_F4',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : Plant,
+                    ValueListProperty : 'Plant',
+                },
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'PlantName'
+                }
+            ],
+            Label : '{i18n>plant}',
+        },
+        Common.ValueListWithFixedValues : false
+)};
 
-annotate service.ZZ1_C_MASTERPRODORDER with {
-    MRPController @Common.Label : 'MRPController'
-};
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    MRPController @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'ZC_RFM_MRPCONTROLLER_F4',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : MRPController,
+                    ValueListProperty : 'MRPController',
+                },
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'MRPControllerName'
+                }
+            ],
+            Label : '{i18n>MRPController}',
+        },
+        Common.ValueListWithFixedValues : false
+)};
 
 annotate service.ZZ1_C_MASTERORDER_COMP with @(
     UI.SelectionFields #MasterComp : [Material],
@@ -183,7 +215,7 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
         {
             $Type : 'UI.DataField',
             Value : FshMprodOrd,
-            Label : 'FshMprodOrd',
+            Label : '{i18n>fshMprodOrd}',
         },
         {
             $Type : 'UI.DataField',
