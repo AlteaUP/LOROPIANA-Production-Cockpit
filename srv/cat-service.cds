@@ -17,6 +17,7 @@ using {ZMFG_SB_PRODOR_OPERATIONS as managePhase } from './external/ZMFG_SB_PRODO
 using {ZZ1_MFG_ROL_ORDERS_CDS as rol} from './external/ZZ1_MFG_ROL_ORDERS_CDS';
 using { ZMFP_MRP_PLANT_F4 } from './external/ZMFP_MRP_PLANT_F4';
 using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPCONTROLLER_F4_CDS';
+using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -25,6 +26,11 @@ service CatalogService {
     @readonly
     entity ZZ1_I_COMBPRODORDAPI as projection on mainService.ZZ1_I_COMBPRODORDAPI{
         key ID : String(50),
+        null as OrderHasProductionHold: String,
+        null as OrderHasExecutionDelay: String,
+        null as OrderHasMissingComponents: String,
+        null as OrderHasDeviation: String,
+        null as OrderHasQualityIssue: String,
         *,
 
         to_ZZ1_C_COMBORDER_COMP     : Composition of many ZZ1_C_COMBORDER_COMP
@@ -75,11 +81,49 @@ service CatalogService {
     entity ZZ1_C_MASTERPRODORDER as projection on mainService.ZZ1_C_MASTERPRODORDER{
         key ID,
         key MRPController,
-        *
+        *,
+        null as CreatedStatusQtyInPercent: String,
+        null as OrderIsCreated: String,
+        null as ReleasedStatusQtyInPercent: String,
+        null as OrderIsReleased: String,
+        null as OrderIsPartiallyReleased: String,
+        null as ConfirmedStatusQtyInPercent: String,
+        null as OrderIsConfirmed: String,
+        null as OrderIsPartiallyConfirmed: String,
+        null as DeliveredStatusQtyInPercent: String,
+        null as OrderIsDelivered: String,
+        null as OrderIsPartiallyDelivered: String,
+        null as TechlyCmpltdStatusQtyInPercent: String,
+        null as OrderIsTechnicallyCompleted: String,
+        null as OrderHasProductionHold: String,
+        null as OrderHasExecutionDelay: String,
+        null as OrderHasMissingComponents: String,
+        null as OrderHasDeviation: String,
+        null as OrderHasQualityIssue: String,
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER;
+    entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER{
+        *,
+        null as CreatedStatusQtyInPercent: String,
+        null as OrderIsCreated: String,
+        null as ReleasedStatusQtyInPercent: String,
+        null as OrderIsReleased: String,
+        null as OrderIsPartiallyReleased: String,
+        null as ConfirmedStatusQtyInPercent: String,
+        null as OrderIsConfirmed: String,
+        null as OrderIsPartiallyConfirmed: String,
+        null as DeliveredStatusQtyInPercent: String,
+        null as OrderIsDelivered: String,
+        null as OrderIsPartiallyDelivered: String,
+        null as TechlyCmpltdStatusQtyInPercent: String,
+        null as OrderIsTechnicallyCompleted: String,
+        null as OrderHasProductionHold: String,
+        null as OrderHasExecutionDelay: String,
+        null as OrderHasMissingComponents: String,
+        null as OrderHasDeviation: String,
+        null as OrderHasQualityIssue: String,
+    }
 
     entity intcomph as projection on componentsAction.intcomph;
 
@@ -98,6 +142,10 @@ service CatalogService {
     entity ZC_RFM_PRODUCTION_PLANT_F4 as projection on ZMFP_MRP_PLANT_F4.ZC_RFM_PRODUCTION_PLANT_F4;
 
     entity ZC_RFM_MRPCONTROLLER_F4 as projection on MRPControllerCDS.ZC_RFM_MRPCONTROLLER_F4;
+
+    entity C_RFM_ManageMasterMfgOrder as projection on chart.C_RFM_ManageMasterMfgOrder;
+
+    entity C_RFM_ManageCombinedMfgOrder as projection on chart.C_RFM_ManageCombinedMfgOrder;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 

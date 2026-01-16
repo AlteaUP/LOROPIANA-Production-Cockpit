@@ -16,11 +16,29 @@ module.exports = cds.service.impl(async function (srv) {
     const urlRolExternal = await cds.connect.to("ROL");
     const zmfp_mrp_plant_f4 = await cds.connect.to("ZMFP_MRP_PLANT_F4");
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
+    const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
 
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
+
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
+        const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
+        
+        for(var i=0; i<data.length; i++){
+            const chartData = await chartDataService.tx(request).run(
+                SELECT.from('C_RFM_ManageMfgOrder')
+                    .where({ ManufacturingOrder: data[i].ManufacturingOrder })
+                    .limit(1000)
+            );
+            data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
+            data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
+            data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
+            data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
+            data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+        }
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
 
         return data;
     });
@@ -38,6 +56,36 @@ module.exports = cds.service.impl(async function (srv) {
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
 
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
+        const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
+        
+        for(var i=0; i<data.length; i++){
+            const chartData = await chartDataService.tx(request).run(
+                SELECT.from('C_RFM_ManageMasterMfgOrder')
+                    .where({ MasterProductionOrder: data[i].MasterProductionOrder })
+                    .limit(1000)
+            );
+            data[i].CreatedStatusQtyInPercent = chartData[0].CreatedStatusQtyInPercent
+            data[i].OrderIsCreated = chartData[0].OrderIsCreated
+            data[i].ReleasedStatusQtyInPercent = chartData[0].ReleasedStatusQtyInPercent
+            data[i].OrderIsReleased = chartData[0].OrderIsReleased
+            data[i].OrderIsPartiallyReleased = chartData[0].OrderIsPartiallyReleased
+            data[i].ConfirmedStatusQtyInPercent = chartData[0].ConfirmedStatusQtyInPercent
+            data[i].OrderIsConfirmed = chartData[0].OrderIsConfirmed
+            data[i].OrderIsPartiallyConfirmed = chartData[0].OrderIsPartiallyConfirmed
+            data[i].DeliveredStatusQtyInPercent = chartData[0].DeliveredStatusQtyInPercent
+            data[i].OrderIsDelivered = chartData[0].OrderIsDelivered
+            data[i].OrderIsPartiallyDelivered = chartData[0].OrderIsPartiallyDelivered
+            data[i].TechlyCmpltdStatusQtyInPercent = chartData[0].TechlyCmpltdStatusQtyInPercent
+            data[i].OrderIsTechnicallyCompleted = chartData[0].OrderIsTechnicallyCompleted
+            data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
+            data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
+            data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
+            data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
+            data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+        }
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
+
         return data;
     });
 
@@ -45,6 +93,42 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("chiamata ZZ1_C_COMBINEDPRODORDER")        
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array "+data.length)
+
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
+        const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
+
+        const chartData = await chartDataService.tx(request).run(
+            SELECT.from('C_RFM_ManageCombinedMfgOrder').limit(1000)
+        );
+        
+        if(data.length > 0){
+            for(var i=0; i<data.length; i++){
+                const chartData = await chartDataService.tx(request).run(
+                    SELECT.from('C_RFM_ManageCombinedMfgOrder')
+                        .where({ CombinedProductionOrder: data[i].CombinedOrder })
+                        .limit(1000)
+                );
+                data[i].CreatedStatusQtyInPercent = chartData[0].CreatedStatusQtyInPercent
+                data[i].OrderIsCreated = chartData[0].OrderIsCreated
+                data[i].ReleasedStatusQtyInPercent = chartData[0].ReleasedStatusQtyInPercent
+                data[i].OrderIsReleased = chartData[0].OrderIsReleased
+                data[i].OrderIsPartiallyReleased = chartData[0].OrderIsPartiallyReleased
+                data[i].ConfirmedStatusQtyInPercent = chartData[0].ConfirmedStatusQtyInPercent
+                data[i].OrderIsConfirmed = chartData[0].OrderIsConfirmed
+                data[i].OrderIsPartiallyConfirmed = chartData[0].OrderIsPartiallyConfirmed
+                data[i].DeliveredStatusQtyInPercent = chartData[0].DeliveredStatusQtyInPercent
+                data[i].OrderIsDelivered = chartData[0].OrderIsDelivered
+                data[i].OrderIsPartiallyDelivered = chartData[0].OrderIsPartiallyDelivered
+                data[i].TechlyCmpltdStatusQtyInPercent = chartData[0].TechlyCmpltdStatusQtyInPercent
+                data[i].OrderIsTechnicallyCompleted = chartData[0].OrderIsTechnicallyCompleted
+                data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
+                data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
+                data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
+                data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
+                data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+            }
+        }
+        // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
 
         return data;
     });
@@ -760,6 +844,20 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZC_RFM_MRPCONTROLLER_F4", async request => {
         request.query.SELECT.count = false
         var data = await cdsMRPController.tx(request).run(request.query);
+
+        return data;
+    });
+
+    this.on('READ', "C_RFM_ManageMasterMfgOrder", async request => {
+        request.query.SELECT.count = false
+        var data = await chartMaster.tx(request).run(request.query);
+
+        return data;
+    });
+
+    this.on('READ', "C_RFM_ManageCombinedMfgOrder", async request => {
+        request.query.SELECT.count = false
+        var data = await chartMaster.tx(request).run(request.query);
 
         return data;
     });

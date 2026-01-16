@@ -85,6 +85,7 @@ type ManageODPPhase {
     id                          : String;
     MasterProductionOrder       : String;
     ManufacturingOrderOperation : String;
+    ManufacturingOrderSequence  : String;
     WorkCenter                  : String;
     Plant                       : String;
     OperationControlProfile     : String;

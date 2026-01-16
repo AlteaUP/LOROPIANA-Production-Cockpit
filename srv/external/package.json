@@ -56,6 +56,10 @@
       "ZZ1_MRPCONTROLLER_F4_CDS": {
         "kind": "odata",
         "model": "srv/external/ZZ1_MRPCONTROLLER_F4_CDS"
+      },
+      "UI_RFM_MNG_MSTRPRODNORD": {
+        "kind": "odata-v2",
+        "model": "srv/external/UI_RFM_MNG_MSTRPRODNORD"
       }
     }
   },

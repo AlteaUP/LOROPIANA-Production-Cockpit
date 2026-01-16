@@ -309,6 +309,26 @@
             "path": "/sap/opu/odata4/sap/zmfp_mrp_controller_f4/srvd/sap/zmfp_mrp_controller_f4/0001"
           }
         }
+      },
+      "UI_RFM_MNG_MSTRPRODNORD": {
+        "kind": "odata-v2",
+        "model": "srv/external/UI_RFM_MNG_MSTRPRODNORD",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/UI_RFM_MNG_MSTRPRODNORD"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/UI_RFM_MNG_MSTRPRODNORD"
+          }
+        }
       }
     }
   },

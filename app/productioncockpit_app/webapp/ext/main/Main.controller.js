@@ -609,6 +609,107 @@ sap.ui.define(
 
             onCloseROLDialog: function(){
                 oController.pROLDialog.close();
+            },
+
+            determineLifeCycleStatus: function(O, a) {
+                if (O === "" && a === "X") {
+                    O = "Y";
+                }
+                switch (O) {
+                    case "X":
+                        return "Success";
+                    case "Y":
+                        return "Warning";
+                }
+                return "None";
+            },
+            determineLifeCycleStatusText: function(S, a) {
+                switch (a) {
+                    case "X1":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Created");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Created");
+                        }
+                    case "X2":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Released");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Released");
+                        }
+                    case "X3":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Confirmed");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Confirmed");
+                        }
+                    case "X4":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Delivered");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Delivered");
+                        }
+                    case "X5":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("TechnicallyCompleted");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("TechnicallyCompleted");
+                        }
+                    case "X6":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Closed");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Closed");
+                        }
+                    case "X7":
+                        if (S === 0) {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Deleted");
+                        } else {
+                            return S + "% " + this.getView().getModel("i18n").getResourceBundle().getText("Deleted");
+                        }
+                }
+                return "";
+            },
+            determineIssueTypeText: function(I, a) {
+                switch (a) {
+                    case "X1":
+                        if (I === "X") {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("OnHold");
+                        } else {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("NotOnHold");
+                        }
+                    case "X2":
+                        if (I === "X") {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("Delay");
+                        } else {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("NoDelay");
+                        }
+                    case "X3":
+                        if (I === "X") {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("MissingComponents ");
+                        } else{
+                            return this.getView().getModel("i18n").getResourceBundle().getText("NoMissingComponents");
+                        }
+                    case"X4 ":
+                        if (I === "X"){
+                            return this.getView().getModel("i18n ").getResourceBundle().getText("QuantityIssue");
+                        }else{
+                            return this.getView().getModel("i18n").getResourceBundle().getText("NoQuantityIssue");
+                        }
+                    case "X5": 
+                        if (I === "X") {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("QualityIssue");
+                        } else {
+                            return this.getView().getModel("i18n").getResourceBundle().getText("NoQualityIssue"); 
+                        }
+                    }
+                    return "";
+            },
+            determineColor: function(I) {
+                if (I === "X") {
+                    return "Negative";
+                }
+                return "NonInteractive";
             }
 
         });

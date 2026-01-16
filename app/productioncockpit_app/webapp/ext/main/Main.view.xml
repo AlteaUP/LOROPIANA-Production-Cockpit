@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.main.Main">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:commons="sap.suite.ui.commons" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.main.Main">
     <Page id="Main" title="{i18n>MainTitle}">
         <content>
             <macros:FilterBar id="FilterBarMaster" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.SelectionFields#filterBarMacro1"/>
@@ -6,6 +6,67 @@
                 <items>
                     <IconTabFilter text="Combined" key="combined">
                         <macros:Table id="TableCombined" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
+                            <macros:columns>
+                                <table:Column id="_IDGenColumn3"
+                                    key="CombinedOrderChart"
+                                    header="{i18n>Avanzamento}"
+                                    width="15rem"
+                                    importance="High"
+                                    horizontalAlign="Begin"
+                                    placement="Before"
+                                    anchor="DataField::CrossPlantConfigurableProduct">	
+                                    <commons:MicroProcessFlow id="CombinedOrderCellsExtC3" renderType="Wrap" width="auto">
+                                        <commons:content>
+                                            <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC31" icon="sap-icon://sales-order-item"
+                                                title="{parts:[{path: 'CreatedStatusQtyInPercent'},{value: 'X1'}], formatter: '.determineLifeCycleStatusText'}"
+                                                state="{parts:[{path: 'OrderIsCreated'}], formatter: '.determineLifeCycleStatus'}"/>
+                                            <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC32" icon="sap-icon://unlocked"
+                                                title="{parts:[{path: 'ReleasedStatusQtyInPercent'},{value: 'X2'}], formatter: '.determineLifeCycleStatusText'}"
+                                                state="{parts:[{path: 'OrderIsReleased'},{path: 'OrderIsPartiallyReleased'}], formatter: '.determineLifeCycleStatus'}"/>
+                                            <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC33" icon="sap-icon://machine"
+                                                title="{parts:[{path: 'ConfirmedStatusQtyInPercent'},{value: 'X3'}], formatter: '.determineLifeCycleStatusText'}"
+                                                state="{parts:[{path: 'OrderIsConfirmed'},{path: 'OrderIsPartiallyConfirmed'}], formatter: '.determineLifeCycleStatus'}"/>
+                                            <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC34" icon="sap-icon://cart-full"
+                                                title="{parts:[{path: 'DeliveredStatusQtyInPercent'},{value: 'X4'}], formatter: '.determineLifeCycleStatusText'}"
+                                                state="{parts:[{path: 'OrderIsDelivered'},{path: 'OrderIsPartiallyDelivered'}], formatter: '.determineLifeCycleStatus'}"/>
+                                            <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC35" icon="sap-icon://accept"
+                                                title="{parts:[{path: 'TechlyCmpltdStatusQtyInPercent'},{value: 'X5'}], formatter: '.determineLifeCycleStatusText'}"
+                                                state="{parts:[{path: 'OrderIsTechnicallyCompleted'}], formatter: '.determineLifeCycleStatus'}"/>
+                                        </commons:content>
+                                    </commons:MicroProcessFlow>
+                                </table:Column>
+                                <table:Column id="_IDGenColumn4"
+                                    key="CombinedOrderIssue"
+                                    header="{i18n>problems}"
+                                    width="15rem"
+                                    importance="High"
+                                    horizontalAlign="Begin"
+                                    placement="After"
+                                    anchor="DataField::TotMfgOrderPlannedTotalQty">
+                                    <FlexBox id="MasterOrderCellsExt2" height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
+                                        <core:Icon id="MasterOrderCellsExtIcon21" src="sap-icon://status-error" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasProductionHold'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon id="MasterOrderCellsExtIcon22" src="sap-icon://history" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasExecutionDelay'},{value: 'X2'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasExecutionDelay'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon id="MasterOrderCellsExtIcon23" src="sap-icon://tree" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasMissingComponents'},{value: 'X3'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasMissingComponents'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon id="MasterOrderCellsExtIcon24" src="sap-icon://dimension" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasDeviation'},{value: 'X4'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasDeviation'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon id="MasterOrderCellsExtIcon25" src="sap-icon://quality-issue" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasQualityIssue'},{value: 'X5'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasQualityIssue'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                    </FlexBox>
+                                </table:Column>
+                            </macros:columns>
                             <macros:actions>
                                 <table:Action id="kittingCombinedID" key="kittingCombinedAction" text="{i18n>kitting}" press=".onNavigateToKittingCombinedOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
@@ -18,6 +79,132 @@
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
                         <macros:Table id="TableMaster" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" filterBar="FilterBarMaster" variantManagement="Control">
+                            <macros:columns>
+                                <table:Column id="_IDGenColumn2"
+                                    key="MasterOrderChart"
+                                    header="{i18n>Avanzamento}"
+                                    width="15rem"
+                                    importance="High"
+                                    horizontalAlign="Begin"
+                                    placement="Before"
+                                    anchor="DataField::CrossPlantConfigurableProduct">					
+                                      <commons:MicroProcessFlow renderType="Wrap" width="auto">
+                                        <commons:content>
+
+                                        <commons:MicroProcessFlowItem
+                                            icon="sap-icon://sales-order-item"
+                                            title="{
+                                            parts: [
+                                                { path: 'CreatedStatusQtyInPercent' },
+                                                { value: 'X1' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatusText'
+                                            }"
+                                            state="{
+                                            path: 'OrderIsCreated',
+                                            formatter: '.determineLifeCycleStatus'
+                                            }"/>
+
+                                        <commons:MicroProcessFlowItem
+                                            icon="sap-icon://unlocked"
+                                            title="{
+                                            parts: [
+                                                { path: 'ReleasedStatusQtyInPercent' },
+                                                { value: 'X2' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatusText'
+                                            }"
+                                            state="{
+                                            parts: [
+                                                { path: 'OrderIsReleased' },
+                                                { path: 'OrderIsPartiallyReleased' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatus'
+                                            }"/>
+
+                                        <commons:MicroProcessFlowItem
+                                            icon="sap-icon://machine"
+                                            title="{
+                                            parts: [
+                                                { path: 'ConfirmedStatusQtyInPercent' },
+                                                { value: 'X3' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatusText'
+                                            }"
+                                            state="{
+                                            parts: [
+                                                { path: 'OrderIsConfirmed' },
+                                                { path: 'OrderIsPartiallyConfirmed' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatus'
+                                            }"/>
+
+                                        <commons:MicroProcessFlowItem
+                                            icon="sap-icon://cart-full"
+                                            title="{
+                                            parts: [
+                                                { path: 'DeliveredStatusQtyInPercent' },
+                                                { value: 'X4' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatusText'
+                                            }"
+                                            state="{
+                                            parts: [
+                                                { path: 'OrderIsDelivered' },
+                                                { path: 'OrderIsPartiallyDelivered' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatus'
+                                            }"/>
+
+                                        <commons:MicroProcessFlowItem
+                                            icon="sap-icon://accept"
+                                            title="{
+                                            parts: [
+                                                { path: 'TechlyCmpltdStatusQtyInPercent' },
+                                                { value: 'X5' }
+                                            ],
+                                            formatter: '.determineLifeCycleStatusText'
+                                            }"
+                                            state="{
+                                            path: 'OrderIsTechnicallyCompleted',
+                                            formatter: '.determineLifeCycleStatus'
+                                            }"/>
+
+                                        </commons:content>
+                                    </commons:MicroProcessFlow>	 
+                                </table:Column>
+                                <table:Column id="_IDGenColumn5"
+                                    key="MasterOrderIssue"
+                                    header="{i18n>problems}"
+                                    width="15rem"
+                                    importance="High"
+                                    horizontalAlign="Begin"
+                                    placement="After"
+                                    anchor="DataField::TotMfgOrderPlannedTotalQty">
+                                    <FlexBox height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
+                                        <core:Icon src="sap-icon://status-error" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasProductionHold'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://history" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasExecutionDelay'},{value: 'X2'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasExecutionDelay'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://tree" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasMissingComponents'},{value: 'X3'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasMissingComponents'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://dimension" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasDeviation'},{value: 'X4'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasDeviation'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://quality-issue" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasQualityIssue'},{value: 'X5'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasQualityIssue'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                    </FlexBox>
+                                </table:Column>
+                            </macros:columns>
                             <macros:actions>
                                 <table:Action id="rolID" key="rolAction" text="{i18n>rol}" press=".onCallServiceROL" placement="After" requiresSelection="true"/>
                                 <table:Action id="kittingID" key="kittingAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true"/>
@@ -28,6 +215,39 @@
                     </IconTabFilter>
                     <IconTabFilter text="Order" key="order">
                         <macros:Table id="Table" metaPath="/ZZ1_I_COMBPRODORDAPI/@com.sap.vocabularies.UI.v1.LineItem#tableMacro" selectionMode="ForceMulti">
+                            <macros:columns>
+                                <table:Column id="_IDGenColumn6"
+                                    key="MasterOrderIssue"
+                                    header="{i18n>problems}"
+                                    width="15rem"
+                                    importance="High"
+                                    horizontalAlign="Begin"
+                                    placement="After"
+                                    anchor="DataField::ProductTheme">
+                                    <FlexBox height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
+                                        <core:Icon src="sap-icon://status-error" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasProductionHold'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://history" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasExecutionDelay'},{value: 'X2'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasExecutionDelay'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://tree" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasMissingComponents'},{value: 'X3'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasMissingComponents'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://dimension" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasDeviation'},{value: 'X4'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasDeviation'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                        <core:Icon src="sap-icon://quality-issue" class="sapUiTinyMargin"
+                                            tooltip="{parts:[{path: 'OrderHasQualityIssue'},{value: 'X5'}], formatter: '.determineIssueTypeText'}"
+                                            color="{parts:[{path: 'OrderHasQualityIssue'}], formatter: '.determineColor'}">
+                                        </core:Icon>
+                                    </FlexBox>
+                                </table:Column>
+                            </macros:columns>
                             <macros:actions>
                                 <table:Action id="componentsOrderID" key="componentsOrderAction" text="{i18n>components}" press=".onNavigateToComponentsOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsOrderID" key="operationsOrderAction" text="{i18n>operations}" press=".onNavigateToOperationsOrder" placement="After" requiresSelection="true"/>
