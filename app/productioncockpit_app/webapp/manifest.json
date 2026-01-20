@@ -103,55 +103,55 @@
       "config": {},
       "routes": [
         {
-          "name": "ZZ1_I_COMBPRODORDAPIMain",
+          "name": "ZZ1_PRODUCTION_COCKPIT_APIMain",
           "pattern": ":?query:",
-          "target": "ZZ1_I_COMBPRODORDAPIMain"
+          "target": "ZZ1_PRODUCTION_COCKPIT_APIMain"
         },
         {
           "name": "ZZ1_C_MASTERORDER_COMPComponentsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_COMPKey})/componentsMasterOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MASTERORDER_COMPKey})/componentsMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_COMPComponentsPage"
         },
         {
           "name": "ZZ1_C_MASTERORDER_OPEROperationsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_OPERKey})/operationsMasterOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MASTERORDER_OPERKey})/operationsMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_OPEROperationsPage"
         },
                 {
           "name": "ZZ1_C_COMBINEDORDER_COMPComponentsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_COMPKey})/componentsCombinedOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_COMBINEDORDER_COMPKey})/componentsCombinedOrder:?query:",
           "target": "ZZ1_C_COMBINEDORDER_COMPComponentsPage"
         },
         {
           "name": "ZZ1_C_COMBINEDORDER_OPEROperationsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_OPERKey})/operationsCombinedOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_COMBINEDORDER_OPERKey})/operationsCombinedOrder:?query:",
           "target": "ZZ1_C_COMBINEDORDER_OPEROperationsPage"
         },
         {
           "name": "ZZ1_C_MFG_OrderComponentsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderCompKey})/componentsOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MFG_OrderCompKey})/componentsOrder:?query:",
           "target": "ZZ1_C_MFG_OrderComponentsPage"
         },
         {
           "name": "ZZ1_C_MFG_OrderOperationsPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MFG_OrderOperKey})/operationsOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MFG_OrderOperKey})/operationsOrder:?query:",
           "target": "ZZ1_C_MFG_OrderOperationsPage"
         },
         {
           "name": "ZZ1_C_MASTERORDER_COMPKittingPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_MASTERORDER_KITTINGKey})/kittingMasterOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MASTERORDER_KITTINGKey})/kittingMasterOrder:?query:",
           "target": "ZZ1_C_MASTERORDER_COMPKittingPage"
         },
         {
           "name": "ZZ1_C_COMBINEDORDER_COMPKittingPage",
-          "pattern": "ZZ1_I_COMBPRODORDAPI({ZZ1_C_COMBINEDORDER_KITTINGKey})/kittingCombinedOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_COMBINEDORDER_KITTINGKey})/kittingCombinedOrder:?query:",
           "target": "ZZ1_C_COMBINEDORDER_COMPKittingPage"
         }
       ],
       "targets": {
-        "ZZ1_I_COMBPRODORDAPIMain": {
+        "ZZ1_PRODUCTION_COCKPIT_APIMain": {
           "type": "Component",
-          "id": "ZZ1_I_COMBPRODORDAPIMain",
+          "id": "ZZ1_PRODUCTION_COCKPIT_APIMain",
           "name": "sap.fe.core.fpm",
           "options": {
             "settings": {
@@ -162,7 +162,7 @@
                   }
                 }
               },
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.main.Main"
             }
           }
@@ -174,7 +174,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.ComponentsMasterOrder"
             }
           }
@@ -186,7 +186,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.OperationsCombinedOrder"
             }
           }
@@ -198,7 +198,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.ComponentsCombinedOrder"
             }
           }
@@ -210,7 +210,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.OperationsMasterOrder"
             }
           }
@@ -222,7 +222,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.ComponentsOrder"
             }
           }
@@ -234,7 +234,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.OperationsOrder"
             }
           }
@@ -246,7 +246,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.KittingMasterOrder"
             }
           }
@@ -258,7 +258,7 @@
           "options": {
             "settings": {
               "navigation": {},
-              "contextPath": "/ZZ1_I_COMBPRODORDAPI",
+              "contextPath": "/ZZ1_PRODUCTION_COCKPIT_API",
               "viewName": "productioncockpitapp.ext.view.KittingCombinedOrder"
             }
           }

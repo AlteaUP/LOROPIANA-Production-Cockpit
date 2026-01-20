@@ -16,7 +16,7 @@
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
-|**Main Entity**<br>ZZ1_I_COMBPRODORDAPI|
+|**Main Entity**<br>ZZ1_PRODUCTION_COCKPIT_API|
 
 ## productioncockpit_app
 

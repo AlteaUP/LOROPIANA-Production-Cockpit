@@ -5,7 +5,7 @@ using {
 
 using {ProductionCockpit.zproduction_cockpit.db.TYPES as TYPES} from '../db/TYPES';
 
-using {ZZ1_I_COMBPRODORDAPI_CDS as mainService} from './external/ZZ1_I_COMBPRODORDAPI_CDS';
+using {ZZ1_PRODUCTION_COCKPIT_API_CDS as mainService} from './external/ZZ1_PRODUCTION_COCKPIT_API_CDS';
 using {API_PRODUCTION_ORDER_2_SRV as changeProductionOrder} from './external/API_PRODUCTION_ORDER_2_SRV';
 using {ZMFG_SD_INT_COMP_H as componentsAction} from './external/ZMFG_SD_INT_COMP_H';
 //using {ZMFG_SD_CONF_ODP_H as confirmODP} from './external/ZMFG_SD_CONF_ODP_H';
@@ -24,7 +24,7 @@ using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODN
 service CatalogService {
 
     @readonly
-    entity ZZ1_I_COMBPRODORDAPI as projection on mainService.ZZ1_I_COMBPRODORDAPI{
+    entity ZZ1_PRODUCTION_COCKPIT_API as projection on mainService.ZZ1_PRODUCTION_COCKPIT_API{
         key ID : String(50),
         null as OrderHasProductionHold: String,
         null as OrderHasExecutionDelay: String,
@@ -36,13 +36,13 @@ service CatalogService {
         to_ZZ1_C_COMBORDER_COMP     : Composition of many ZZ1_C_COMBORDER_COMP
                                         on  CprodOrd                      = $self.CprodOrd,
 
-        to_ZZ1_C_MFG_COMBINEDOPE       : Composition of many ZZ1_C_MFG_COMBINEDOPE
+        to_ZZ1_C_MFG_COMBINEDOPER_SUM : Composition of many ZZ1_C_MFG_COMBINEDOPER_SUM
                                         on CprodOrd                      = $self.CprodOrd,
         
         to_ZZ1_C_MASTERORDER_COMP     : Composition of many ZZ1_C_MASTERORDER_COMP
                                         on  FshMprodOrd                      = $self.FshMprodOrd,
 
-        to_ZZ1_C_MFG_MASTEROPE       : Composition of many ZZ1_C_MFG_MASTEROPE
+        to_ZZ1_C_MFG_MASTEROPER_SUM   : Composition of many ZZ1_C_MFG_MASTEROPER_SUM
                                         on FshMprodOrd                      = $self.FshMprodOrd,
 
         to_ZZ1_C_MFG_OrderComp       : Composition of many ZZ1_C_MFG_OrderComp
@@ -60,7 +60,7 @@ service CatalogService {
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_MFG_COMBINEDOPE as projection on mainService.ZZ1_C_MFG_COMBINEDOPE;
+    entity ZZ1_C_MFG_COMBINEDOPER_SUM as projection on mainService.ZZ1_C_MFG_COMBINEDOPER_SUM;
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP{
@@ -81,7 +81,105 @@ service CatalogService {
     };
  
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_MFG_MASTEROPE as projection on mainService.ZZ1_C_MFG_MASTEROPE{
+    entity ZZ1_C_MFG_MASTEROPER_SUM as projection on mainService.ZZ1_C_MFG_MASTEROPER_SUM{
+        key MasterProductionOrder,
+        key ManufacturingOrderSequence,
+        key ManufacturingOrderOperation,
+        key ManufacturingOrderOperation_2,
+        key ManufacturingOrderSubOperation,
+        key ManufacturingOrdSubOperation_2,
+        key MfgOrderOperationOrSubOp,
+        key MfgOrderOperationOrSubOp_2,
+        key MfgOrderOperationIsPhase,
+        key MfgOrderPhaseSuperiorOperation,
+        key SuperiorOperation_2,
+        key ManufacturingOrderCategory,
+        key ProductionSupervisor,
+        key MRPController,
+        key ResponsiblePlannerGroup,
+        key ProductConfiguration,
+        key InspectionLot,
+        key ManufacturingOrderImportance,
+        key MfgOrderOperationText,
+        key OperationStandardTextCode,
+        key OperationHasLongText,
+        key Language,
+        key OperationIsToBeDeleted,
+        key NumberOfCapacities,
+        key NumberOfConfirmationSlips,
+        key OperationImportance,
+        key SuperiorOperationInternalID,
+        key Plant,
+        key WorkCenterInternalID,
+        key WorkCenterTypeCode,
+        key WorkCenterTypeCode_2,
+        key OperationControlProfile,
+        key ControlRecipeDestination,
+        key OperationConfirmation,
+        key NumberOfOperationConfirmations,
+        key FactoryCalendar,
+        key CapacityRequirement,
+        key CapacityRequirementItem,
+        key ChangeNumber,
+        key ObjectInternalID,
+        key OperationTrackingNumber,
+        key BillOfOperationsType,
+        key BillOfOperationsGroup,
+        key BillOfOperationsVariant,
+        key BillOfOperationsSequence,
+        key BOOOperationInternalID,
+        key BillOfOperationsVersion,
+        key BillOfMaterialCategory,
+        key BillOfMaterialInternalID,
+        key BillOfMaterialInternalID_2,
+        key BillOfMaterialItemNodeNumber,
+        key BOMItemNodeCount,
+        key ExtProcgOperationHasSubcontrg,
+        key PurchasingOrganization,
+        key PurchasingGroup,
+        key PurchaseRequisition,
+        key PurchaseRequisitionItem,
+        key PurchaseOrder,
+        key PurchaseOrderItem,
+        key PurchasingInfoRecord,
+        key PurgInfoRecdDataIsFixed,
+        key PurchasingInfoRecordCategory,
+        key Supplier,
+        key GoodsRecipientName,
+        key UnloadingPointName,
+        key MaterialGroup,
+        key OpExternalProcessingCurrency,
+        key NumberOfOperationPriceUnits,
+        key CompanyCode,
+        key BusinessArea,
+        key ControllingArea,
+        key ProfitCenter,
+        key RequestingCostCenter,
+        key CostElement,
+        key CostingVariant,
+        key CostingSheet,
+        key CostEstimate,
+        key ControllingObjectCurrency,
+        key ControllingObjectClass,
+        key FunctionalArea,
+        key TaxJurisdiction,
+        key EmployeeWageType,
+        key EmployeeWageGroup,
+        key EmployeeSuitability,
+        key NumberOfTimeTickets,
+        key Personnel,
+        key NumberOfEmployees,
+        key OperationSetupGroupCategory,
+        key OperationSetupGroup,
+        key OperationSetupType,
+        key OperationOverlappingIsRequired,
+        key OperationOverlappingIsPossible,
+        key OperationsIsAlwaysOverlapping,
+        key OperationSplitIsRequired,
+        key MaximumNumberOfSplits,
+        key LeadTimeReductionStrategy,
+        key OpSchedldReductionLevel,
+        key CprodOrd,
         *
     }
 

@@ -63,23 +63,23 @@
           "schema_evolution": "auto"
         }
       },
-      "ZZ1_I_COMBPRODORDAPI_CDS": {
+      "ZZ1_PRODUCTION_COCKPIT_API_CDS": {
         "kind": "odata-v2",
-        "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS",
+        "model": "srv/external/ZZ1_PRODUCTION_COCKPIT_API_CDS",
         "csrf": true,
         "csrfInBatch": true,
         "[hybrid]": {
           "credentials": {
             "requestTimeout": 300000,
             "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_I_COMBPRODORDAPI_CDS"
+            "path": "/sap/opu/odata/sap/ZZ1_PRODUCTION_COCKPIT_API_CDS"
           }
         },
         "[production]": {
           "credentials": {
             "requestTimeout": 300000,
             "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_I_COMBPRODORDAPI_CDS"
+            "path": "/sap/opu/odata/sap/ZZ1_PRODUCTION_COCKPIT_API_CDS"
           }
         }
       },

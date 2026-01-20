@@ -1,5 +1,5 @@
 using CatalogService as service from '../../srv/cat-service';
-annotate service.ZZ1_I_COMBPRODORDAPI with @(
+annotate service.ZZ1_PRODUCTION_COCKPIT_API with @(
     UI.LineItem #tableMacro : [
         {
             $Type : 'UI.DataField',
@@ -118,7 +118,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
     ],
 );
 
-annotate service.ZZ1_I_COMBPRODORDAPI with {
+annotate service.ZZ1_PRODUCTION_COCKPIT_API with {
     ManufacturingOrder @Common.Label : 'ManufacturingOrder'
 };
 
@@ -392,7 +392,7 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
     ],
 );
 
-annotate service.ZZ1_C_MFG_MASTEROPE with @(
+annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
     UI.LineItem #tableMacroOperations : [
         {
             $Type : 'UI.DataField',
@@ -432,7 +432,7 @@ annotate service.ZZ1_C_MFG_MASTEROPE with @(
     ]
 );
 
-annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
+annotate service.ZZ1_C_MFG_COMBINEDOPER_SUM with @(
     UI.LineItem #tableMacroCombinedOperations : [
         {
             $Type : 'UI.DataField',

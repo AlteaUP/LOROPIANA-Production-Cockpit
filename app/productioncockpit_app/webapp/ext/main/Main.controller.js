@@ -25,45 +25,45 @@ sap.ui.define(
                 this.byId("IconTabFilterId").setSelectedKey("master");
                 this.byId("TableMaster").attachSelectionChange(function (oEvent) {
                     if(oEvent.getParameters().selectedContext.length > 0){
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction").setEnabled(true);
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false);
                     }
                 });
                 this.byId("TableCombined").attachSelectionChange(function (oEvent) {
                     if(oEvent.getParameters().selectedContext.length > 0){
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
                     }
                 });
                 this.byId("Table").attachSelectionChange(function (oEvent) {
                     if(oEvent.getParameters().selectedContext.length > 0){
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(true);
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--Table-content::CustomAction::componentsOrderAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--Table-content::CustomAction::operationsOrderAction").setEnabled(false);
                     }
                 });
-                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--Table-content").setSelectionMode("Multi")
-                //this.byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined-content").setSelectionMode("Multi")
+                //this.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--Table-content").setSelectionMode("Multi")
+                //this.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content").setSelectionMode("Multi")
             },
 
             /**
@@ -81,7 +81,7 @@ sap.ui.define(
              * @memberOf productioncockpitapp.ext.main.Main
              */
             onAfterRendering: function() {                
-                sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--FilterBarMaster-content-btnSearch").firePress()
+                sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--FilterBarMaster-content-btnSearch").firePress()
                 // recupero dati tabella ordini
                 var oTable = this.byId("Table");
                 var oBinding = oTable.getRowBinding()
@@ -555,8 +555,8 @@ sap.ui.define(
             getProductionOrder: function(){
                 // recupero ordini di produzione
                 var arrayProductionOrder = []
-                for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined").getSelectedContexts().length; i++){
-                    var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
+                for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts().length; i++){
+                    var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
                     for(var y = 0; y < dataMasterTable.length; y++){
                         if(dataMasterTable[y].CombinedOrder === combinedOrder){
                             var masterOrder = dataMasterTable[y].MasterProductionOrder

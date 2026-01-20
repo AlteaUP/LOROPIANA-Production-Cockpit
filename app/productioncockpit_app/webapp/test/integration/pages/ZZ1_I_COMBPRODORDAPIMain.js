@@ -7,7 +7,7 @@ sap.ui.define(['sap/fe/test/TemplatePage'], function(TemplatePage) {
     };
 
     return new TemplatePage(
-        'productioncockpitapp::ZZ1_I_COMBPRODORDAPIMain',
+        'productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain',
         CustomPageDefinitions
     );
 });

@@ -3,7 +3,7 @@ const SapCfAxios = require('sap-cf-axios').default;
 
 module.exports = cds.service.impl(async function (srv) {
 
-    const combProdOrd = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS');
+    const combProdOrd = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS');
     const changeOrderProduction = await cds.connect.to('API_PRODUCTION_ORDER_2_SRV');
     const componentsCall = await cds.connect.to('ZMFG_SD_INT_COMP_H');
     //const confODP = await cds.connect.to('ZMFG_SD_CONF_ODP_H');
@@ -18,8 +18,8 @@ module.exports = cds.service.impl(async function (srv) {
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
 
-    this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
-        console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
+    this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
+        console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 
@@ -154,7 +154,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         const where = request.query.SELECT?.where  // array già parsato
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
+        const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
 
         let data
         var finalData = []
@@ -261,8 +261,8 @@ module.exports = cds.service.impl(async function (srv) {
 
     });
 
-    this.on('READ', "ZZ1_C_MFG_MASTEROPE", async request => {
-        console.log("chiamata ZZ1_C_MFG_MASTEROPE")
+    this.on('READ', "ZZ1_C_MFG_MASTEROPER_SUM", async request => {
+        console.log("chiamata ZZ1_C_MFG_MASTEROPER_SUM")
 
         let id = null
         try {
@@ -282,7 +282,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         const where = request.query.SELECT?.where  // array già parsato
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
+        const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
 
         let data
         var finalData = []
@@ -293,9 +293,9 @@ module.exports = cds.service.impl(async function (srv) {
                 const combinedWhere = [
                     { ref: ['MasterProductionOrder'] }, '=', { val: id }, 'and', ...where
                 ]
-                data = await srv.read('ZZ1_C_MFG_MASTEROPE').where(combinedWhere)
+                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere)
             } else {
-                data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: id })
+                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: id })
             }
         } else {
             for (var i = 0; i < idArray.length; i++) {
@@ -307,10 +307,10 @@ module.exports = cds.service.impl(async function (srv) {
                     const combinedWhere = [
                         { ref: ['MasterProductionOrder'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
-                    data = await srv.read('ZZ1_C_MFG_MASTEROPE').where(combinedWhere)
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere)
                     console.log("DATAAAA " + JSON.stringify(data))
                 } else {
-                    data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: idArray[i] })
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: idArray[i] })
                     console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
@@ -350,7 +350,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         const where = request.query.SELECT?.where  // array già parsato
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
+        const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
 
         let data
         var finalData = []
@@ -456,8 +456,8 @@ module.exports = cds.service.impl(async function (srv) {
         }
     });
 
-    this.on('READ', "ZZ1_C_MFG_COMBINEDOPE", async request => {
-        console.log("chiamata ZZ1_C_MFG_COMBINEDOPE")
+    this.on('READ', "ZZ1_C_MFG_COMBINEDOPER_SUM", async request => {
+        console.log("chiamata ZZ1_C_MFG_COMBINEDOPER_SUM")
 
         let id = null
         try {
@@ -470,11 +470,11 @@ module.exports = cds.service.impl(async function (srv) {
 
         id = id.split('~')[1]
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
+        const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
 
         const data = await srv.send({
             method: 'GET',
-            path: "/ZZ1_C_MFG_COMBINEDOPE?$filter=CprodOrd eq '" + id + "'"
+            path: "/ZZ1_C_MFG_COMBINEDOPER_SUM?$filter=CprodOrd eq '" + id + "'"
         })
 
         console.log("risultati COMBINED OPER: ", data.length)

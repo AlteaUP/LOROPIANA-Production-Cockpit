@@ -1,9 +1,9 @@
-/* checksum : c0c157a096f11c0b9c989d18c176e005 */
+/* checksum : 6cd2c3d617f7c8b6b010609e33cfb1bb */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
 @sap.supported.formats : 'atom json xlsx'
-service ZZ1_I_COMBPRODORDAPI_CDS {};
+service ZZ1_PRODUCTION_COCKPIT_API_CDS {};
 
 @cds.external : true
 @cds.persistence.skip : true
@@ -13,7 +13,7 @@ service ZZ1_I_COMBPRODORDAPI_CDS {};
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria di contabilizzazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_AccountAssignmentCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_AccountAssignmentCategory {
   @sap.display.format : 'UpperCase'
   @sap.text : 'AccountAssignmentCategory_Text'
   @sap.label : 'Cat. contabil.'
@@ -42,7 +42,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_AccountAssignmentCategory {
 @sap.addressable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Indirizzo'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Address {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Address {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Codice indirizzo'
   key AddressID : String(10) not null;
@@ -235,7 +235,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Address {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Tipo lista assortimento'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_AssortmentListType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'AssortmentListType_Text'
   @sap.label : 'Tipo lista assort.'
@@ -254,7 +254,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {
 @sap.deletable : 'false'
 @sap.searchable : 'true'
 @sap.content.version : '1'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BasicMaterial {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BasicMaterial {
   @sap.label : 'Mat. base'
   key BasicMaterial : String(48) not null;
 };
@@ -267,7 +267,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BasicMaterial {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di suddivisione partita'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BatchSplitType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BatchSplitType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BatchSplitType_Text'
   @sap.label : 'Tipo di suddivisione partita'
@@ -289,7 +289,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BatchSplitType {
 @sap.content.version : '1'
 @sap.label : 'Informazioni sulla partita'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BatchStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BatchStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -310,7 +310,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BatchStdVH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Gruppo distinte delle operazioni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BillOfOperationsGroup {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Tipo DO'
   @sap.quickinfo : 'Tipo distinta delle operazioni'
@@ -329,7 +329,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo distinta delle operazioni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BillOfOperationsType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BillOfOperationsType_Text'
   @sap.label : 'Tipo DO'
@@ -354,7 +354,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsType {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Data di esplosione della distinta base'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BOMExplosionDate {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BOMExplosionDate {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BOMExplosionDateText'
   @sap.label : 'ID data esplosione'
@@ -391,7 +391,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BOMExplosionDate {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Marca'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Brand {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Brand {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Brand_Text'
   @sap.label : 'Marca'
@@ -410,7 +410,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Brand {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Brazil ANP Code'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BR_ANPCode {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BR_ANPCode {
   @sap.display.format : 'NonNegative'
   @sap.text : 'BR_ANPCode_Text'
   @sap.label : 'ANP Code'
@@ -429,7 +429,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BR_ANPCode {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Settore contabile'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessArea {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BusinessArea {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BusinessArea_Text'
   @sap.label : 'Settore contabile'
@@ -450,7 +450,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessArea {
 @sap.content.version : '1'
 @sap.label : 'Settore contabile'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessAreaStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BusinessAreaStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BusinessArea_Text'
   @sap.label : 'Settore contabile'
@@ -471,7 +471,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessAreaStdVH {
 @sap.content.version : '1'
 @sap.label : 'Business process'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessProcessStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BusinessProcessStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BusinessProcess_Text'
   @sap.label : 'Business process'
@@ -495,7 +495,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessProcessStdVH {
 @sap.content.version : '1'
 @sap.label : 'Testata fabbisogno di capacità'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CapacityRequirementStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CapacityRequirementStdVH {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Fabbisogno capacità'
   @sap.quickinfo : 'ID del record fabbisogno capacità'
@@ -511,7 +511,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CapacityRequirementStdVH {
 @sap.content.version : '1'
 @sap.label : 'Posizione fabbisogno di capacità'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CapRqmtItmStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CapRqmtItmStdVH {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Fabbisogno capacità'
   @sap.quickinfo : 'ID del record fabbisogno capacità'
@@ -531,7 +531,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CapRqmtItmStdVH {
 @sap.content.version : '1'
 @sap.label : 'Numero della modifica'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChangeMasterStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ChangeMasterStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ChangeNumberDescription'
   @sap.label : 'Numero di modifica'
@@ -569,7 +569,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChangeMasterStdVH {
 @sap.content.version : '1'
 @sap.label : 'Piano dei conti'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChartOfAccountsStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ChartOfAccountsStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ChartOfAccounts_Text'
   @sap.label : 'Piano dei conti'
@@ -589,7 +589,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChartOfAccountsStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Codice di rilevanza conformità chimica'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChemicalComplianceRelevant {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ChemicalComplianceRelevant {
   @sap.display.format : 'UpperCase'
   @sap.text : 'IsChemicalComplianceRelevant_Text'
   @sap.label : 'Indic. di ril. per conformità chimica'
@@ -611,7 +611,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ChemicalComplianceRelevant {
 @sap.content.version : '1'
 @sap.label : 'Società'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CompanyCodeStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CompanyCodeStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'CompanyCodeName'
   @sap.label : 'Società'
@@ -629,7 +629,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CompanyCodeStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo di conferme'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ConfirmationGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ConfirmationGroup {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Conferma'
   @sap.quickinfo : 'Numero di conferma dell''operazione'
@@ -644,7 +644,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ConfirmationGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Controlling area'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingArea {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ControllingAreaName'
   @sap.label : 'Controlling area'
@@ -721,8 +721,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {
   @sap.quickinfo : 'Divisa interna per contabilità per profit center'
   @sap.semantics : 'currency-code'
   ProfitCenterAccountingCurrency : String(5);
-  to_Currency : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Currency {  };
-  to_FinancialStatementVersion : Association to many ZZ1_I_COMBPRODORDAPI_CDS.I_FinancialStatementHier {  };
+  to_Currency : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Currency {  };
+  to_FinancialStatementVersion : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FinancialStatementHier {  };
 };
 
 @cds.external : true
@@ -733,7 +733,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Classe dell''oggetto CO'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingObjectClass {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingObjectClass {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ControllingObjectClass_Text'
   @sap.label : 'Classe dell''oggetto CO'
@@ -753,7 +753,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingObjectClass {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Destinatario ricetta di controllo'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControlRecipeDestination {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControlRecipeDestination {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -785,7 +785,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ControlRecipeDestination {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Centro di costo'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostCenter {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostCenter {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Controlling area'
   key ControllingArea : String(4) not null;
@@ -1075,7 +1075,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostCenter {
 @sap.content.version : '1'
 @sap.label : 'Centro di costo'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostCenterStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostCenterStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Controlling area'
   key ControllingArea : String(4) not null;
@@ -1106,7 +1106,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostCenterStdVH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Voce di costo'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostElement {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostElement {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Controlling area'
   key ControllingArea : String(4) not null;
@@ -1166,7 +1166,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostElement {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Variante del calcolo dei costi'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostingVariant {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostingVariant {
   @sap.display.format : 'UpperCase'
   @sap.text : 'CostingVariant_Text'
   @sap.label : 'Variante CCST'
@@ -1209,7 +1209,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_CostingVariant {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Divisa'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Currency {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Currency {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Currency_Text'
   @sap.label : 'Divisa'
@@ -1244,7 +1244,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Currency {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Cliente'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Customer {
   @sap.display.format : 'UpperCase'
   @sap.text : 'CustomerName'
   @sap.label : 'Cliente'
@@ -1636,7 +1636,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer {
 @sap.content.version : '1'
 @sap.label : 'Cliente'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer_VH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Customer_VH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BPCustomerName'
   @sap.label : 'Cliente'
@@ -1753,7 +1753,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Customer_VH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Codice Dare/Avere'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_DebitCreditCode {
   @sap.display.format : 'UpperCase'
   @sap.text : 'DebitCreditCode_Text'
   @sap.label : 'Codice dare/avere'
@@ -1773,7 +1773,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Settore merceologico'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Division {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Division {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Division_Text'
   @sap.label : 'Settore merceologico'
@@ -1797,7 +1797,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Division {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Idoneità dipendente'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeSuitability {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EmployeeSuitability {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -1820,7 +1820,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeSuitability {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo retributivo dipendente'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeWageGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EmployeeWageGroup {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -1843,7 +1843,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeWageGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di unità di movimentazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_HandlingUnitType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_HandlingUnitType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'HandlingUnitType_Text'
   @sap.label : 'Tipo utà moviment.'
@@ -1863,7 +1863,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_HandlingUnitType {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Movimentazione di materiali'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_MaterialHandling {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_MaterialHandling {
   @sap.display.format : 'UpperCase'
   @sap.text : 'MaterialHandling_Text'
   @sap.label : 'Indicatore handling'
@@ -1882,7 +1882,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_MaterialHandling {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo di controllo qualità'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_QualityInspectionGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_QualityInspectionGroup {
   @sap.display.format : 'UpperCase'
   @sap.text : 'QualityInspectionGroup_Text'
   @sap.label : 'Gruppo ctrl. qualità'
@@ -1902,7 +1902,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_QualityInspectionGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Profilo numero di serie'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_SerialNumberProfile {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_SerialNumberProfile {
   @sap.display.format : 'UpperCase'
   @sap.text : 'SerialNumberProfile_Text'
   @sap.label : 'Profilo n.di serie'
@@ -1926,7 +1926,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_SerialNumberProfile {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo di prodotti magazzino'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WarehouseMaterialGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_WarehouseMaterialGroup {
   @sap.display.format : 'UpperCase'
   @sap.text : 'WarehouseProductGroup_Text'
   @sap.label : 'Grp. di prod. mag.'
@@ -1946,7 +1946,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WarehouseMaterialGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Condizione stoccaggio magazzino'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WhseStorageCondition {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_WhseStorageCondition {
   @sap.display.format : 'UpperCase'
   @sap.text : 'WarehouseStorageCondition_Text'
   @sap.label : 'Cond. stocc. in mag.'
@@ -1966,7 +1966,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WhseStorageCondition {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo prodotti esterno'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ExtProdGrp {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ExtProdGrp {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ExternalProductGroup_Text'
   @sap.label : 'Gruppo prod. esterni'
@@ -1987,7 +1987,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ExtProdGrp {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Calendario di fabbrica'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_FactoryCalendar {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FactoryCalendar {
   @sap.display.format : 'UpperCase'
   @sap.text : 'FactoryCalendar_Text'
   @sap.label : 'Calendario fabbrica'
@@ -2071,7 +2071,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_FactoryCalendar {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gerarchia stato patrimoniale e conto economico'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_FinancialStatementHier {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FinancialStatementHier {
   @sap.display.format : 'UpperCase'
   @sap.text : 'FinancialStatementHierarchy_Text'
   @sap.label : 'ID gerarchia'
@@ -2155,7 +2155,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_FinancialStatementHier {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Area funzionale'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_FunctionalArea {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FunctionalArea {
   @sap.display.format : 'UpperCase'
   @sap.text : 'FunctionalArea_Text'
   @sap.label : 'Area funzionale'
@@ -2176,7 +2176,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_FunctionalArea {
 @sap.content.version : '1'
 @sap.label : 'Conto Co.Ge.'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_GLAccountStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_GLAccountStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'GLAccount_Text'
   @sap.label : 'Conto Co.Ge.'
@@ -2221,7 +2221,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_GLAccountStdVH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Tipo di movimento merci'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_GoodsMovementType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'GoodsMovementType_Text'
   @sap.label : 'Tipo movimento'
@@ -2255,8 +2255,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {
   @sap.label : 'Tp. movimento merci'
   @sap.quickinfo : 'Tipo movimento merci (Gestione stock) copiato'
   SourceGoodsMovementType : String(3);
-  to_DebitCreditCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {  };
-  to_ResvnAcctAssgmtCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ResvnAcctAssgmtCategory {  };
+  to_DebitCreditCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_DebitCreditCode {  };
+  to_ResvnAcctAssgmtCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ResvnAcctAssgmtCategory {  };
 };
 
 @cds.external : true
@@ -2268,7 +2268,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {
 @sap.content.version : '1'
 @sap.label : 'Lotto di controllo'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_InspectionLotStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InspectionLotStdVH {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Lotto di controllo'
   @sap.quickinfo : 'Numero lotto di controllo'
@@ -2283,7 +2283,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_InspectionLotStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria codice EAN'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Intntnlartnmbcat {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Intntnlartnmbcat {
   @sap.display.format : 'UpperCase'
   @sap.text : 'InternationalArticleNumberCat_Text'
   @sap.label : 'Categoria GTIN'
@@ -2304,7 +2304,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Intntnlartnmbcat {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di stock inventario speciale'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_InventorySpecialStockType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InventorySpecialStockType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'InventorySpecialStockType_Text'
   @sap.label : 'Stock speciale'
@@ -2325,7 +2325,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_InventorySpecialStockType {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di valutazione di stock speciale'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_InvtrySpecialStockValnType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InvtrySpecialStockValnType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'InventorySpecialStockValnType_Text'
   @sap.label : 'Tipo valut. stock inventario speciale'
@@ -2346,7 +2346,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_InvtrySpecialStockValnType {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Raggruppamento categorie posizione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ItemCategoryGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ItemCategoryGroup {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ItemCategoryGroup_Text'
   @sap.label : 'Gruppo cat. pos.'
@@ -2371,7 +2371,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ItemCategoryGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Lingua'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Language {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Language {
   @sap.text : 'Language_Text'
   @sap.label : 'Chiave lingua'
   key Language : String(2) not null;
@@ -2394,7 +2394,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Language {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Strategia riduzione lead time'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_LeadTimeReductionStrategy {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LeadTimeReductionStrategy {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -2418,7 +2418,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_LeadTimeReductionStrategy {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'Ordine logistico'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_LogisticsOrder {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LogisticsOrder {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -3198,7 +3198,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_LogisticsOrder {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'Operazione ordine di produzione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ManufacturingOrderOperation {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ManufacturingOrderOperation {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -4535,38 +4535,38 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ManufacturingOrderOperation {
   @sap.label : 'Cmp utente cd.'
   @sap.quickinfo : 'Campo utente: codici di valutazione'
   FreeDefinedIndicator2 : Boolean;
-  to_BillOfOperationsGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsGroup {  };
-  to_BillOfOperationsSequence : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperationsSequence {  };
-  to_BillOfOperationsType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BillOfOperationsType {  };
-  to_BillOfOperationsVariant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperations {  };
-  to_ControllingArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {  };
-  to_ControllingObjectClass : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingObjectClass {  };
-  to_ControlRecipeDestination : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ControlRecipeDestination {  };
-  to_CostElement : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_CostElement {  };
-  to_CostingVariant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_CostingVariant {  };
-  to_EmployeeSuitability : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeSuitability {  };
-  to_EmployeeWageGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EmployeeWageGroup {  };
-  to_EndDateOffsetReferenceCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationDateOffsetRefCode {  };
-  to_FactoryCalendar : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_FactoryCalendar {  };
-  to_FunctionalArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_FunctionalArea {  };
-  to_Language : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Language {  };
-  to_LeadTimeReductionStrategy : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_LeadTimeReductionStrategy {  };
-  to_MfgOrderCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderCategory {  };
-  to_MfgOrderType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderType {  };
-  to_MRPController : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {  };
-  to_OperationConfirmation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ConfirmationGroup {  };
-  to_OperationControlProfile : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationControlProfile {  };
-  to_OperationSetupGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroup {  };
-  to_OperationSetupGroupCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroupCategory {  };
-  to_OperationSetupType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupType {  };
-  to_OperationStandardTextCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationStandardText {  };
-  to_ProductionSupervisor : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupervisor {  };
-  to_PurchasingGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingGroup {  };
-  to_PurchasingOrganization : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingOrganization {  };
-  to_ResponsiblePlannerGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ResponsiblePlannerGroup {  };
-  to_StandardWorkFmlaParamGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_StandardWorkFmlaParamGroup {  };
-  to_StartDateOffsetReferenceCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OperationDateOffsetRefCode {  };
-  to_SuperiorOperation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_OrderOperationBasic {  };
+  to_BillOfOperationsGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BillOfOperationsGroup {  };
+  to_BillOfOperationsSequence : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgBillOfOperationsSequence {  };
+  to_BillOfOperationsType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BillOfOperationsType {  };
+  to_BillOfOperationsVariant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgBillOfOperations {  };
+  to_ControllingArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingArea {  };
+  to_ControllingObjectClass : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingObjectClass {  };
+  to_ControlRecipeDestination : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControlRecipeDestination {  };
+  to_CostElement : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostElement {  };
+  to_CostingVariant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostingVariant {  };
+  to_EmployeeSuitability : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EmployeeSuitability {  };
+  to_EmployeeWageGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EmployeeWageGroup {  };
+  to_EndDateOffsetReferenceCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationDateOffsetRefCode {  };
+  to_FactoryCalendar : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FactoryCalendar {  };
+  to_FunctionalArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FunctionalArea {  };
+  to_Language : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Language {  };
+  to_LeadTimeReductionStrategy : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LeadTimeReductionStrategy {  };
+  to_MfgOrderCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderCategory {  };
+  to_MfgOrderType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderType {  };
+  to_MRPController : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MRPController {  };
+  to_OperationConfirmation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ConfirmationGroup {  };
+  to_OperationControlProfile : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationControlProfile {  };
+  to_OperationSetupGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupGroup {  };
+  to_OperationSetupGroupCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupGroupCategory {  };
+  to_OperationSetupType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupType {  };
+  to_OperationStandardTextCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationStandardText {  };
+  to_ProductionSupervisor : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSupervisor {  };
+  to_PurchasingGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingGroup {  };
+  to_PurchasingOrganization : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingOrganization {  };
+  to_ResponsiblePlannerGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ResponsiblePlannerGroup {  };
+  to_StandardWorkFmlaParamGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StandardWorkFmlaParamGroup {  };
+  to_StartDateOffsetReferenceCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationDateOffsetRefCode {  };
+  to_SuperiorOperation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OrderOperationBasic {  };
 };
 
 @cds.external : true
@@ -4578,7 +4578,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ManufacturingOrderOperation {
 @sap.content.version : '1'
 @sap.label : 'Materiale'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MaterialStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MaterialStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Material_Text'
   @sap.label : 'Materiale'
@@ -4599,7 +4599,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MaterialStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di sostituzione materiale'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MatlCompDiscontinuationType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MatlCompDiscontinuationType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'MatlCompDiscontinuationType_Text'
   @sap.label : 'Tipo sostituzione'
@@ -4619,7 +4619,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MatlCompDiscontinuationType {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Distinta base operazioni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperations {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgBillOfOperations {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Tipo ciclo'
   key BillOfOperationsType : String(1) not null;
@@ -4664,7 +4664,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperations {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Distinta base di produzione sequenza operazioni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperationsSequence {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgBillOfOperationsSequence {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Tipo ciclo'
   key BillOfOperationsType : String(1) not null;
@@ -4689,7 +4689,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgBillOfOperationsSequence {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria ordine di produzione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderCategory {
   @sap.display.format : 'NonNegative'
   @sap.text : 'ManufacturingOrderCategory_Text'
   @sap.label : 'Categoria di ordine'
@@ -4711,7 +4711,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderCategory {
 @sap.content.version : '1'
 @sap.label : 'Sequenza ordine di produzione'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderSequenceStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderSequenceStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Ordine di produzione'
   @sap.quickinfo : 'ID ordine di produzione'
@@ -4735,7 +4735,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderSequenceStdVH {
 @sap.content.version : '1'
 @sap.label : 'Ordine di produzione'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ManufacturingOrderText'
   @sap.label : 'Ordine di produzione'
@@ -4754,7 +4754,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di ordine di produzione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ManufacturingOrderType_Text'
   @sap.label : 'Tipo di ordine'
@@ -4771,7 +4771,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderType {
   @sap.quickinfo : 'Categoria ordine di produzione'
   @sap.value.list : 'fixed-values'
   ManufacturingOrderCategory : String(2);
-  to_MfgOrderCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderCategory {  };
+  to_MfgOrderCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderCategory {  };
 };
 
 @cds.external : true
@@ -4783,7 +4783,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderType {
 @sap.addressable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Responsabile MRP'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MRPController {
   @sap.display.format : 'UpperCase'
   @sap.text : 'to_Plant/PlantName'
   @sap.label : 'Divisione'
@@ -4817,9 +4817,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {
   @sap.label : 'Destinatario'
   @sap.quickinfo : 'ID oggetto del destinatario'
   UserID : String(70);
-  to_BusinessArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BusinessArea {  };
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_PurchasingGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingGroup {  };
+  to_BusinessArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BusinessArea {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_PurchasingGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingGroup {  };
 };
 
 @cds.external : true
@@ -4830,7 +4830,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Profilo di controllo operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationControlProfile {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationControlProfile {
   @sap.display.format : 'UpperCase'
   @sap.text : 'OperationControlProfile_Text'
   @sap.label : 'Profilo di controllo'
@@ -4897,7 +4897,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationControlProfile {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Codice riferimento intervallo date operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationDateOffsetRefCode {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationDateOffsetRefCode {
   @sap.display.format : 'UpperCase'
   @sap.text : 'OperationDateOffsetRefCode_Text'
   @sap.label : 'Data di riferimento'
@@ -4918,7 +4918,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationDateOffsetRefCode {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo attr. operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupGroup {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -4946,7 +4946,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria gruppo attr. operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroupCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupGroupCategory {
   @sap.display.format : 'UpperCase'
   @sap.text : 'OperationSetupGroupCategory_Text'
   @sap.label : 'Categoria gruppo attr. operazione'
@@ -4970,7 +4970,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupGroupCategory {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo attr. operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationSetupType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'OperationSetupType_Text'
   @sap.label : 'Tipo attrezzaggio'
@@ -4994,7 +4994,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationSetupType {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Testo standard per operazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationStandardText {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationStandardText {
   @sap.display.format : 'UpperCase'
   @sap.text : 'OperationStandardTextCode_Text'
   @sap.label : 'ID testo standard operazione'
@@ -5015,7 +5015,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OperationStandardText {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'Operazione ordine-base'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_OrderOperationBasic {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OrderOperationBasic {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -5446,7 +5446,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_OrderOperationBasic {
 @sap.content.version : '1'
 @sap.label : 'Help di ricerca per contratti di lavoro'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PersWrkAgrmtSrchHelp {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PersWrkAgrmtSrchHelp {
   @sap.display.format : 'NonNegative'
   @sap.text : 'PersonFullName'
   @sap.label : 'Codice identificativo dipendente'
@@ -5520,7 +5520,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PersWrkAgrmtSrchHelp {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Divisione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {
   @sap.display.format : 'UpperCase'
   @sap.text : 'PlantName'
   @sap.label : 'Divisione'
@@ -5571,7 +5571,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {
   @sap.label : 'Ind. archiviazione'
   @sap.quickinfo : 'Marcatore archiviazione centrale per record anagrafico'
   IsMarkedForArchiving : Boolean;
-  to_Address : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Address {  };
+  to_Address : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Address {  };
 };
 
 @cds.external : true
@@ -5583,7 +5583,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {
 @sap.content.version : '1'
 @sap.label : 'Divisione'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PlantStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PlantStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'PlantName'
   @sap.label : 'Divisione'
@@ -5600,7 +5600,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PlantStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'View di base - profilo di adattamento'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProdEWMAdjmtProfile {
   @sap.display.format : 'UpperCase'
   @sap.text : 'AdjustmentProfile_Text'
   @sap.label : 'Prof. di adattamento'
@@ -5621,7 +5621,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Prodotto'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Product {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Product_Text'
   @sap.label : 'Prodotto'
@@ -6399,9 +6399,13 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.value.list : 'standard'
   @sap.semantics : 'unit-of-measure'
   ZZ1_SPESSOREPELLAME_PRDU : String(3);
+  @sap.label : 'Materiale_Critico'
+  ZZ1_Materiale_Critico_PRD : String(1);
   @sap.label : 'Codice Terzista Prod'
   @sap.quickinfo : 'Codice Terzista Produzione'
   ZZ1_CodiceTerzistaProd_PRD : String(10);
+  @sap.label : 'ZPiuma'
+  ZZ1_ZPiuma_PRD : String(1);
   @sap.unit : 'ZZ1_AltezzaTeoricaPezz_PRDU'
   @sap.label : 'Altezza Teor Pezza'
   @sap.quickinfo : 'Altezza Teorica Pezza'
@@ -6411,10 +6415,16 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.value.list : 'standard'
   @sap.semantics : 'unit-of-measure'
   ZZ1_AltezzaTeoricaPezz_PRDU : String(3);
+  @sap.label : 'Lifnr'
+  ZZ1_Lifnr_PRD : String(10);
   @sap.label : 'Flag Gestione Fiscal'
   @sap.quickinfo : 'Flag Gestione Fiscale'
   @sap.value.list : 'standard'
   ZZ1_Flag_Gest_Fiscale_PRD : String(1);
+  @sap.label : 'Contiene pelle'
+  ZZ1_Contiene_Pelle_PRD : String(1);
+  @sap.label : 'Gamma'
+  ZZ1_Gamma_PRD : String(40);
   @sap.label : 'Titolo Filato'
   @sap.value.list : 'standard'
   ZZ1_Titolo_Filato_PRD : String(3);
@@ -6435,6 +6445,10 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Dimensione Piatto'
   ZZ1_DIMENSIONE_PIATTO_PRD : String(3);
+  @sap.display.format : 'NonNegative'
+  @sap.label : 'Cat. Mat. Pack'
+  @sap.quickinfo : 'Categoria Mat. Packaging'
+  ZZ1_CAT_MAT_PACK_prd_PRD : String(3);
   @sap.label : 'Materiale Critico'
   ZZ1_MaterialeCritico_PRD : Boolean;
   @sap.label : 'Contiene Pelliccia'
@@ -6460,6 +6474,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   ZZ1_LunghezzaTeorica_PRDU : String(3);
   @sap.label : 'Tipo Struttura'
   ZZ1_TipoStruttura_PRD : String(5);
+  @sap.label : 'Linfr'
+  ZZ1_Linfr_PRD : String(10);
   @sap.label : 'Gola'
   ZZ1_GOLA_PRD : String(18);
   @sap.label : 'Punto'
@@ -6472,37 +6488,37 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
   ZZ1_Piuma_PRD : Boolean;
   @sap.label : 'Finezza'
   ZZ1_FINEZZA_PRD : String(3);
-  to_AdjustmentProfile_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProdEWMAdjmtProfile {  };
-  to_AssortmentListType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AssortmentListType {  };
-  to_BaseUnitOfMeasure : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_BasicMaterial : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BasicMaterial {  };
-  to_Brand : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Brand {  };
-  to_BR_ANPCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BR_ANPCode {  };
-  to_ChemicalComplianceRelevant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ChemicalComplianceRelevant {  };
-  to_ContentUnit : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_CreatedByUserContactCard : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UserContactCard {  };
-  to_Division : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Division {  };
-  to_ExternalProductGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ExtProdGrp {  };
-  to_HandlingIndicator : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_MaterialHandling {  };
-  to_HandlingUnitType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_HandlingUnitType {  };
-  to_InternationalArticleNumberCat : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Intntnlartnmbcat {  };
-  to_ItemCategoryGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ItemCategoryGroup {  };
-  to_LastChangedByUserContactCard : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UserContactCard {  };
-  to_ProductCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductCategory {  };
-  to_ProductGroup_2 : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductGroup_2 {  };
-  to_ProductHierarchy : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductHierarchy {  };
-  to_ProductMeasurementUnit : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_ProductStatus : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductStatus {  };
-  to_ProductType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Producttype {  };
-  to_QualityInspectionGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_QualityInspectionGroup {  };
-  to_QuantityUnitValueHelp : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_SerialNumberProfile : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_SerialNumberProfile {  };
-  to_StandardHandlingUnitType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_HandlingUnitType {  };
-  to_TimeUnitForQuarantinePeriod : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_UnitForMaxPackaging : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_WarehouseProductGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WarehouseMaterialGroup {  };
-  to_WarehouseStorageCondition : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_EWM_WhseStorageCondition {  };
-  to_WeightUnitValueHelp : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
+  to_AdjustmentProfile_2 : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProdEWMAdjmtProfile {  };
+  to_AssortmentListType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_AssortmentListType {  };
+  to_BaseUnitOfMeasure : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_BasicMaterial : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BasicMaterial {  };
+  to_Brand : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Brand {  };
+  to_BR_ANPCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BR_ANPCode {  };
+  to_ChemicalComplianceRelevant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ChemicalComplianceRelevant {  };
+  to_ContentUnit : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_CreatedByUserContactCard : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UserContactCard {  };
+  to_Division : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Division {  };
+  to_ExternalProductGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ExtProdGrp {  };
+  to_HandlingIndicator : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_MaterialHandling {  };
+  to_HandlingUnitType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_HandlingUnitType {  };
+  to_InternationalArticleNumberCat : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Intntnlartnmbcat {  };
+  to_ItemCategoryGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ItemCategoryGroup {  };
+  to_LastChangedByUserContactCard : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UserContactCard {  };
+  to_ProductCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductCategory {  };
+  to_ProductGroup_2 : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductGroup_2 {  };
+  to_ProductHierarchy : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductHierarchy {  };
+  to_ProductMeasurementUnit : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_ProductStatus : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductStatus {  };
+  to_ProductType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Producttype {  };
+  to_QualityInspectionGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_QualityInspectionGroup {  };
+  to_QuantityUnitValueHelp : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_SerialNumberProfile : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_SerialNumberProfile {  };
+  to_StandardHandlingUnitType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_HandlingUnitType {  };
+  to_TimeUnitForQuarantinePeriod : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_UnitForMaxPackaging : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_WarehouseProductGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_WarehouseMaterialGroup {  };
+  to_WarehouseStorageCondition : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_EWM_WhseStorageCondition {  };
+  to_WeightUnitValueHelp : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
 };
 
 @cds.external : true
@@ -6513,7 +6529,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Product {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo categoria di prodotto'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductCategory {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductCategory_Text'
   @sap.label : 'Categoria prodotto'
@@ -6533,7 +6549,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductCategory {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo di prodotti'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductGroup_2 {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductGroup_2 {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductGroup_Text'
   @sap.label : 'Gruppo di prodotti'
@@ -6560,7 +6576,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductGroup_2 {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gerarchia prodotti'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductHierarchy {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductHierarchy {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductHierarchy_Text'
   @sap.label : 'Gerarchia prodotti'
@@ -6583,7 +6599,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductHierarchy {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Profilo di pianificazione della produzione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSchedulingProfile {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSchedulingProfile {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductionSchedulingProfile_Text'
   @sap.label : 'Profilo di pianificazione produzione'
@@ -6619,7 +6635,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSchedulingProfile {
 @sap.addressable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Responsabile della schedulazione della produzione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupervisor {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSupervisor {
   @sap.display.format : 'UpperCase'
   @sap.text : 'to_Plant/PlantName'
   @sap.label : 'Divisione'
@@ -6638,8 +6654,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupervisor {
   @sap.quickinfo : 'Profilo di pianificazione della produzione'
   @sap.value.list : 'standard'
   ProductionSchedulingProfile : String(6);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_ProductionSchedulingProfile : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSchedulingProfile {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_ProductionSchedulingProfile : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSchedulingProfile {  };
 };
 
 @cds.external : true
@@ -6650,7 +6666,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupervisor {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Area approvv. prod.'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupplyArea {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSupplyArea {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductionSupplyArea_Text'
   @sap.label : 'Area di approvvigionamento produzione'
@@ -6714,11 +6730,11 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupplyArea {
   LastChangeDateTime : Timestamp;
   @sap.label : 'Punto di carico'
   AutomotiveLoadingPoint : String(20);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_ResponsiblePerson : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {  };
-  to_ShiftGrouping : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftGrouping {  };
-  to_ShiftSequence : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftSequence {  };
-  to_StorageLocation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_ResponsiblePerson : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MRPController {  };
+  to_ShiftGrouping : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ShiftGrouping {  };
+  to_ShiftSequence : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ShiftSequence {  };
+  to_StorageLocation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StorageLocation {  };
 };
 
 @cds.external : true
@@ -6729,7 +6745,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupplyArea {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Stato prodotto valido per tutte le divisioni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductStatus {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductStatus {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Status_Text'
   @sap.label : 'Stato prodotto'
@@ -6750,7 +6766,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductStatus {
 @sap.content.version : '1'
 @sap.label : 'Help valori per prodotto'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductStdVH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'Product_Text'
   @sap.label : 'Prodotto'
@@ -6774,7 +6790,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProductStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Tipo di prodotto'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Producttype {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Producttype {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ProductType_Text'
   @sap.label : 'Tipo di prodotto'
@@ -6813,7 +6829,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Producttype {
 @sap.content.version : '1'
 @sap.label : 'Profit center'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProfitCenterStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProfitCenterStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Controlling area'
   key ControllingArea : String(4) not null;
@@ -6843,7 +6859,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ProfitCenterStdVH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Documento d''acquisto'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocument {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingDocument {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Documento d''acquisto'
   @sap.quickinfo : 'Numero del documento acquisti'
@@ -7151,7 +7167,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocument {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Posizione del documento d''acquisto'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocumentItem {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingDocumentItem {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Documento d''acquisto'
   @sap.quickinfo : 'Numero del documento acquisti'
@@ -7948,7 +7964,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocumentItem {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo acquisti'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingGroup {
   @sap.display.format : 'UpperCase'
   @sap.text : 'PurchasingGroupName'
   @sap.label : 'Gruppo acquisti'
@@ -7984,7 +8000,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Organizzazione acquisti'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingOrganization {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingOrganization {
   @sap.display.format : 'UpperCase'
   @sap.text : 'PurchasingOrganizationName'
   @sap.label : 'Organizzazione acquisti'
@@ -8008,7 +8024,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingOrganization {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Ubicazione destintario'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_RecipientLocationCode {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_RecipientLocationCode {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Ubicazione destinatario'
   @sap.quickinfo : 'Codice ubicazione destinatario'
@@ -8026,7 +8042,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_RecipientLocationCode {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Tipo di record per documento impegni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocRecordType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocRecordType {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Tipo di record'
   key RecordType : String(1) not null;
@@ -8039,7 +8055,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocRecordType {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Testata documento impegni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentHeader {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocumentHeader {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Impegno'
   @sap.quickinfo : 'Numero dell''impegno / del fabbisogno dipendente'
@@ -8153,11 +8169,11 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentHeader {
   @odata.Precision : 7
   @sap.label : 'Data dell''ultima modifica'
   LastChangeDateTime : Timestamp;
-  to_ControllingArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {  };
-  to_CostCenter : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_CostCenter {  };
-  to_Customer : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Customer {  };
-  to_GoodsMovementType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {  };
-  to_Order : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_LogisticsOrder {  };
+  to_ControllingArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingArea {  };
+  to_CostCenter : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_CostCenter {  };
+  to_Customer : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Customer {  };
+  to_GoodsMovementType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_GoodsMovementType {  };
+  to_Order : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LogisticsOrder {  };
 };
 
 @cds.external : true
@@ -8167,7 +8183,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentHeader {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Posizione documento impegni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentItem {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocumentItem {
   @sap.display.format : 'NonNegative'
   @sap.label : 'Impegno'
   @sap.quickinfo : 'Numero dell''impegno / del fabbisogno dipendente'
@@ -8362,23 +8378,23 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentItem {
   @sap.label : 'Pos. doc. servizio'
   @sap.quickinfo : 'ID posizione documento di servizio'
   ResvnItmSrvcDocItmAsAcctAsgt : String(6);
-  to_BaseUnit : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_Currency : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Currency {  };
-  to_DebitCreditCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {  };
-  to_EntryUnit : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {  };
-  to_GoodsMovementType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {  };
-  to_InventorySpecialStockType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_InventorySpecialStockType {  };
-  to_IssuingOrReceivingPlant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_IssuingOrReceivingStorageLoc : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {  };
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_Product : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Product {  };
-  to_PurchasingDocument : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocument {  };
-  to_PurchasingDocumentItem : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingDocumentItem {  };
-  to_RecipientLocationCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_RecipientLocationCode {  };
-  to_ReservationDocRecordType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocRecordType {  };
-  to_ReservationDocumentHeader : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentHeader {  };
-  to_StorageLocation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {  };
-  to_Supplier : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier {  };
+  to_BaseUnit : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_Currency : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Currency {  };
+  to_DebitCreditCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_DebitCreditCode {  };
+  to_EntryUnit : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {  };
+  to_GoodsMovementType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_GoodsMovementType {  };
+  to_InventorySpecialStockType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InventorySpecialStockType {  };
+  to_IssuingOrReceivingPlant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_IssuingOrReceivingStorageLoc : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StorageLocation {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_Product : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Product {  };
+  to_PurchasingDocument : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingDocument {  };
+  to_PurchasingDocumentItem : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingDocumentItem {  };
+  to_RecipientLocationCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_RecipientLocationCode {  };
+  to_ReservationDocRecordType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocRecordType {  };
+  to_ReservationDocumentHeader : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocumentHeader {  };
+  to_StorageLocation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StorageLocation {  };
+  to_Supplier : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Supplier {  };
 };
 
 @cds.external : true
@@ -8389,7 +8405,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentItem {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Gruppo pianificatori responsabili'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ResponsiblePlannerGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ResponsiblePlannerGroup {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -8411,7 +8427,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ResponsiblePlannerGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria di contabilizzazione'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ResvnAcctAssgmtCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ResvnAcctAssgmtCategory {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ResvnAcctAssgmtCategory_Text'
   @sap.label : 'Tipo impegno'
@@ -8433,7 +8449,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ResvnAcctAssgmtCategory {
 @sap.content.version : '1'
 @sap.label : 'Posizione dell''ordine di vendita'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_SalesOrderItemStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_SalesOrderItemStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Ordine cliente'
   key SalesOrder : String(10) not null;
@@ -8456,7 +8472,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_SalesOrderItemStdVH {
 @sap.content.version : '1'
 @sap.label : 'Ordine di vendita'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_SalesOrderStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_SalesOrderStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Ordine cliente'
   key SalesOrder : String(10) not null;
@@ -8470,7 +8486,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_SalesOrderStdVH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Categoria sequenza'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_SequenceCategory {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_SequenceCategory {
   @sap.display.format : 'UpperCase'
   @sap.text : 'SequenceCategory_Text'
   @sap.label : 'Categoria sequenza'
@@ -8491,7 +8507,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_SequenceCategory {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Codice raggr. turni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftGrouping {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ShiftGrouping {
   @sap.display.format : 'UpperCase'
   @sap.text : 'ShiftGrouping_Text'
   @sap.label : 'Raggrupp. turni'
@@ -8512,7 +8528,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftGrouping {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Codice sequenza turni'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftSequence {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ShiftSequence {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Raggrupp. turni'
   @sap.quickinfo : 'Raggruppamento per definizione turni e sequenza turni'
@@ -8536,7 +8552,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_ShiftSequence {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Gruppo di parametri per formula di lavoro standard'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_StandardWorkFmlaParamGroup {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StandardWorkFmlaParamGroup {
   @sap.display.format : 'UpperCase'
   @sap.text : 'StandardWorkFormulaParamGroup_Text'
   @sap.label : 'Chiave val. standard'
@@ -8581,7 +8597,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_StandardWorkFmlaParamGroup {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Magazzino'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StorageLocation {
   @sap.display.format : 'UpperCase'
   @sap.text : 'to_Plant/PlantName'
   @sap.label : 'Divisione'
@@ -8614,7 +8630,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {
   @sap.label : 'Validità'
   @sap.quickinfo : 'Identificazione di inserimenti obsoleti'
   ConfigDeprecationCode : String(1);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
 };
 
 @cds.external : true
@@ -8624,7 +8640,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Fornitore'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Supplier {
   @sap.display.format : 'UpperCase'
   @sap.text : 'SupplierName'
   @sap.label : 'Fornitore'
@@ -9082,7 +9098,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier {
 @sap.content.version : '1'
 @sap.label : 'Fornitore'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier_VH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Supplier_VH {
   @sap.display.format : 'UpperCase'
   @sap.text : 'BPSupplierName'
   @sap.label : 'Fornitore'
@@ -9170,7 +9186,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_Supplier_VH {
 @sap.searchable : 'true'
 @sap.content.version : '1'
 @sap.label : 'Unità di misura'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UnitOfMeasure {
   @sap.text : 'UnitOfMeasure_Text'
   @sap.label : 'Unità di misura'
   @sap.semantics : 'unit-of-measure'
@@ -9242,7 +9258,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_UnitOfMeasure {
 @sap.addressable : 'false'
 @sap.content.version : '1'
 @sap.label : 'User Contact Card'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_UserContactCard {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_UserContactCard {
   @sap.display.format : 'UpperCase'
   @sap.text : 'UserDescription'
   @sap.label : 'Utente'
@@ -9302,7 +9318,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_UserContactCard {
 @sap.content.version : '1'
 @sap.label : 'Dati di base per elemento WBS'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_WBSElementBasicDataStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WBSElementBasicDataStdVH {
   @sap.display.format : 'NonNegative'
   @sap.label : 'ID interno WBS'
   @sap.quickinfo : 'Elemento WBS'
@@ -9330,7 +9346,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WBSElementBasicDataStdVH {
 @sap.content.version : '1'
 @sap.label : 'Centro di lavoro'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterStdVH {
   @sap.display.format : 'NonNegative'
   @sap.text : 'WorkCenterInternalID_Text'
   @sap.label : 'ID oggetto'
@@ -9354,7 +9370,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterStdVH {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'Tipo di centro di lavoro'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {
   @sap.display.format : 'UpperCase'
   @sap.text : 'WorkCenterTypeCode_Text'
   @sap.label : 'Tipo di risorsa'
@@ -9376,7 +9392,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {
 @sap.content.version : '1'
 @sap.label : 'Centro di lavoro per chiave semantica'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVH {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WrkCtrBySemanticKeyStdVH {
   @sap.display.format : 'UpperCase'
   @sap.label : 'Divisione'
   key Plant : String(4) not null;
@@ -9404,7 +9420,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.I_WrkCtrBySemanticKeyStdVH {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_BusinessLine'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSLINE_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_BUSINESSLINE_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Business Line'
   key Code : String(5) not null;
@@ -9427,7 +9443,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSLINE_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_BusinessUnit'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSUNIT_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_BUSINESSUNIT_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Business Unit'
   key Code : String(5) not null;
@@ -9449,7 +9465,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_BUSINESSUNIT_V {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_COMBINEDPRODORDER'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -9581,7 +9597,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_COMBORDER_COMP'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -9930,7 +9946,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_MASTERORDER_COMP'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -10250,7 +10266,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_MASTERPRODORDER'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -10386,8 +10402,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'ZZ1_C_MFG_COMBINEDOPE'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
+@sap.label : 'ZZ1_C_MFG_COMBINEDOPER_SUM'
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. prod. combinato'
@@ -10431,11 +10447,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.required.in.filter : 'false'
   @sap.label : 'Codice fase'
   key MfgOrderOperationIsPhase : Boolean not null;
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Contatore'
-  @sap.quickinfo : 'Contatore generale dell''ordine'
-  key OrderIntBillOfOpItemOfPhase : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
@@ -10449,11 +10460,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'Categoria di ordine'
   @sap.quickinfo : 'Categoria ordine di produzione'
   key ManufacturingOrderCategory : String(2) not null;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di ordine'
-  @sap.quickinfo : 'Tipo di ordine di produzione'
-  key ManufacturingOrderType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile di produzione'
@@ -10549,39 +10555,30 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'Dest. ricetta contr.'
   @sap.quickinfo : 'Destinatario ricetta di controllo'
   key ControlRecipeDestination : String(2) not null;
-  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Conferma'
-  @sap.quickinfo : 'Numero di conferma dell''operazione'
-  key OperationConfirmation : String(10) not null;
-  @sap.display.format : 'NonNegative'
+  @sap.label : 'OperationConfirmation'
+  key OperationConfirmation : String(1) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Numero di conferme'
-  key NumberOfOperationConfirmations : String(8) not null;
+  @sap.label : 'NumberOfOperationConfirmations'
+  key NumberOfOperationConfirmations : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Calendario fabbrica'
   @sap.quickinfo : 'ID calendario di fabbrica'
   key FactoryCalendar : String(2) not null;
-  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Fabbisogno capacità'
-  @sap.quickinfo : 'ID del record fabbisogno capacità'
-  key CapacityRequirement : String(12) not null;
-  @sap.display.format : 'NonNegative'
+  @sap.label : 'CapacityRequirement'
+  key CapacityRequirement : String(1) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Pos. fabb. capacità'
-  @sap.quickinfo : 'Posizione fabbisogno di capacità'
-  key CapacityRequirementItem : String(8) not null;
+  @sap.label : 'CapacityRequirementItem'
+  key CapacityRequirementItem : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di modifica'
   key ChangeNumber : String(12) not null;
-  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Numero oggetto'
-  @sap.quickinfo : 'ID interno oggetto'
-  key ObjectInternalID : String(22) not null;
+  @sap.label : 'ObjectInternalID'
+  key ObjectInternalID : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero fabbisogno'
@@ -10707,9 +10704,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.semantics : 'currency-code'
   key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di prezzo mat.'
-  @sap.quickinfo : 'Quantità unità di prezzo materiale'
-  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
+  @sap.label : 'NumberOfOperationPriceUnits'
+  key NumberOfOperationPriceUnits : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
@@ -10836,6 +10832,11 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
   key OpSchedldReductionLevel : String(1) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ordine prod. princ.'
+  @sap.quickinfo : 'Numero ordine di produzione principale'
+  key FshMprodOrd : String(12) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.text : 'WorkCenterInternalID_1_Text'
@@ -10856,23 +10857,15 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   WorkCenterTypeCode_1 : String(2);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
+  @sap.label : 'Centro di lavoro'
+  @sap.value.list : 'standard'
+  WorkCenter : String(8);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
   @sap.text : 'to_Plant/PlantName'
   @sap.label : 'Divisione'
   @sap.value.list : 'standard'
   Plant_1 : String(4);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Centro di lavoro'
-  @sap.value.list : 'standard'
-  WorkCenter : String(8);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOpTotalConfirmedScrapQty'
-  SumOpTotalConfirmedScrapQty : Decimal(13, 3);
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationConfirmedReworkQty'
-  SumOperationConfirmedReworkQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'ProductionUnit'
   @sap.label : 'SumOpPlannedTotalQuantity'
@@ -10882,20 +10875,28 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
   @sap.label : 'SumOpTotalConfirmedYieldQty'
   SumOpTotalConfirmedYieldQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'Production Unit'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'SumOpTotalConfirmedScrapQty'
+  SumOpTotalConfirmedScrapQty : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'ProductionUnit'
+  @sap.label : 'SumOpTotalConfirmedReworkQty'
+  SumOpTotalConfirmedReworkQty : Decimal(13, 3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Unità di produzione'
   @sap.quickinfo : 'Unità di misura di produzione'
   @sap.semantics : 'unit-of-measure'
   ProductionUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'OperationIsDeleted'
+  OperationIsDeleted : String(1);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationIsDeleted'
-  OperationIsDeleted : String(1);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true
@@ -10904,8 +10905,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'ZZ1_C_MFG_MASTEROPE'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
+@sap.label : 'ZZ1_C_MFG_MASTEROPER_SUM'
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ordine prod. princ.'
@@ -10949,11 +10950,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.required.in.filter : 'false'
   @sap.label : 'Codice fase'
   key MfgOrderOperationIsPhase : Boolean not null;
-  @sap.display.format : 'NonNegative'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Contatore'
-  @sap.quickinfo : 'Contatore generale dell''ordine'
-  key OrderIntBillOfOpItemOfPhase : String(8) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Operazione superiore'
@@ -10967,11 +10963,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.label : 'Categoria di ordine'
   @sap.quickinfo : 'Categoria ordine di produzione'
   key ManufacturingOrderCategory : String(2) not null;
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di ordine'
-  @sap.quickinfo : 'Tipo di ordine di produzione'
-  key ManufacturingOrderType : String(4) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile di produzione'
@@ -11067,39 +11058,30 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.label : 'Dest. ricetta contr.'
   @sap.quickinfo : 'Destinatario ricetta di controllo'
   key ControlRecipeDestination : String(2) not null;
-  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Conferma'
-  @sap.quickinfo : 'Numero di conferma dell''operazione'
-  key OperationConfirmation : String(10) not null;
-  @sap.display.format : 'NonNegative'
+  @sap.label : 'OperationConfirmation'
+  key OperationConfirmation : String(1) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Numero di conferme'
-  key NumberOfOperationConfirmations : String(8) not null;
+  @sap.label : 'NumberOfOperationConfirmations'
+  key NumberOfOperationConfirmations : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Calendario fabbrica'
   @sap.quickinfo : 'ID calendario di fabbrica'
   key FactoryCalendar : String(2) not null;
-  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Fabbisogno capacità'
-  @sap.quickinfo : 'ID del record fabbisogno capacità'
-  key CapacityRequirement : String(12) not null;
-  @sap.display.format : 'NonNegative'
+  @sap.label : 'CapacityRequirement'
+  key CapacityRequirement : String(1) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Pos. fabb. capacità'
-  @sap.quickinfo : 'Posizione fabbisogno di capacità'
-  key CapacityRequirementItem : String(8) not null;
+  @sap.label : 'CapacityRequirementItem'
+  key CapacityRequirementItem : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero di modifica'
   key ChangeNumber : String(12) not null;
-  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Numero oggetto'
-  @sap.quickinfo : 'ID interno oggetto'
-  key ObjectInternalID : String(22) not null;
+  @sap.label : 'ObjectInternalID'
+  key ObjectInternalID : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Numero fabbisogno'
@@ -11225,9 +11207,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.semantics : 'currency-code'
   key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
-  @sap.label : 'Unità di prezzo mat.'
-  @sap.quickinfo : 'Quantità unità di prezzo materiale'
-  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
+  @sap.label : 'NumberOfOperationPriceUnits'
+  key NumberOfOperationPriceUnits : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
@@ -11356,15 +11337,9 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   key OpSchedldReductionLevel : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.text : 'to_Plant/PlantName'
-  @sap.label : 'Divisione'
-  @sap.value.list : 'standard'
-  Plant_1 : String(4);
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Centro di lavoro'
-  @sap.value.list : 'standard'
-  WorkCenter : String(8);
+  @sap.label : 'Ord. prod. combinato'
+  @sap.quickinfo : 'Ordine prod. principale comb.'
+  key CprodOrd : String(12) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.text : 'WorkCenterInternalID_1_Text'
@@ -11383,6 +11358,17 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   @sap.quickinfo : 'CIM Resource Object Type'
   @sap.value.list : 'fixed-values'
   WorkCenterTypeCode_1 : String(2);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Centro di lavoro'
+  @sap.value.list : 'standard'
+  WorkCenter : String(8);
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.text : 'to_Plant/PlantName'
+  @sap.label : 'Divisione'
+  @sap.value.list : 'standard'
+  Plant_1 : String(4);
   @sap.required.in.filter : 'false'
   @sap.unit : 'ProductionUnit'
   @sap.label : 'SumOpPlannedTotalQuantity'
@@ -11397,23 +11383,23 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
   SumOpTotalConfirmedScrapQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
   @sap.unit : 'ProductionUnit'
-  @sap.label : 'SumOperationConfirmedReworkQty'
-  SumOperationConfirmedReworkQty : Decimal(13, 3);
+  @sap.label : 'SumOpTotalConfirmedReworkQty'
+  SumOpTotalConfirmedReworkQty : Decimal(13, 3);
   @sap.required.in.filter : 'false'
-  @sap.label : 'Production Unit'
+  @sap.label : 'Unità di produzione'
   @sap.quickinfo : 'Unità di misura di produzione'
   @sap.semantics : 'unit-of-measure'
   ProductionUnit : String(3);
+  @sap.required.in.filter : 'false'
+  @sap.label : 'OperationIsDeleted'
+  OperationIsDeleted : String(1);
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
-  @sap.required.in.filter : 'false'
-  @sap.label : 'OperationIsDeleted'
-  OperationIsDeleted : String(1);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true
@@ -11424,7 +11410,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
 @sap.label : 'ZZ1_C_MFG_OrderComp'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_OrderComp {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
@@ -12319,32 +12305,32 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {
   @sap.label : 'Liv. critico'
   @sap.quickinfo : 'Livello critico di un componente nella Db'
   CriticalComponentLevel : Decimal(2, 0);
-  to_AccountAssignmentCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_AccountAssignmentCategory {  };
-  to_AssemblyMRPController : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {  };
-  to_BatchSplitType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BatchSplitType {  };
-  to_BOMExplosion : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_BOMExplosionDate {  };
-  to_ControllingArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ControllingArea {  };
-  to_DebitCreditCode : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_DebitCreditCode {  };
-  to_DiscontinuationType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MatlCompDiscontinuationType {  };
-  to_FollowUpMaterial : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Product {  };
-  to_FunctionalArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_FunctionalArea {  };
-  to_GoodsMovementType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_GoodsMovementType {  };
-  to_InventorySpecialStockType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_InventorySpecialStockType {  };
-  to_InventorySpecialStockValnType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_InvtrySpecialStockValnType {  };
-  to_LongTextLanguage : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Language {  };
-  to_MfgOrderCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderCategory {  };
-  to_MfgOrderOperation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ManufacturingOrderOperation {  };
-  to_MfgOrderSequenceCategory : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_SequenceCategory {  };
-  to_MfgOrderType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MfgOrderType {  };
-  to_MRPController : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_MRPController {  };
-  to_PhantomAssembly : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Product {  };
-  to_ProductionSupervisor : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupervisor {  };
-  to_PurchasingGroup : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_PurchasingGroup {  };
-  to_Reservation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentHeader {  };
-  to_ReservationItem : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocumentItem {  };
-  to_ReservationRecordType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ReservationDocRecordType {  };
-  to_StorageLocation : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_StorageLocation {  };
-  to_SupplyArea : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_ProductionSupplyArea {  };
+  to_AccountAssignmentCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_AccountAssignmentCategory {  };
+  to_AssemblyMRPController : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MRPController {  };
+  to_BatchSplitType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BatchSplitType {  };
+  to_BOMExplosion : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_BOMExplosionDate {  };
+  to_ControllingArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ControllingArea {  };
+  to_DebitCreditCode : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_DebitCreditCode {  };
+  to_DiscontinuationType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MatlCompDiscontinuationType {  };
+  to_FollowUpMaterial : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Product {  };
+  to_FunctionalArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_FunctionalArea {  };
+  to_GoodsMovementType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_GoodsMovementType {  };
+  to_InventorySpecialStockType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InventorySpecialStockType {  };
+  to_InventorySpecialStockValnType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_InvtrySpecialStockValnType {  };
+  to_LongTextLanguage : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Language {  };
+  to_MfgOrderCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderCategory {  };
+  to_MfgOrderOperation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ManufacturingOrderOperation {  };
+  to_MfgOrderSequenceCategory : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_SequenceCategory {  };
+  to_MfgOrderType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MfgOrderType {  };
+  to_MRPController : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_MRPController {  };
+  to_PhantomAssembly : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Product {  };
+  to_ProductionSupervisor : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSupervisor {  };
+  to_PurchasingGroup : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_PurchasingGroup {  };
+  to_Reservation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocumentHeader {  };
+  to_ReservationItem : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocumentItem {  };
+  to_ReservationRecordType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ReservationDocRecordType {  };
+  to_StorageLocation : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_StorageLocation {  };
+  to_SupplyArea : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ProductionSupplyArea {  };
 };
 
 @cds.external : true
@@ -12354,7 +12340,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {
 @sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.label : 'ZZ1_C_MFG_ORDEROPE'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_ORDEROPE {
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'ID interno ordine'
@@ -13638,8 +13624,8 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
   @sap.quickinfo : 'Codice materiale per ordine'
   @sap.value.list : 'standard'
   Material : String(40);
-  to_Plant : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_Plant {  };
-  to_WorkCenterType : Association to ZZ1_I_COMBPRODORDAPI_CDS.I_WorkCenterType {  };
+  to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
+  to_WorkCenterType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {  };
 };
 
 @cds.external : true
@@ -13651,7 +13637,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_DIMENSIONE_ETC'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_DIMENSIONE_ETC_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_DIMENSIONE_ETC_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Dimensione Etichette'
   key Code : String(3) not null;
@@ -13673,7 +13659,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_DIMENSIONE_ETC_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_Flag_Gest_Fiscale'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_FLAG_GEST_FISCALE_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_FLAG_GEST_FISCALE_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Flag Gestione Fiscal'
   @sap.quickinfo : 'Flag Gestione Fiscale'
@@ -13693,17 +13679,38 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_FLAG_GEST_FISCALE_V {
 @sap.creatable : 'false'
 @sap.updatable : 'false'
 @sap.deletable : 'false'
+@sap.searchable : 'true'
+@sap.content.version : '1'
+@sap.label : 'ZZ1_KIT_VALUE'
+@sap.value.list : 'true'
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_KIT_VALUE_V {
+  @sap.text : 'Code_Text'
+  @sap.label : 'Kit'
+  key Code : String(1) not null;
+  @sap.label : 'Kit (Desc.)'
+  @sap.creatable : 'false'
+  @sap.updatable : 'false'
+  Code_Text : String(60);
+  @sap.label : 'È disattivato'
+  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
+  IsDisabled : Boolean;
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
 @sap.content.version : '1'
 @sap.semantics : 'aggregate'
-@sap.label : 'ZZ1_I_COMBPRODORDAPI'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
+@sap.label : 'ZZ1_PRODUCTION_COCKPIT_API'
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_PRODUCTION_COCKPIT_API {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
   key ID : LargeString not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.text : 'ManufacturingOrderText'
   @sap.label : 'Ordine di produzione'
   @sap.quickinfo : 'ID ordine di produzione'
   ManufacturingOrder : String(12);
@@ -14212,45 +14219,6 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Schema CCST'
-  CostingSheet : String(6);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Conto Co.Ge.'
-  @sap.quickinfo : 'Conto Co.Ge. per scarico dei costi semplice'
-  GLAccount : String(10);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Collettore costi'
-  @sap.quickinfo : 'Collettore costi per processo produzione'
-  ProductCostCollector : String(12);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Var.calc. costi eff.'
-  @sap.quickinfo : 'Variante di calcolo dei costi effettivi'
-  ActualCostsCostingVariant : String(4);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Var. costi pian.'
-  @sap.quickinfo : 'Variante di calcolo dei costi pianificati'
-  PlannedCostsCostingVariant : String(4);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Classe dell''oggetto CO'
-  ControllingObjectClass : String(2);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Area funzionale'
-  FunctionalArea : String(16);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
   @sap.label : 'Reg. bas. su eventi'
   @sap.quickinfo : 'Registrazione basata su eventi'
   EventBasedPostingMethod : String(1);
@@ -14489,89 +14457,17 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_I_COMBPRODORDAPI {
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
-  @sap.label : 'Ordine prod. princ.'
-  @sap.quickinfo : 'Numero ordine di produzione principale'
-  MasterProductionOrder_1 : String(12);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Ordine prod. princ.'
-  @sap.quickinfo : 'Numero ordine di produzione principale'
-  FshMprodOrd_1 : String(12);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Tipo di fabbisogno'
-  requirementtype : String(2);
-  @sap.aggregation.role : 'dimension'
-  @sap.display.format : 'UpperCase'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Materiale'
-  @sap.quickinfo : 'Codice materiale'
-  Material_1 : String(40);
-  @sap.aggregation.role : 'dimension'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'Descrizione prodotto'
-  ProductDescription : String(40);
-  @sap.aggregation.role : 'dimension'
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EntryUnit'
-  @sap.label : 'TotalDeliveryQty'
-  TotalDeliveryQty : Decimal(13, 3);
-  @sap.aggregation.role : 'dimension'
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EntryUnit'
-  @sap.label : 'TotalQuantityInEntryUnit'
-  TotalQuantityInEntryUnit : Decimal(13, 3);
-  @sap.aggregation.role : 'dimension'
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EntryUnit'
-  @sap.label : 'TotalWithdrawnQuantity'
-  TotalWithdrawnQuantity : Decimal(13, 3);
-  @sap.aggregation.role : 'measure'
-  @sap.required.in.filter : 'false'
-  @sap.unit : 'EntryUnit'
-  @sap.label : 'TotalAllocQty'
-  @sap.filterable : 'false'
-  TotalAllocQty : Decimal(13, 3);
-  @sap.aggregation.role : 'dimension'
-  @sap.required.in.filter : 'false'
-  @sap.label : 'UM acquisizione'
-  @sap.quickinfo : 'Unità di misura di registrazione'
-  @sap.semantics : 'unit-of-measure'
-  EntryUnit : String(3);
-  to_ZZ1_C_COMBINEDPRODORDER : Association to ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBINEDPRODORDER {  };
-  to_ZZ1_C_COMBORDER_COMP : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_COMBORDER_COMP {  };
-  to_ZZ1_C_MASTERORDER_COMP : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {  };
-  to_ZZ1_C_MASTERORDER_COMP_1 : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERORDER_COMP {  };
-  to_ZZ1_C_MASTERPRODORDER : Association to ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MASTERPRODORDER {  };
-  to_ZZ1_C_MFG_COMBINEDOPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_COMBINEDOPE {  };
-  to_ZZ1_C_MFG_MASTEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {  };
-  to_ZZ1_C_MFG_MASTEROPE_1 : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_MASTEROPE {  };
-  to_ZZ1_C_MFG_OrderComp : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_OrderComp {  };
-  to_ZZ1_C_MFG_ORDEROPE : Association to many ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_C_MFG_ORDEROPE {  };
-};
-
-@cds.external : true
-@cds.persistence.skip : true
-@sap.creatable : 'false'
-@sap.updatable : 'false'
-@sap.deletable : 'false'
-@sap.searchable : 'true'
-@sap.content.version : '1'
-@sap.label : 'ZZ1_KIT_VALUE'
-@sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_KIT_VALUE_V {
-  @sap.text : 'Code_Text'
-  @sap.label : 'Kit'
-  key Code : String(1) not null;
-  @sap.label : 'Kit (Desc.)'
-  @sap.creatable : 'false'
-  @sap.updatable : 'false'
-  Code_Text : String(60);
-  @sap.label : 'È disattivato'
-  @sap.quickinfo : 'Campo personalizzato: indicatore codice disattivato'
-  IsDisabled : Boolean;
+  @sap.label : 'Conto Co.Ge.'
+  @sap.quickinfo : 'Conto Co.Ge. per scarico dei costi semplice'
+  GLAccount : String(10);
+  to_ZZ1_C_COMBINEDPRODORDER : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {  };
+  to_ZZ1_C_COMBORDER_COMP : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {  };
+  to_ZZ1_C_MASTERORDER_COMP : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {  };
+  to_ZZ1_C_MASTERPRODORDER : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {  };
+  to_ZZ1_C_MFG_COMBINEDOPER_SUM : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {  };
+  to_ZZ1_C_MFG_MASTEROPER_SUM : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {  };
+  to_ZZ1_C_MFG_OrderComp : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_OrderComp {  };
+  to_ZZ1_C_MFG_ORDEROPE : Association to many ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_ORDEROPE {  };
 };
 
 @cds.external : true
@@ -14583,7 +14479,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_KIT_VALUE_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_SKU_PRIORITY'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_SKU_PRIORITY_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_SKU_PRIORITY_V {
   @sap.text : 'Code_Text'
   @sap.label : 'SKU Priority'
   key Code : String(3) not null;
@@ -14605,7 +14501,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_SKU_PRIORITY_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_TIPO_DISEGNO'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_DISEGNO_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_TIPO_DISEGNO_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Tipo Disegno'
   key Code : String(3) not null;
@@ -14627,7 +14523,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_DISEGNO_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_Tipo_Gestione'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_GESTIONE_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_TIPO_GESTIONE_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Tipo Gestione'
   key Code : String(1) not null;
@@ -14650,7 +14546,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TIPO_GESTIONE_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_Titolo_Filato'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TITOLO_FILATO_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_TITOLO_FILATO_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Titolo Filato'
   key Code : String(3) not null;
@@ -14673,7 +14569,7 @@ entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_TITOLO_FILATO_V {
 @sap.content.version : '1'
 @sap.label : 'ZZ1_Water_Resistant'
 @sap.value.list : 'true'
-entity ZZ1_I_COMBPRODORDAPI_CDS.ZZ1_WATER_RESISTANT_V {
+entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_WATER_RESISTANT_V {
   @sap.text : 'Code_Text'
   @sap.label : 'Water Resistant'
   key Code : String(1) not null;
