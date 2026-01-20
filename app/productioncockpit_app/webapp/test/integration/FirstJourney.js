@@ -10,7 +10,7 @@ sap.ui.define([
             opaTest("Start application", function (Given, When, Then) {
                 Given.iStartMyApp();
 
-                Then.onTheZZ1_I_COMBPRODORDAPIMain.iSeeThisPage();
+                Then.onTheZZ1_PRODUCTION_COCKPIT_APIMain.iSeeThisPage();
 
             });
 

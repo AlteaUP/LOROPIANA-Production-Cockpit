@@ -2,9 +2,9 @@ sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
         'productioncockpitapp/test/integration/FirstJourney',
-		'productioncockpitapp/test/integration/pages/ZZ1_I_COMBPRODORDAPIMain'
+		'productioncockpitapp/test/integration/pages/ZZ1_PRODUCTION_COCKPIT_APIMain'
     ],
-    function(JourneyRunner, opaJourney, ZZ1_I_COMBPRODORDAPIMain) {
+    function(JourneyRunner, opaJourney, ZZ1_PRODUCTION_COCKPIT_APIMain) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
@@ -15,7 +15,7 @@ sap.ui.require(
         JourneyRunner.run(
             {
                 pages: { 
-					onTheZZ1_I_COMBPRODORDAPIMain: ZZ1_I_COMBPRODORDAPIMain
+					onTheZZ1_PRODUCTION_COCKPIT_APIMain: ZZ1_PRODUCTION_COCKPIT_APIMain
                 }
             },
             opaJourney.run

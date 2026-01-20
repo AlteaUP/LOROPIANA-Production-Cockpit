@@ -1,10 +1,6 @@
 {
   "cds": {
     "requires": {
-      "ZZ1_I_COMBPRODORDAPI_CDS": {
-        "kind": "odata-v2",
-        "model": "srv/external/ZZ1_I_COMBPRODORDAPI_CDS"
-      },
       "API_PRODUCTION_ORDER_2_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/API_PRODUCTION_ORDER_2_SRV"
@@ -60,6 +56,10 @@
       "UI_RFM_MNG_MSTRPRODNORD": {
         "kind": "odata-v2",
         "model": "srv/external/UI_RFM_MNG_MSTRPRODNORD"
+      },
+      "ZZ1_PRODUCTION_COCKPIT_API_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_PRODUCTION_COCKPIT_API_CDS"
       }
     }
   },
