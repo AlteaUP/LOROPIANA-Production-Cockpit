@@ -21,12 +21,12 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_I_COMBPRODORDAPI", async request => {
         console.log("chiamata ZZ1_I_COMBPRODORDAPI_CDS")
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
-        
-        for(var i=0; i<data.length; i++){
+
+        for (var i = 0; i < data.length; i++) {
             const chartData = await chartDataService.tx(request).run(
                 SELECT.from('C_RFM_ManageMfgOrder')
                     .where({ ManufacturingOrder: data[i].ManufacturingOrder })
@@ -46,20 +46,20 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_MFG_REASON_SOST", async request => {
         console.log("chiamata ZZ1_MFG_REASON_SOST_CDS")
         var data = await reasonSost.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         return data;
     });
 
     this.on('READ', "ZZ1_C_MASTERPRODORDER", async request => {
-        console.log("chiamata ZZ1_C_MASTERPRODORDER")        
+        console.log("chiamata ZZ1_C_MASTERPRODORDER")
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
-        
-        for(var i=0; i<data.length; i++){
+
+        for (var i = 0; i < data.length; i++) {
             const chartData = await chartDataService.tx(request).run(
                 SELECT.from('C_RFM_ManageMasterMfgOrder')
                     .where({ MasterProductionOrder: data[i].MasterProductionOrder })
@@ -90,9 +90,9 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
-        console.log("chiamata ZZ1_C_COMBINEDPRODORDER")        
+        console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
@@ -100,9 +100,9 @@ module.exports = cds.service.impl(async function (srv) {
         const chartData = await chartDataService.tx(request).run(
             SELECT.from('C_RFM_ManageCombinedMfgOrder').limit(1000)
         );
-        
-        if(data.length > 0){
-            for(var i=0; i<data.length; i++){
+
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
                 const chartData = await chartDataService.tx(request).run(
                     SELECT.from('C_RFM_ManageCombinedMfgOrder')
                         .where({ CombinedProductionOrder: data[i].CombinedOrder })
@@ -141,24 +141,24 @@ module.exports = cds.service.impl(async function (srv) {
             id = request.query.SELECT.from.ref[0].where[2].val
         } catch (err) {
             console.error("impossibile estrarre l'ID ", err)
-        return []
+            return []
         }
         console.log("ID estratto: ", id)
 
         // modifica DL - 22/12/2025 - gestione multi ordine
         var idArray = []
-        if(id.indexOf(";") > -1){
+        if (id.indexOf(";") > -1) {
             idArray = id.split(";")
         }
         // modifica DL - 22/12/2025 - gestione multi ordine - FINE
 
         const where = request.query.SELECT?.where  // array già parsato
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
 
         let data
         var finalData = []
-        if(idArray.length === 0){
+        if (idArray.length === 0) {
             id = id.split('~')[1]
             if (where && where.length > 0) {
                 // aggiungo anche FshMprodOrd come AND
@@ -169,8 +169,8 @@ module.exports = cds.service.impl(async function (srv) {
             } else {
                 data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: id })
             }
-        } else {            
-            for(var i=0; i<idArray.length; i++){
+        } else {
+            for (var i = 0; i < idArray.length; i++) {
                 console.log("ID ARRAY: ", idArray[i])
                 idArray[i] = idArray[i].split('~')[1]
                 console.log("ID ARRAY POST SPLIT: ", idArray[i])
@@ -180,41 +180,102 @@ module.exports = cds.service.impl(async function (srv) {
                         { ref: ['FshMprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
                     data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 } else {
                     data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: idArray[i] })
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
             }
-           console.log("multi ordine chiamato")
-        }            
+            console.log("multi ordine chiamato")
+        }
 
-        if(finalData.length > 0){
+        if (finalData.length > 0) {
             console.log("risultati MASTER COMP final Data: ", finalData.length)
+            //MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
+            finalData.forEach(item => {
+                let chart_percent = 0;
+
+                if (
+                    item.TotalConfdQtyForATPInBaseUoM != null &&
+                    item.TotalRequiredQuantity != null &&
+                    parseFloat(item.TotalRequiredQuantity) !== 0
+                ) {
+                    chart_percent = Math.round(
+                        parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                        parseFloat(item.TotalRequiredQuantity) * 100
+                    );
+                }
+
+                let chart_criticality;
+
+                if (chart_percent >= 100) {
+                    chart_criticality = 3;
+                } else if (chart_percent > 0) {
+                    chart_criticality = 2;
+                } else {
+                    chart_criticality = 1;
+                    chart_percent = 100;
+                }
+
+                // output
+                item.chart_percent = chart_percent;
+                item.chart_criticality = chart_criticality;
+            });
+            //MDB - gestione grafico percentuale - 19/01/2026 - FINE
             return finalData;
         } else {
             console.log("risultati MASTER COMP: ", data.length)
+            // MDB - gestione grafico percentuale - INIZIO
+            data.forEach(item => {
+                let chart_percent = 0;
+
+                if (
+                    item.TotalConfdQtyForATPInBaseUoM != null &&
+                    item.TotalRequiredQuantity != null &&
+                    parseFloat(item.TotalRequiredQuantity) !== 0
+                ) {
+                    chart_percent = Math.round(
+                        parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                        parseFloat(item.TotalRequiredQuantity) * 100
+                    );
+                }
+                let chart_criticality;
+
+                if (chart_percent >= 100) {
+                    chart_criticality = 3;
+                } else if (chart_percent > 0) {
+                    chart_criticality = 2;
+                } else {
+                    chart_criticality = 1;
+                    chart_percent = 100;
+                }
+
+                // output
+                item.chart_percent = chart_percent;
+                item.chart_criticality = chart_criticality;
+            });
+            // MDB - gestione grafico percentuale - FINE
             return data;
         }
-        
+
     });
 
     this.on('READ', "ZZ1_C_MFG_MASTEROPE", async request => {
         console.log("chiamata ZZ1_C_MFG_MASTEROPE")
-        
+
         let id = null
         try {
             id = request.query.SELECT.from.ref[0].where[2].val
         } catch (err) {
             console.error("impossibile estrarre l'ID ", err)
-        return []
+            return []
         }
         console.log("ID estratto: ", id)
 
         // modifica DL - 13/01/2026 - gestione multi ordine
         var idArray = []
-        if(id.indexOf(";") > -1){
+        if (id.indexOf(";") > -1) {
             idArray = id.split(";")
         }
         // modifica DL - 13/01/2026 - gestione multi ordine - FINE
@@ -225,7 +286,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         let data
         var finalData = []
-        if(idArray.length === 0){
+        if (idArray.length === 0) {
             id = id.split('~')[1]
             if (where && where.length > 0) {
                 // aggiungo anche MasterProductionOrder come AND
@@ -236,8 +297,8 @@ module.exports = cds.service.impl(async function (srv) {
             } else {
                 data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: id })
             }
-        } else {            
-            for(var i=0; i<idArray.length; i++){
+        } else {
+            for (var i = 0; i < idArray.length; i++) {
                 console.log("ID ARRAY: ", idArray[i])
                 idArray[i] = idArray[i].split('~')[1]
                 console.log("ID ARRAY POST SPLIT: ", idArray[i])
@@ -247,17 +308,17 @@ module.exports = cds.service.impl(async function (srv) {
                         { ref: ['MasterProductionOrder'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
                     data = await srv.read('ZZ1_C_MFG_MASTEROPE').where(combinedWhere)
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 } else {
                     data = await srv.read('ZZ1_C_MFG_MASTEROPE').where({ MasterProductionOrder: idArray[i] })
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
             }
-           console.log("multi ordine chiamato")
+            console.log("multi ordine chiamato")
         }
 
-        if(finalData.length > 0){
+        if (finalData.length > 0) {
             console.log("risultati MASTER OPER final Data: ", finalData.length)
             return finalData;
         } else {
@@ -269,31 +330,31 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_C_COMBORDER_COMP", async request => {
         console.log("chiamata ZZ1_C_COMBORDER_COMP")
 
-        console.log("SELECT COMPONENTI" +JSON.stringify(request.query.SELECT))
+        console.log("SELECT COMPONENTI" + JSON.stringify(request.query.SELECT))
 
         let id = null
         try {
             id = request.query.SELECT.from.ref[0].where[2].val
         } catch (err) {
             console.error("impossibile estrarre l'ID ", err)
-        return []
+            return []
         }
-        console.log("ID estratto: ", id) 
+        console.log("ID estratto: ", id)
 
         // modifica DL - 22/12/2025 - gestione multi ordine
         var idArray = []
-        if(id.indexOf(";") > -1){
+        if (id.indexOf(";") > -1) {
             idArray = id.split(";")
         }
         // modifica DL - 22/12/2025 - gestione multi ordine - FINE        
 
         const where = request.query.SELECT?.where  // array già parsato
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
 
         let data
         var finalData = []
-        if(idArray.length === 0){
+        if (idArray.length === 0) {
             id = id.split('~')[1]
             if (where && where.length > 0) {
                 // aggiungo anche CprodOrder come AND
@@ -304,8 +365,8 @@ module.exports = cds.service.impl(async function (srv) {
             } else {
                 data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id })
             }
-        } else {            
-            for(var i=0; i<idArray.length; i++){
+        } else {
+            for (var i = 0; i < idArray.length; i++) {
                 console.log("ID ARRAY: ", idArray[i])
                 idArray[i] = idArray[i].split('~')[1]
                 console.log("ID ARRAY POST SPLIT: ", idArray[i])
@@ -315,44 +376,105 @@ module.exports = cds.service.impl(async function (srv) {
                         { ref: ['CprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
                     data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 } else {
                     data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: idArray[i] })
-                    console.log("DATAAAA "+JSON.stringify(data))
+                    console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
             }
-           console.log("multi ordine chiamato")
+            console.log("multi ordine chiamato")
         }
 
-        if(finalData.length > 0){
+        if (finalData.length > 0) {
             console.log("risultati COMBINED COMP final Data: ", finalData.length)
+            //MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
+            finalData.forEach(item => {
+                let chart_percent = 0;
+
+                if (
+                    item.TotalConfdQtyForATPInBaseUoM != null &&
+                    item.TotalRequiredQuantity != null &&
+                    parseFloat(item.TotalRequiredQuantity) !== 0
+                ) {
+                    chart_percent = Math.round(
+                        parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                        parseFloat(item.TotalRequiredQuantity) * 100
+                    );
+                }
+
+                let chart_criticality;
+
+                if (chart_percent >= 100) {
+                    chart_criticality = 3;
+                } else if (chart_percent > 0) {
+                    chart_criticality = 2;
+                } else {
+                    chart_criticality = 1;
+                    chart_percent = 100;
+                }
+
+                // output
+                item.chart_percent = chart_percent;
+                item.chart_criticality = chart_criticality;
+            });
+            //MDB - gestione grafico percentuale - FINE
             return finalData;
         } else {
             console.log("risultati COMBINED COMP: ", data.length)
+            // MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
+            data.forEach(item => {
+                let chart_percent = 0;
+
+                if (
+                    item.TotalConfdQtyForATPInBaseUoM != null &&
+                    item.TotalRequiredQuantity != null &&
+                    parseFloat(item.TotalRequiredQuantity) !== 0
+                ) {
+                    chart_percent = Math.round(
+                        parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                        parseFloat(item.TotalRequiredQuantity) * 100
+                    );
+                }
+                let chart_criticality;
+
+                if (chart_percent >= 100) {
+                    chart_criticality = 3;
+                } else if (chart_percent > 0) {
+                    chart_criticality = 2;
+                } else {
+                    chart_criticality = 1;
+                    chart_percent = 100;
+                }
+
+                // output
+                item.chart_percent = chart_percent;
+                item.chart_criticality = chart_criticality;
+            });
+            // MDB - gestione grafico percentuale - FINE
             return data;
         }
     });
 
     this.on('READ', "ZZ1_C_MFG_COMBINEDOPE", async request => {
         console.log("chiamata ZZ1_C_MFG_COMBINEDOPE")
-        
+
         let id = null
         try {
             id = request.query.SELECT.from.ref[0].where[2].val
         } catch (err) {
             console.error("impossibile estrarre l'ID ", err)
-        return []
+            return []
         }
         console.log("ID estratto: ", id)
 
         id = id.split('~')[1]
 
-        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS') 
+        const srv = await cds.connect.to('ZZ1_I_COMBPRODORDAPI_CDS')
 
         const data = await srv.send({
             method: 'GET',
-            path: "/ZZ1_C_MFG_COMBINEDOPE?$filter=CprodOrd eq '"+ id +"'"
+            path: "/ZZ1_C_MFG_COMBINEDOPE?$filter=CprodOrd eq '" + id + "'"
         })
 
         console.log("risultati COMBINED OPER: ", data.length)
@@ -362,19 +484,19 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on('READ', "ZZ1_C_MFG_OrderComp", async request => {
         console.log("chiamata ZZ1_C_MFG_OrderComp")
-        console.log("AAAAAA "+request.query)
+        console.log("AAAAAA " + request.query)
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         return data;
     });
 
-    
+
     this.on('READ', "ZZ1_C_MFG_ORDEROPE", async request => {
         console.log("chiamata ZZ1_C_MFG_ORDEROPE")
-        console.log("BBBBBB "+request.query)
+        console.log("BBBBBB " + request.query)
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         return data;
     });
@@ -391,7 +513,7 @@ module.exports = cds.service.impl(async function (srv) {
 
             return result;
         } catch (err) {
-        req.error(500, `Errore durante la fetch da ZZ1_C_MASTERPRODORDERAPI_CDS: ${err.message}`);
+            req.error(500, `Errore durante la fetch da ZZ1_C_MASTERPRODORDERAPI_CDS: ${err.message}`);
         }
     });
 
@@ -400,20 +522,20 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if(OrderID.length > 1){
+        if (OrderID.length > 1) {
             // array di valori
-            for(var i=0; i<OrderID.length; i++){
+            for (var i = 0; i < OrderID.length; i++) {
                 // chiamo l'API in get per recuperare etag
                 const orderDetail = await changeOrderProduction.send({
-                    method: 'GET',  
-                    path: "A_ProductionOrder_2('"+OrderID[i]+"')"
+                    method: 'GET',
+                    path: "A_ProductionOrder_2('" + OrderID[i] + "')"
                 });
                 let eTag = orderDetail.d.__metadata.etag;
-                if(eTag !== null && eTag !== undefined && eTag !== ""){                    
+                if (eTag !== null && eTag !== undefined && eTag !== "") {
                     try {
                         const result = await changeOrderProduction.send({
-                            method: 'POST',  
-                            path: "ReleaseOrder?ManufacturingOrder='"+OrderID[i]+"'",
+                            method: 'POST',
+                            path: "ReleaseOrder?ManufacturingOrder='" + OrderID[i] + "'",
                             headers: {
                                 'If-Match': eTag,
                                 'Content-Type': 'application/json'
@@ -421,9 +543,9 @@ module.exports = cds.service.impl(async function (srv) {
                         });
                         response = response + "|" + result.d.ReleaseOrder.SystemMessageLongText
                     } catch (error) {
-                        console.log("ERRORE "+error)
-                        if(response !== "" ){
-                            response = response + "|"+ error
+                        console.log("ERRORE " + error)
+                        if (response !== "") {
+                            response = response + "|" + error
                         } else {
                             response = error
                         }
@@ -434,8 +556,8 @@ module.exports = cds.service.impl(async function (srv) {
         } else {
             try {
                 const result = await changeOrderProduction.send({
-                    method: 'POST',  
-                    path: "ReleaseOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                    method: 'POST',
+                    path: "ReleaseOrder?ManufacturingOrder='" + OrderID[0] + "'"
                 });
                 return result
             } catch (error) {
@@ -444,9 +566,9 @@ module.exports = cds.service.impl(async function (srv) {
             }
         }
 
-        console.log("RISPOSTA "+response)
+        console.log("RISPOSTA " + response)
         return response
-       
+
     });
 
     this.on("TechnicalCompleteOrder", async (req) => {
@@ -454,19 +576,19 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if(OrderID.length > 1){
+        if (OrderID.length > 1) {
             // array di valori
-            for(var i=0; i<OrderID.length; i++){
+            for (var i = 0; i < OrderID.length; i++) {
                 try {
                     const result = await changeOrderProduction.send({
-                        method: 'POST',  
-                        path: "TechlyCmpltOrder?ManufacturingOrder='"+OrderID[i]+"'"
+                        method: 'POST',
+                        path: "TechlyCmpltOrder?ManufacturingOrder='" + OrderID[i] + "'"
                     });
                     response = response + ";" + result
                 } catch (error) {
-                    console.log("ERRORE "+error)
-                    if(response !== "" ){
-                        response = response + "|"+ error
+                    console.log("ERRORE " + error)
+                    if (response !== "") {
+                        response = response + "|" + error
                     } else {
                         response = error
                     }
@@ -476,8 +598,8 @@ module.exports = cds.service.impl(async function (srv) {
         } else {
             try {
                 const result = await changeOrderProduction.send({
-                    method: 'POST',  
-                    path: "TechlyCmpltOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                    method: 'POST',
+                    path: "TechlyCmpltOrder?ManufacturingOrder='" + OrderID[0] + "'"
                 });
                 return result
             } catch (error) {
@@ -487,7 +609,7 @@ module.exports = cds.service.impl(async function (srv) {
         }
 
         return response
-       
+
     });
 
     this.on("CloseOrder", async (req) => {
@@ -495,19 +617,19 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if(OrderID.length > 1){
+        if (OrderID.length > 1) {
             // array di valori
-            for(var i=0; i<OrderID.length; i++){
+            for (var i = 0; i < OrderID.length; i++) {
                 try {
                     const result = await changeOrderProduction.send({
-                        method: 'POST',  
-                        path: "CloseOrder?ManufacturingOrder='"+OrderID[i]+"'"
+                        method: 'POST',
+                        path: "CloseOrder?ManufacturingOrder='" + OrderID[i] + "'"
                     });
                     response = response + ";" + result
                 } catch (error) {
-                    console.log("ERRORE "+error)
-                    if(response !== "" ){
-                        response = response + "|"+ error
+                    console.log("ERRORE " + error)
+                    if (response !== "") {
+                        response = response + "|" + error
                     } else {
                         response = error
                     }
@@ -517,8 +639,8 @@ module.exports = cds.service.impl(async function (srv) {
         } else {
             try {
                 const result = await changeOrderProduction.send({
-                    method: 'POST',  
-                    path: "CloseOrder?ManufacturingOrder='"+OrderID[0]+"'"
+                    method: 'POST',
+                    path: "CloseOrder?ManufacturingOrder='" + OrderID[0] + "'"
                 });
                 return result
             } catch (error) {
@@ -528,19 +650,19 @@ module.exports = cds.service.impl(async function (srv) {
         }
 
         return response
-       
+
     });
 
     this.on("Replacement", async (req) => {
         console.log("Replacement Action")
 
         const Records = req.data.Record;
-        
+
         var payload = {
             "id": "001", "to_intcomp": Records
         }
 
-        console.log("PAYLOAD "+JSON.stringify(payload))
+        console.log("PAYLOAD " + JSON.stringify(payload))
 
         // Controllo che l'oggetto della request sia pieno
         if (req.data.Record.length === 0) return;
@@ -562,15 +684,15 @@ module.exports = cds.service.impl(async function (srv) {
 
         } catch (error) {
 
-            console.log("ERRORE "+error.message)
+            console.log("ERRORE " + error.message)
 
             return error.message
-            
+
             /*if(multipleDelivery){
                 response = response + "|| " + error.message
             } else {
                 return error.message
-            }    */            
+            }    */
         }
     });
 
@@ -623,7 +745,7 @@ module.exports = cds.service.impl(async function (srv) {
             console.log("SUCCESSO!")
 
             let callCreate = await apiMaterialDocumentCreate.tx(req).post("/A_MaterialDocumentHeader", payload)
-            console.log("RITORNO chiamata " + callCreate) 
+            console.log("RITORNO chiamata " + callCreate)
             console.log("Risultato chiamata " + JSON.stringify(callCreate))
 
             return callCreate
@@ -632,7 +754,7 @@ module.exports = cds.service.impl(async function (srv) {
 
         } catch (error) {
 
-            console.log("MESSAGGIO ERRORE "+error.message)
+            console.log("MESSAGGIO ERRORE " + error.message)
             return error.message
         }
     });
@@ -695,14 +817,14 @@ module.exports = cds.service.impl(async function (srv) {
 
         } catch (error) {
 
-            console.log("ERRORE "+error.message)
+            console.log("ERRORE " + error.message)
 
-            return error.message                
+            return error.message
         }
 
-     });
+    });
 
-     this.on("ConfODP", async (req) => {
+    this.on("ConfODP", async (req) => {
         console.log("Chiamata ACTION ConfODP")
 
         const Records = req.data.Record;
@@ -724,24 +846,24 @@ module.exports = cds.service.impl(async function (srv) {
 
         } catch (error) {
 
-            console.log("ERRORE "+error.message)
+            console.log("ERRORE " + error.message)
 
-            return error.message                
+            return error.message
         }
 
-     });
+    });
 
-     this.on("ManageODPPhase", async (req) => {
+    this.on("ManageODPPhase", async (req) => {
         console.log("ManageODPPhase Action")
 
         const Records = req.data.Record;
-        
+
         var payload = {
-            "id": "001", 
+            "id": "001",
             "to_operations": Records
         }
 
-        console.log("PAYLOAD "+JSON.stringify(payload))
+        console.log("PAYLOAD " + JSON.stringify(payload))
 
         // Controllo che l'oggetto della request sia pieno
         if (req.data.Record.length === 0) return;
@@ -755,9 +877,9 @@ module.exports = cds.service.impl(async function (srv) {
 
         } catch (error) {
 
-            console.log("ERRORE "+error.message)
+            console.log("ERRORE " + error.message)
 
-            return error.message           
+            return error.message
         }
     });
 
@@ -766,21 +888,21 @@ module.exports = cds.service.impl(async function (srv) {
 
         const { oidOrdine } = req.data;
         var result
-        
+
         const endpoint =
-        `/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=${oidOrdine}`;
+            `/SuMisura/Service/getOrderDetails/getOrderDetails?oidOrdine=${oidOrdine}`;
 
         try {
             result = await urlRolExternal.send({
                 method: "GET",
                 path: endpoint,
                 headers: {
-                Accept: "application/json"
-            }
-        });
+                    Accept: "application/json"
+                }
+            });
 
-        console.log("LOG ROL "+JSON.stringify(result))
-        
+            console.log("LOG ROL " + JSON.stringify(result))
+
         } catch (err) {
             console.error(err);
             req.error(500, "Errore chiamando LP ROL");
@@ -796,9 +918,9 @@ module.exports = cds.service.impl(async function (srv) {
         } catch (error) {
             console.log("ERROR "+error)
         }*/
-        
+
         // scrivo nel CBO
-        if(result !== undefined && result !== null){
+        if (result !== undefined && result !== null) {
             const newRecord = {
                 SAP_UUID: cds.utils.uuid(), // genera un UUID
                 numeroOrdineROL: result.numeroOrdineROL,
@@ -815,7 +937,7 @@ module.exports = cds.service.impl(async function (srv) {
                 SELECT("ZZ1_MFG_ROL_ORDERS").where({ numeroOrdineROL: result.numeroOrdineROL })
             );
 
-            if(Object.keys(selectROL).length === 0){
+            if (Object.keys(selectROL).length === 0) {
                 await rol.run(
                     INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
                 );
@@ -829,16 +951,16 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {
-        console.log("chiamata ZZ1_MFG_ROL_ORDERS")        
+        console.log("chiamata ZZ1_MFG_ROL_ORDERS")
         var data = await rol.tx(request).run(request.query);
-        console.log("lunghezza array "+data.length)
+        console.log("lunghezza array " + data.length)
 
         return data;
     });
 
     this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
-      const result = await zmfp_mrp_plant_f4.run(req.query);
-      return result;
+        const result = await zmfp_mrp_plant_f4.run(req.query);
+        return result;
     });
 
     this.on('READ', "ZC_RFM_MRPCONTROLLER_F4", async request => {

@@ -209,6 +209,22 @@ annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
 
 annotate service.ZZ1_C_MASTERORDER_COMP with @(
     UI.SelectionFields #MasterComp : [Material],
+    UI.DataPoint #radialChart                  : {
+        Value      : chart_percent,
+        Criticality: chart_criticality,
+    },
+    UI.Chart #radialChart                      : {
+        Title            : 'chart_percent',
+        Description      : 'chart_percent',
+        ChartType        : #Donut,
+        Measures         : [chart_percent],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : chart_percent,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#radialChart',
+        }]
+    },
     UI.LineItem #Componenti : [
     ],
     UI.LineItem #tableMacroComponents : [
@@ -221,6 +237,13 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : Material,
             Label : 'Material',
+        },
+        {
+            $Type                : 'UI.DataFieldForAnnotation',
+            Target               : '@UI.Chart#radialChart',
+            Label                : '{i18n>Availability}',
+            ![@HTML5.CssDefaults]: {width: '8rem',
+            },
         },
         {
             $Type : 'UI.DataField',
@@ -451,12 +474,37 @@ annotate service.ZZ1_C_MFG_COMBINEDOPE with @(
 
 annotate service.ZZ1_C_COMBORDER_COMP with @(
     UI.SelectionFields #CombinedComp : [Material],
+         UI.DataPoint #radialChart                  : {
+        Value      : chart_percent,
+        Criticality: chart_criticality,
+    },
+    UI.Chart #radialChart                      : {
+        Title            : 'chart_percent',
+        Description      : 'chart_percent',
+        ChartType        : #Donut,
+        Measures         : [chart_percent],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : chart_percent,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#radialChart',
+        }]
+    },
     UI.LineItem #tableMacroCombinedComponents : [
         {
             $Type : 'UI.DataField',
             Value : Material,
             Label : 'Material',
-        }
+            ![@HTML5.CssDefaults]: {width: '20rem',
+            },
+        },   
+        {
+            $Type                : 'UI.DataFieldForAnnotation',
+            Target               : '@UI.Chart#radialChart',
+            Label                : '{i18n>Availability}',
+            ![@HTML5.CssDefaults]: {width: '10rem',
+            },
+        },
     ]
 );
 

@@ -53,13 +53,21 @@ service CatalogService {
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP;
+    entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
+        null as chart_percent        : Integer,
+        null as chart_criticality    : Integer,
+        *
+    };
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_COMBINEDOPE as projection on mainService.ZZ1_C_MFG_COMBINEDOPE;
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP;
+    entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP{
+        null as chart_percent        : Integer,
+        null as chart_criticality    : Integer,
+        *
+    };
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MFG_OrderComp as projection on mainService.ZZ1_C_MFG_OrderComp{

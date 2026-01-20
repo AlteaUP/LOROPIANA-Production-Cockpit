@@ -1,3 +1,7 @@
 .grayBackground {
     background-color: #e0dfdf!important;
 }
+
+.sapSuiteRMCOutsideLabel.sapSuiteRMCFont.sapSuiteRMCTextColorError {
+  visibility: hidden;
+}
