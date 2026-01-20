@@ -17,6 +17,7 @@ module.exports = cds.service.impl(async function (srv) {
     const zmfp_mrp_plant_f4 = await cds.connect.to("ZMFP_MRP_PLANT_F4");
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
+    const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -46,6 +47,14 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_MFG_REASON_SOST", async request => {
         console.log("chiamata ZZ1_MFG_REASON_SOST_CDS")
         var data = await reasonSost.tx(request).run(request.query);
+        console.log("lunghezza array " + data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
+        console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4_CDS")
+        var data = await workCenters.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 
         return data;
@@ -293,9 +302,9 @@ module.exports = cds.service.impl(async function (srv) {
                 const combinedWhere = [
                     { ref: ['MasterProductionOrder'] }, '=', { val: id }, 'and', ...where
                 ]
-                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere)
+                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere).limit(1000)
             } else {
-                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: id })
+                data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: id }).limit(1000)
             }
         } else {
             for (var i = 0; i < idArray.length; i++) {
@@ -307,10 +316,10 @@ module.exports = cds.service.impl(async function (srv) {
                     const combinedWhere = [
                         { ref: ['MasterProductionOrder'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
-                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere)
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where(combinedWhere).limit(1000)
                     console.log("DATAAAA " + JSON.stringify(data))
                 } else {
-                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: idArray[i] })
+                    data = await srv.read('ZZ1_C_MFG_MASTEROPER_SUM').where({ MasterProductionOrder: idArray[i] }).limit(1000)
                     console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)

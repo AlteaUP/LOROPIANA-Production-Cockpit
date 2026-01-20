@@ -60,6 +60,10 @@
       "ZZ1_PRODUCTION_COCKPIT_API_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_PRODUCTION_COCKPIT_API_CDS"
+      },
+      "ZZ1_RFM_WRKCHARVAL_F4_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_RFM_WRKCHARVAL_F4_CDS"
       }
     }
   },

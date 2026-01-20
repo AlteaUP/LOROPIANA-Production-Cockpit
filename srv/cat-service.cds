@@ -18,6 +18,7 @@ using {ZZ1_MFG_ROL_ORDERS_CDS as rol} from './external/ZZ1_MFG_ROL_ORDERS_CDS';
 using { ZMFP_MRP_PLANT_F4 } from './external/ZMFP_MRP_PLANT_F4';
 using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPCONTROLLER_F4_CDS';
 using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
+using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKCHARVAL_F4_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -252,6 +253,8 @@ service CatalogService {
     entity C_RFM_ManageMasterMfgOrder as projection on chart.C_RFM_ManageMasterMfgOrder;
 
     entity C_RFM_ManageCombinedMfgOrder as projection on chart.C_RFM_ManageCombinedMfgOrder;
+
+    entity ZZ1_RFM_WRKCHARVAL_F4 as projection on workCenters.ZZ1_RFM_WRKCHARVAL_F4;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 

@@ -183,6 +183,26 @@
           }
         }
       },
+      "ZZ1_RFM_WRKCHARVAL_F4_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_RFM_WRKCHARVAL_F4_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_RFM_WRKCHARVAL_F4_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_RFM_WRKCHARVAL_F4_CDS"
+          }
+        }
+      },
       "ZMFG_SB_PRODUCTION_ORDERS_DEEP": {
         "kind": "odata-v4",
         "model": "srv/external/ZMFG_SB_PRODUCTION_ORDERS_DEEP",
