@@ -123,6 +123,14 @@ sap.ui.define(
                 oController.pReplacementCompMasterDialog.close();
             }, 
 
+            onReasonChange: function(oEvent){
+                const oSelect = oEvent.getSource();
+                const oCtx = oSelect.getBindingContext();
+
+                const textReason = oSelect.getSelectedItem().getText()
+                oCtx.setProperty("Reason", textReason)
+            },
+
             onConfirmReplacementCompMasterDialog: function(){                
                 console.log("onConfirmReplacementCompMasterDialog");
                 var dataToSend = []

@@ -117,6 +117,9 @@ sap.ui.define(
                     if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
                         for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
                             var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                            if(oFilter.sPath === 'CombinedOrder'){
+                                oFilter.sPath = 'CprodOrd'
+                            }
                             filterArray.push(oFilter)
                             // Applica il filtro
                             if (oBinding) {
@@ -159,6 +162,28 @@ sap.ui.define(
                     } else {
                         oBinding.filter([]);
                     }
+                    // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini
+                    var oTable = this.byId("Table"); // ID della tabella
+                    var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                    var filterArray = []
+            
+                    // Costruisci i filtri (in base al tuo scenario)
+                    if(this.byId("FilterBarMaster").getFilters().filters.length > 0){
+                        for(var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++){
+                            var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                            if(oFilter.sPath === 'CombinedOrder'){
+                                oFilter.sPath = 'CprodOrd'
+                            }
+                            filterArray.push(oFilter)
+                            // Applica il filtro
+                            if (oBinding) {
+                                oBinding.filter(filterArray);
+                            }
+                        }
+                    } else {
+                        oBinding.filter([]);
+                    }
+                    // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini - FINE
                 }
                 /*if(oEvent.getSource().getSelectedKey() === 'master'){
                     this.byId("FilterBarMaster").setVisible(true);
@@ -555,15 +580,17 @@ sap.ui.define(
             getProductionOrder: function(){
                 // recupero ordini di produzione
                 var arrayProductionOrder = []
+                var dataMasterTable = this.byId("TableMaster").getRowBinding().aContexts
+                var dataOrderTable = this.byId("Table").getRowBinding().aContexts
                 for(var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts().length; i++){
                     var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
                     for(var y = 0; y < dataMasterTable.length; y++){
-                        if(dataMasterTable[y].CombinedOrder === combinedOrder){
-                            var masterOrder = dataMasterTable[y].MasterProductionOrder
+                        if(dataMasterTable[y].getObject().CombinedOrder === combinedOrder){
+                            var masterOrder = dataMasterTable[y].getObject().MasterProductionOrder
                             for(var z = 0; z < dataOrderTable.length; z++){
-                                if(dataOrderTable[z].MasterProductionOrder === masterOrder){
-                                    arrayProductionOrder.push(dataOrderTable[z].ManufacturingOrder)
-                                }
+                                //if(dataOrderTable[z].getObject().MasterProductionOrder === masterOrder){
+                                    arrayProductionOrder.push(dataOrderTable[z].getObject().ManufacturingOrder)
+                                //}
                             }
                         }
                     }   

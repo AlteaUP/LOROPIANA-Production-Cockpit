@@ -47,7 +47,10 @@
                 </Column>
                 <Column id="noteID">
                     <Text text="{i18n>note}"/>
-                </Column>                
+                </Column> 
+                <Column>
+                  <Text text="{i18n>rechargeStockFlag}"/>
+                </Column>               
             </columns>
           <items>
             <ColumnListItem vAlign="Middle">
@@ -70,6 +73,7 @@
                   value="{StorageLocation}" editable="true" />
                 <Select id="reasonSelectId"
                     forceSelection="true"
+                    change=".onReasonChange"
                     width="100%"
                     items="{
                         path: 'reasonServiceCombined>/ReasonSet',
@@ -78,7 +82,8 @@
                     <core:Item id="_IDGenItem6" key="{reasonServiceCombined>SAP_UUID}" text="{reasonServiceCombined>Reason} - {reasonServiceCombined>Note}" />
                 </Select>
                 <Input 
-                  value="{Reason}" editable="true" />
+                  value="{Note}" editable="true" />
+                 <CheckBox id="checkboxRechargeStockCombinedId" ></CheckBox>
               </cells>
             </ColumnListItem>
           </items>

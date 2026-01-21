@@ -39,6 +39,9 @@
       }
     }
   },
+  "sap.platform.cf": {
+        "ui5VersionNumber": "1.136.1"
+  }, 
   "sap.ui": {
     "technology": "UI5",
     "icons": {
@@ -58,7 +61,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.136.2",
+      "minUI5Version": "1.136.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},

@@ -122,6 +122,14 @@ sap.ui.define(
                 oController.pReplacementCompCombinedDialog.close();
             }, 
 
+            onReasonChange: function(oEvent){
+                const oSelect = oEvent.getSource();
+                const oCtx = oSelect.getBindingContext();
+
+                const textReason = oSelect.getSelectedItem().getText()
+                oCtx.setProperty("Reason", textReason)
+            },
+
             onConfirmReplacementCompCombinedDialog: function(){
                 console.log("onConfirmReplacementCompCombinedDialog");
                 var dataToSend = []
