@@ -263,6 +263,7 @@ sap.ui.define(
                     dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText  
                     dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup 
                     dataObjectToSend.unit = ""//table[i].getObject().
+                    dataObjectToSend.ManufacturingOrderSequence = table[i].getObject().ManufacturingOrderSequence
                     //dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].getObject().         
                     dataObjectToSend.action = "DEL"
                     dataToSend.push(dataObjectToSend)
