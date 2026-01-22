@@ -350,7 +350,7 @@ sap.ui.define(
                     dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
                     dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
                     dataObjectToSend.unit = ""//table[i].
-                    dataObjectToSend.price = 0 //table[i].
+                    dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].
                     dataObjectToSend.ManufacturingOrderSequence = table[i].ManufacturingOrderSequence
                     if(oController.buttonSelected === "modifyPhase"){
                         dataObjectToSend.action = "UPD"
@@ -377,7 +377,7 @@ sap.ui.define(
                         if(oContext.getObject().value.to_operations[0].flag_error === "true"){
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
-                            oController.openDialogMessageText("Operazione completata con succeesso", "S");
+                            oController.openDialogMessageText("Operazione completata con successo", "S");
                         }
                         //oController.byId("TableComponents").getModel().refresh()
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()
@@ -417,7 +417,7 @@ sap.ui.define(
                     dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText   
                     dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup 
                     dataObjectToSend.unit = ""//table[i].getObject().
-                    dataObjectToSend.price = ""//table[i].getObject().           
+                    //dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].getObject().           
                     dataObjectToSend.action = "DEL"
                     dataToSend.push(dataObjectToSend)
                 }
@@ -434,8 +434,10 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();       
-                        if(oContext.getObject().value.indexOf("Error") > -1){
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        if(oContext.getObject().value.to_operations[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
+                        } else {
+                            oController.openDialogMessageText("Operazione completata con successo", "S");
                         }                     
                         //oController.byId("TableComponents").getModel().refresh()
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()
