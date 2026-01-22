@@ -13,8 +13,8 @@
                                     width="15rem"
                                     importance="High"
                                     horizontalAlign="Begin"
-                                    placement="Before"
-                                    anchor="DataField::CrossPlantConfigurableProduct">	
+                                    placement="After"
+                                    anchor="DataField::StockSegment">	
                                     <commons:MicroProcessFlow id="CombinedOrderCellsExtC3" renderType="Wrap" width="auto">
                                         <commons:content>
                                             <commons:MicroProcessFlowItem id="CombinedOrderCellsExtC31" icon="sap-icon://sales-order-item"
@@ -41,8 +41,8 @@
                                     width="15rem"
                                     importance="High"
                                     horizontalAlign="Begin"
-                                    placement="After"
-                                    anchor="DataField::TotMfgOrderPlannedTotalQty">
+                                    placement="Before"
+                                    anchor="DataField::CrossPlantConfigurableProduct">
                                     <FlexBox id="MasterOrderCellsExt2" height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
                                         <core:Icon id="MasterOrderCellsExtIcon21" src="sap-icon://status-error" class="sapUiTinyMargin"
                                             tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"
@@ -86,8 +86,8 @@
                                     width="15rem"
                                     importance="High"
                                     horizontalAlign="Begin"
-                                    placement="Before"
-                                    anchor="DataField::CrossPlantConfigurableProduct">					
+                                    placement="After"
+                                    anchor="DataField::StockSegment">					
                                       <commons:MicroProcessFlow renderType="Wrap" width="auto">
                                         <commons:content>
 
@@ -180,7 +180,7 @@
                                     importance="High"
                                     horizontalAlign="Begin"
                                     placement="After"
-                                    anchor="DataField::TotMfgOrderPlannedTotalQty">
+                                    anchor="DataField::CrossPlantConfigurableProduct">
                                     <FlexBox height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
                                         <core:Icon src="sap-icon://status-error" class="sapUiTinyMargin"
                                             tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"

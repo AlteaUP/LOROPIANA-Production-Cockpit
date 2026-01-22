@@ -64,6 +64,10 @@
       "ZZ1_RFM_WRKCHARVAL_F4_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_RFM_WRKCHARVAL_F4_CDS"
+      },
+      "ZZ1_MFP_REASON_NOTE_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFP_REASON_NOTE_CDS"
       }
     }
   },

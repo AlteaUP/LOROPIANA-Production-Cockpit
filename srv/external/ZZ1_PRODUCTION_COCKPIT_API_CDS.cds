@@ -1,4 +1,4 @@
-/* checksum : 6cd2c3d617f7c8b6b010609e33cfb1bb */
+/* checksum : dba764c9109dc45af8f60214582a6436 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -9587,6 +9587,11 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile MRP'
   MRPController : String(3);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'CreationDate'
+  CreationDate : Date;
 };
 
 @cds.external : true
@@ -9936,6 +9941,20 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.required.in.filter : 'false'
   @sap.label : 'Descrizione prodotto'
   ProductDescription_1 : String(40);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'MRPController'
+  MRPController : String(1);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Testo lunghezza 50'
+  @sap.quickinfo : 'Testo di lunghezza 50'
+  REASON : String(50);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Testo lunghezza 50'
+  @sap.quickinfo : 'Testo di lunghezza 50'
+  NOTE : String(50);
 };
 
 @cds.external : true
@@ -10256,6 +10275,20 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.unit : 'EntryUnit'
   @sap.label : 'TotalQuantityInEntryUnit'
   TotalQuantityInEntryUnit : Decimal(13, 3);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'MRPController'
+  MRPController : String(1);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Testo lunghezza 50'
+  @sap.quickinfo : 'Testo di lunghezza 50'
+  REASON : String(50);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Testo lunghezza 50'
+  @sap.quickinfo : 'Testo di lunghezza 50'
+  NOTE : String(50);
 };
 
 @cds.external : true
@@ -10394,6 +10427,11 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.required.in.filter : 'false'
   @sap.label : 'Responsabile MRP'
   MRPController : String(3);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'Date'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'CreationDate'
+  CreationDate : Date;
 };
 
 @cds.external : true
@@ -10649,16 +10687,12 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {
   @sap.label : 'Gruppo acquisti'
   @sap.quickinfo : 'Gruppo acquisti per attività di elaborazione esterna'
   key PurchasingGroup : String(3) not null;
-  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Richiesta d''acquisto'
-  @sap.quickinfo : 'Numero della richiesta d''acquisto'
-  key PurchaseRequisition : String(10) not null;
-  @sap.display.format : 'NonNegative'
+  key PurchaseRequisition : String(1) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione della richiesta d''acquisto'
-  @sap.quickinfo : 'ID posizione della richiesta d''acquisto'
-  key PurchaseRequisitionItem : String(5) not null;
+  key PurchaseRequisitionItem : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. acquisto'
@@ -10705,7 +10739,8 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {
   key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'NumberOfOperationPriceUnits'
-  key NumberOfOperationPriceUnits : String(1) not null;
+  @sap.quickinfo : 'Quantità unità di prezzo materiale'
+  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
@@ -10832,11 +10867,9 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {
   @sap.label : 'Livello di riduzione'
   @sap.quickinfo : 'Livello di riduzione che riduce lead time dell''operazione'
   key OpSchedldReductionLevel : String(1) not null;
-  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ordine prod. princ.'
-  @sap.quickinfo : 'Numero ordine di produzione principale'
-  key FshMprodOrd : String(12) not null;
+  key FshMprodOrd : String(1) not null;
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.text : 'WorkCenterInternalID_1_Text'
@@ -10895,6 +10928,10 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_COMBINEDOPER_SUM {
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'OpExternalProcessingCurrency'
+  @sap.label : 'OpExternalProcessingPrice'
+  OpExternalProcessingPrice : Decimal(12, 3);
   to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
   to_WorkCenterType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {  };
 };
@@ -11152,16 +11189,12 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   @sap.label : 'Gruppo acquisti'
   @sap.quickinfo : 'Gruppo acquisti per attività di elaborazione esterna'
   key PurchasingGroup : String(3) not null;
-  @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Richiesta d''acquisto'
-  @sap.quickinfo : 'Numero della richiesta d''acquisto'
-  key PurchaseRequisition : String(10) not null;
-  @sap.display.format : 'NonNegative'
+  key PurchaseRequisition : String(1) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'Posizione della richiesta d''acquisto'
-  @sap.quickinfo : 'ID posizione della richiesta d''acquisto'
-  key PurchaseRequisitionItem : String(5) not null;
+  key PurchaseRequisitionItem : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Ord. acquisto'
@@ -11208,7 +11241,8 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
   @sap.label : 'NumberOfOperationPriceUnits'
-  key NumberOfOperationPriceUnits : String(1) not null;
+  @sap.quickinfo : 'Quantità unità di prezzo materiale'
+  key NumberOfOperationPriceUnits : Decimal(5, 0) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Società'
@@ -11398,6 +11432,10 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   @sap.label : 'PC val.per tt.div.'
   @sap.quickinfo : 'Prodotto configurabile valido per tutte le divisioni'
   CrossPlantConfigurableProduct : String(40);
+  @sap.required.in.filter : 'false'
+  @sap.unit : 'OpExternalProcessingCurrency'
+  @sap.label : 'OpExternalProcessingPrice'
+  OpExternalProcessingPrice : Decimal(12, 3);
   to_Plant : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Plant {  };
   to_WorkCenterType : Association to ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WorkCenterType {  };
 };

@@ -18,6 +18,7 @@ module.exports = cds.service.impl(async function (srv) {
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
     const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
+    const reasonsNotes = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -55,6 +56,14 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
         console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4_CDS")
         var data = await workCenters.tx(request).run(request.query);
+        console.log("lunghezza array " + data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_MFP_REASON_NOTE", async request => {
+        console.log("chiamata ZZ1_MFP_REASON_NOTE")
+        var data = await reasonsNotes.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 
         return data;
@@ -202,7 +211,7 @@ module.exports = cds.service.impl(async function (srv) {
         if (finalData.length > 0) {
             console.log("risultati MASTER COMP final Data: ", finalData.length)
             //MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
-            finalData.forEach(item => {
+            for (const item of finalData) {
                 let chart_percent = 0;
 
                 if (
@@ -230,13 +239,25 @@ module.exports = cds.service.impl(async function (srv) {
                 // output
                 item.chart_percent = chart_percent;
                 item.chart_criticality = chart_criticality;
-            });
+                // modifica DL - 22/01/2026 - recupero note e reason
+                /*const reasonsDataService = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
+                const reasonsData = await reasonsDataService.tx(request).run(
+                    SELECT.from('ZZ1_MFP_REASON_NOTE')
+                        .where({ RSNUM: item.Reservation, RSPOS: item.ReservationItem })
+                        .limit(1000)
+                );
+                if(reasonsData.length > 0){
+                    item.Note = reasonsData[0].NOTE;
+                    item.Reason = reasonsData[0].REASON;
+                }*/
+                // modifica DL - 22/01/2026 - recupero note e reason - FINE
+            };
             //MDB - gestione grafico percentuale - 19/01/2026 - FINE
             return finalData;
         } else {
             console.log("risultati MASTER COMP: ", data.length)
             // MDB - gestione grafico percentuale - INIZIO
-            data.forEach(item => {
+            for (const item of data) {
                 let chart_percent = 0;
 
                 if (
@@ -263,7 +284,19 @@ module.exports = cds.service.impl(async function (srv) {
                 // output
                 item.chart_percent = chart_percent;
                 item.chart_criticality = chart_criticality;
-            });
+                // modifica DL - 22/01/2026 - recupero note e reason
+                /*const reasonsDataService = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
+                const reasonsData = await reasonsDataService.tx(request).run(
+                    SELECT.from('ZZ1_MFP_REASON_NOTE')
+                        .where({ RSNUM: item.Reservation, RSPOS: item.ReservationItem })
+                        .limit(1000)
+                );
+                if(reasonsData.length > 0){
+                    item.Note = reasonsData[0].NOTE;
+                    item.Reason = reasonsData[0].REASON;
+                }*/
+                // modifica DL - 22/01/2026 - recupero note e reason - FINE
+            };
             // MDB - gestione grafico percentuale - FINE
             return data;
         }
@@ -398,7 +431,7 @@ module.exports = cds.service.impl(async function (srv) {
         if (finalData.length > 0) {
             console.log("risultati COMBINED COMP final Data: ", finalData.length)
             //MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
-            finalData.forEach(item => {
+            for (const item of finalData) {
                 let chart_percent = 0;
 
                 if (
@@ -426,13 +459,25 @@ module.exports = cds.service.impl(async function (srv) {
                 // output
                 item.chart_percent = chart_percent;
                 item.chart_criticality = chart_criticality;
-            });
+                // modifica DL - 22/01/2026 - recupero note e reason
+                /*const reasonsDataService = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
+                const reasonsData = await reasonsDataService.tx(request).run(
+                    SELECT.from('ZZ1_MFP_REASON_NOTE')
+                        .where({ RSNUM: item.Reservation, RSPOS: item.ReservationItem })
+                        .limit(1000)
+                );
+                if(reasonsData.length > 0){
+                    item.Note = reasonsData[0].NOTE;
+                    item.Reason = reasonsData[0].REASON;
+                }*/
+                // modifica DL - 22/01/2026 - recupero note e reason - FINE
+            };
             //MDB - gestione grafico percentuale - FINE
             return finalData;
         } else {
             console.log("risultati COMBINED COMP: ", data.length)
             // MDB - gestione grafico percentuale - 19/01/2026 - INIZIO
-            data.forEach(item => {
+            for (const item of data) {
                 let chart_percent = 0;
 
                 if (
@@ -459,7 +504,19 @@ module.exports = cds.service.impl(async function (srv) {
                 // output
                 item.chart_percent = chart_percent;
                 item.chart_criticality = chart_criticality;
-            });
+                // modifica DL - 22/01/2026 - recupero note e reason
+                /*const reasonsDataService = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
+                const reasonsData = await reasonsDataService.tx(request).run(
+                    SELECT.from('ZZ1_MFP_REASON_NOTE')
+                        .where({ RSNUM: item.Reservation, RSPOS: item.ReservationItem })
+                        .limit(1000)
+                );
+                if(reasonsData.length > 0){
+                    item.Note = reasonsData[0].NOTE;
+                    item.Reason = reasonsData[0].REASON;
+                }*/
+                // modifica DL - 22/01/2026 - recupero note e reason - FINE
+            };
             // MDB - gestione grafico percentuale - FINE
             return data;
         }

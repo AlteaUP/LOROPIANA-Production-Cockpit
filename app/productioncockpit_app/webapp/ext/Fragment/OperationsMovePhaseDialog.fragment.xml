@@ -32,6 +32,10 @@
           <f:content>
             <Label text="{i18n>generateWIPbatch}" />
             <CheckBox id="generateWIPbatchCheckBoxId"/>
+            <Label text="{i18n>DDT}" />
+            <Input id="ddtId"/>
+            <Label text="{i18n>ddtDate}" />
+            <DatePicker id="ddtDateId"/>
           </f:content>
         </f:SimpleForm>
       	<Table id="OperationsMovePhaseTableId"
@@ -71,15 +75,15 @@
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
-                  value="{CprodOrd}" editable="false" />
+                  value="{CrossPlantConfigurableProduct}" editable="false" />
                 <Input 
                   value="{SumOpPlannedTotalQuantity}" editable="false" />
                 <Input 
-                  value="{SumOpTotalYieldQuantity}" editable="false" />
+                  value="{SumOpTotalConfirmedYieldQty}" editable="false" />
                 <Input 
-                  value="{SumOpTotalScrapQuantity}" editable="false"/>
+                  value="{SumOpTotalConfirmedScrapQty}" editable="false"/>
                 <Input 
-                  value="{SumOperationConfirmedReworkQty}" editable="true"/>
+                  value="{SumOpTotalConfirmedReworkQty}" editable="true"/>
                 <Input 
                   value="{QtyToConfirm}"/>
                 <Input 

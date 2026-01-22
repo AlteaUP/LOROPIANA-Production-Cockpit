@@ -19,6 +19,7 @@ using { ZMFP_MRP_PLANT_F4 } from './external/ZMFP_MRP_PLANT_F4';
 using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPCONTROLLER_F4_CDS';
 using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
 using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKCHARVAL_F4_CDS';
+using { ZZ1_MFP_REASON_NOTE_CDS as reasonsNotes } from './external/ZZ1_MFP_REASON_NOTE_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -55,9 +56,14 @@ service CatalogService {
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
+        key ID,
+        key REASON,
+        key NOTE,
+        *,
         null as chart_percent        : Integer,
         null as chart_criticality    : Integer,
-        *
+        null as Note                 : String,
+        null as Reason               : String
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -65,9 +71,14 @@ service CatalogService {
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP{
+        key ID,
+        key REASON,
+        key NOTE,
+        *,
         null as chart_percent        : Integer,
         null as chart_criticality    : Integer,
-        *
+        null as Note                 : String,
+        null as Reason               : String
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -181,17 +192,42 @@ service CatalogService {
         key LeadTimeReductionStrategy,
         key OpSchedldReductionLevel,
         key CprodOrd,
+        key OpExternalProcessingPrice,
         *
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERPRODORDER as projection on mainService.ZZ1_C_MASTERPRODORDER{
         key ID,
+        @Common.Label: '{i18n>MRPController}'
         key MRPController,
+        @Common.Label: '{i18n>CombinedOrder}'
+        key CombinedOrder,
+        @Common.Label: '{i18n>MasterProductionOrder}'
+        key MasterProductionOrder,
+        @Common.Label: '{i18n>ProductionPlant}'
+        key ProductionPlant,
+        @Common.Label: '{i18n>ManufacturingOrderType}'
+        key ManufacturingOrderType,
+        @Common.Label: '{i18n>StockSegment}'
+        key StockSegment,
+        @Common.Label: '{i18n>CrossPlantConfigurableProduct}'
+        key CrossPlantConfigurableProduct,
+        @Common.Label: '{i18n>ProductCollection}'
+        key ProductCollection,
+        @Common.Label: '{i18n>CreationDate}'
+        key CreationDate,
+        @Common.Label: '{i18n>ProductSeasonYear}'
+        key ProductSeasonYear,
+        @Common.Label: '{i18n>ProductSeason}'
+        key ProductSeason,
+        @Common.Label: '{i18n>ProductTheme}'
+        key ProductTheme,
         *,
         null as CreatedStatusQtyInPercent: String,
         null as OrderIsCreated: String,
         null as ReleasedStatusQtyInPercent: String,
+        @Common.Label: '{i18n>OrderIsReleased}'
         null as OrderIsReleased: String,
         null as OrderIsPartiallyReleased: String,
         null as ConfirmedStatusQtyInPercent: String,
@@ -204,6 +240,7 @@ service CatalogService {
         null as OrderIsTechnicallyCompleted: String,
         null as OrderHasProductionHold: String,
         null as OrderHasExecutionDelay: String,
+         @Common.Label: '{i18n>OrderHasMissingComponents}'
         null as OrderHasMissingComponents: String,
         null as OrderHasDeviation: String,
         null as OrderHasQualityIssue: String,
@@ -255,6 +292,8 @@ service CatalogService {
     entity C_RFM_ManageCombinedMfgOrder as projection on chart.C_RFM_ManageCombinedMfgOrder;
 
     entity ZZ1_RFM_WRKCHARVAL_F4 as projection on workCenters.ZZ1_RFM_WRKCHARVAL_F4;
+
+    entity ZZ1_MFP_REASON_NOTE as projection on reasonsNotes.ZZ1_MFP_REASON_NOTE;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 

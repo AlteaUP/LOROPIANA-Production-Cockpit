@@ -105,6 +105,13 @@ sap.ui.define(
                     for(var i=0; i<oController.byId("TableComponents").getSelectedContexts().length; i++){
                         selectedComponentsMasterObject = oController.byId("TableComponents").getSelectedContexts()[i].getObject()
                         selectedComponentsMasterObject.NewMaterial = selectedComponentsMasterObject.Material
+                        if(selectedComponentsMasterObject.requirementtype !== 'BB'){
+                            selectedComponentsMasterObject.selectedCheckboxRecharge = false
+                            selectedComponentsMasterObject.editableCheckboxRecharge = false
+                        } else {
+                            selectedComponentsMasterObject.selectedCheckboxRecharge = true
+                            selectedComponentsMasterObject.editableCheckboxRecharge = true
+                        }                        
                         selectedComponentsMasterArray.push(selectedComponentsMasterObject)
                     }
 

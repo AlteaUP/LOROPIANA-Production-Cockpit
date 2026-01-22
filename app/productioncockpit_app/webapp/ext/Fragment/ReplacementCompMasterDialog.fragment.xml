@@ -83,7 +83,7 @@
                 </Select>
                 <Input 
                   value="{Note}" editable="true" />
-                  <CheckBox id="checkboxRechargeStockMasterId" ></CheckBox>
+                  <CheckBox id="checkboxRechargeStockMasterId" selected="{selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>
           </items>

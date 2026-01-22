@@ -311,6 +311,7 @@ sap.ui.define(
                         for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
                             selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                             selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                            selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.SumOpPlannedTotalQuantity) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedYieldQty) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedScrapQty)
                             selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                         }
 
@@ -327,11 +328,16 @@ sap.ui.define(
                 }
             },
 
-            onConfirmAddPhaseMasterDialog: function(){
+            onConfirmAddPhaseMasterDialog: function(oEvent){
                 var dataToSend = []
                 var dataObjectToSend = {}
 
-                var table = this.byId("OperationsAddPhaseMasterTableId").getModel().oData.SelectedOperationsAddPhaseMaster
+                var table 
+                if(this.byId("OperationsAddPhaseMasterTableId") === null || this.byId("OperationsAddPhaseMasterTableId") === undefined){
+                    table = this.byId("OperationsChangeWCMasterTableId").getModel().oData.SelectedOperationsChangeWCMaster
+                } else {
+                    table = this.byId("OperationsAddPhaseMasterTableId").getModel().oData.SelectedOperationsAddPhaseMaster
+                }
 
                 for(var i=0; i<table.length; i++){
                     dataObjectToSend = {}
@@ -344,12 +350,15 @@ sap.ui.define(
                     dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
                     dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
                     dataObjectToSend.unit = ""//table[i].
-                    dataObjectToSend.price = ""//table[i].
+                    dataObjectToSend.price = 0 //table[i].
+                    dataObjectToSend.ManufacturingOrderSequence = table[i].ManufacturingOrderSequence
                     if(oController.buttonSelected === "modifyPhase"){
                         dataObjectToSend.action = "UPD"
-                    } else {
+                    } else if(oController.buttonSelected === "addPhase"){
                         dataObjectToSend.action = "ADD"
-                    }          
+                    }  else {
+                        dataObjectToSend.action = "WRK"
+                    }        
                     dataToSend.push(dataObjectToSend)
                 }
 
@@ -365,8 +374,10 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();        
-                        if(oContext.getObject().value.indexOf("Error") > -1){
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        if(oContext.getObject().value.to_operations[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
+                        } else {
+                            oController.openDialogMessageText("Operazione completata con succeesso", "S");
                         }
                         //oController.byId("TableComponents").getModel().refresh()
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()

@@ -92,6 +92,6 @@ type ManageODPPhase {
     MfgOrderOperationText       : String;
     MaterialGroup               : String;
     unit                        : String;
-    price                       : String;    
+    price                       : Decimal(9, 3);   
     action                      : String;
 }

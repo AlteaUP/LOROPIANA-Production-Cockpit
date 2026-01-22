@@ -67,7 +67,7 @@
                 <Input 
                   value="{WorkCenterInternalID_1_Text}" />
                 <Input 
-                  value="" />
+                  value="{OpExternalProcessingPrice}" />
                 <Input 
                   value="{OperationControlProfile}" />
                 <CheckBox id="checkboxFreeFlagMasterId" ></CheckBox>

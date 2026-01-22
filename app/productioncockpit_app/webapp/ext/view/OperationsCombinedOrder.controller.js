@@ -195,12 +195,15 @@ sap.ui.define(
                     dataObjectToSend.OperationControlProfile = table[i].OperationControlProfile
                     dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
                     dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
+                    dataObjectToSend.ManufacturingOrderSequence = table[i].ManufacturingOrderSequence
                     dataObjectToSend.unit = ""//table[i].
-                    dataObjectToSend.price = ""//table[i].          
+                    dataObjectToSend.price = 0//table[i].          
                     if(oController.buttonSelected === "modifyPhase"){
                         dataObjectToSend.action = "UPD"
-                    } else {
+                    }  else if(oController.buttonSelected === "addPhase"){
                         dataObjectToSend.action = "ADD"
+                    }  else {
+                        dataObjectToSend.action = "WRK"
                     }
                     dataToSend.push(dataObjectToSend)
                 }
@@ -218,6 +221,11 @@ sap.ui.define(
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();                            
                         //oController.byId("TableComponents").getModel().refresh()
+                        if(oContext.getObject().value.to_operations[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
+                        } else {
+                            oController.openDialogMessageText("Operazione completata con succeesso", "S");
+                        }
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
                         oBusyDialog.close();
                         

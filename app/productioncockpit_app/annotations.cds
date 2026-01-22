@@ -71,8 +71,18 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : CombinedOrder,
-            Label : 'CombinedOrder',
+            Value : ProductionPlant,
+            Label : 'ProductionPlant',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderType,
+            Label : 'ManufacturingOrderType',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : StockSegment,
+            Label : 'StockSegment',
         },
         {
             $Type : 'UI.DataField',
@@ -84,7 +94,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
             Value : CrossPlantConfigurableProduct,
             Label : 'CrossPlantConfigurableProduct',
         },
-        {
+         {
             $Type : 'UI.DataField',
             Value : ProductCollection,
             Label : 'ProductCollection',
@@ -109,12 +119,27 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
             Value : TotMfgOrderPlannedTotalQty,
             Label : 'TotMfgOrderPlannedTotalQty',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : CreationDate,
+            Label : 'CreationDate',
+        }
     ],
     UI.SelectionFields #filterBarMacro1 : [
-        MasterProductionOrder,
         CombinedOrder,
+        MasterProductionOrder,
         ProductionPlant,
-        MRPController
+        ManufacturingOrderType,
+        StockSegment,
+        CrossPlantConfigurableProduct,
+        ProductSeason,
+        ProductSeasonYear,
+        ProductCollection,
+        ProductTheme,
+        MRPController,
+        OrderIsReleased,
+        OrderHasMissingComponents,
+        CreationDate
     ],
 );
 
@@ -131,13 +156,23 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : CrossPlantConfigurableProduct,
-            Label : 'CrossPlantConfigurableProduct',
+            Value : ProductionPlant,
+            Label : 'ProductionPlant',
         },
         {
             $Type : 'UI.DataField',
-            Value : ActualDeliveredQuantity,
-            Label : 'ActualDeliveredQuantity',
+            Value : ManufacturingOrderType,
+            Label : 'ManufacturingOrderType',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : StockSegment,
+            Label : 'StockSegment',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : CrossPlantConfigurableProduct,
+            Label : 'CrossPlantConfigurableProduct',
         },
         {
             $Type : 'UI.DataField',
@@ -164,6 +199,11 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
             Value : TotMfgOrderPlannedTotalQty,
             Label : 'TotMfgOrderPlannedTotalQty',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : CreationDate,
+            Label : 'CreationDate',
+        }
     ]
 );
 
@@ -264,6 +304,16 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : StockSegment,
             Label : 'StockSegment',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : NOTE,
+            Label : 'Note',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : REASON,
+            Label : 'Reason',
         },
     ],
 );
