@@ -67,57 +67,57 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         {
             $Type : 'UI.DataField',
             Value : MasterProductionOrder,
-            Label : 'MasterProductionOrder',
+            Label : 'Master Order',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductionPlant,
-            Label : 'ProductionPlant',
+            Label : 'Plant Produttivo',
         },
         {
             $Type : 'UI.DataField',
             Value : ManufacturingOrderType,
-            Label : 'ManufacturingOrderType',
+            Label : 'Tipo Ordine',
         },
         {
             $Type : 'UI.DataField',
             Value : StockSegment,
-            Label : 'StockSegment',
+            Label : 'Segmento di Stock',
         },
-        {
+       /*  {
             $Type : 'UI.DataField',
             Value : ActualDeliveredQuantity,
             Label : 'ActualDeliveredQuantity',
-        },
+        }, */
         {
             $Type : 'UI.DataField',
             Value : CrossPlantConfigurableProduct,
-            Label : 'CrossPlantConfigurableProduct',
+            Label : 'Prodotto Finito',
         },
          {
             $Type : 'UI.DataField',
             Value : ProductCollection,
-            Label : 'ProductCollection',
+            Label : 'Collezione',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductSeason,
-            Label : 'ProductSeason',
+            Label : 'Stagione',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductSeasonYear,
-            Label : 'ProductSeasonYear',
+            Label : 'Anno',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductTheme,
-            Label : 'ProductTheme',
+            Label : 'Tema',
         },
         {
             $Type : 'UI.DataField',
             Value : TotMfgOrderPlannedTotalQty,
-            Label : 'TotMfgOrderPlannedTotalQty',
+            Label : 'Quantità Totale Ordine',
         },
         {
             $Type : 'UI.DataField',
@@ -152,52 +152,52 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
         {
             $Type : 'UI.DataField',
             Value : CombinedOrder,
-            Label : 'CombinedOrder',
+            Label : 'Ordine Combinato',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductionPlant,
-            Label : 'ProductionPlant',
+            Label : 'Plant Produttivo',
         },
         {
             $Type : 'UI.DataField',
             Value : ManufacturingOrderType,
-            Label : 'ManufacturingOrderType',
+            Label : 'Tipo Ordine',
         },
         {
             $Type : 'UI.DataField',
             Value : StockSegment,
-            Label : 'StockSegment',
+            Label : 'Segmento di Stock',
         },
         {
             $Type : 'UI.DataField',
             Value : CrossPlantConfigurableProduct,
-            Label : 'CrossPlantConfigurableProduct',
+            Label : 'Prodotto Finito',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductCollection,
-            Label : 'ProductCollection',
+            Label : 'Collezione',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductSeason,
-            Label : 'ProductSeason',
+            Label : 'Stagione',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductSeasonYear,
-            Label : 'ProductSeasonYear',
+            Label : 'Anno',
         },
         {
             $Type : 'UI.DataField',
             Value : ProductTheme,
-            Label : 'ProductTheme',
+            Label : 'Tema',
         },
         {
             $Type : 'UI.DataField',
             Value : TotMfgOrderPlannedTotalQty,
-            Label : 'TotMfgOrderPlannedTotalQty',
+            Label : 'Quantità Totale Ordine',
         },
         {
             $Type : 'UI.DataField',
@@ -279,6 +279,11 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             Label : 'Material',
         },
         {
+            $Type : 'UI.DataField',
+            Value : Batch,
+            Label : 'Batch',
+        },
+        {
             $Type                : 'UI.DataFieldForAnnotation',
             Target               : '@UI.Chart#radialChart',
             Label                : '{i18n>Availability}',
@@ -287,23 +292,13 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
         },
         {
             $Type : 'UI.DataField',
+            Value : TotalQuantityInEntryUnit,
+            Label : 'Quantità Tot Fabbisogno',
+        },
+        {
+            $Type : 'UI.DataField',
             Value : EntryUnit,
-            Label : 'EntryUnit',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : ComponentScrapInPercent,
-            Label : 'ComponentScrapInPercent',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : OperationScrapInPercent,
-            Label : 'OperationScrapInPercent',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : StockSegment,
-            Label : 'StockSegment',
+            Label : 'Unità di Misura',
         },
         {
             $Type : 'UI.DataField',
@@ -313,7 +308,22 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
         {
             $Type : 'UI.DataField',
             Value : REASON,
-            Label : 'Reason',
+            Label : 'Motivo',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ReservationIsFinallyIssued,
+            Label : 'Chiusura Fabbisogno',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : 'Plant',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Lgort1,
+            Label : 'Magazzino',
         },
     ],
 );
@@ -447,7 +457,12 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
         {
             $Type : 'UI.DataField',
             Value : MasterProductionOrder,
-            Label : 'MasterProductionOrder',
+            Label : 'Master Order',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : MfgOrderOperationText,
+            Label : 'Operazione',
         },
         {
             $Type : 'UI.DataField',
@@ -456,28 +471,28 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : BillOfOperationsSequence,
-            Label : 'BillOfOperationsSequence',
+            Value : ManufacturingOrderOperation,
+            Label : 'Numero Operazione',
         },
         {
             $Type : 'UI.DataField',
-            Value : ManufacturingOrderOperation,
-            Label : 'ManufacturingOrderOperation',
+            Value : BillOfOperationsSequence,
+            Label : 'Sequenza Operazione',
         },
-                {
+        {
             $Type : 'UI.DataField',
-            Value : MfgOrderOperationText,
-            Label : 'MfgOrderOperationText',
+            Value : WorkCenter,
+            Label : 'WorkCenter',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : OpExternalProcessingPrice,
+            Label : 'Prezzo',
         },
         {
             $Type : 'UI.DataField',
             Value : Supplier,
-            Label : 'Supplier',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : WorkCenterInternalID,
-            Label : 'WorkCenterInternalID',
+            Label : 'Fornitore',
         },
     ]
 );
