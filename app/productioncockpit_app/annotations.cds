@@ -272,12 +272,21 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : FshMprodOrd,
             Label : '{i18n>fshMprodOrd}',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
             $Type : 'UI.DataField',
             Value : Material,
-            Label : 'Material',
+            Label : 'Materiale',
+            ![@HTML5.CssDefaults]: {width: '9rem'}
         },
+        {
+            $Type : 'UI.DataField',
+            Value : ProductDescription,
+            Label : 'Desc. Materiale',
+            ![@HTML5.CssDefaults]: {width: '20rem',
+            },
+        }, 
         {
             $Type : 'UI.DataField',
             Value : Batch,
@@ -287,7 +296,7 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type                : 'UI.DataFieldForAnnotation',
             Target               : '@UI.Chart#radialChart',
             Label                : '{i18n>Availability}',
-            ![@HTML5.CssDefaults]: {width: '8rem',
+            ![@HTML5.CssDefaults]: {width: '5rem',
             },
         },
         {
@@ -299,6 +308,7 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : EntryUnit,
             Label : 'Unità di Misura',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
             $Type : 'UI.DataField',
@@ -314,16 +324,19 @@ annotate service.ZZ1_C_MASTERORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : ReservationIsFinallyIssued,
             Label : 'Chiusura Fabbisogno',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
             $Type : 'UI.DataField',
             Value : Plant,
             Label : 'Plant',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
             $Type : 'UI.DataField',
             Value : Lgort1,
             Label : 'Magazzino',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
         },
     ],
 );
@@ -558,18 +571,74 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
     UI.LineItem #tableMacroCombinedComponents : [
         {
             $Type : 'UI.DataField',
+            Value : CprodOrd,
+            Label : 'Ord. Comb.',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
+        },
+        {
+            $Type : 'UI.DataField',
             Value : Material,
-            Label : 'Material',
+            Label : 'Materiale',
+            ![@HTML5.CssDefaults]: {width: '9rem'}
+        },  
+        {
+            $Type : 'UI.DataField',
+            Value : ProductDescription,
+            Label : 'Desc. Materiale',
             ![@HTML5.CssDefaults]: {width: '20rem',
             },
-        },   
+        }, 
+        {
+            $Type : 'UI.DataField',
+            Value : Batch,
+            Label : 'Batch',
+        },
         {
             $Type                : 'UI.DataFieldForAnnotation',
             Target               : '@UI.Chart#radialChart',
             Label                : '{i18n>Availability}',
-            ![@HTML5.CssDefaults]: {width: '10rem',
+            ![@HTML5.CssDefaults]: {width: '5rem',
             },
         },
+        {
+            $Type : 'UI.DataField',
+            Value : TotalQuantityInEntryUnit,
+            Label : 'Quantità Tot Fabbisogno',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : EntryUnit,
+            Label : 'Unità di Misura',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : NOTE,
+            Label : 'Note',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : REASON,
+            Label : 'Motivo',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ReservationIsFinallyIssued,
+            Label : 'Chiusura Fabbisogno',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : 'Plant',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Lgort1,
+            Label : 'Magazzino',
+            ![@HTML5.CssDefaults]: {width: '5rem'}
+        }
     ]
 );
 
