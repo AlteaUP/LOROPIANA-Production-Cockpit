@@ -104,12 +104,12 @@ sap.ui.define(
                     for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
                         selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
-                        if(selectedComponentsMasterObject.requirementtype !== 'BB'){
-                            selectedComponentsMasterObject.selectedCheckboxRecharge = false
-                            selectedComponentsMasterObject.editableCheckboxRecharge = false
+                        if(selectedComponentsCombinedObject.requirementtype !== 'BB'){
+                            selectedComponentsCombinedObject.selectedCheckboxRecharge = false
+                            selectedComponentsCombinedObject.editableCheckboxRecharge = false
                         } else {
-                            selectedComponentsMasterObject.selectedCheckboxRecharge = true
-                            selectedComponentsMasterObject.editableCheckboxRecharge = true
+                            selectedComponentsCombinedObject.selectedCheckboxRecharge = true
+                            selectedComponentsCombinedObject.editableCheckboxRecharge = true
                         } 
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }

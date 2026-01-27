@@ -5,7 +5,7 @@
             <IconTabBar id="IconTabFilterId" select=".selectIconTabFilter">
                 <items>
                     <IconTabFilter text="Combined" key="combined">
-                        <macros:Table id="TableCombined" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
+                        <macros:Table id="TableCombined" filterBar="FilterBarMaster" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn3"
                                     key="CombinedOrderChart"
@@ -214,7 +214,7 @@
                         </macros:Table>
                     </IconTabFilter>
                     <IconTabFilter text="Order" key="order">
-                        <macros:Table id="Table" metaPath="/ZZ1_PRODUCTION_COCKPIT_API/@com.sap.vocabularies.UI.v1.LineItem#tableMacro" selectionMode="ForceMulti">
+                        <macros:Table id="Table" filterBar="FilterBarMaster" metaPath="/ZZ1_PRODUCTION_COCKPIT_API/@com.sap.vocabularies.UI.v1.LineItem#tableMacro" selectionMode="ForceMulti">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn6"
                                     key="MasterOrderIssue"
