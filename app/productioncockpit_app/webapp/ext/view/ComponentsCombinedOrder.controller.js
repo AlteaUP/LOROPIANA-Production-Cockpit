@@ -186,7 +186,8 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();    
-                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        oController.openDialogMessageText("Operazione completata con successo", "S");
                         oBusyDialog.close();
                         
                     }).catch((oError) => {
@@ -249,7 +250,8 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();                            
-                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        oController.openDialogMessageText("Operazione completata con successo", "S");
                         oBusyDialog.close();                        
                         
                     }).catch((oError) => {
@@ -278,7 +280,7 @@ sap.ui.define(
                     vTitle = this.getResourceBundle().getText("errorTitle");
                     vState = "Error";
                 } else
-                    if (messType === "I") {
+                    if (messType === "I" || messType === "S") {
                         vTitle = this.getResourceBundle().getText("successTitle");
                         vState = "Success";
                     }

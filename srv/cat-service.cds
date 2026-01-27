@@ -20,6 +20,7 @@ using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPC
 using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
 using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKCHARVAL_F4_CDS';
 using { ZZ1_MFP_REASON_NOTE_CDS as reasonsNotes } from './external/ZZ1_MFP_REASON_NOTE_CDS';
+using { ZMF_IMD_MATERIAL_CDS as materialCharacteristics } from './external/ZMF_IMD_MATERIAL_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -295,6 +296,8 @@ service CatalogService {
 
     entity ZZ1_MFP_REASON_NOTE as projection on reasonsNotes.ZZ1_MFP_REASON_NOTE;
 
+    entity ZMF_IMD_MATERIAL as projection on materialCharacteristics.ZMF_IMD_MATERIAL;
+
     action ReleaseOrder (OrderID : array of String) returns String;
 
     action TechnicalCompleteOrder (OrderID : array of String) returns String;
@@ -314,5 +317,8 @@ service CatalogService {
     action DoKitting (Record: many TYPES.OrdersKittingRecord) returns String;
 
     action GetOrderDetails(oidOrdine: String) returns LargeString;
+
+    action GetMaterialDetails(oidOrdine: String) returns LargeString;
+
 
 }

@@ -47,6 +47,12 @@
                     <Text text="{i18n>FinishProduct}"/>
                 </Column>
                 <Column>
+                    <Text text="{i18n>color}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>size}"/>
+                </Column>                
+                <Column>
                     <Text text="{i18n>OperationQty}"/>
                 </Column>
                 <Column>
@@ -69,13 +75,17 @@
                 </Column>
                 <Column>
                     <Text text="{i18n>reason}"/>
-                </Column>
+                </Column>                
             </columns>
           <items>
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
                   value="{CrossPlantConfigurableProduct}" editable="false" />
+                <Input 
+                  value="{zzcolor}" editable="false"/>
+                <Input 
+                  value="{zztagliadesc}" editable="false"/>
                 <Input 
                   value="{SumOpPlannedTotalQuantity}" editable="false" />
                 <Input 
@@ -91,7 +101,7 @@
                 <Input 
                   value="{QtyToRework}" editable="true"/>
                 <Input 
-                  value="{Reason}" />
+                  value="{Reason}" />                
               </cells>
             </ColumnListItem>
           </items>

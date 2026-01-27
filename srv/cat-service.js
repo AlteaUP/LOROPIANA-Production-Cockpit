@@ -19,6 +19,7 @@ module.exports = cds.service.impl(async function (srv) {
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
     const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
     const reasonsNotes = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
+    const materialCharacteristics = await cds.connect.to('ZMF_IMD_MATERIAL_CDS');
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -65,6 +66,14 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("chiamata ZZ1_MFP_REASON_NOTE")
         var data = await reasonsNotes.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZMF_IMD_MATERIAL", async request => {
+        console.log("chiamata ZMF_IMD_MATERIAL")
+        var data = await materialCharacteristics.tx(request).run(request.query);
+        console.log("lunghezza array ZMF_IMD_MATERIAL " + data.length)
 
         return data;
     });
@@ -1015,6 +1024,35 @@ module.exports = cds.service.impl(async function (srv) {
         }
 
     });
+
+    this.on("GetMaterialDetails", async (req) => {
+        console.log("GetMaterialDetails Action")
+
+        const { oidOrdine } = req.data;
+        var result = []
+        
+        var srvOrderLinked = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
+        var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ CprodOrd: oidOrdine })
+
+        if(dataOrderLinked.length > 0){
+            console.log("QUIII")
+            // creo filtri per chiamata a ZMF_IMD_MATERIAL
+            var arrayDataMaterial = []
+            for(var i=0; i<dataOrderLinked.length; i++){
+                arrayDataMaterial.push(dataOrderLinked[i].Material)     
+            }
+            console.log("QUIII 2222" +JSON.stringify(arrayDataMaterial))
+            var srvMaterialDet = await cds.connect.to('ZMF_IMD_MATERIAL_CDS')
+            result = await srvMaterialDet.read('ZMF_IMD_MATERIAL').where({ matnr: { in: arrayDataMaterial } })
+        }
+
+        console.log("arrayDataMaterial "+ JSON.stringify(result))
+        
+        return result;
+
+    });
+
+
 
     this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {
         console.log("chiamata ZZ1_MFG_ROL_ORDERS")

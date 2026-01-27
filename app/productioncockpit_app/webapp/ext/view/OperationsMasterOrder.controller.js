@@ -191,7 +191,7 @@ sap.ui.define(
                 });*/
             },
 
-            onActionOperationMaster: function(oEvent){
+            onActionOperationMaster: async function(oEvent){
                 var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
                 // controllo quale pulsante ho selezionato
                 switch(buttonId) {
@@ -306,7 +306,49 @@ sap.ui.define(
 
                         oController.pOperationsMovePhaseMasterDialog.open();
 
-                        var selectedOperationsMasterArray = []
+                        // chiamo action per recupero dettagli del materiale
+                        var oBusyDialog = new sap.m.BusyDialog();
+                        oBusyDialog.open();
+
+                        const oModelView = oController.getView().getModel();
+                        var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
+                        oBindingContext.setParameter("oidOrdine", 
+                            oController.byId("TableOperations").getSelectedContexts()[0].getObject().CprodOrd
+                        );
+
+                        await oBindingContext.execute().then((oResult) => {
+                            var oContext = oBindingContext.getBoundContext(); 
+                            var selectedOperationsMasterArray = []
+                            var selectedOperationsMasterObject = {}                           
+                            if(oContext.getObject().value.length > 0){
+                                for(var p=0; p<oContext.getObject().value.length; p++){
+                                    selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[0].getObject()
+                                    selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                                    selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
+                                    selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
+                                    selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.SumOpPlannedTotalQuantity) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedYieldQty) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedScrapQty)
+                                    selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                                }
+                            }
+                            var oTable = oController.byId("OperationsMovePhaseTableId");
+                            
+                            var oModel = new JSONModel();
+                            oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray})
+                            oTable.setModel(oModel);
+
+                            oBusyDialog.close();
+                            
+                        }).catch((oError) => {
+                            oBusyDialog.close();
+                            if(oError.error !== undefined && oError.error !== null){
+                                oController.openDialogMessageText(oError.error.message, "E");
+                            } else {
+                                oController.openDialogMessageText(oError, "E");
+                            }
+                        });
+                        
+
+                        /*var selectedOperationsMasterArray = []
                         var selectedOperationsMasterObject = {}
                         for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
                             selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
@@ -319,7 +361,7 @@ sap.ui.define(
                             
                         var oModel = new JSONModel();
                         oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray})
-                        oTable.setModel(oModel);
+                        oTable.setModel(oModel);*/
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
                     } 
