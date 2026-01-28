@@ -66,8 +66,12 @@ sap.ui.define(
                                     if(oRow.getBindingContext() !== null){
                                         if(oRow.getBindingContext().getProperty("OperationIsDeleted") === "X"){
                                             oRow.addStyleClass("grayBackground");
-                                            var idToRemove = oRow.getId() + "-selectMulti"
-                                            sap.ui.getCore().byId(idToRemove).setVisible(false)
+                                            /*var idToRemove = oRow.getId() + "-selectMulti"
+                                            sap.ui.getCore().byId(idToRemove).setVisible(false)*/
+                                            var parentId = oRow.getParent().getId()
+                                            var countRow = oRow.getId().substring(oRow.getId().length-1,oRow.getId().length)
+                                            var idToRemove = parentId + "-rowsel" + countRow
+                                            document.getElementById(idToRemove).style.visibility = "hidden";
                                         }  
                                     }                               
                     
