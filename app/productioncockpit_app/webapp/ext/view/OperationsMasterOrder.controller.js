@@ -150,6 +150,11 @@ sap.ui.define(
                         } else {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
                         }
+                         setTimeout(() => {
+                            sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
+                        }, 1000);
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
+                        oController.pOperationsMovePhaseMasterDialog.close()
                         //MessageToast.show(oController.getResourceBundle().getText("done"))                            
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
                         oBusyDialog.close();                       
@@ -442,6 +447,7 @@ sap.ui.define(
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
                         oBusyDialog.close();                        
                         
                     }).catch((oError) => {
@@ -511,6 +517,7 @@ sap.ui.define(
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
                         oBusyDialog.close();
                         
                     }).catch((oError) => {

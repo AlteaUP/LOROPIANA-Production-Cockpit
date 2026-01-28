@@ -54,7 +54,7 @@
                 <Input 
                   value="{Supplier}" editable="false"/>
                 <Input 
-                  value="{WorkCenter}"/>
+                  value="{WorkCenter}" valueHelpRequest=".onValueHelpRequestWorkCenters" showValueHelp="true"/>
                 <Input 
                   value="{WorkCenterInternalID_1_Text}" editable="false"/>
               </cells>

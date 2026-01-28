@@ -63,7 +63,7 @@
                 <Input 
                   value="{Supplier}" editable="{SupplierEditable}"/>
                 <Input 
-                  value="{WorkCenter}" editable="{WorkCenterEditable}"/>
+                  value="{WorkCenter}" editable="{WorkCenterEditable}" valueHelpRequest=".onValueHelpRequestWorkCenters" showValueHelp="true"/>
                 <Input 
                   value="{WorkCenterInternalID_1_Text}" editable="{WorkCenterInternalID_1_TextEditable}"/>
                 <Input 

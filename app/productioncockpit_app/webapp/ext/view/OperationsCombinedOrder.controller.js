@@ -165,8 +165,8 @@ sap.ui.define(
 
                         oController.pOperationsAddPhaseCombinedDialog.open();
 
-                        var selectedOperationsMasterArray = []
-                        var selectedOperatioselectedOperationsCombinedObjectnsMasterObject = {}
+                        var selectedOperationsCombinedArray = []
+                        var selectedOperationsCombinedObject = {}
                         for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
                             selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
                             selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material
@@ -177,13 +177,13 @@ sap.ui.define(
                             selectedOperationsCombinedObject.WorkCenterEditable = false
                             selectedOperationsCombinedObject.WorkCenterInternalID_1_TextEditable = false
                             selectedOperationsCombinedObject.OperationControlProfileEditable = false
-                            selectedOperationsMasterArray.push(selectedOperationsCombinedObject)
+                            selectedOperationsCombinedArray.push(selectedOperationsCombinedObject)
                         }
 
-                        var oTable = oController.byId("OperationsAddPhaseCombinedDialog");
+                        var oTable = oController.byId("OperationsAddPhaseCombinedTableId");
                             
                         var oModel = new JSONModel();
-                        oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsMasterArray})
+                        oModel.setData({ SelectedOperationsAddPhaseCombined: selectedOperationsCombinedArray})
                         oTable.setModel(oModel);
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
@@ -495,6 +495,52 @@ sap.ui.define(
                 });
     
                 dialog.open();
+            },
+
+            onValueHelpRequestWorkCenters: function (oEvent) {
+                //this.byId("shippingPointID").setValue();
+                if(oController.pWorkCentersDialog === null || oController.pWorkCentersDialog === undefined){
+                    oController.pWorkCentersDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.WorkCentersList",
+                    oController);
+                    oController.getView().addDependent(oController.pWorkCentersDialog);
+                }
+
+                var oInput = oEvent.getSource();
+                oController._oWorkCenterContext = oInput.getBindingContext();
+
+                oController.pWorkCentersDialog.open();
+            },
+
+            onValueHelpWorkCentersConfirm: function(oEvent){
+                var oSelectedItem = oEvent.getParameter("selectedItem");
+                oEvent.getSource().getBinding("items").filter([]);
+
+                if (!oSelectedItem) {
+                    return;
+                }
+
+                var oModel = oController._oWorkCenterContext.getModel();
+                var sPath = oController._oWorkCenterContext.getPath();
+
+                // Valori scelti nel SelectDialog
+                var sWorkCenter = oSelectedItem.getTitle();
+                var sWorkCenterText = oSelectedItem.getDescription();
+
+                // Scrivo nel modello → la tabella si aggiorna da sola
+                oModel.setProperty(sPath + "/WorkCenter", sWorkCenter);
+                oModel.setProperty(sPath + "/WorkCenterInternalID_1_Text", sWorkCenterText);
+
+            },
+
+            onValueHelpWorkCentersClose: function(oEvent){
+                oController.pWorkCentersDialog.close();
+            },
+
+            onValueHelpWorkCentersSearch: function(oEvent){
+                var sValue = oEvent.getParameter("value");
+			    var oFilter = new sap.ui.model.Filter("workcentertext", sap.ui.model.FilterOperator.Contains, sValue);
+
+			    oEvent.getSource().getBinding("items").filter([oFilter]);
             }
 
             /**
