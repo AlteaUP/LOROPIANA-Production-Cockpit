@@ -95,7 +95,7 @@ sap.ui.define(
 
                     if(oController.buttonSelected === "integration"){
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
-                    } else {
+                    } else {                        
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
                     }
 
@@ -103,7 +103,11 @@ sap.ui.define(
                     var selectedComponentsCombinedObject = {}
                     for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
-                        selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
+                        if(oController.buttonSelected === "integration"){
+                            selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
+                        } else {
+                            selectedComponentsCombinedObject.NewMaterial = ""
+                        }
                         if(selectedComponentsCombinedObject.requirementtype !== 'BB'){
                             selectedComponentsCombinedObject.selectedCheckboxRecharge = false
                             selectedComponentsCombinedObject.editableCheckboxRecharge = false
@@ -186,8 +190,9 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();    
-                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                         oController.openDialogMessageText("Operazione completata con successo", "S");
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();
                         
                     }).catch((oError) => {
@@ -250,8 +255,9 @@ sap.ui.define(
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();                            
-                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                         oController.openDialogMessageText("Operazione completata con successo", "S");
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();                        
                         
                     }).catch((oError) => {

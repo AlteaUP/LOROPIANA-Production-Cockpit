@@ -139,6 +139,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         MRPController,
         OrderIsReleased,
         OrderHasMissingComponents,
+        OrganizationBPName1,
         CreationDate
     ],
 );
@@ -198,6 +199,11 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
             $Type : 'UI.DataField',
             Value : TotMfgOrderPlannedTotalQty,
             Label : 'Quantità Totale Ordine',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : OrganizationBPName1,
+            Label : 'Fornitore della fase principale',
         },
         {
             $Type : 'UI.DataField',
@@ -470,42 +476,68 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
         {
             $Type : 'UI.DataField',
             Value : MasterProductionOrder,
-            Label : 'Master Order',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : MfgOrderOperationText,
-            Label : 'Operazione',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : MaterialGroup,
-            Label : 'MaterialGroup',
+            Label : '{i18n>masterProductionOrder}',
+            ![@HTML5.CssDefaults] : {
+                width : '3%',
+            }
         },
         {
             $Type : 'UI.DataField',
             Value : ManufacturingOrderOperation,
-            Label : 'Numero Operazione',
+            Label : '{i18n>manufacturingOrderOperation}',
         },
         {
             $Type : 'UI.DataField',
-            Value : BillOfOperationsSequence,
-            Label : 'Sequenza Operazione',
+            Value : ManufacturingOrderSequence,
+            Label : '{i18n>manufacturingOrderSequence}',
         },
         {
             $Type : 'UI.DataField',
             Value : WorkCenter,
-            Label : 'WorkCenter',
+            Label : '{i18n>workCenter}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : WorkCenterInternalID,
+            Label : '{i18n>workCenterInternalID}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : WorkCenterInternalID_1_Text,
+            Label : '{i18n>workCenterInternalID_1_Text}',
+            ![@HTML5.CssDefaults] : {
+                width : '10%',
+            }
         },
         {
             $Type : 'UI.DataField',
             Value : OpExternalProcessingPrice,
-            Label : 'Prezzo',
+            Label : '{i18n>price}',
         },
         {
             $Type : 'UI.DataField',
-            Value : Supplier,
-            Label : 'Fornitore',
+            Value : SumOpPlannedTotalQuantity,
+            Label : '{i18n>sumOpPlannedTotalQuantity}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedYieldQty,
+            Label : '{i18n>sumOpTotalConfirmedYieldQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedReworkQty,
+            Label : '{i18n>sumOpTotalConfirmedReworkQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedScrapQty,
+            Label : '{i18n>sumOpTotalConfirmedScrapQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : '{i18n>plant}',
         },
     ]
 );
@@ -515,37 +547,68 @@ annotate service.ZZ1_C_MFG_COMBINEDOPER_SUM with @(
         {
             $Type : 'UI.DataField',
             Value : CprodOrd,
-            Label : 'CprodOrd',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : MaterialGroup,
-            Label : 'MaterialGroup',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : BillOfOperationsSequence,
-            Label : 'BillOfOperationsSequence',
+            Label : '{i18n>cprodOrd}',
+            ![@HTML5.CssDefaults] : {
+                width : '3%',
+            }
         },
         {
             $Type : 'UI.DataField',
             Value : ManufacturingOrderOperation,
-            Label : 'ManufacturingOrderOperation',
+            Label : '{i18n>manufacturingOrderOperation}',
         },
         {
             $Type : 'UI.DataField',
-            Value : MfgOrderOperationText,
-            Label : 'MfgOrderOperationText',
+            Value : ManufacturingOrderSequence,
+            Label : '{i18n>manufacturingOrderSequence}',
         },
         {
             $Type : 'UI.DataField',
-            Value : Supplier,
-            Label : 'Supplier',
+            Value : WorkCenter,
+            Label : '{i18n>workCenter}',
         },
         {
             $Type : 'UI.DataField',
             Value : WorkCenterInternalID,
-            Label : 'WorkCenterInternalID',
+            Label : '{i18n>workCenterInternalID}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : WorkCenterInternalID_1_Text,
+            Label : '{i18n>workCenterInternalID_1_Text}',
+            ![@HTML5.CssDefaults] : {
+                width : '10%',
+            }
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : OpExternalProcessingPrice,
+            Label : '{i18n>price}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpPlannedTotalQuantity,
+            Label : '{i18n>sumOpPlannedTotalQuantity}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedYieldQty,
+            Label : '{i18n>sumOpTotalConfirmedYieldQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedReworkQty,
+            Label : '{i18n>sumOpTotalConfirmedReworkQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : SumOpTotalConfirmedScrapQty,
+            Label : '{i18n>sumOpTotalConfirmedScrapQty}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Plant,
+            Label : '{i18n>plant}',
         },
     ]
 );

@@ -323,7 +323,7 @@ sap.ui.define(
                             if(oContext.getObject().value.length > 0){
                                 for(var p=0; p<oContext.getObject().value.length; p++){
                                     selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[0].getObject()
-                                    selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                                    selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
                                     selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
                                     selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
                                     selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.SumOpPlannedTotalQuantity) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedYieldQty) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedScrapQty)
@@ -421,9 +421,10 @@ sap.ui.define(
                         } else {
                             oController.openDialogMessageText("Operazione completata con successo", "S");
                         }
-                        //oController.byId("TableComponents").getModel().refresh()
-                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()
-                        oBusyDialog.close();
+                        setTimeout(() => {
+                            sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
+                        }, 1000);
+                        oBusyDialog.close();                        
                         
                     }).catch((oError) => {
                         oBusyDialog.close();
@@ -438,7 +439,14 @@ sap.ui.define(
                     oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
                     
                     oBusyDialog.close();
-                }
+                }   
+                if(oController.buttonSelected === "addPhase"){
+                    oController.pOperationsAddPhaseMasterDialog.close()
+                } else if(oController.buttonSelected === "modifyPhase"){
+                    oController.pOperationsAddPhaseMasterDialog.close()
+                }  else {
+                    oController.pOperationsChangeWCMasterDialog.close()
+                }             
             },
 
             onDeleteOperationsMaster: function(oEvent){
@@ -482,8 +490,9 @@ sap.ui.define(
                         } else {
                             oController.openDialogMessageText("Operazione completata con successo", "S");
                         }                     
-                        //oController.byId("TableComponents").getModel().refresh()
-                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getModel().refresh()
+                        setTimeout(() => {
+                            sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
+                        }, 1000);
                         oBusyDialog.close();
                         
                     }).catch((oError) => {

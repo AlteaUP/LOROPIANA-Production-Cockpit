@@ -109,7 +109,8 @@ sap.ui.define(
                     var selectedOperationsCombinedObject = {}
                     for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
                         selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
-                        selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material
+                        selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material                        
+                        selectedOperationsCombinedObject.editableMaterialGroup = true
                         selectedOperationsCombinedArray.push(selectedOperationsCombinedObject)
                     }
 
@@ -159,11 +160,12 @@ sap.ui.define(
                         oController.pOperationsAddPhaseCombinedDialog.open();
 
                         var selectedOperationsMasterArray = []
-                        var selectedOperationsMasterObject = {}
+                        var selectedOperatioselectedOperationsCombinedObjectnsMasterObject = {}
                         for(var i=0; i<oController.byId("TableCombinedOperations").getSelectedContexts().length; i++){
-                            selectedOperationsMasterObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
-                            selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
-                            selectedOperationsMasterArray.push(selectedOperationsMasterObject)
+                            selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
+                            selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material
+                            selectedOperationsCombinedObject.editableMaterialGroup = false
+                            selectedOperationsMasterArray.push(selectedOperationsCombinedObject)
                         }
 
                         var oTable = oController.byId("OperationsAddPhaseCombinedDialog");

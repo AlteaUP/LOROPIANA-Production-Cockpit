@@ -1,4 +1,4 @@
-/* checksum : dba764c9109dc45af8f60214582a6436 */
+/* checksum : 0f57b54cd7e1b5dc85c1d2d6dd79ffba */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -6421,6 +6421,8 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_Product {
   @sap.quickinfo : 'Flag Gestione Fiscale'
   @sap.value.list : 'standard'
   ZZ1_Flag_Gest_Fiscale_PRD : String(1);
+  @sap.label : 'Dimensione Piatto'
+  ZZ1_DimensionePiatto_PRD : String(10);
   @sap.label : 'Contiene pelle'
   ZZ1_Contiene_Pelle_PRD : String(1);
   @sap.label : 'Gamma'
@@ -9592,6 +9594,17 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.required.in.filter : 'false'
   @sap.label : 'CreationDate'
   CreationDate : Date;
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Fornitore'
+  @sap.quickinfo : 'Numero conto del fornitore'
+  Supplier : String(10);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Nome'
+  @sap.quickinfo : 'Nome 1'
+  OrganizationBPName1 : String(35);
 };
 
 @cds.external : true
@@ -10432,6 +10445,17 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.required.in.filter : 'false'
   @sap.label : 'CreationDate'
   CreationDate : Date;
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Fornitore'
+  @sap.quickinfo : 'Numero conto del fornitore'
+  Supplier : String(10);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Nome'
+  @sap.quickinfo : 'Nome 1'
+  OrganizationBPName1 : String(35);
 };
 
 @cds.external : true
@@ -11240,6 +11264,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   @sap.semantics : 'currency-code'
   key OpExternalProcessingCurrency : String(5) not null;
   @sap.required.in.filter : 'false'
+  @sap.unit : 'OpExternalProcessingCurrency'
   @sap.label : 'NumberOfOperationPriceUnits'
   @sap.quickinfo : 'Quantità unità di prezzo materiale'
   key NumberOfOperationPriceUnits : Decimal(5, 0) not null;

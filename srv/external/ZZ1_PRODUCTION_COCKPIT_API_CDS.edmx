@@ -1813,6 +1813,7 @@
 <Property Name="ZZ1_AltezzaTeoricaPezz_PRDU" Type="Edm.String" MaxLength="3" sap:label="Altezza Teor Pez UoM" sap:quickinfo="Altezza Teorica Pezza (Unit)" sap:value-list="standard" sap:semantics="unit-of-measure"/>
 <Property Name="ZZ1_Lifnr_PRD" Type="Edm.String" MaxLength="10" sap:label="Lifnr"/>
 <Property Name="ZZ1_Flag_Gest_Fiscale_PRD" Type="Edm.String" MaxLength="1" sap:label="Flag Gestione Fiscal" sap:quickinfo="Flag Gestione Fiscale" sap:value-list="standard"/>
+<Property Name="ZZ1_DimensionePiatto_PRD" Type="Edm.String" MaxLength="10" sap:label="Dimensione Piatto"/>
 <Property Name="ZZ1_Contiene_Pelle_PRD" Type="Edm.String" MaxLength="1" sap:label="Contiene pelle"/>
 <Property Name="ZZ1_Gamma_PRD" Type="Edm.String" MaxLength="40" sap:label="Gamma"/>
 <Property Name="ZZ1_Titolo_Filato_PRD" Type="Edm.String" MaxLength="3" sap:label="Titolo Filato" sap:value-list="standard"/>
@@ -2821,6 +2822,8 @@
 <Property Name="ProductionPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Div. di produzione" sap:quickinfo="Divisione di produzione"/>
 <Property Name="MRPController" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Responsabile MRP"/>
 <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:required-in-filter="false" sap:label="CreationDate"/>
+<Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Fornitore" sap:quickinfo="Numero conto del fornitore"/>
+<Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="35" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Nome" sap:quickinfo="Nome 1"/>
 </EntityType>
 <EntityType Name="ZZ1_C_COMBORDER_COMPType" sap:semantics="aggregate" sap:label="ZZ1_C_COMBORDER_COMP" sap:content-version="1">
 <Key>
@@ -2991,6 +2994,8 @@
 <Property Name="ProductionPlant" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Div. di produzione" sap:quickinfo="Divisione di produzione"/>
 <Property Name="MRPController" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Responsabile MRP"/>
 <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:required-in-filter="false" sap:label="CreationDate"/>
+<Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Fornitore" sap:quickinfo="Numero conto del fornitore"/>
+<Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="35" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Nome" sap:quickinfo="Nome 1"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MFG_COMBINEDOPER_SUMType" sap:label="ZZ1_C_MFG_COMBINEDOPER_SUM" sap:content-version="1">
 <Key>
@@ -3375,7 +3380,7 @@
 <Property Name="UnloadingPointName" Type="Edm.String" Nullable="false" MaxLength="25" sap:required-in-filter="false" sap:label="Punto di scarico"/>
 <Property Name="MaterialGroup" Type="Edm.String" Nullable="false" MaxLength="9" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Gruppo merci"/>
 <Property Name="OpExternalProcessingCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Divisa" sap:quickinfo="Chiave divisa" sap:semantics="currency-code"/>
-<Property Name="NumberOfOperationPriceUnits" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="0" sap:required-in-filter="false" sap:label="NumberOfOperationPriceUnits" sap:quickinfo="Quantità unità di prezzo materiale"/>
+<Property Name="NumberOfOperationPriceUnits" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="0" sap:required-in-filter="false" sap:unit="OpExternalProcessingCurrency" sap:label="NumberOfOperationPriceUnits" sap:quickinfo="Quantità unità di prezzo materiale"/>
 <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Società"/>
 <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Settore contabile"/>
 <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Controlling area"/>

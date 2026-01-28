@@ -43,13 +43,13 @@
             path: '/SelectedOperationsMovePhase'
           }">
           <columns>
-                <Column>
+                <Column width="14%">
                     <Text text="{i18n>FinishProduct}"/>
                 </Column>
-                <Column>
+                <Column width="6%">
                     <Text text="{i18n>color}"/>
                 </Column>
-                <Column>
+                <Column width="5%">
                     <Text text="{i18n>size}"/>
                 </Column>                
                 <Column>
