@@ -111,6 +111,12 @@ sap.ui.define(
                         selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material                        
                         selectedOperationsCombinedObject.editableMaterialGroup = true
+                        selectedOperationsCombinedObject.ManufacturingOrderOperationEditable = true
+                        selectedOperationsCombinedObject.MfgOrderOperationTextEditable = true
+                        selectedOperationsCombinedObject.SupplierEditable = true
+                        selectedOperationsCombinedObject.WorkCenterEditable = true
+                        selectedOperationsCombinedObject.WorkCenterInternalID_1_TextEditable = true
+                        selectedOperationsCombinedObject.OperationControlProfileEditable = true
                         selectedOperationsCombinedArray.push(selectedOperationsCombinedObject)
                     }
 
@@ -165,6 +171,12 @@ sap.ui.define(
                             selectedOperationsCombinedObject = oController.byId("TableCombinedOperations").getSelectedContexts()[i].getObject()
                             selectedOperationsCombinedObject.NewMaterial = selectedOperationsCombinedObject.Material
                             selectedOperationsCombinedObject.editableMaterialGroup = false
+                            selectedOperationsCombinedObject.ManufacturingOrderOperationEditable = false
+                            selectedOperationsCombinedObject.MfgOrderOperationTextEditable = false
+                            selectedOperationsCombinedObject.SupplierEditable = false
+                            selectedOperationsCombinedObject.WorkCenterEditable = false
+                            selectedOperationsCombinedObject.WorkCenterInternalID_1_TextEditable = false
+                            selectedOperationsCombinedObject.OperationControlProfileEditable = false
                             selectedOperationsMasterArray.push(selectedOperationsCombinedObject)
                         }
 

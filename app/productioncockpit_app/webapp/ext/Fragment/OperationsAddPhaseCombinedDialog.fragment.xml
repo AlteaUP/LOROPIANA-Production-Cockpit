@@ -55,21 +55,21 @@
                 <Input 
                   value="{CprodOrd}" editable="false" />
                 <Input 
-                  value="{MaterialGroup}" editable="true" />
+                  value="{MaterialGroup}" editable="{MaterialGroupEditable}" />
                 <Input 
-                  value="{ManufacturingOrderOperation}" editable="true" />
+                  value="{ManufacturingOrderOperation}" editable="{ManufacturingOrderOperationEditable}" />
                 <Input 
-                  value="{MfgOrderOperationText}" editable="true"/>
+                  value="{MfgOrderOperationText}" editable="{MfgOrderOperationTextEditable}"/>
                 <Input 
-                  value="{Supplier}" editable="true"/>
+                  value="{Supplier}" editable="{SupplierEditable}"/>
                 <Input 
-                  value="{WorkCenter}"/>
+                  value="{WorkCenter}" editable="{WorkCenterEditable}"/>
                 <Input 
-                  value="{WorkCenterInternalID_1_Text}" />
+                  value="{WorkCenterInternalID_1_Text}" editable="{WorkCenterInternalID_1_TextEditable}"/>
                 <Input 
                   value="{OpExternalProcessingPrice}" />
                 <Input 
-                  value="{OperationControlProfile}" />
+                  value="{OperationControlProfile}" editable="{OperationControlProfileEditable}"/>
                 <CheckBox id="checkboxFreeFlagCombinedId" ></CheckBox>
               </cells>
             </ColumnListItem>
