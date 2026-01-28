@@ -258,6 +258,13 @@ sap.ui.define(
                     for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
                         selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                        selectedOperationsMasterObject.MaterialGroupEditable = true
+                        selectedOperationsMasterObject.ManufacturingOrderOperationEditable = true
+                        selectedOperationsMasterObject.MfgOrderOperationTextEditable = true
+                        selectedOperationsMasterObject.SupplierEditable = true
+                        selectedOperationsMasterObject.WorkCenterEditable = true
+                        selectedOperationsMasterObject.WorkCenterInternalID_1_TextEditable = true
+                        selectedOperationsMasterObject.OperationControlProfileEditable = true
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }
 
@@ -286,10 +293,17 @@ sap.ui.define(
                         for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
                             selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                             selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
+                            selectedOperationsMasterObject.MaterialGroupEditable = false
+                            selectedOperationsMasterObject.ManufacturingOrderOperationEditable = false
+                            selectedOperationsMasterObject.MfgOrderOperationTextEditable = false
+                            selectedOperationsMasterObject.SupplierEditable = false
+                            selectedOperationsMasterObject.WorkCenterEditable = false
+                            selectedOperationsMasterObject.WorkCenterInternalID_1_TextEditable = false
+                            selectedOperationsMasterObject.OperationControlProfileEditable = false
                             selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                         }
 
-                        var oTable = oController.byId("OperationsAddPhaseMasterDialog");
+                        var oTable = oController.byId("OperationsAddPhaseMasterTableId");
                             
                         var oModel = new JSONModel();
                         oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})

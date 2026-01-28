@@ -224,6 +224,8 @@ service CatalogService {
         key ProductSeason,
         @Common.Label: '{i18n>ProductTheme}'
         key ProductTheme,
+        @Common.Label: '{i18n>organizationBPName1}'
+        key OrganizationBPName1,
         *,
         null as CreatedStatusQtyInPercent: String,
         null as OrderIsCreated: String,
