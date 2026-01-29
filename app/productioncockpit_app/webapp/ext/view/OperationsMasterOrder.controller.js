@@ -336,7 +336,7 @@ sap.ui.define(
                         const oModelView = oController.getView().getModel();
                         var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
                         oBindingContext.setParameter("oidOrdine", 
-                            oController.byId("TableOperations").getSelectedContexts()[0].getObject().CprodOrd
+                            oController.byId("TableOperations").getSelectedContexts()[0].getObject().MasterProductionOrder
                         );
 
                         await oBindingContext.execute().then((oResult) => {
@@ -345,11 +345,11 @@ sap.ui.define(
                             var selectedOperationsMasterObject = {}                           
                             if(oContext.getObject().value.length > 0){
                                 for(var p=0; p<oContext.getObject().value.length; p++){
-                                    selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[0].getObject()
-                                    selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
-                                    selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
-                                    selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
-                                    selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.SumOpPlannedTotalQuantity) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedYieldQty) - Number(selectedOperationsMasterObject.SumOpTotalConfirmedScrapQty)
+                                    selectedOperationsMasterObject = oContext.getObject().value[p]
+                                    //selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
+                                    //selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
+                                    //selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
+                                    selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }
                             }

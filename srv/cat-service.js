@@ -119,7 +119,7 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
         console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array " + data.length)
+        console.log("lunghezza array ZZ1_C_COMBINEDPRODORDER" + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
@@ -1032,23 +1032,28 @@ module.exports = cds.service.impl(async function (srv) {
         var result = []
         
         var srvOrderLinked = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
-        var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ CprodOrd: oidOrdine })
+        var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ FshMprodOrd: oidOrdine })
+
+        console.log("dataOrderLinked "+JSON.stringify(dataOrderLinked))
+        console.log("lunghezza dataOrderLinked "+dataOrderLinked.length)
 
         if(dataOrderLinked.length > 0){
-            console.log("QUIII")
-            // creo filtri per chiamata a ZMF_IMD_MATERIAL
+            var srvMaterialDet = await cds.connect.to('ZMF_IMD_MATERIAL_CDS')
             var arrayDataMaterial = []
             for(var i=0; i<dataOrderLinked.length; i++){
-                arrayDataMaterial.push(dataOrderLinked[i].Material)     
+                arrayDataMaterial = await srvMaterialDet.read('ZMF_IMD_MATERIAL').where({ matnr: dataOrderLinked[i].Material })
+                if(arrayDataMaterial.length > 0){
+                    dataOrderLinked[i].zzcolor = arrayDataMaterial[0].zzcolor
+                    dataOrderLinked[i].zztagliadesc = arrayDataMaterial[0].zztagliadesc
+                }
             }
-            console.log("QUIII 2222" +JSON.stringify(arrayDataMaterial))
-            var srvMaterialDet = await cds.connect.to('ZMF_IMD_MATERIAL_CDS')
-            result = await srvMaterialDet.read('ZMF_IMD_MATERIAL').where({ matnr: { in: arrayDataMaterial } })
         }
+        // sorto per taglia
+        dataOrderLinked.sort((a, b) => {
+        return Number(a.zztagliadesc) - Number(b.zztagliadesc);
+        });
 
-        console.log("arrayDataMaterial "+ JSON.stringify(result))
-        
-        return result;
+        return dataOrderLinked;
 
     });
 

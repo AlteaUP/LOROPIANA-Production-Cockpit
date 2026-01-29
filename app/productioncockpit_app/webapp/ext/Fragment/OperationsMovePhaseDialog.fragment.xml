@@ -81,19 +81,19 @@
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
-                  value="{CrossPlantConfigurableProduct}" editable="false" />
+                  value="{Material}" editable="false" />
                 <Input 
                   value="{zzcolor}" editable="false"/>
                 <Input 
                   value="{zztagliadesc}" editable="false"/>
                 <Input 
-                  value="{SumOpPlannedTotalQuantity}" editable="false" />
+                  value="{MfgOrderPlannedTotalQty}" editable="false" />
                 <Input 
-                  value="{SumOpTotalConfirmedYieldQty}" editable="false" />
+                  value="{MfgOrderConfirmedYieldQty}" editable="false" />
                 <Input 
-                  value="{SumOpTotalConfirmedScrapQty}" editable="false"/>
+                  value="{MfgOrderConfirmedScrapQty}" editable="false"/>
                 <Input 
-                  value="{SumOpTotalConfirmedReworkQty}" editable="true"/>
+                  value="{MfgOrderConfirmedReworkQty}" editable="true"/>
                 <Input 
                   value="{QtyToConfirm}"/>
                 <Input 
