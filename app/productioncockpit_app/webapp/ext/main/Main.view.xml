@@ -206,10 +206,10 @@
                                 </table:Column>
                             </macros:columns>
                             <macros:actions>
-                                <table:Action id="rolID" key="rolAction" text="{i18n>rol}" press=".onCallServiceROL" placement="After" requiresSelection="true"/>
-                                <table:Action id="kittingID" key="kittingAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponentsMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperationsMasterOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="kittingID" key="kittingAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="rolID" key="rolAction" text="{i18n>rol}" press=".onCallServiceROL" placement="After" requiresSelection="true"/>
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>

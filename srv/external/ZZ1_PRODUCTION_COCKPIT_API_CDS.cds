@@ -1,4 +1,4 @@
-/* checksum : 0f57b54cd7e1b5dc85c1d2d6dd79ffba */
+/* checksum : e121d41e9bdce6ae5f0f99b351aaa453 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -2421,7 +2421,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LeadTimeReductionStrategy {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LogisticsOrder {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.label : 'Ordine'
@@ -3201,7 +3201,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_LogisticsOrder {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_ManufacturingOrderOperation {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'NonNegative'
   @sap.label : 'ID interno ordine'
@@ -5018,7 +5018,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OperationStandardText {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_OrderOperationBasic {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'NonNegative'
   @sap.label : 'N. ciclo operazioni'
@@ -9470,7 +9470,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_BUSINESSUNIT_V {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -9618,7 +9618,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -9981,7 +9981,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -10315,7 +10315,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -10456,6 +10456,15 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.label : 'Nome'
   @sap.quickinfo : 'Nome 1'
   OrganizationBPName1 : String(35);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Prod Order Personalization'
+  @sap.quickinfo : 'Production Order Personalization'
+  OrderPersonalization : String(20);
+  @sap.aggregation.role : 'dimension'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'ZZ1_SedaptaPRDPriority'
+  SedaptaPriority : String(15);
 };
 
 @cds.external : true
@@ -11476,7 +11485,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_OrderComp {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
@@ -13770,7 +13779,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_KIT_VALUE_V {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_PRODUCTION_COCKPIT_API {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'

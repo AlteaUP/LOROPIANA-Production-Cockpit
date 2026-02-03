@@ -123,7 +123,13 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
             $Type : 'UI.DataField',
             Value : CreationDate,
             Label : 'CreationDate',
-        }
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : OrderPersonalization,
+            Label : 'OrderPersonalization',
+            ![@UI.hidden] : true
+        },
     ],
     UI.SelectionFields #filterBarMacro1 : [
         CombinedOrder,
