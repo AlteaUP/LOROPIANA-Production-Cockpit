@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.ComponentsOrder">
     <Page id="ComponentsOrder" title="{i18n&gt;ComponentsTitle}">
         <content>
-            <macros:Table id="TableComponentsOrder" metaPath="to_ZZ1_C_MFG_OrderComp/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponentsorder"/>
+            <macros:Table id="TableComponentsOrder" metaPath="to_ZZ1_C_MFG_OrderComp/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponentsorder" variantManagement="Control"/>
         </content>
     </Page>
 </mvc:View> 

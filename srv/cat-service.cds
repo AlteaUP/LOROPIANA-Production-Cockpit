@@ -194,7 +194,9 @@ service CatalogService {
         key OpSchedldReductionLevel,
         key CprodOrd,
         key OpExternalProcessingPrice,
-        *
+        *,
+        @Common.Label: '{i18n>flagPurchaseOrder}'
+        null as flagPurchaseOrder: String
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false

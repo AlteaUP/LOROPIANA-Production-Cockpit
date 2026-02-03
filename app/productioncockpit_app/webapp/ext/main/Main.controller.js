@@ -2,9 +2,10 @@ sap.ui.define(
     [
         'sap/fe/core/PageController',
         "sap/m/Dialog",
-        'sap/m/MessageToast'
+        'sap/m/MessageToast',
+        "sap/m/MessageBox",
     ],
-    function (PageController, Dialog, MessageToast) {
+    function (PageController, Dialog, MessageToast, MessageBox) {
         'use strict';
 
         var oController;
@@ -407,24 +408,29 @@ sap.ui.define(
                     var oContext = oBindingContext.getBoundContext();
                     var oResult = oContext.getObject().value;
                     oBusyDialog.close();
-                    // apro popup in cui mostro risultati della chiamata del servizio
-                    if (oController.pROLDialog === null || oController.pROLDialog === undefined) {
-                        oController.pROLDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ROL", oController);
-                        oController.getView().addDependent(oController.pROLDialog);
-                    }
-                    //Modifica MDB - setto modello con il risultato della chiamata - 02/02/2026 - INIZIO 
-                    const oModel = new sap.ui.model.json.JSONModel({
-                        numeroOrdineROL: oResult.numeroOrdineROL,
-                        articoloCod: oResult.articoloCod,
-                        coloreCod: oResult.coloreCod,
-                        taglia: oResult.taglia,
-                        numeroPezzi: oResult.numeroPezzi,
-                        tessuto: oResult.tessuto
-                    });
-                    //Modifica MDB - setto modello con il risultato della chiamata - 02/02/2026 - FINE
-                    oController.getView().setModel(oModel, "order");
+                    if(oResult.serviceStatus.description.indexOf("OK") > -1){
+                        // apro popup in cui mostro risultati della chiamata del servizio
+                        if (oController.pROLDialog === null || oController.pROLDialog === undefined) {
+                            oController.pROLDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ROL", oController);
+                            oController.getView().addDependent(oController.pROLDialog);
+                        }
+                        //Modifica MDB - setto modello con il risultato della chiamata - 02/02/2026 - INIZIO 
+                        const oModel = new sap.ui.model.json.JSONModel({
+                            numeroOrdineROL: oResult.numeroOrdineROL,
+                            articoloCod: oResult.articoloCod,
+                            coloreCod: oResult.coloreCod,
+                            taglia: oResult.taglia,
+                            numeroPezzi: oResult.numeroPezzi,
+                            tessuto: oResult.tessuto
+                        });
+                        //Modifica MDB - setto modello con il risultato della chiamata - 02/02/2026 - FINE
+                        oController.getView().setModel(oModel, "order");
 
-                    oController.pROLDialog.open()
+                        oController.pROLDialog.open()
+                    } else {
+                        MessageBox.error(oResult.numeroOrdineROL + " : " + oResult.serviceStatus.description);
+                        oResult.serviceStatus.description
+                    }                    
 
                 }).catch((oError) => {
                     oBusyDialog.close();

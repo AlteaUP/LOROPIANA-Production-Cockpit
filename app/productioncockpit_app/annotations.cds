@@ -545,6 +545,16 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
             Value : Plant,
             Label : '{i18n>plant}',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : flagPurchaseOrder,
+            Label : '{i18n>flagPurchaseOrder}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : PurchaseOrder,
+            Label : '{i18n>purchaseOrder}',
+        },
     ]
 );
 
