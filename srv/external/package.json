@@ -45,10 +45,6 @@
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_MFG_ROL_ORDERS_CDS"
       },
-      "ZMFP_MRP_PLANT_F4": {
-        "kind": "odata",
-        "model": "srv/external/ZMFP_MRP_PLANT_F4"
-      },
       "ZZ1_MRPCONTROLLER_F4_CDS": {
         "kind": "odata",
         "model": "srv/external/ZZ1_MRPCONTROLLER_F4_CDS"
@@ -72,6 +68,10 @@
       "ZMF_IMD_MATERIAL_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZMF_IMD_MATERIAL_CDS"
+      },
+      "zmfp_mrp_plant_f4": {
+        "kind": "odata",
+        "model": "srv/external/zmfp_mrp_plant_f4"
       }
     }
   },

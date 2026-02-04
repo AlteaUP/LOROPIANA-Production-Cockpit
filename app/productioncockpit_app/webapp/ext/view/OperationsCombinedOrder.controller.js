@@ -344,15 +344,15 @@ sap.ui.define(
                     dataObjectToSend.id = String(i+1).padStart(3, "0");//"001"                    
                     dataObjectToSend.CprodOrd = object.CprodOrd
                     dataObjectToSend.FshMprodOrd = object.MasterProductionOrder
-                    dataObjectToSend.matnr = ""
+                    dataObjectToSend.matnr = object.Product
                     dataObjectToSend.werks = object.Plant
                     dataObjectToSend.meins = object.ProductionUnit
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
-                    dataObjectToSend.rework = Number(object.QtyToRework)
+                    dataObjectToSend.rework = Number(object.QtyToRework)*/
                     dataObjectToSend.vornr = object.ManufacturingOrderOperation
                     dataObjectToSend.plnfl = object.ManufacturingOrderSequence
-                    if(oController.byId("generateWIPbatchCheckBoxId").getSelected()){
+                    /*if(oController.byId("generateWIPbatchCheckBoxId").getSelected()){
                         dataObjectToSend.flwip = "X"
                     } else {
                         dataObjectToSend.flwip = ""

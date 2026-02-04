@@ -67,6 +67,8 @@ type ConfODP : {
     meins          : String;
     yield          : Decimal(9, 3);
     werks          : String;
+    vornr          : String;
+    plnfl          : String;
 }
 
 type OrdersKittingRecord {
@@ -94,4 +96,13 @@ type ManageODPPhase {
     unit                        : String;
     price                       : Decimal(9, 3);   
     action                      : String;
+}
+
+type ConfODPData {
+    MasterProductionOrder       : String;
+    ManufacturingOrderOperation : String;
+    ManufacturingOrderSequence  : String;
+    sumOpTotalConfirmedScrapQty : String;
+    sumOpTotalConfirmedReworkQty: String;
+    sumOpTotalConfirmedYieldQty : String;
 }

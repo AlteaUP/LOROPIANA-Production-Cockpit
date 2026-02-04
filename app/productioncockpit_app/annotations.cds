@@ -226,7 +226,7 @@ annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
             Parameters : [
                 {
                     $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : Plant,
+                    LocalDataProperty : ProductionPlant,
                     ValueListProperty : 'Plant',
                 },
                 {
@@ -721,7 +721,7 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
     ]
 );
 
-annotate service.ZZ1_C_MFG_OrderComp  with @(
+annotate service.ZZ1_C_UNION_PROD_COMP  with @(
     UI.LineItem #tableMacroComponentsorder : [
         {
             $Type : 'UI.DataField',

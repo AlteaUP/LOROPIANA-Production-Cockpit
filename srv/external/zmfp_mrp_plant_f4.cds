@@ -1,4 +1,4 @@
-/* checksum : 03afed62e8b5a4f7e811bca15f5d2b53 */
+/* checksum : 283f5759b59e77ed147a835efda97aa9 */
 @cds.external : true
 @Aggregation.ApplySupported : { Transformations: [ 'aggregate', 'groupby', 'filter' ], Rollup: #None }
 @Common.ApplyMultiUnitBehaviorForSortingAndFiltering : true
@@ -36,7 +36,7 @@
 }
 @Capabilities.KeyAsSegmentSupported : true
 @Capabilities.AsynchronousRequestsSupported : true
-service ZMFP_MRP_PLANT_F4 {};
+service zmfp_mrp_plant_f4 {};
 
 @cds.external : true
 @cds.persistence.skip : true
@@ -47,7 +47,7 @@ service ZMFP_MRP_PLANT_F4 {};
 @Capabilities.DeleteRestrictions.Deletable : false
 @Capabilities.UpdateRestrictions.Updatable : false
 @Capabilities.UpdateRestrictions.QueryOptions.SelectSupported : true
-entity ZMFP_MRP_PLANT_F4.ZC_RFM_PRODUCTION_PLANT_F4 {
+entity zmfp_mrp_plant_f4.ZC_RFM_PRODUCTION_PLANT_F4 {
   @Common.Text : PlantName
   @Common.IsUpperCase : true
   @Common.ValueListReferences : [

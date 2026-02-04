@@ -14,7 +14,7 @@ module.exports = cds.service.impl(async function (srv) {
     const manageODPPhase = await cds.connect.to('ZMFG_SB_PRODOR_OPERATIONS');
     const rol = await cds.connect.to("ZZ1_MFG_ROL_ORDERS_CDS");
     const urlRolExternal = await cds.connect.to("ROL");
-    const zmfp_mrp_plant_f4 = await cds.connect.to("ZMFP_MRP_PLANT_F4");
+    const zmfp_mrp_plant_f4 = await cds.connect.to("zmfp_mrp_plant_f4");
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
     const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
@@ -92,24 +92,26 @@ module.exports = cds.service.impl(async function (srv) {
                     .where({ MasterProductionOrder: data[i].MasterProductionOrder })
                     .limit(1000)
             );
-            data[i].CreatedStatusQtyInPercent = chartData[0].CreatedStatusQtyInPercent
-            data[i].OrderIsCreated = chartData[0].OrderIsCreated
-            data[i].ReleasedStatusQtyInPercent = chartData[0].ReleasedStatusQtyInPercent
-            data[i].OrderIsReleased = chartData[0].OrderIsReleased
-            data[i].OrderIsPartiallyReleased = chartData[0].OrderIsPartiallyReleased
-            data[i].ConfirmedStatusQtyInPercent = chartData[0].ConfirmedStatusQtyInPercent
-            data[i].OrderIsConfirmed = chartData[0].OrderIsConfirmed
-            data[i].OrderIsPartiallyConfirmed = chartData[0].OrderIsPartiallyConfirmed
-            data[i].DeliveredStatusQtyInPercent = chartData[0].DeliveredStatusQtyInPercent
-            data[i].OrderIsDelivered = chartData[0].OrderIsDelivered
-            data[i].OrderIsPartiallyDelivered = chartData[0].OrderIsPartiallyDelivered
-            data[i].TechlyCmpltdStatusQtyInPercent = chartData[0].TechlyCmpltdStatusQtyInPercent
-            data[i].OrderIsTechnicallyCompleted = chartData[0].OrderIsTechnicallyCompleted
-            data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
-            data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
-            data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
-            data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
-            data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+            if(chartData.length > 0){
+                data[i].CreatedStatusQtyInPercent = chartData[0].CreatedStatusQtyInPercent
+                data[i].OrderIsCreated = chartData[0].OrderIsCreated
+                data[i].ReleasedStatusQtyInPercent = chartData[0].ReleasedStatusQtyInPercent
+                data[i].OrderIsReleased = chartData[0].OrderIsReleased
+                data[i].OrderIsPartiallyReleased = chartData[0].OrderIsPartiallyReleased
+                data[i].ConfirmedStatusQtyInPercent = chartData[0].ConfirmedStatusQtyInPercent
+                data[i].OrderIsConfirmed = chartData[0].OrderIsConfirmed
+                data[i].OrderIsPartiallyConfirmed = chartData[0].OrderIsPartiallyConfirmed
+                data[i].DeliveredStatusQtyInPercent = chartData[0].DeliveredStatusQtyInPercent
+                data[i].OrderIsDelivered = chartData[0].OrderIsDelivered
+                data[i].OrderIsPartiallyDelivered = chartData[0].OrderIsPartiallyDelivered
+                data[i].TechlyCmpltdStatusQtyInPercent = chartData[0].TechlyCmpltdStatusQtyInPercent
+                data[i].OrderIsTechnicallyCompleted = chartData[0].OrderIsTechnicallyCompleted
+                data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
+                data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
+                data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
+                data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
+                data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+            }
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
 
@@ -207,10 +209,10 @@ module.exports = cds.service.impl(async function (srv) {
                         { ref: ['FshMprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
                     data = await srv.read('ZZ1_C_MASTERORDER_COMP').where(combinedWhere)
-                    console.log("DATAAAA " + JSON.stringify(data))
+                    //console.log("DATAAAA " + JSON.stringify(data))
                 } else {
                     data = await srv.read('ZZ1_C_MASTERORDER_COMP').where({ FshMprodOrd: idArray[i] })
-                    console.log("DATAAAA " + JSON.stringify(data))
+                    //console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
             }
@@ -371,9 +373,19 @@ module.exports = cds.service.impl(async function (srv) {
 
         if (finalData.length > 0) {
             console.log("risultati MASTER OPER final Data: ", finalData.length)
+            for(var i=0; i<finalData.length; i++){
+                if(finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== ""){
+                    finalData[i].flagPurchaseOrder = 'X'
+                }
+            }
             return finalData;
         } else {
             console.log("risultati MASTER OPER: ", data.length)
+            for(var i=0; i<data.length; i++){
+                if(data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== ""){
+                    data[i].flagPurchaseOrder = 'X'
+                }
+            }
             return data;
         }
     });
@@ -557,8 +569,8 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-    this.on('READ', "ZZ1_C_MFG_OrderComp", async request => {
-        console.log("chiamata ZZ1_C_MFG_OrderComp")
+    this.on('READ', "ZZ1_C_UNION_PROD_COMP", async request => {
+        console.log("chiamata ZZ1_C_UNION_PROD_COMP")
         console.log("AAAAAA " + request.query)
         var data = await combProdOrd.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
@@ -1030,9 +1042,11 @@ module.exports = cds.service.impl(async function (srv) {
 
         const { oidOrdine } = req.data;
         var result = []
+
+        console.log("DATO INVIATO "+JSON.stringify(oidOrdine))
         
         var srvOrderLinked = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
-        var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ FshMprodOrd: oidOrdine })
+        var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ FshMprodOrd: oidOrdine.MasterProductionOrder })
 
         console.log("dataOrderLinked "+JSON.stringify(dataOrderLinked))
         console.log("lunghezza dataOrderLinked "+dataOrderLinked.length)
@@ -1045,6 +1059,11 @@ module.exports = cds.service.impl(async function (srv) {
                 if(arrayDataMaterial.length > 0){
                     dataOrderLinked[i].zzcolor = arrayDataMaterial[0].zzcolor
                     dataOrderLinked[i].zztagliadesc = arrayDataMaterial[0].zztagliadesc
+                    dataOrderLinked[i].ManufacturingOrderOperation = oidOrdine.ManufacturingOrderOperation
+                    dataOrderLinked[i].ManufacturingOrderSequence = oidOrdine.ManufacturingOrderSequence
+                    dataOrderLinked[i].MfgOrderConfirmedYieldQty = oidOrdine.sumOpTotalConfirmedYieldQty
+                    dataOrderLinked[i].MfgOrderConfirmedReworkQty = oidOrdine.sumOpTotalConfirmedReworkQty
+                    dataOrderLinked[i].MfgOrderConfirmedScrapQty = oidOrdine.sumOpTotalConfirmedScrapQty
                 }
             }
         }
@@ -1091,6 +1110,11 @@ module.exports = cds.service.impl(async function (srv) {
         var data = await chartMaster.tx(request).run(request.query);
 
         return data;
+    });
+
+    this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
+        const result = await zmfp_mrp_plant_f4.run(req.query);
+        return result;
     });
 
 })

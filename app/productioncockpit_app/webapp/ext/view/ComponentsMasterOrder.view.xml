@@ -2,7 +2,7 @@
     <Page id="Components" title="{i18n>ComponentsTitle}">
         <content>
             <macros:FilterBar metaPath="/ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#MasterComp" id="FilterBarMasterComp"/>
-            <macros:Table id="TableComponents" selectionMode="ForceMulti" exportRequestSize="5000" rowCountMode="Auto" filterBar="FilterBarMasterComp"  type="GridTable" metaPath="to_ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control" rowCount="20">
+            <macros:Table id="TableComponents" rowCountMode="Auto" filterBar="FilterBarMasterComp"  type="GridTable" metaPath="to_ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control" rowCount="20">
                 <macros:actions>
                     <table:Action id="replacementCompMasterID" key="replacementCompMasterAction" text="{i18n>replacementComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="integrationCompMasterID" key="integrationCompMasterAction" text="{i18n>integrationComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>

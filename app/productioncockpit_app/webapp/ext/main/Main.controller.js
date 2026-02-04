@@ -115,7 +115,7 @@ sap.ui.define(
             //  }
 
             selectIconTabFilter: function (oEvent) {
-                if (oEvent.getSource().getSelectedKey() === "order") {
+            /*    if (oEvent.getSource().getSelectedKey() === "order") {
                     // Ottieni la tabella
                     var oTable = this.byId("Table"); // ID della tabella
                     var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
@@ -192,7 +192,8 @@ sap.ui.define(
                         oBinding.filter([]);
                     }
                     // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini - FINE
-                }
+                }*/
+               /// OLD
                 /*if(oEvent.getSource().getSelectedKey() === 'master'){
                     this.byId("FilterBarMaster").setVisible(true);
                     this.byId("FilterBarCombined").setVisible(false);

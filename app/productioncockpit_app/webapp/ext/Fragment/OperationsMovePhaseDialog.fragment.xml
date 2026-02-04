@@ -93,7 +93,7 @@
                 <Input 
                   value="{MfgOrderConfirmedScrapQty}" editable="false"/>
                 <Input 
-                  value="{MfgOrderConfirmedReworkQty}" editable="true"/>
+                  value="{MfgOrderConfirmedReworkQty}" editable="false"/>
                 <Input 
                   value="{QtyToConfirm}"/>
                 <Input 

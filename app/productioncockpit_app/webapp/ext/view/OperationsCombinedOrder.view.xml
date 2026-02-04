@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.OperationsCombinedOrder">
     <Page id="CombinedOperations" title="{i18n&gt;OperationsTitle}">
         <content>
-            <macros:Table id="TableCombinedOperations" metaPath="to_ZZ1_C_MFG_COMBINEDOPER_SUM/@com.sap.vocabularies.UI.v1.LineItem#tableMacroCombinedOperations" rowCount="20" rowCountMode="Fixed" type="GridTable" variantManagement="Control">
+            <macros:Table id="TableCombinedOperations" metaPath="to_ZZ1_C_MFG_COMBINEDOPER_SUM/@com.sap.vocabularies.UI.v1.LineItem#tableMacroCombinedOperations" rowCountMode="Auto" type="GridTable" variantManagement="Control">
                 <macros:actions>
                     <table:Action id="changeWCCombID" key="changeWCCombAction" text="{i18n>changeWC}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="addPhaseCombID" key="addPhaseCombAction" text="{i18n>addPhase}" press=".onActionOperationCombined" placement="After" requiresSelection="true"/>

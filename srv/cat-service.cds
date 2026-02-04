@@ -15,12 +15,12 @@ using {ZZ1_MFG_REASON_SOST_CDS as reasonSost} from './external/ZZ1_MFG_REASON_SO
 using {ZMFG_SB_PRODUCTION_ORDERS_DEEP as create_kitting } from './external/ZMFG_SB_PRODUCTION_ORDERS_DEEP';
 using {ZMFG_SB_PRODOR_OPERATIONS as managePhase } from './external/ZMFG_SB_PRODOR_OPERATIONS';
 using {ZZ1_MFG_ROL_ORDERS_CDS as rol} from './external/ZZ1_MFG_ROL_ORDERS_CDS';
-using { ZMFP_MRP_PLANT_F4 } from './external/ZMFP_MRP_PLANT_F4';
 using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPCONTROLLER_F4_CDS';
 using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
 using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKCHARVAL_F4_CDS';
 using { ZZ1_MFP_REASON_NOTE_CDS as reasonsNotes } from './external/ZZ1_MFP_REASON_NOTE_CDS';
 using { ZMF_IMD_MATERIAL_CDS as materialCharacteristics } from './external/ZMF_IMD_MATERIAL_CDS';
+using { zmfp_mrp_plant_f4 } from './external/zmfp_mrp_plant_f4';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -28,7 +28,7 @@ service CatalogService {
 
     @readonly
     entity ZZ1_PRODUCTION_COCKPIT_API as projection on mainService.ZZ1_PRODUCTION_COCKPIT_API{
-        key ID : String(50),
+        //key ID : String(50),
         null as OrderHasProductionHold: String,
         null as OrderHasExecutionDelay: String,
         null as OrderHasMissingComponents: String,
@@ -37,7 +37,7 @@ service CatalogService {
         *,
 
         to_ZZ1_C_COMBORDER_COMP     : Composition of many ZZ1_C_COMBORDER_COMP
-                                        on  CprodOrd                      = $self.CprodOrd,
+                                        on  CprodOrd                     = $self.CprodOrd,
 
         to_ZZ1_C_MFG_COMBINEDOPER_SUM : Composition of many ZZ1_C_MFG_COMBINEDOPER_SUM
                                         on CprodOrd                      = $self.CprodOrd,
@@ -48,7 +48,7 @@ service CatalogService {
         to_ZZ1_C_MFG_MASTEROPER_SUM   : Composition of many ZZ1_C_MFG_MASTEROPER_SUM
                                         on FshMprodOrd                      = $self.FshMprodOrd,
 
-        to_ZZ1_C_MFG_OrderComp       : Composition of many ZZ1_C_MFG_OrderComp
+        to_ZZ1_C_UNION_PROD_COMP     : Composition of many ZZ1_C_UNION_PROD_COMP
                                         on ManufacturingOrder               = $self.ManufacturingOrder,
 
         to_ZZ1_C_MFG_ORDEROPE       : Composition of many ZZ1_C_MFG_ORDEROPE
@@ -83,8 +83,7 @@ service CatalogService {
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_MFG_OrderComp as projection on mainService.ZZ1_C_MFG_OrderComp{
-        key ID,
+    entity ZZ1_C_UNION_PROD_COMP as projection on mainService.ZZ1_C_UNION_PROD_COMP{
         *
     };
 
@@ -288,8 +287,6 @@ service CatalogService {
 
     entity ZZ1_MFG_ROL_ORDERS as projection on rol.ZZ1_MFG_ROL_ORDERS;
 
-    entity ZC_RFM_PRODUCTION_PLANT_F4 as projection on ZMFP_MRP_PLANT_F4.ZC_RFM_PRODUCTION_PLANT_F4;
-
     entity ZC_RFM_MRPCONTROLLER_F4 as projection on MRPControllerCDS.ZC_RFM_MRPCONTROLLER_F4;
 
     entity C_RFM_ManageMasterMfgOrder as projection on chart.C_RFM_ManageMasterMfgOrder;
@@ -301,6 +298,8 @@ service CatalogService {
     entity ZZ1_MFP_REASON_NOTE as projection on reasonsNotes.ZZ1_MFP_REASON_NOTE;
 
     entity ZMF_IMD_MATERIAL as projection on materialCharacteristics.ZMF_IMD_MATERIAL;
+
+    entity ZC_RFM_PRODUCTION_PLANT_F4 as projection on zmfp_mrp_plant_f4.ZC_RFM_PRODUCTION_PLANT_F4;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 
@@ -322,7 +321,7 @@ service CatalogService {
 
     action GetOrderDetails(oidOrdine: String) returns LargeString;
 
-    action GetMaterialDetails(oidOrdine: String) returns LargeString;
+    action GetMaterialDetails(oidOrdine: TYPES.ConfODPData) returns LargeString;
 
 
 }

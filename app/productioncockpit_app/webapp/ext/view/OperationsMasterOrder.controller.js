@@ -116,15 +116,15 @@ sap.ui.define(
                     dataObjectToSend.id = String(i+1).padStart(3, "0");//"001"                    
                     dataObjectToSend.CprodOrd = object.CprodOrd
                     dataObjectToSend.FshMprodOrd = object.MasterProductionOrder
-                    dataObjectToSend.matnr = ""
+                    dataObjectToSend.matnr = object.Product
                     dataObjectToSend.werks = object.Plant
                     dataObjectToSend.meins = object.ProductionUnit
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
-                    dataObjectToSend.rework = Number(object.QtyToRework)
+                    dataObjectToSend.rework = Number(object.QtyToRework)*/
                     dataObjectToSend.vornr = object.ManufacturingOrderOperation
                     dataObjectToSend.plnfl = object.ManufacturingOrderSequence
-                    if(oController.byId("generateWIPbatchCheckBoxId").getSelected()){
+                    /*if(oController.byId("generateWIPbatchCheckBoxId").getSelected()){
                         dataObjectToSend.flwip = "X"
                     } else {
                         dataObjectToSend.flwip = ""
@@ -333,10 +333,18 @@ sap.ui.define(
                         var oBusyDialog = new sap.m.BusyDialog();
                         oBusyDialog.open();
 
+                        var dataToSend = {}
+                        dataToSend.MasterProductionOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().MasterProductionOrder
+                        dataToSend.ManufacturingOrderSequence = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ManufacturingOrderSequence
+                        dataToSend.ManufacturingOrderOperation = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ManufacturingOrderOperation
+                        dataToSend.sumOpTotalConfirmedYieldQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedYieldQty
+                        dataToSend.sumOpTotalConfirmedReworkQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedReworkQty
+                        dataToSend.sumOpTotalConfirmedScrapQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedScrapQty
+
                         const oModelView = oController.getView().getModel();
                         var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
                         oBindingContext.setParameter("oidOrdine", 
-                            oController.byId("TableOperations").getSelectedContexts()[0].getObject().MasterProductionOrder
+                            dataToSend                            
                         );
 
                         await oBindingContext.execute().then((oResult) => {
