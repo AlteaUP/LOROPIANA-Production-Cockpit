@@ -1,15 +1,15 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.ComponentsMasterOrder">
-    <Page id="Components" title="{i18n>ComponentsTitle}">
-        <content>
-            <macros:FilterBar metaPath="/ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#MasterComp" id="FilterBarMasterComp"/>
-            <macros:Table id="TableComponents" rowCountMode="Auto" filterBar="FilterBarMasterComp"  type="GridTable" metaPath="to_ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control" rowCount="20">
+    <Page id="Components" title="{i18n>ComponentsTitle}" enableScrolling="false">
+        <content>            
+            <macros:FilterBar metaPath="/ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#MasterComp" id="FilterBarMasterComp"/>            
+            <macros:Table rowCountMode="Auto" id="TableComponents" filterBar="FilterBarMasterComp" type="GridTable" metaPath="to_ZZ1_C_MASTERORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control">
                 <macros:actions>
                     <table:Action id="replacementCompMasterID" key="replacementCompMasterAction" text="{i18n>replacementComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="integrationCompMasterID" key="integrationCompMasterAction" text="{i18n>integrationComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="deleteCompMasterID" key="deleteCompMasterAction" text="{i18n>deleteComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>
                     <table:Action id="closeCompMasterID" key="closeCompMasterAction" text="{i18n>closeComp}" press=".onActionComponentsMaster" placement="After" requiresSelection="true"/>
                 </macros:actions>
-            </macros:Table>
+            </macros:Table>    
         </content>
     </Page>
 </mvc:View>
