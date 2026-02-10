@@ -5,7 +5,7 @@
             <IconTabBar id="IconTabFilterId" select=".selectIconTabFilter">
                 <items>
                     <IconTabFilter text="Combined" key="combined">
-                        <macros:Table id="TableCombined" filterBar="FilterBarMaster" metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti" variantManagement="Control">
+                        <macros:Table id="TableCombined" filterBar="FilterBarMaster"  metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti" variantManagement="Control">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn3"
                                     key="CombinedOrderChart"

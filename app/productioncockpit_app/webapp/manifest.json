@@ -112,7 +112,7 @@
         },
         {
           "name": "ZZ1_C_MASTERORDER_COMPComponentsPage",
-          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MASTERORDER_COMPKey})/componentsMasterOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_MASTERORDER_COMPKey}):?query:",
           "target": "ZZ1_C_MASTERORDER_COMPComponentsPage"
         },
         {
@@ -122,7 +122,7 @@
         },
                 {
           "name": "ZZ1_C_COMBINEDORDER_COMPComponentsPage",
-          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_COMBINEDORDER_COMPKey})/componentsCombinedOrder:?query:",
+          "pattern": "ZZ1_PRODUCTION_COCKPIT_API({ZZ1_C_COMBINEDORDER_COMPKey}):?query:",
           "target": "ZZ1_C_COMBINEDORDER_COMPComponentsPage"
         },
         {

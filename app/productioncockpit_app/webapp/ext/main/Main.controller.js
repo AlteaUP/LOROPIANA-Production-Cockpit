@@ -20,10 +20,10 @@ sap.ui.define(
              */
             onInit: function () {
                 //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
-                this.byId("IconTabFilterId").setSelectedKey("master");
+                this.byId("IconTabFilterId").setSelectedKey("combined");
                 oController = this;
                 //      PageController.prototype.onInit.apply(this, arguments); // needs to be called to properly initialize the page controller
-                this.byId("IconTabFilterId").setSelectedKey("master");
+                this.byId("IconTabFilterId").setSelectedKey("combined");
                 this.byId("TableMaster").attachSelectionChange(function (oEvent) {
                     if (oEvent.getParameters().selectedContext.length > 0) {
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
