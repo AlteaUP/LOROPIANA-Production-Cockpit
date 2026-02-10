@@ -768,6 +768,7 @@ module.exports = cds.service.impl(async function (srv) {
             } else {
                 return callCreate
             }*/
+           return callCreate
 
         } catch (error) {
 
@@ -1116,5 +1117,9 @@ module.exports = cds.service.impl(async function (srv) {
         const result = await zmfp_mrp_plant_f4.run(req.query);
         return result;
     });
+
+    /*this.on("READ", "ZZ1_PRODUCTION_COCKPIT_API/to_char_data", async (req) => {
+        console.log("CHIAMATA ZZ1_PRODUCTION_COCKPIT_API/to_char_data")
+    });*/
 
 })

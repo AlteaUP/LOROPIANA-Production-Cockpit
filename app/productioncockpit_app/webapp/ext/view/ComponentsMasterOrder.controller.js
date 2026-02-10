@@ -207,9 +207,16 @@ sap.ui.define(
 
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();                            
+                        var oContext = oBindingContext.getBoundContext(); 
+                        if(oContext.getObject().value.to_intcomp[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_intcomp[0].msg, "E");
+                        } else {
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }                           
                         //oController.byId("TableComponents").getModel().refresh()
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content-innerTable").getBinding("rows").refresh()
+                        
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();
                         
                     }).catch((oError) => {
@@ -272,8 +279,14 @@ sap.ui.define(
 
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();                            
+                        var oContext = oBindingContext.getBoundContext();     
+                        if(oContext.getObject().value.to_intcomp[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_intcomp[0].msg, "E");
+                        } else {
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }                         
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents-content-innerTable").getBinding("rows").refresh()
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_COMPComponentsPage--TableComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();
                         //oController.byId("TableComponents").getModel().refresh()
                         
@@ -303,7 +316,7 @@ sap.ui.define(
                     vTitle = this.getResourceBundle().getText("errorTitle");
                     vState = "Error";
                 } else
-                    if (messType === "I") {
+                    if (messType === "I" || messType === "S") {
                         vTitle = this.getResourceBundle().getText("successTitle");
                         vState = "Success";
                     }

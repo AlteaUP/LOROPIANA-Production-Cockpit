@@ -238,7 +238,7 @@ sap.ui.define(
                         if(oContext.getObject().value.to_operations[0].flag_error === "true"){
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
-                            oController.openDialogMessageText("Operazione completata con successo", "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
                         oBusyDialog.close();
@@ -298,7 +298,7 @@ sap.ui.define(
                         if(oContext.getObject().value.to_operations[0].flag_error === "true"){
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
-                            oController.openDialogMessageText("Operazione completata con successo", "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }                    
                         //oController.byId("TableComponents").getModel().refresh()
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--TableCombinedOperations-content-innerTable").getModel().refresh()
@@ -507,6 +507,12 @@ sap.ui.define(
 
                 var oInput = oEvent.getSource();
                 oController._oWorkCenterContext = oInput.getBindingContext();
+
+                // recupero indice della righe selezionata e poi filtro 
+                var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length-1]
+                var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--OperationsChangeWCCombinedTableId").getBinding("items").getContexts()[index].getObject().Plant
+                var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
+                oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
 
                 oController.pWorkCentersDialog.open();
             },

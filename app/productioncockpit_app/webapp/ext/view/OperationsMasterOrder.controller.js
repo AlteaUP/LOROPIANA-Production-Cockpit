@@ -450,7 +450,7 @@ sap.ui.define(
                         if(oContext.getObject().value.to_operations[0].flag_error === "true"){
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
-                            oController.openDialogMessageText("Operazione completata con successo", "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
@@ -520,7 +520,7 @@ sap.ui.define(
                         if(oContext.getObject().value.to_operations[0].flag_error === "true"){
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
-                            oController.openDialogMessageText("Operazione completata con successo", "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }                     
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
@@ -589,6 +589,12 @@ sap.ui.define(
 
                 var oInput = oEvent.getSource();
                 oController._oWorkCenterContext = oInput.getBindingContext();
+
+                // recupero indice della righe selezionata e poi filtro 
+                var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length-1]
+                var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--OperationsChangeWCCombinedTableId").getBinding("items").getContexts()[index].getObject().Plant
+                var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
+                oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
 
                 oController.pWorkCentersDialog.open();
             },

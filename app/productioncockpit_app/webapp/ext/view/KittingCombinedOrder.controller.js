@@ -277,7 +277,7 @@ sap.ui.define(
                                 oController.openDialogMessageText(error, "E");
                             }
                         } else {
-                            oController.openDialogMessageText("Operazione completata con successo", "S"); 
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S"); 
                         }                                                    
                         
                     }).catch((oError) => {

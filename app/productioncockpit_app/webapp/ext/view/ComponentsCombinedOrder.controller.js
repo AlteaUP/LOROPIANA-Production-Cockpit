@@ -191,7 +191,13 @@ sap.ui.define(
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();    
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
-                        oController.openDialogMessageText("Operazione completata con successo", "S");
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        if(oContext.getObject().value.indexOf("Error") > -1){
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();
                         
@@ -254,9 +260,15 @@ sap.ui.define(
 
                 if(dataToSend.length > 0){
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();                            
+                        var oContext = oBindingContext.getBoundContext();       
+                        if(oContext.getObject().value.to_intcomp[0].flag_error === "true"){
+                            oController.openDialogMessageText(oContext.getObject().value.to_intcomp[0].msg, "E");
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }                     
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
-                        oController.openDialogMessageText("Operazione completata con successo", "S");
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();                        
                         
