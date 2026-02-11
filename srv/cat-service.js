@@ -125,9 +125,6 @@ module.exports = cds.service.impl(async function (srv) {
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
 
-        /*const chartData = await chartDataService.tx(request).run(
-            SELECT.from('C_RFM_ManageCombinedMfgOrder').limit(1000)
-        );*/
         if (data.length > 0) {
             const uniqueCombinedOrders = [...new Set(data.map(item => item.CombinedOrder))];
 
