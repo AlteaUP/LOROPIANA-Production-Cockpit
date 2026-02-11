@@ -592,7 +592,7 @@ sap.ui.define(
 
                 // recupero indice della righe selezionata e poi filtro 
                 var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length-1]
-                var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_OPEROperationsPage--OperationsChangeWCCombinedTableId").getBinding("items").getContexts()[index].getObject().Plant
+                var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsChangeWCMasterTableId").getBinding("items").getContexts()[index].getObject().Plant
                 var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
                 oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
 
