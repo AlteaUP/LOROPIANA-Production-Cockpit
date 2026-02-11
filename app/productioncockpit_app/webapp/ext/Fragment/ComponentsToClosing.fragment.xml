@@ -1,0 +1,111 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="ComponentsToClosingDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=""
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>ComponentsTitle}">
+      <content>
+      	<Table id="ComponentsToClosingDialogTableId"
+          items="{
+            path: 'SelectedComponentsToClosing>/'
+          }">
+          <columns>
+                <Column>
+                    <Text text="{i18n>CprodOrd}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>plant}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>material}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>newMaterial}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ManufacturingOrderOperation}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>quantity}"/>
+                </Column>
+                <Column id="lgort1_ID">
+                    <Text text="{i18n>lgort1}"/>
+                </Column>
+                <Column id="reason_ID">
+                    <Text text="{i18n>reason}"/>
+                </Column>
+                <Column id="note_ID">
+                    <Text text="{i18n>note}"/>
+                </Column>
+                <Column>
+                  <Text text="{i18n>rechargeStockFlag}"/>
+                </Column>
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{SelectedComponentsToClosing>CprodOrd}" editable="false" />
+                <Input 
+                  value="{SelectedComponentsToClosing>Plant}" editable="false" />
+                <Input 
+                  value="{SelectedComponentsToClosing>Material}" editable="false" />
+                <Input 
+                  value="{SelectedComponentsToClosing>NewMaterial}" editable="true" />
+                <Input 
+                  value="{SelectedComponentsToClosing>Batch}" editable="true" />
+                <Input 
+                  value="{SelectedComponentsToClosing>ManufacturingOrderOperation}" editable="true" />
+                <Input 
+                  value="{SelectedComponentsToClosing>TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
+                <Input 
+                  value="{SelectedComponentsToClosing>StorageLocation}" editable="true" />
+                <Select id="reasonSelectId"
+                    forceSelection="true"
+                    change=".onReasonChange"
+                    width="100%"
+                    items="{
+                        path: 'reasonServiceMaster>/ReasonSet',
+                        sorter: { path: 'Reason' }
+                    }">
+                    <core:Item id="_IDGenItem6" key="{reasonServiceMaster>SAP_UUID}" text="{reasonServiceMaster>Reason} - {reasonServiceMaster>Note}" />
+                </Select>
+                <Input 
+                  value="{Note}" editable="true" />
+                  <CheckBox id="checkboxRechargeStockMasterId" selected="{SelectedComponentsToClosing>selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseComponentsToClosingDialogDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseComponentsToClosingDialogDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmComponentsToClosingDialogDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmComponentsToClosingDialogDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

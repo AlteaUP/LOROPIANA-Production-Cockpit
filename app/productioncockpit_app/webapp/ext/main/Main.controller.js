@@ -114,6 +114,29 @@ sap.ui.define(
             //
             //  }
 
+            customFilterSearch: function(oEvent){
+                var oTable = this.byId("TableMaster"); // ID della tabella
+                var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                var filterArray = []
+
+                // Costruisci i filtri (in base al tuo scenario)
+                setTimeout(() => {
+                     if (this.byId("FilterBarMaster").getFilters().filters.length > 0) {
+                        for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++) {
+                            var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, this.byId("FilterBarMaster").getFilters().filters[i].sOperator, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                            filterArray.push(oFilter)
+                            // Applica il filtro
+                            if (oBinding) {
+                                oBinding.filter(filterArray);
+                            }
+                        }
+                    } else {
+                        oBinding.filter([]);
+                    }
+                }, 100);
+               
+            },
+
             selectIconTabFilter: function (oEvent) {
             /*    if (oEvent.getSource().getSelectedKey() === "order") {
                     // Ottieni la tabella
@@ -450,7 +473,41 @@ sap.ui.define(
             },
 
             onCloseOrder: function (oEvent) {
-                var dataProductionOrder = oController.getProductionOrder()
+                if(oController.byId("TableCombined").getSelectedContexts().length === 1){
+                    // apro popup con componenti che hanno flag di ricarica stock
+                    if (oController.pComponentsToClosing === null || oController.pComponentsToClosing === undefined) {
+                        oController.pComponentsToClosing = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.ComponentsToClosing", oController);
+                        oController.getView().addDependent(oController.pComponentsToClosing);
+                    }
+
+                    var oModel = this.getView().getModel(); // OData V4 Model
+                    var oListBinding = oModel.bindList("/ZZ1_PRODUCTION_COCKPIT_API('"+oController.byId("TableCombined").getSelectedContexts()[0].getObject().ID + "')/to_ZZ1_C_COMBORDER_COMP");
+
+                    oListBinding.requestContexts().then(aContexts => {
+                        const oModel = new sap.ui.model.json.JSONModel(aContexts.map(oContext => oContext.getObject()));
+                        for(var i=0; i<aContexts.map(oContext => oContext.getObject()).length; i++){
+                            if(aContexts.map(oContext => oContext.getObject())[i].requirementtype !== 'BB'){
+                                aContexts.map(oContext => oContext.getObject()).splice(i,1)
+                                aContexts.map(oContext => oContext.getObject()).splice(i,1)
+                            } else {
+                                aContexts.map(oContext => oContext.getObject())[i].selectedCheckboxRecharge = true
+                                aContexts.map(oContext => oContext.getObject())[i].editableCheckboxRecharge = true                                
+                            } 
+                        }
+                        oController.getView().setModel(oModel, "SelectedComponentsToClosing");
+                        oController.pComponentsToClosing.open()
+
+                        console.log("Dati Reason letti:", aContexts.map(oContext => oContext.getObject()));                    
+                    }).catch(err => {
+                        console.log("Errore nella chiamata OData:", err);
+                    });                                    
+                    
+                } else {
+                    MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                }
+
+
+                /*var dataProductionOrder = oController.getProductionOrder()
                 //alert(JSON.stringify(dataProductionOrder))
 
                 var oBusyDialog = new sap.m.BusyDialog();
@@ -496,7 +553,11 @@ sap.ui.define(
                     } else {
                         oController.openDialogMessageText(oError, "E");
                     }
-                });
+                });*/
+            },
+
+            onCloseComponentsToClosingDialogDialog: function(oEvent){
+                oController.pComponentsToClosing.close()
             },
 
             onTechnicalCompleteOrder: function (oEvent) {

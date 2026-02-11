@@ -121,44 +121,46 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
         console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
         var data = await combProdOrd.tx(request).run(request.query);
-        console.log("lunghezza array ZZ1_C_COMBINEDPRODORDER" + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
 
-        const chartData = await chartDataService.tx(request).run(
+        /*const chartData = await chartDataService.tx(request).run(
             SELECT.from('C_RFM_ManageCombinedMfgOrder').limit(1000)
-        );
-
+        );*/
         if (data.length > 0) {
+            const uniqueCombinedOrders = [...new Set(data.map(item => item.CombinedOrder))];
+
+            const chartData = await chartDataService.tx(request).run(
+                SELECT.from('C_RFM_ManageCombinedMfgOrder')
+                    .where({ CombinedProductionOrder: { in: uniqueCombinedOrders} })
+                    .limit(1000)
+            );
+
             for (var i = 0; i < data.length; i++) {
-                const chartData = await chartDataService.tx(request).run(
-                    SELECT.from('C_RFM_ManageCombinedMfgOrder')
-                        .where({ CombinedProductionOrder: data[i].CombinedOrder })
-                        .limit(1000)
-                );
-                data[i].CreatedStatusQtyInPercent = chartData[0].CreatedStatusQtyInPercent
-                data[i].OrderIsCreated = chartData[0].OrderIsCreated
-                data[i].ReleasedStatusQtyInPercent = chartData[0].ReleasedStatusQtyInPercent
-                data[i].OrderIsReleased = chartData[0].OrderIsReleased
-                data[i].OrderIsPartiallyReleased = chartData[0].OrderIsPartiallyReleased
-                data[i].ConfirmedStatusQtyInPercent = chartData[0].ConfirmedStatusQtyInPercent
-                data[i].OrderIsConfirmed = chartData[0].OrderIsConfirmed
-                data[i].OrderIsPartiallyConfirmed = chartData[0].OrderIsPartiallyConfirmed
-                data[i].DeliveredStatusQtyInPercent = chartData[0].DeliveredStatusQtyInPercent
-                data[i].OrderIsDelivered = chartData[0].OrderIsDelivered
-                data[i].OrderIsPartiallyDelivered = chartData[0].OrderIsPartiallyDelivered
-                data[i].TechlyCmpltdStatusQtyInPercent = chartData[0].TechlyCmpltdStatusQtyInPercent
-                data[i].OrderIsTechnicallyCompleted = chartData[0].OrderIsTechnicallyCompleted
-                data[i].OrderHasProductionHold = chartData[0].OrderHasProductionHold
-                data[i].OrderHasExecutionDelay = chartData[0].OrderHasExecutionDelay
-                data[i].OrderHasMissingComponents = chartData[0].OrderHasMissingComponents
-                data[i].OrderHasDeviation = chartData[0].OrderHasDeviation
-                data[i].OrderHasQualityIssue = chartData[0].OrderHasQualityIssue
+                const filteredData = chartData.filter(item => item.CombinedProductionOrder === data[i].CombinedOrder);
+
+                data[i].CreatedStatusQtyInPercent = filteredData[0].CreatedStatusQtyInPercent
+                data[i].OrderIsCreated = filteredData[0].OrderIsCreated
+                data[i].ReleasedStatusQtyInPercent = filteredData[0].ReleasedStatusQtyInPercent
+                data[i].OrderIsReleased = filteredData[0].OrderIsReleased
+                data[i].OrderIsPartiallyReleased = filteredData[0].OrderIsPartiallyReleased
+                data[i].ConfirmedStatusQtyInPercent = filteredData[0].ConfirmedStatusQtyInPercent
+                data[i].OrderIsConfirmed = filteredData[0].OrderIsConfirmed
+                data[i].OrderIsPartiallyConfirmed = filteredData[0].OrderIsPartiallyConfirmed
+                data[i].DeliveredStatusQtyInPercent = filteredData[0].DeliveredStatusQtyInPercent
+                data[i].OrderIsDelivered = filteredData[0].OrderIsDelivered
+                data[i].OrderIsPartiallyDelivered = filteredData[0].OrderIsPartiallyDelivered
+                data[i].TechlyCmpltdStatusQtyInPercent = filteredData[0].TechlyCmpltdStatusQtyInPercent
+                data[i].OrderIsTechnicallyCompleted = filteredData[0].OrderIsTechnicallyCompleted
+                data[i].OrderHasProductionHold = filteredData[0].OrderHasProductionHold
+                data[i].OrderHasExecutionDelay = filteredData[0].OrderHasExecutionDelay
+                data[i].OrderHasMissingComponents = filteredData[0].OrderHasMissingComponents
+                data[i].OrderHasDeviation = filteredData[0].OrderHasDeviation
+                data[i].OrderHasQualityIssue = filteredData[0].OrderHasQualityIssue
             }
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
-
         return data;
     });
 
