@@ -252,6 +252,31 @@ service CatalogService {
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER{
+        key ID,
+        @Common.Label: '{i18n>MRPController}'
+        key MRPController,
+        @Common.Label: '{i18n>CombinedOrder}'
+        key CombinedOrder,
+        @Common.Label: '{i18n>ProductionPlant}'
+        key ProductionPlant,
+        @Common.Label: '{i18n>ManufacturingOrderType}'
+        key ManufacturingOrderType,
+        @Common.Label: '{i18n>StockSegment}'
+        key StockSegment,
+        @Common.Label: '{i18n>CrossPlantConfigurableProduct}'
+        key CrossPlantConfigurableProduct,
+        @Common.Label: '{i18n>ProductCollection}'
+        key ProductCollection,
+        @Common.Label: '{i18n>CreationDate}'
+        key CreationDate,
+        @Common.Label: '{i18n>ProductSeasonYear}'
+        key ProductSeasonYear,
+        @Common.Label: '{i18n>ProductSeason}'
+        key ProductSeason,
+        @Common.Label: '{i18n>ProductTheme}'
+        key ProductTheme,
+        @Common.Label: '{i18n>organizationBPName1}'
+        key OrganizationBPName1,
         *,
         null as CreatedStatusQtyInPercent: String,
         null as OrderIsCreated: String,
