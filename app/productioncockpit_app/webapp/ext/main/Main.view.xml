@@ -5,7 +5,7 @@
             <IconTabBar id="IconTabFilterId" select=".selectIconTabFilter">
                 <items>
                     <IconTabFilter text="Combined" key="combined">
-                        <macros:Table id="TableCombined" type="GridTable" filterBar="FilterBarMaster"  metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti" variantManagement="Control">
+                        <macros:Table id="TableCombined" rowCountMode="Fixed" rowCount="7" type="GridTable" filterBar="FilterBarMaster"  metaPath="/ZZ1_C_COMBINEDPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro2" selectionMode="ForceMulti" variantManagement="Control">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn3"
                                     key="CombinedOrderChart"
@@ -78,7 +78,7 @@
                         </macros:Table>
                     </IconTabFilter>
                     <IconTabFilter text="Master" key="master">
-                        <macros:Table id="TableMaster" type="GridTable" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" variantManagement="Control">
+                        <macros:Table rowCountMode="Fixed" rowCount="7" id="TableMaster" type="GridTable" metaPath="/ZZ1_C_MASTERPRODORDER/@com.sap.vocabularies.UI.v1.LineItem#tableMacro1" variantManagement="Control">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn2"
                                     key="MasterOrderChart"
@@ -213,7 +213,7 @@
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>
-                    <IconTabFilter text="Order" key="order">
+                    <IconTabFilter text="Order" key="order" visible="false">
                         <macros:Table id="Table" type="GridTable"  metaPath="/ZZ1_PRODUCTION_COCKPIT_API/@com.sap.vocabularies.UI.v1.LineItem#tableMacro" selectionMode="ForceMulti" variantManagement="Control">
                             <macros:columns>
                                 <table:Column id="_IDGenColumn6"

@@ -68,7 +68,11 @@ service CatalogService {
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
-    entity ZZ1_C_MFG_COMBINEDOPER_SUM as projection on mainService.ZZ1_C_MFG_COMBINEDOPER_SUM;
+    entity ZZ1_C_MFG_COMBINEDOPER_SUM as projection on mainService.ZZ1_C_MFG_COMBINEDOPER_SUM{
+        *,
+         @sap.label : 'Criticality virtual'
+        null as RowCriticality : Integer
+    }
 
     @Capabilities.DeleteRestrictions.Deletable: false
     entity ZZ1_C_MASTERORDER_COMP as projection on mainService.ZZ1_C_MASTERORDER_COMP{
@@ -195,7 +199,9 @@ service CatalogService {
         key OpExternalProcessingPrice,
         *,
         @Common.Label: '{i18n>flagPurchaseOrder}'
-        null as flagPurchaseOrder: String
+        null as flagPurchaseOrder: String,
+         @sap.label : 'Criticality virtual'
+        null as RowCriticality : Integer
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false

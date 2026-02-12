@@ -383,6 +383,14 @@ module.exports = cds.service.impl(async function (srv) {
         if (finalData.length > 0) {
             console.log("risultati MASTER OPER final Data: ", finalData.length)
             for(var i=0; i<finalData.length; i++){
+                // valorizzo stato avanzamento
+                if(finalData[i].SumOpTotalConfirmedYieldQty === "0"){
+                    finalData[i].RowCriticality = 1
+                } else if(finalData[i].SumOpTotalConfirmedYieldQty === finalData[i].SumOpPlannedTotalQuantity){
+                    finalData[i].RowCriticality = 3
+                } else {
+                    finalData[i].RowCriticality = 2
+                }
                 if(finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== ""){
                     finalData[i].flagPurchaseOrder = 'X'
                 }
@@ -391,6 +399,14 @@ module.exports = cds.service.impl(async function (srv) {
         } else {
             console.log("risultati MASTER OPER: ", data.length)
             for(var i=0; i<data.length; i++){
+                // valorizzo stato avanzamento
+                if(data[i].SumOpTotalConfirmedYieldQty === "0"){
+                    data[i].RowCriticality = 1
+                } else if(data[i].SumOpTotalConfirmedYieldQty === data[i].SumOpPlannedTotalQuantity){
+                    data[i].RowCriticality = 3
+                } else {
+                    data[i].RowCriticality = 2
+                }
                 if(data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== ""){
                     data[i].flagPurchaseOrder = 'X'
                 }
@@ -572,6 +588,19 @@ module.exports = cds.service.impl(async function (srv) {
             method: 'GET',
             path: "/ZZ1_C_MFG_COMBINEDOPER_SUM?$filter=CprodOrd eq '" + id + "'"
         })
+
+        if(data.length > 0){
+            for(var i=0; i<data.length; i++){
+                // valorizzo stato avanzamento
+                if(data[i].SumOpTotalConfirmedYieldQty === "0"){
+                    data[i].RowCriticality = 1
+                } else if(data[i].SumOpTotalConfirmedYieldQty === data[i].SumOpPlannedTotalQuantity){
+                    data[i].RowCriticality = 3
+                } else {
+                    data[i].RowCriticality = 2
+                }
+            }
+        }
 
         console.log("risultati COMBINED OPER: ", data.length)
 

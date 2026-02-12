@@ -132,9 +132,9 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         },
     ],
     UI.SelectionFields #filterBarMacro1 : [
+        ProductionPlant,
         CombinedOrder,
         MasterProductionOrder,
-        ProductionPlant,
         ManufacturingOrderType,
         StockSegment,
         CrossPlantConfigurableProduct,
@@ -148,6 +148,12 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         OrganizationBPName1,
         CreationDate
     ],
+
+    Capabilities.FilterRestrictions : {
+        RequiredProperties : [
+            ProductionPlant
+        ]
+    }
 );
 
 annotate service.ZZ1_PRODUCTION_COCKPIT_API with {
@@ -481,6 +487,15 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
     UI.LineItem #tableMacroOperations : [
         {
             $Type : 'UI.DataField',
+            Value : ObjectInternalID,
+            Criticality : RowCriticality,
+            Label : '{i18n>statusProgress}',
+             ![@HTML5.CssDefaults] : {
+                width : '3rem',
+            }
+        },
+        {
+            $Type : 'UI.DataField',
             Value : MasterProductionOrder,
             Label : '{i18n>masterProductionOrder}',
             ![@HTML5.CssDefaults] : {
@@ -560,6 +575,15 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
 
 annotate service.ZZ1_C_MFG_COMBINEDOPER_SUM with @(
     UI.LineItem #tableMacroCombinedOperations : [
+        {
+            $Type : 'UI.DataField',
+            Value : ObjectInternalID,
+            Criticality : RowCriticality,
+            Label : '{i18n>statusProgress}',
+             ![@HTML5.CssDefaults] : {
+                width : '3rem',
+            }
+        },
         {
             $Type : 'UI.DataField',
             Value : CprodOrd,
