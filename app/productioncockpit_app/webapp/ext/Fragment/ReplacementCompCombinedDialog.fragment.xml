@@ -68,7 +68,7 @@
                 <Input 
                   value="{ManufacturingOrderOperation}" editable="true" />
                 <Input 
-                  value="{TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
+                  value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 
                   value="{StorageLocation}" editable="true" />
                 <Select id="reasonSelectId"
