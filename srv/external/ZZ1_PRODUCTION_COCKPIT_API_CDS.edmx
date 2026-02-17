@@ -300,6 +300,7 @@
 <Property Name="MRPController" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="MRPController"/>
 <Property Name="REASON" Type="Edm.String" MaxLength="50" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo lunghezza 50" sap:quickinfo="Testo di lunghezza 50"/>
 <Property Name="NOTE" Type="Edm.String" MaxLength="50" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo lunghezza 50" sap:quickinfo="Testo di lunghezza 50"/>
+<Property Name="CriticalComponentType" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Componente critico" sap:quickinfo="Indicatore componente critico"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MASTERORDER_COMPType" sap:semantics="aggregate" sap:label="ZZ1_C_MASTERORDER_COMP" sap:content-version="1">
 <Key>
@@ -367,6 +368,7 @@
 <Property Name="MRPController" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="MRPController"/>
 <Property Name="REASON" Type="Edm.String" MaxLength="50" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo lunghezza 50" sap:quickinfo="Testo di lunghezza 50"/>
 <Property Name="NOTE" Type="Edm.String" MaxLength="50" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Testo lunghezza 50" sap:quickinfo="Testo di lunghezza 50"/>
+<Property Name="CriticalComponentType" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Componente critico" sap:quickinfo="Indicatore componente critico"/>
 </EntityType>
 <EntityType Name="ZZ1_C_MASTERPRODORDERType" sap:semantics="aggregate" sap:label="ZZ1_C_MASTERPRODORDER" sap:content-version="1">
 <Key>
@@ -401,6 +403,8 @@
 <Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="35" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Nome" sap:quickinfo="Nome 1"/>
 <Property Name="OrderPersonalization" Type="Edm.String" MaxLength="20" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label=" Prod Order Personalization" sap:quickinfo="Production Order Personalization"/>
 <Property Name="SedaptaPriority" Type="Edm.String" MaxLength="15" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="ZZ1_SedaptaPRDPriority"/>
+<Property Name="FshMprodOrd" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Ordine prod. princ." sap:quickinfo="Numero ordine di produzione principale"/>
+<Property Name="CprodOrd" Type="Edm.String" MaxLength="12" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Ord. prod. combinato" sap:quickinfo="Ordine prod. principale comb."/>
 </EntityType>
 <EntityType Name="ZZ1_C_MFG_COMBINEDOPER_SUMType" sap:label="ZZ1_C_MFG_COMBINEDOPER_SUM" sap:content-version="1">
 <Key>

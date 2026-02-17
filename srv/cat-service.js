@@ -95,9 +95,14 @@ module.exports = cds.service.impl(async function (srv) {
                     .limit(1000)
             );
 
+            const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
+            const componentsData = await srv.read('ZZ1_C_MASTERORDER_COMP')
+                    .where({ FshMprodOrd: { in: uniqueMasterOrders} }).limit(1000);
+
             console.log("uniqueMasterOrders "+JSON.stringify(uniqueMasterOrders))
             console.log("chartData "+JSON.stringify(chartData))
 
+            var foundRed = 0, foundGreen = 0, foundOrange = 0
             for (var i = 0; i < data.length; i++) {
                 const filteredData = chartData.filter(item => item.MasterProductionOrder === data[i].MasterProductionOrder);
                 console.log("filteredData "+JSON.stringify(filteredData))
@@ -120,6 +125,29 @@ module.exports = cds.service.impl(async function (srv) {
                     data[i].OrderHasMissingComponents = filteredData[0].OrderHasMissingComponents
                     data[i].OrderHasDeviation = filteredData[0].OrderHasDeviation
                     data[i].OrderHasQualityIssue = filteredData[0].OrderHasQualityIssue
+                }
+                // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
+                const filteredComponentsData = componentsData.filter(item => item.FshMprodOrd === data[i].MasterProductionOrder);  
+                for(var y=0; y<filteredComponentsData.length; y++){              
+                    if(filteredComponentsData[y].CriticalComponentType !== ""){
+                        if(filteredComponentsData[y].chart_criticality === 1){
+                            foundRed = foundRed + 1
+                        } else if (filteredComponentsData[y].chart_criticality === 2){
+                            foundOrange = foundOrange + 1
+                        } else {
+                            foundGreen = foundGreen + 1
+                        }
+                    }
+                }
+                if(foundRed === data.length){
+                    data[i].RowCriticality = 1
+                    data[i].RowCriticalityValue = ""
+                } else if(foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)){
+                    data[i].RowCriticality = 3
+                    data[i].RowCriticalityValue = ""
+                } else {
+                    data[i].RowCriticality = 2
+                    data[i].RowCriticalityValue = ""
                 }
             }
         }
@@ -144,8 +172,13 @@ module.exports = cds.service.impl(async function (srv) {
                     .limit(1000)
             );
 
+            const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
+            const componentsData = await srv.read('ZZ1_C_COMBORDER_COMP')
+                    .where({ CprodOrd: { in: uniqueCombinedOrders} }).limit(1000);
+
+            var foundRed = 0, foundGreen = 0, foundOrange = 0
             for (var i = 0; i < data.length; i++) {
-                const filteredData = chartData.filter(item => item.CombinedProductionOrder === data[i].CombinedOrder);
+                const filteredData = chartData.filter(item => item.CombinedProductionOrder === data[i].CombinedOrder);                
 
                 data[i].CreatedStatusQtyInPercent = filteredData[0].CreatedStatusQtyInPercent
                 data[i].OrderIsCreated = filteredData[0].OrderIsCreated
@@ -165,7 +198,31 @@ module.exports = cds.service.impl(async function (srv) {
                 data[i].OrderHasMissingComponents = filteredData[0].OrderHasMissingComponents
                 data[i].OrderHasDeviation = filteredData[0].OrderHasDeviation
                 data[i].OrderHasQualityIssue = filteredData[0].OrderHasQualityIssue
-            }
+
+                // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
+                const filteredComponentsData = componentsData.filter(item => item.CprodOrd === data[i].CombinedOrder);  
+                for(var y=0; y<filteredComponentsData.length; y++){              
+                    if(filteredComponentsData[y].CriticalComponentType !== ""){
+                        if(filteredComponentsData[y].chart_criticality === 1){
+                            foundRed = foundRed + 1
+                        } else if (filteredComponentsData[y].chart_criticality === 2){
+                            foundOrange = foundOrange + 1
+                        } else {
+                            foundGreen = foundGreen + 1
+                        }
+                    }
+                }
+                if(foundRed === data.length){
+                    data[i].RowCriticality = 1
+                    data[i].RowCriticalityValue = ""
+                } else if(foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)){
+                    data[i].RowCriticality = 3
+                    data[i].RowCriticalityValue = ""
+                } else {
+                    data[i].RowCriticality = 2
+                    data[i].RowCriticalityValue = ""
+                }
+            }            
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
         return data;
@@ -402,7 +459,7 @@ module.exports = cds.service.impl(async function (srv) {
                 // valorizzo stato avanzamento
                 if(data[i].SumOpTotalConfirmedYieldQty === "0"){
                     data[i].RowCriticality = 1
-                } else if(data[i].SumOpTotalConfirmedYieldQty === data[i].SumOpPlannedTotalQuantity){
+                } else if(data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity){
                     data[i].RowCriticality = 3
                 } else {
                     data[i].RowCriticality = 2
@@ -594,7 +651,7 @@ module.exports = cds.service.impl(async function (srv) {
                 // valorizzo stato avanzamento
                 if(data[i].SumOpTotalConfirmedYieldQty === "0"){
                     data[i].RowCriticality = 1
-                } else if(data[i].SumOpTotalConfirmedYieldQty === data[i].SumOpPlannedTotalQuantity){
+                } else if(data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity){
                     data[i].RowCriticality = 3
                 } else {
                     data[i].RowCriticality = 2

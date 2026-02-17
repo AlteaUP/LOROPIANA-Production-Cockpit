@@ -254,6 +254,8 @@ service CatalogService {
         null as OrderHasMissingComponents: String,
         null as OrderHasDeviation: String,
         null as OrderHasQualityIssue: String,
+        null as RowCriticality : Integer,
+        null as RowCriticalityValue : String
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -302,6 +304,8 @@ service CatalogService {
         null as OrderHasMissingComponents: String,
         null as OrderHasDeviation: String,
         null as OrderHasQualityIssue: String,
+        null as RowCriticality : Integer,
+        null as RowCriticalityValue : String
     }
 
     entity intcomph as projection on componentsAction.intcomph;

@@ -17,6 +17,7 @@ type ReplacementRecord : {
     werks          : String;
     stk_seg        : String;
     action         : String;
+    recharge       : String;
 }
 
 type MaterialCreateDocument : {

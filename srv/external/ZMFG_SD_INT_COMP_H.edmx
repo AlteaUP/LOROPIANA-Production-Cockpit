@@ -81,7 +81,14 @@
 <Property Name="lgort" Type="Edm.String" Nullable="false" MaxLength="4"/>
 <Property Name="werks" Type="Edm.String" Nullable="false" MaxLength="4"/>
 <Property Name="stk_seg" Type="Edm.String" Nullable="false" MaxLength="40"/>
+<Property Name="FlErr" Type="Edm.Boolean" Nullable="false"/>
+<Property Name="LogMess" Type="Edm.String" Nullable="false" MaxLength="220"/>
+<Property Name="erdat" Type="Edm.Date"/>
+<Property Name="erzet" Type="Edm.TimeOfDay" Nullable="false"/>
 <Property Name="action" Type="Edm.String" Nullable="false" MaxLength="4"/>
+<Property Name="recharge" Type="Edm.String" Nullable="false" MaxLength="1"/>
+<Property Name="flag_error" Type="Edm.String" Nullable="false" MaxLength="5"/>
+<Property Name="msg" Type="Edm.String" Nullable="false" MaxLength="255"/>
 <Property Name="__EntityControl" Type="com.sap.gateway.srvd.zmfg_sd_int_comp_h.v0001.EntityControl"/>
 <NavigationProperty Name="parent" Type="com.sap.gateway.srvd.zmfg_sd_int_comp_h.v0001.intcomphType" Nullable="false" Partner="to_intcomp">
 <ReferentialConstraint Property="id" ReferencedProperty="id"/>
@@ -257,11 +264,30 @@
 <Annotation Term="SAP__common.IsUpperCase"/>
 <Annotation Term="SAP__common.Label" String="Segmento stock"/>
 </Annotations>
+<Annotations Target="SAP__self.intcompiType/LogMess">
+<Annotation Term="SAP__common.IsUpperCase"/>
+<Annotation Term="SAP__common.Label" String="Testo mess."/>
+<Annotation Term="SAP__common.QuickInfo" String="Testo messaggio"/>
+</Annotations>
 <Annotations Target="SAP__self.intcompiType/action">
 <Annotation Term="SAP__common.IsUpperCase"/>
 <Annotation Term="SAP__common.Label" String="Collegamento logico"/>
 <Annotation Term="SAP__common.Heading" String="Collegamento logico di variabili a ricerca classi"/>
 <Annotation Term="SAP__common.QuickInfo" String="Tipo di dati 4 caratteri"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/recharge">
+<Annotation Term="SAP__common.IsUpperCase"/>
+<Annotation Term="SAP__common.Label" String="Lngh. carattere 1"/>
+<Annotation Term="SAP__common.QuickInfo" String="Campo carattere di lunghezza 1"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/flag_error">
+<Annotation Term="SAP__common.IsUpperCase"/>
+<Annotation Term="SAP__common.Label" String="Tabella R/2"/>
+<Annotation Term="SAP__common.Heading" String="TABR2"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/msg">
+<Annotation Term="SAP__common.IsUpperCase"/>
+<Annotation Term="SAP__common.Label" String="char255"/>
 </Annotations>
 <Annotations Target="SAP__self.intcompiType/__EntityControl">
 <Annotation Term="SAP__core.Computed"/>
@@ -426,6 +452,19 @@
 <Annotations Target="SAP__self.intcompiType/reason">
 <Annotation Term="SAP__common.Label" String="c"/>
 <Annotation Term="SAP__common.QuickInfo" String="Commento"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/FlErr">
+<Annotation Term="SAP__common.Label" String="Indicatore"/>
+<Annotation Term="SAP__common.QuickInfo" String="Indicatore generale"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/erdat">
+<Annotation Term="SAP__common.Label" String="Data creazione"/>
+<Annotation Term="SAP__common.Heading" String="Data cr."/>
+<Annotation Term="SAP__common.QuickInfo" String="Data di creazione del record"/>
+</Annotations>
+<Annotations Target="SAP__self.intcompiType/erzet">
+<Annotation Term="SAP__common.Label" String="Ora"/>
+<Annotation Term="SAP__common.QuickInfo" String="Ora acquisizione"/>
 </Annotations>
 <Annotations Target="SAP__self.intcompiType/__EntityControl/Deletable">
 <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>

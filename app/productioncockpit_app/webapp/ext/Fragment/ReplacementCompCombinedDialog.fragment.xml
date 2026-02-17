@@ -48,7 +48,7 @@
                 <Column id="noteID">
                     <Text text="{i18n>note}"/>
                 </Column> 
-                <Column>
+                <Column id="checkboxRecharge_ID">
                   <Text text="{i18n>rechargeStockFlag}"/>
                 </Column>               
             </columns>
@@ -83,7 +83,7 @@
                 </Select>
                 <Input 
                   value="{Note}" editable="true" />
-                 <CheckBox id="checkboxRechargeStockCompMasterId" selected="{selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
+                 <CheckBox id="checkboxRechargeStockCompMasterId" visible="{visibleCheckboxRecharge}" selected="{selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>
           </items>

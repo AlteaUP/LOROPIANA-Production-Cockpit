@@ -95,8 +95,10 @@ sap.ui.define(
 
                     if(oController.buttonSelected === "integration"){
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
+                        oController.byId("checkboxRecharge_ID").setVisible(false)
                     } else {                        
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
+                        oController.byId("checkboxRecharge_ID").setVisible(true)
                     }
 
                     var selectedComponentsCombinedArray = []
@@ -104,8 +106,10 @@ sap.ui.define(
                     for(var i=0; i<oController.byId("TableCombinedComponents").getSelectedContexts().length; i++){
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
                         if(oController.buttonSelected === "integration"){
+                            selectedComponentsCombinedObject.visibleCheckboxRecharge = false                            
                             selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
                         } else {
+                            selectedComponentsCombinedObject.visibleCheckboxRecharge = true
                             selectedComponentsCombinedObject.NewMaterial = ""
                         }
                         if(selectedComponentsCombinedObject.requirementtype !== 'BB'){
@@ -163,13 +167,18 @@ sap.ui.define(
                     dataObjectToSend.menge = Number(table[i].TotalConfdQtyForATPInBaseUoM)
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
-                    dataObjectToSend.note = table[i].Note
+                    dataObjectToSend.note = table[i].Notec
                     dataObjectToSend.reason = table[i].Reason
                     dataObjectToSend.lgort = table[i].Lgort1 
                     dataObjectToSend.werks = table[i].Plant
-                    dataObjectToSend.stk_seg = table[i].RequirementSegment                    
+                    dataObjectToSend.stk_seg = table[i].RequirementSegment                                                      
                     if(oController.buttonSelected === 'replacement'){
                         dataObjectToSend.action = "SOST"
+                        if(table[i].selectedCheckboxRecharge   === true){
+                            dataObjectToSend.recharge = 'X'    
+                        } else {
+                            dataObjectToSend.recharge = ''
+                        } 
                     } else if(oController.buttonSelected === 'integration'){ 
                         dataObjectToSend.action = "INTE"
                     } else {

@@ -1,4 +1,4 @@
-/* checksum : 07640fc922957700ea32ca0c75aea8d4 */
+/* checksum : 9c31a423e7b944c83242d0644cac651a */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -1048,6 +1048,12 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.label : 'Testo lunghezza 50'
   @sap.quickinfo : 'Testo di lunghezza 50'
   NOTE : String(50);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Componente critico'
+  @sap.quickinfo : 'Indicatore componente critico'
+  CriticalComponentType : String(1);
 };
 
 @cds.external : true
@@ -1382,6 +1388,12 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.label : 'Testo lunghezza 50'
   @sap.quickinfo : 'Testo di lunghezza 50'
   NOTE : String(50);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Componente critico'
+  @sap.quickinfo : 'Indicatore componente critico'
+  CriticalComponentType : String(1);
 };
 
 @cds.external : true
@@ -1545,6 +1557,18 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.required.in.filter : 'false'
   @sap.label : 'ZZ1_SedaptaPRDPriority'
   SedaptaPriority : String(15);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ordine prod. princ.'
+  @sap.quickinfo : 'Numero ordine di produzione principale'
+  FshMprodOrd : String(12);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Ord. prod. combinato'
+  @sap.quickinfo : 'Ordine prod. principale comb.'
+  CprodOrd : String(12);
 };
 
 @cds.external : true

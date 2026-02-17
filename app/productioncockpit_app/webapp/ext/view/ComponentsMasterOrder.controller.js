@@ -94,8 +94,10 @@ sap.ui.define(
 
                     if(oController.buttonSelected === "integration"){
                         oController.byId("ReplacementCompMasterDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
+                        oController.byId("checkboxRecharge_ID").setVisible(false)
                     } else {
                         oController.byId("ReplacementCompMasterDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
+                        oController.byId("checkboxRecharge_ID").setVisible(true)
                     }
 
                     oController.pReplacementCompMasterDialog.open();
@@ -105,6 +107,13 @@ sap.ui.define(
                     for(var i=0; i<oController.byId("TableComponents").getSelectedContexts().length; i++){
                         selectedComponentsMasterObject = oController.byId("TableComponents").getSelectedContexts()[i].getObject()
                         selectedComponentsMasterObject.NewMaterial = selectedComponentsMasterObject.Material
+                        if(oController.buttonSelected === "integration"){
+                            selectedComponentsMasterObject.visibleCheckboxRecharge = false
+                            //selectedComponentsMasterObject.NewMaterial = selectedComponentsCombinedObject.Material
+                        } else {
+                            selectedComponentsMasterObject.visibleCheckboxRecharge = true
+                            //selectedComponentsMasterObject.NewMaterial = ""
+                        }
                         if(selectedComponentsMasterObject.requirementtype !== 'BB'){
                             selectedComponentsMasterObject.selectedCheckboxRecharge = false
                             selectedComponentsMasterObject.editableCheckboxRecharge = false
@@ -168,6 +177,11 @@ sap.ui.define(
                     dataObjectToSend.stk_seg = table[i].RequirementSegment                    
                     if(oController.buttonSelected === 'replacement'){
                         dataObjectToSend.action = "SOST"
+                        if(table[i].selectedCheckboxRecharge   === true){
+                            dataObjectToSend.recharge = 'X'    
+                        } else {
+                            dataObjectToSend.recharge = ''
+                        } 
                     } else if(oController.buttonSelected === 'integration'){ 
                         dataObjectToSend.action = "INTE"
                     } else {

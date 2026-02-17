@@ -84,6 +84,15 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
             Value : StockSegment,
             Label : 'Segmento di Stock',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : RowCriticalityValue,
+            Criticality : RowCriticality,
+            Label : '{i18n>criticalComponents}',
+             ![@HTML5.CssDefaults] : {
+                width : '3rem',
+            }
+        },
        /*  {
             $Type : 'UI.DataField',
             Value : ActualDeliveredQuantity,
@@ -181,6 +190,15 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
             $Type : 'UI.DataField',
             Value : StockSegment,
             Label : 'Segmento di Stock',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : RowCriticalityValue,
+            Criticality : RowCriticality,
+            Label : '{i18n>criticalComponents}',
+             ![@HTML5.CssDefaults] : {
+                width : '3rem',
+            }
         },
         {
             $Type : 'UI.DataField',

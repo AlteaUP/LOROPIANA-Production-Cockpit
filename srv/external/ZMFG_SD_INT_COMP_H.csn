@@ -1,6 +1,6 @@
 {
  "meta": {
-  "creator": "cds-dk 8.9.6"
+  "creator": "cds-dk 9.1.0"
  },
  "$version": "2.0",
  "definitions": {
@@ -300,6 +300,32 @@
      "@Common.IsUpperCase": true,
      "@Common.Label": "Segmento stock"
     },
+    "FlErr": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "@Common.Label": "Indicatore",
+     "@Common.QuickInfo": "Indicatore generale"
+    },
+    "LogMess": {
+     "type": "cds.String",
+     "length": 220,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Testo mess.",
+     "@Common.QuickInfo": "Testo messaggio"
+    },
+    "erdat": {
+     "type": "cds.Date",
+     "@Common.Label": "Data creazione",
+     "@Common.Heading": "Data cr.",
+     "@Common.QuickInfo": "Data di creazione del record"
+    },
+    "erzet": {
+     "type": "cds.Time",
+     "notNull": true,
+     "@Common.Label": "Ora",
+     "@Common.QuickInfo": "Ora acquisizione"
+    },
     "action": {
      "type": "cds.String",
      "length": 4,
@@ -308,6 +334,29 @@
      "@Common.Label": "Collegamento logico",
      "@Common.Heading": "Collegamento logico di variabili a ricerca classi",
      "@Common.QuickInfo": "Tipo di dati 4 caratteri"
+    },
+    "recharge": {
+     "type": "cds.String",
+     "length": 1,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Lngh. carattere 1",
+     "@Common.QuickInfo": "Campo carattere di lunghezza 1"
+    },
+    "flag_error": {
+     "type": "cds.String",
+     "length": 5,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "Tabella R/2",
+     "@Common.Heading": "TABR2"
+    },
+    "msg": {
+     "type": "cds.String",
+     "length": 255,
+     "notNull": true,
+     "@Common.IsUpperCase": true,
+     "@Common.Label": "char255"
     },
     "__EntityControl": {
      "type": "ZMFG_SD_INT_COMP_H.EntityControl",

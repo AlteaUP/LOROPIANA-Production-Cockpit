@@ -42,7 +42,7 @@
                                     importance="High"
                                     horizontalAlign="Begin"
                                     placement="Before"
-                                    anchor="DataField::CrossPlantConfigurableProduct">
+                                    anchor="DataField::RowCriticalityValue">
                                     <FlexBox id="MasterOrderCellsExt2" height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
                                         <core:Icon id="MasterOrderCellsExtIcon21" src="sap-icon://status-error" class="sapUiTinyMargin"
                                             tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"
@@ -179,8 +179,8 @@
                                     width="15rem"
                                     importance="High"
                                     horizontalAlign="Begin"
-                                    placement="After"
-                                    anchor="DataField::CrossPlantConfigurableProduct">
+                                    placement="Before"
+                                    anchor="DataField::RowCriticalityValue">
                                     <FlexBox height="auto" width="auto" justifyContent="Center" alignItems="Center" wrap="Wrap">
                                         <core:Icon src="sap-icon://status-error" class="sapUiTinyMargin"
                                             tooltip="{parts:[{path: 'OrderHasProductionHold'},{value: 'X1'}], formatter: '.determineIssueTypeText'}"

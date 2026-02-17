@@ -11,7 +11,7 @@
       type="Message"
       state="None"
       icon="sap-icon://it-host"
-      title="{i18n>ComponentsTitle}">
+      title="{i18n>CloseTitle}">
       <content>
       	<Table id="ComponentsToClosingDialogTableId"
           items="{
@@ -28,25 +28,13 @@
                     <Text text="{i18n>material}"/>
                 </Column>
                 <Column>
-                    <Text text="{i18n>newMaterial}"/>
-                </Column>
-                <Column>
                     <Text text="{i18n>batch}"/>
-                </Column>
-                <Column>
-                    <Text text="{i18n>ManufacturingOrderOperation}"/>
                 </Column>
                 <Column>
                     <Text text="{i18n>quantity}"/>
                 </Column>
                 <Column id="lgort1_ID">
                     <Text text="{i18n>lgort1}"/>
-                </Column>
-                <Column id="reason_ID">
-                    <Text text="{i18n>reason}"/>
-                </Column>
-                <Column id="note_ID">
-                    <Text text="{i18n>note}"/>
                 </Column>
                 <Column>
                   <Text text="{i18n>rechargeStockFlag}"/>
@@ -62,27 +50,11 @@
                 <Input 
                   value="{SelectedComponentsToClosing>Material}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>NewMaterial}" editable="true" />
+                  value="{SelectedComponentsToClosing>Batch}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>Batch}" editable="true" />
+                  value="{SelectedComponentsToClosing>TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>ManufacturingOrderOperation}" editable="true" />
-                <Input 
-                  value="{SelectedComponentsToClosing>TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" />
-                <Input 
-                  value="{SelectedComponentsToClosing>StorageLocation}" editable="true" />
-                <Select id="reasonSelectId"
-                    forceSelection="true"
-                    change=".onReasonChange"
-                    width="100%"
-                    items="{
-                        path: 'reasonServiceMaster>/ReasonSet',
-                        sorter: { path: 'Reason' }
-                    }">
-                    <core:Item id="_IDGenItem6" key="{reasonServiceMaster>SAP_UUID}" text="{reasonServiceMaster>Reason} - {reasonServiceMaster>Note}" />
-                </Select>
-                <Input 
-                  value="{Note}" editable="true" />
+                  value="{SelectedComponentsToClosing>StorageLocation}" editable="false" />
                   <CheckBox id="checkboxRechargeStockMasterId" selected="{SelectedComponentsToClosing>selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>
