@@ -358,5 +358,7 @@ service CatalogService {
 
     action GetMaterialDetails(oidOrdine: TYPES.ConfODPData) returns LargeString;
 
+    action GetOrdersList(MasterOrderList: array of String) returns LargeString;
+
 
 }

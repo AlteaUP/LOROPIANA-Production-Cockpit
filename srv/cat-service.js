@@ -1172,7 +1172,21 @@ module.exports = cds.service.impl(async function (srv) {
 
     });
 
+    this.on("GetOrdersList", async (req) => {
+        console.log("GetOrdersList Action")
 
+        var orderData = []
+
+        const OrderList = req.data.MasterOrderList;
+
+        if(OrderList.length > 0){
+            const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
+            orderData = await srv.read('ZZ1_PRODUCTION_COCKPIT_API')
+                    .where({ FshMprodOrd: { in: OrderList} }).limit(1000);
+        }
+
+        return orderData
+    });
 
     this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {
         console.log("chiamata ZZ1_MFG_ROL_ORDERS")

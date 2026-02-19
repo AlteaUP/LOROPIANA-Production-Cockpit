@@ -489,11 +489,11 @@ sap.ui.define(
                 if(oController.byId("TableCombined").getSelectedContexts().length === 1){
                     // cerco se esiste almeno un componente con ricarica stock
                     var oModel = this.getView().getModel(); // OData V4 Model
-                    var oListBinding = await oModel.bindList("/ZZ1_PRODUCTION_COCKPIT_API('"+oController.byId("TableCombined").getSelectedContexts()[0].getObject().ID + "')/to_ZZ1_C_COMBORDER_COMP");
+                    var oListBinding = oModel.bindList("/ZZ1_PRODUCTION_COCKPIT_API('"+oController.byId("TableCombined").getSelectedContexts()[0].getObject().ID + "')/to_ZZ1_C_COMBORDER_COMP");
                     oController.oBusyDialog = new sap.m.BusyDialog();
                     oController.oBusyDialog.open();
 
-                    oListBinding.requestContexts().then(aContexts => {  
+                    oListBinding.requestContexts().then(async aContexts => {  
                         var data = []
                         found = false    
                         var objectCopy = {}                 
@@ -525,7 +525,7 @@ sap.ui.define(
                             oController.pComponentsToClosing.open()
                         } else {
                             //alert("chiamo CLOSE action")
-                            var dataProductionOrder = oController.getProductionOrder()
+                            var dataProductionOrder = await oController.getProductionOrder()
                             //alert(JSON.stringify(dataProductionOrder))
 
                             var oBusyDialog = new sap.m.BusyDialog();
@@ -711,8 +711,8 @@ sap.ui.define(
                 oController.pComponentsToClosing.close()
             },
 
-            onTechnicalCompleteOrder: function (oEvent) {
-                var dataProductionOrder = oController.getProductionOrder()
+            onTechnicalCompleteOrder: async function (oEvent) {
+                var dataProductionOrder = await oController.getProductionOrder()
                 //alert(JSON.stringify(dataProductionOrder))
 
                 var oBusyDialog = new sap.m.BusyDialog();
@@ -761,8 +761,8 @@ sap.ui.define(
                 });
             },
 
-            onRelaseOrder: function (oEvent) {
-                var dataProductionOrder = oController.getProductionOrder()
+            onRelaseOrder: async function (oEvent) {
+                var dataProductionOrder = await oController.getProductionOrder()
                 //alert(JSON.stringify(dataProductionOrder))
 
                 var oBusyDialog = new sap.m.BusyDialog();
@@ -811,10 +811,51 @@ sap.ui.define(
                 });
             },
 
-            getProductionOrder: function () {
+            getProductionOrder: async function () {
                 // recupero ordini di produzione
                 var arrayProductionOrder = []
-                var dataMasterTable = this.byId("TableMaster").getRowBinding().aContexts
+                var dataProductionOrder = []
+                // recupero array master order
+                if (oController.byId("IconTabFilterId").getSelectedKey() === "combined"){
+                    var dataMasterTable = this.byId("TableMaster").getRowBinding().aContexts
+                    for (var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts().length; i++) {
+                        var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
+                        for (var y = 0; y < dataMasterTable.length; y++) {
+                            if (dataMasterTable[y].getObject().CombinedOrder === combinedOrder) {
+                                var masterOrder = dataMasterTable[y].getObject().MasterProductionOrder                                
+                                dataProductionOrder.push(masterOrder)                                    
+                            }
+                        }
+                    }
+                }
+                const oModelView = oController.getView().getModel();
+                var oBindingContext = await oModelView.bindContext("/GetOrdersList(...)");
+                oBindingContext.setParameter("MasterOrderList",
+                    dataProductionOrder 
+                );
+
+                await oBindingContext.execute().then((oResult) => {
+                    var oContext = oBindingContext.getBoundContext();                           
+                    if(oContext.getObject().value.length > 0){
+                        for(var z=0; z<oContext.getObject().value.length; z++){
+                            arrayProductionOrder.push(oContext.getObject().value[z].ManufacturingOrder)
+                        }
+                    }                    
+                    
+                }).catch((oError) => {
+                    oBusyDialog.close();
+                    if(oError.error !== undefined && oError.error !== null){
+                        oController.openDialogMessageText(oError.error.message, "E");
+                    } else {
+                        oController.openDialogMessageText(oError, "E");
+                    }
+                   
+                });
+
+                return arrayProductionOrder   
+
+
+                /*var dataMasterTable = this.byId("TableMaster").getRowBinding().aContexts
                 var dataOrderTable = this.byId("Table").getRowBinding().aContexts
                 for (var i = 0; i < sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts().length; i++) {
                     var combinedOrder = sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined").getSelectedContexts()[i].getObject().CombinedOrder
@@ -828,9 +869,8 @@ sap.ui.define(
                             }
                         }
                     }
-                }
-
-                return arrayProductionOrder
+                }*/
+                
             },
 
             openDialogMessageText: function (text, messType) {

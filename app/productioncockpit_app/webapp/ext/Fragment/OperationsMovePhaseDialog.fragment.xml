@@ -31,7 +31,7 @@
           singleContainerFullSize="false" >
           <f:content>
             <Label text="{i18n>generateWIPbatch}" />
-            <CheckBox id="generateWIPbatchCheckBoxId"/>
+            <CheckBox id="generateWIPbatchCheckBoxId" selected="true"/>
             <Label text="{i18n>DDT}" />
             <Input id="ddtId"/>
             <Label text="{i18n>ddtDate}" />

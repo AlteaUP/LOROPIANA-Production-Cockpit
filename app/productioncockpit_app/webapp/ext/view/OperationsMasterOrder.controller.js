@@ -327,6 +327,13 @@ sap.ui.define(
                             oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
                         }
 
+                        // modifica DL - controllo quale riga ho selezionato, se è l'ultima disabilito il flag WIP batch
+                        if(oController.byId("TableOperations").getRowBinding().getLength()-1 === oController.byId("TableOperations").getMDCTable().getSelectedContexts()[0].getIndex()){
+                            oController.byId("generateWIPbatchCheckBoxId").setEnabled(false)
+                        } else {
+                            oController.byId("generateWIPbatchCheckBoxId").setEnabled(true)
+                        }
+
                         oController.pOperationsMovePhaseMasterDialog.open();
 
                         // chiamo action per recupero dettagli del materiale
