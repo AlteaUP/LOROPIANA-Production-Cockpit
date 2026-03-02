@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.fe.macros.table" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="productioncockpitapp.ext.view.StockCombinedOrder">
+    <Page id="stock">
+        <content>
+         <VBox class="sapUiSmallMargin">            
+            <HBox>
+                <Label text="Ordine" width="120px"/>
+                <Text text="{stocksModel>/CprodOrd}" width="200px"/>
+            </HBox>
+            <HBox class="sapUiTinyMarginTop">
+                <Label text="Material" width="120px"/>
+                <Text text="{stocksModel>/Material}" width="200px"/>
+            </HBox>
+            <HBox class="sapUiTinyMarginTop">
+                <Label text="Required Qty" width="120px"/>
+                <Text text="{stocksModel>/TotalQuantityInEntryUnit}" width="200px"/>
+            </HBox>
+        </VBox>
+          <Title text="Stock ({stocksModel>/tableCount})" level="H3" class="sapUiSmallMarginBegin"/>
+          <macros:FilterBar metaPath="/ZZ1_CombPlnOrdersStock/@com.sap.vocabularies.UI.v1.SelectionFields#tableStock" id="orderComponentFilter" visible="false"/>
+            <macros:Table id="TableStock" selectionMode="ForceMulti" rowCountMode="Auto" metaPath="/ZZ1_CombPlnOrdersStock/@com.sap.vocabularies.UI.v1.LineItem#Stock" type="ResponsiveTable" variantManagement="Control" filterBar="orderComponentFilter">
+             <macros:actions>
+                    <table:Action
+                        id="assegna"
+                        press="pressAssegna"
+                        text="Assegna"
+                        placement="Before"
+                        key="assegna"
+                    />
+                    <table:Action
+                        id="disassegna"
+                        text="Disassegna"
+                        press="pressDisassegna"
+                        placement="After"
+                        key="disassegna"
+                    />
+                </macros:actions>
+            </macros:Table>       
+        </content>
+    </Page>
+</mvc:View> 

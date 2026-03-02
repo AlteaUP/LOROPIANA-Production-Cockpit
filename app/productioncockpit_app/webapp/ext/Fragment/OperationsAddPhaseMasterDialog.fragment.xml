@@ -67,10 +67,11 @@
                 <Input 
                   value="{WorkCenterInternalID_1_Text}" editable="{WorkCenterInternalID_1_TextEditable}"/>
                 <Input 
-                  value="{OpExternalProcessingPrice}" />
+                  value="{OpExternalProcessingPrice}" 
+                  enabled="{= !${FreeFlag} }"/>
                 <Input 
                   value="{OperationControlProfile}" editable="{OperationControlProfileEditable}"/>
-                <CheckBox id="checkboxFreeFlagMasterId" ></CheckBox>
+                <CheckBox id="checkboxFreeFlagMasterId" selected="{FreeFlag}" select=".onFreeFlagSelectMaster"></CheckBox>
               </cells>
             </ColumnListItem>
           </items>

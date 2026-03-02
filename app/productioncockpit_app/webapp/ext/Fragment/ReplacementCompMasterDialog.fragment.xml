@@ -63,15 +63,24 @@
                   value="{Material}" editable="false" />
                 <Input 
                   value="{NewMaterial}" editable="true" />
-                <Input 
-                  value="{Batch}" editable="true" />
+                <HBox alignItems="Center">
+                  <Input
+                      value="{Batch}"
+                      editable="false"
+                      width="100%" />
+                  <Button
+                      icon="sap-icon://add"
+                      type="Transparent"
+                      tooltip="Assegna Batch"
+                      press=".onBatchViewMaster"/>
+                </HBox>
                 <Input 
                   value="{ManufacturingOrderOperation}" editable="true" />
                 <Input 
                   value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 
                   value="{StorageLocation}" editable="true" />
-                <Select id="reasonSelectId"
+                <Select id="reasonSelectIdMaster"
                     forceSelection="true"
                     change=".onReasonChange"
                     width="100%"

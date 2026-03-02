@@ -4,9 +4,9 @@ sap.ui.define(
         'sap/ui/model/json/JSONModel',
         "sap/m/Dialog",
         'sap/m/MessageToast'
-        
+
     ],
-    function(PageController, JSONModel, Dialog, MessageToast) {
+    function (PageController, JSONModel, Dialog, MessageToast) {
         'use strict';
 
         var oController;
@@ -21,105 +21,151 @@ sap.ui.define(
                 oController = this;
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
-                    if(ctx !== undefined && ctx !== null){
-                        var newPathSplitted = ctx.sPath.split("/"); 
+                    if (ctx !== undefined && ctx !== null) {
+                        var newPathSplitted = ctx.sPath.split("/");
                         var newPath = newPathSplitted[0] + "/" + newPathSplitted[1];
                         ctx.sPath = newPath
                     }
                     console.log("View binding context:", ctx && ctx.getPath());
                 });
                 this.byId("TableOperations").attachSelectionChange(function (oEvent) {
-                    if(oEvent.getParameters().selectedContext.length > 0){
+                    if (oEvent.getParameters().selectedContext.length > 0) {
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::deletePhaseMasterAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(true);                        
-                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::modifyPhaseMasterAction").setEnabled(true);                        
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::modifyPhaseMasterAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::deletePhaseMasterAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);                        
+                        oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::modifyPhaseMasterAction").setEnabled(false);
                     }
                 });
             },
 
-            loadTableData: function(oEvent){
+            loadTableData: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("collectionBindingInfo");
                 //Event handlers for the binding
                 mBindingParams.collectionBindingInfo.events = {
-                    "dataReceived" : function(oEvent){
+                    "dataReceived": function (oEvent) {
                         var aReceivedData = oEvent.getParameter('data');
 
                         // modifica DL - 16/12/2025 - colore righe se operazione chiusa e tolgo selezione
                         var oMDCTable = oController.byId("TableOperations").getMDCTable();
 
-                        var intervalId = setInterval(function() {
+                        var intervalId = setInterval(function () {
                             var aRows = oMDCTable._oTable.getRows();
                             if (aRows.length > 0) {
                                 // Cella pronta, applica editMode
-                                aRows.forEach(function(oRow) {
+                                aRows.forEach(function (oRow) {
                                     // rimuovo classi precedenti
                                     oRow.removeStyleClass("grayBackground");
-                                    
-                                    if(oRow.getBindingContext() !== null){
-                                        if(oRow.getBindingContext().getProperty("OperationIsDeleted") === "X"){
+
+                                    if (oRow.getBindingContext() !== null) {
+                                        if (oRow.getBindingContext().getProperty("OperationIsDeleted") === "X") {
                                             oRow.addStyleClass("grayBackground");
                                             /*var idToRemove = oRow.getId() + "-selectMulti"
                                             sap.ui.getCore().byId(idToRemove).setVisible(false)*/
                                             var parentId = oRow.getParent().getId()
-                                            var countRow = oRow.getId().substring(oRow.getId().length-1,oRow.getId().length)
+                                            var countRow = oRow.getId().substring(oRow.getId().length - 1, oRow.getId().length)
                                             var idToRemove = parentId + "-rowsel" + countRow
                                             document.getElementById(idToRemove).style.visibility = "hidden";
-                                        }  
-                                    }                               
-                    
+                                        }
+                                    }
+
                                 });
                                 clearInterval(intervalId); // ferma il polling
                             }
-                        }, 100); 
+                        }, 100);
                         // modifica DL - 16/12/2025 - colore righe se operazione chiusa e tolgo selezione - FINE
 
                         // gestione errore
-                        if(oEvent.mParameters.error !== undefined && oEvent.mParameters.error !== null){
-                            oController.openDialogMessageText(oEvent.mParameters.error.message , "E");
+                        if (oEvent.mParameters.error !== undefined && oEvent.mParameters.error !== null) {
+                            oController.openDialogMessageText(oEvent.mParameters.error.message, "E");
                         }
-                        },
-                        //More event handling can be done here
-                };                
+                    },
+                    //More event handling can be done here
+                };
 
                 //delete mBindingParams.collectionBindingInfo.parameters.$$getKeepAliveContext
             },
 
-            onCloseOperationsChangeWCMasterDialog: function(){
+            onFreeFlagSelectMaster: function (oEvent) {
+                const bSelected = oEvent.getParameter("selected");
+                const oCtx = oEvent.getSource().getBindingContext();
+                if (!oCtx) return;
+
+                const oModel = oCtx.getModel();
+                const sPath = oCtx.getPath();
+
+                const sPricePath = sPath + "/OpExternalProcessingPrice";
+                const sOldPath = sPath + "/OpExternalProcessingPrice_OLD";
+
+                if (bSelected) {
+                    const vOld = oModel.getProperty(sOldPath);
+                    if (vOld === undefined || vOld === null) {
+                        const vCurrent = oModel.getProperty(sPricePath);
+                        oModel.setProperty(sOldPath, vCurrent);
+                    }
+                    oModel.setProperty(sPricePath, 0);
+                } else {
+                    // ripristina
+                    const vRestore = oModel.getProperty(sOldPath);
+                    if (vRestore !== undefined && vRestore !== null) {
+                        oModel.setProperty(sPricePath, vRestore);
+                        oModel.setProperty(sOldPath, null);
+                    }
+                }
+            },
+
+            onCloseOperationsChangeWCMasterDialog: function () {
                 oController.pOperationsChangeWCMasterDialog.close();
             },
 
-            onCloseOperationsAddPhaseMasterDialog: function(){
+            onCloseOperationsAddPhaseMasterDialog: function () {
                 oController.pOperationsAddPhaseMasterDialog.close();
             },
 
-            onCloseOperationsMovePhaseDialog: function(){
+            onCloseOperationsMovePhaseDialog: function () {
                 oController.pOperationsMovePhaseMasterDialog.close();
             },
 
-            onConfirmOperationsMovePhaseDialog: function(){
+            onConfirmOperationsMovePhaseDialog: function () {
                 console.log("onConfirmOperationsMovePhaseDialog");
                 var dataToSend = []
                 var dataObjectToSend = {}
+                // Prendo il valore dell’Input
+                const sDdt = this.byId("ddtId").getValue() || "";
 
-                for(var i=0; i<this.byId("OperationsMovePhaseTableId").getItems().length; i++){
+                // Prendo la data dal DatePicker
+                const oDatePicker = this.byId("ddtDateId");
+                const oDate = oDatePicker.getDateValue();
+                //data formattata
+                let sFormattedDate = "";
+                if (oDate) {
+                    const yyyy = oDate.getFullYear();
+                    const mm = String(oDate.getMonth() + 1).padStart(2, "0");
+                    const dd = String(oDate.getDate()).padStart(2, "0");
+                    sFormattedDate = `${yyyy}-${mm}-${dd}`;
+                }
+
+                for (var i = 0; i < this.byId("OperationsMovePhaseTableId").getItems().length; i++) {
                     var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext().sPath
                     var object = this.byId("OperationsMovePhaseTableId").getModel().getObject(path)
                     dataObjectToSend = {}
-                    dataObjectToSend.id = String(i+1).padStart(3, "0");//"001"                    
+                    dataObjectToSend.id = String(i + 1).padStart(3, "0");//"001"                    
                     dataObjectToSend.CprodOrd = object.CprodOrd
                     dataObjectToSend.FshMprodOrd = object.MasterProductionOrder
                     dataObjectToSend.matnr = object.Product
                     dataObjectToSend.werks = object.Plant
                     dataObjectToSend.meins = object.ProductionUnit
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
+                    dataObjectToSend.ext_flag = object.ExtProcgOperationHasSubcontrg
+                    dataObjectToSend.po_flag = object.IntermediatePhaseIndicator
+                    dataObjectToSend.ddt = sDdt;
+                    dataObjectToSend.ddt_date = sFormattedDate
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
                     dataObjectToSend.rework = Number(object.QtyToRework)*/
                     dataObjectToSend.vornr = object.ManufacturingOrderOperation
@@ -138,30 +184,30 @@ sap.ui.define(
 
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/ConfODP(...)");
-                oBindingContext.setParameter("Record", 
+                oBindingContext.setParameter("Record",
                     dataToSend
                 );
 
-                if(dataToSend.length > 0){
+                if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();                         
-                        if(oContext.getObject().value.to_confodp[0].fl_err_o){
+                        var oContext = oBindingContext.getBoundContext();
+                        if (oContext.getObject().value.to_confodp[0].fl_err_o) {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "E");
                         } else {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
                         }
-                         setTimeout(() => {
+                        setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
                         oController.pOperationsMovePhaseMasterDialog.close()
                         //MessageToast.show(oController.getResourceBundle().getText("done"))                            
                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable-table").getBinding("rows").refresh()
-                        oBusyDialog.close();                       
-                        
+                        oBusyDialog.close();
+
                     }).catch((oError) => {
                         oBusyDialog.close();
-                        if(oError.error !== undefined && oError.error !== null){
+                        if (oError.error !== undefined && oError.error !== null) {
                             oController.openDialogMessageText(oError.error.message, "E");
                         } else {
                             oController.openDialogMessageText(oError, "E");
@@ -169,66 +215,66 @@ sap.ui.define(
                     });
                 } else {
                     //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
-                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");                    
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
                     oBusyDialog.close();
                 }
-               /*var oModel = this.getView().getModel();
-
-                var payload = {
-                    id: "001",
-                    to_confodp: dataToSend
-                };
-
-                oBusyDialog.open();
-
-                oModel.callFunction("/MovePhase", {
-                    method: "POST",
-                    urlParameters: payload,
-                    success: function(oData, response) {
-                        // ✅ Qui hai il risultato della Action
-                        if(oData.status === "Error") {
-                            oController.openDialogMessageText(oData.message, "E");
-                        } else {
-                            oController.openDialogMessageText(oData.message || "Operazione completata", "S");
-                        }
-                        oBusyDialog.close();
-                    },
-                    error: function(oError) {
-                        oController.openDialogMessageText(oError.message || "Errore sconosciuto", "E");
-                        oBusyDialog.close();
-                    }
-                });*/
+                /*var oModel = this.getView().getModel();
+ 
+                 var payload = {
+                     id: "001",
+                     to_confodp: dataToSend
+                 };
+ 
+                 oBusyDialog.open();
+ 
+                 oModel.callFunction("/MovePhase", {
+                     method: "POST",
+                     urlParameters: payload,
+                     success: function(oData, response) {
+                         // ✅ Qui hai il risultato della Action
+                         if(oData.status === "Error") {
+                             oController.openDialogMessageText(oData.message, "E");
+                         } else {
+                             oController.openDialogMessageText(oData.message || "Operazione completata", "S");
+                         }
+                         oBusyDialog.close();
+                     },
+                     error: function(oError) {
+                         oController.openDialogMessageText(oError.message || "Errore sconosciuto", "E");
+                         oBusyDialog.close();
+                     }
+                 });*/
             },
 
-            onActionOperationMaster: async function(oEvent){
-                var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length-1]
+            onActionOperationMaster: async function (oEvent) {
+                var buttonId = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length - 1]
                 // controllo quale pulsante ho selezionato
-                switch(buttonId) {
-                case "changeWCMasterAction":
-                    // code block
-                    oController.buttonSelected = "changeWC"
-                    break;
-                case "addPhaseMasterAction":
-                    // code block
-                    oController.buttonSelected = "addPhase"
-                    break;
-                case "deletePhaseMasterAction":
-                    // code block
-                    oController.buttonSelected = "deletePhase"
-                    break;
-                case "movePhaseMasterAction":
-                    // code block
-                    oController.buttonSelected = "movePhase"
-                    break;
-                case "modifyPhaseMasterAction":
-                    oController.buttonSelected = "modifyPhase"
-                    break;
-                default:
-                    // code block
-                    oController.buttonSelected = ""
+                switch (buttonId) {
+                    case "changeWCMasterAction":
+                        // code block
+                        oController.buttonSelected = "changeWC"
+                        break;
+                    case "addPhaseMasterAction":
+                        // code block
+                        oController.buttonSelected = "addPhase"
+                        break;
+                    case "deletePhaseMasterAction":
+                        // code block
+                        oController.buttonSelected = "deletePhase"
+                        break;
+                    case "movePhaseMasterAction":
+                        // code block
+                        oController.buttonSelected = "movePhase"
+                        break;
+                    case "modifyPhaseMasterAction":
+                        oController.buttonSelected = "modifyPhase"
+                        break;
+                    default:
+                        // code block
+                        oController.buttonSelected = ""
                 }
-                if(oController.buttonSelected === "changeWC"){
-                    if(oController.pOperationsChangeWCMasterDialog === null || oController.pOperationsChangeWCMasterDialog === undefined){
+                if (oController.buttonSelected === "changeWC") {
+                    if (oController.pOperationsChangeWCMasterDialog === null || oController.pOperationsChangeWCMasterDialog === undefined) {
                         oController.pOperationsChangeWCMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsChangeWCMasterDialog", oController);
                         oController.getView().addDependent(oController.pOperationsChangeWCMasterDialog);
                     }
@@ -237,24 +283,24 @@ sap.ui.define(
 
                     var selectedOperationsMasterArray = []
                     var selectedOperationsMasterObject = {}
-                    for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                    for (var i = 0; i < oController.byId("TableOperations").getSelectedContexts().length; i++) {
                         selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }
 
                     var oTable = oController.byId("OperationsChangeWCMasterTableId");
-                        
+
                     var oModel = new JSONModel();
-                    oModel.setData({ SelectedOperationsChangeWCMaster: selectedOperationsMasterArray})
+                    oModel.setData({ SelectedOperationsChangeWCMaster: selectedOperationsMasterArray })
                     oTable.setModel(oModel);
-                } else if(oController.buttonSelected === "addPhase"){
-                    if(oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined){
+                } else if (oController.buttonSelected === "addPhase") {
+                    if (oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined) {
                         oController.pOperationsAddPhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
                         oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
                     }
 
-                    if(oController.buttonSelected === "modifyPhase"){
+                    if (oController.buttonSelected === "modifyPhase") {
                         oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseMaster"))
                     } else {
                         oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("addPhaseMaster"))
@@ -264,7 +310,7 @@ sap.ui.define(
 
                     var selectedOperationsMasterArray = []
                     var selectedOperationsMasterObject = {}
-                    for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                    for (var i = 0; i < oController.byId("TableOperations").getSelectedContexts().length; i++) {
                         selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                         selectedOperationsMasterObject.MaterialGroupEditable = true
@@ -274,22 +320,28 @@ sap.ui.define(
                         selectedOperationsMasterObject.WorkCenterEditable = true
                         selectedOperationsMasterObject.WorkCenterInternalID_1_TextEditable = true
                         selectedOperationsMasterObject.OperationControlProfileEditable = true
+                        //in addPhase applico maggiorazione di "5" al campo operation
+                        let op = selectedOperationsMasterObject.ManufacturingOrderOperation;
+                        let newOp = (parseInt(op, 10) + 5)
+                            .toString()
+                            .padStart(op.length, '0');
+                        selectedOperationsMasterObject.ManufacturingOrderOperation = newOp;
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }
 
                     var oTable = oController.byId("OperationsAddPhaseMasterTableId");
-                        
+
                     var oModel = new JSONModel();
-                    oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
+                    oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray })
                     oTable.setModel(oModel);
-                } else if(oController.buttonSelected === "modifyPhase"){ 
-                    if(oController.byId("TableOperations").getSelectedContexts().length === 1){
-                        if(oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined){
+                } else if (oController.buttonSelected === "modifyPhase") {
+                    if (oController.byId("TableOperations").getSelectedContexts().length === 1) {
+                        if (oController.pOperationsAddPhaseMasterDialog === null || oController.pOperationsAddPhaseMasterDialog === undefined) {
                             oController.pOperationsAddPhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsAddPhaseMasterDialog", oController);
                             oController.getView().addDependent(oController.pOperationsAddPhaseMasterDialog);
                         }
 
-                        if(oController.buttonSelected === "modifyPhase"){
+                        if (oController.buttonSelected === "modifyPhase") {
                             oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("modifyPhaseMaster"))
                         } else {
                             oController.pOperationsAddPhaseMasterDialog.setTitle(oController.getResourceBundle().getText("addPhaseMaster"))
@@ -299,7 +351,7 @@ sap.ui.define(
 
                         var selectedOperationsMasterArray = []
                         var selectedOperationsMasterObject = {}
-                        for(var i=0; i<oController.byId("TableOperations").getSelectedContexts().length; i++){
+                        for (var i = 0; i < oController.byId("TableOperations").getSelectedContexts().length; i++) {
                             selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
                             selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                             selectedOperationsMasterObject.MaterialGroupEditable = false
@@ -313,22 +365,22 @@ sap.ui.define(
                         }
 
                         var oTable = oController.byId("OperationsAddPhaseMasterTableId");
-                            
+
                         var oModel = new JSONModel();
-                        oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray})
+                        oModel.setData({ SelectedOperationsAddPhaseMaster: selectedOperationsMasterArray })
                         oTable.setModel(oModel);
                     } else {
-                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
-                    } 
-                } else if(oController.buttonSelected === "movePhase"){ 
-                    if(oController.byId("TableOperations").getSelectedContexts().length === 1){
-                        if(oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined){
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                    }
+                } else if (oController.buttonSelected === "movePhase") {
+                    if (oController.byId("TableOperations").getSelectedContexts().length === 1) {
+                        if (oController.pOperationsMovePhaseMasterDialog === null || oController.pOperationsMovePhaseMasterDialog === undefined) {
                             oController.pOperationsMovePhaseMasterDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.OperationsMovePhaseDialog", oController);
                             oController.getView().addDependent(oController.pOperationsMovePhaseMasterDialog);
                         }
 
                         // modifica DL - controllo quale riga ho selezionato, se è l'ultima disabilito il flag WIP batch
-                        if(oController.byId("TableOperations").getRowBinding().getLength()-1 === oController.byId("TableOperations").getMDCTable().getSelectedContexts()[0].getIndex()){
+                        if (oController.byId("TableOperations").getRowBinding().getLength() - 1 === oController.byId("TableOperations").getMDCTable().getSelectedContexts()[0].getIndex()) {
                             oController.byId("generateWIPbatchCheckBoxId").setEnabled(false)
                         } else {
                             oController.byId("generateWIPbatchCheckBoxId").setEnabled(true)
@@ -347,44 +399,48 @@ sap.ui.define(
                         dataToSend.sumOpTotalConfirmedYieldQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedYieldQty
                         dataToSend.sumOpTotalConfirmedReworkQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedReworkQty
                         dataToSend.sumOpTotalConfirmedScrapQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedScrapQty
+                        //recupero campo ExtProcgOperationHasSubcontrg
+                        this.ExtProcgOperationHasSubcontrg = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ExtProcgOperationHasSubcontrg
 
                         const oModelView = oController.getView().getModel();
                         var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
-                        oBindingContext.setParameter("oidOrdine", 
-                            dataToSend                            
+                        oBindingContext.setParameter("oidOrdine",
+                            dataToSend
                         );
 
                         await oBindingContext.execute().then((oResult) => {
-                            var oContext = oBindingContext.getBoundContext(); 
+                            var oContext = oBindingContext.getBoundContext();
                             var selectedOperationsMasterArray = []
-                            var selectedOperationsMasterObject = {}                           
-                            if(oContext.getObject().value.length > 0){
-                                for(var p=0; p<oContext.getObject().value.length; p++){
+                            var selectedOperationsMasterObject = {}
+                            if (oContext.getObject().value.length > 0) {
+                                for (var p = 0; p < oContext.getObject().value.length; p++) {
                                     selectedOperationsMasterObject = oContext.getObject().value[p]
                                     //selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
                                     //selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
                                     //selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
+                                    //aggiungo al model il campo ExtProcgOperationHasSubcontrg
+                                    selectedOperationsMasterObject.ExtProcgOperationHasSubcontrg = this.ExtProcgOperationHasSubcontrg
                                     selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }
                             }
                             var oTable = oController.byId("OperationsMovePhaseTableId");
-                            
+
                             var oModel = new JSONModel();
-                            oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray})
+                            oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray })
                             oTable.setModel(oModel);
 
                             oBusyDialog.close();
-                            
+
                         }).catch((oError) => {
                             oBusyDialog.close();
-                            if(oError.error !== undefined && oError.error !== null){
+                            if (oError.error !== undefined && oError.error !== null) {
                                 oController.openDialogMessageText(oError.error.message, "E");
                             } else {
                                 oController.openDialogMessageText(oError, "E");
                             }
                         });
-                        
+
 
                         /*var selectedOperationsMasterArray = []
                         var selectedOperationsMasterObject = {}
@@ -401,44 +457,44 @@ sap.ui.define(
                         oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray})
                         oTable.setModel(oModel);*/
                     } else {
-                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord")) 
-                    } 
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                    }
                 } else {
                     oController.onDeleteOperationsMaster()
                 }
             },
 
-            onConfirmAddPhaseMasterDialog: function(oEvent){
+            onConfirmAddPhaseMasterDialog: function (oEvent) {
                 var dataToSend = []
                 var dataObjectToSend = {}
 
-                var table 
-                if(this.byId("OperationsAddPhaseMasterTableId") === null || this.byId("OperationsAddPhaseMasterTableId") === undefined){
+                var table
+                if (this.byId("OperationsAddPhaseMasterTableId") === null || this.byId("OperationsAddPhaseMasterTableId") === undefined) {
                     table = this.byId("OperationsChangeWCMasterTableId").getModel().oData.SelectedOperationsChangeWCMaster
                 } else {
                     table = this.byId("OperationsAddPhaseMasterTableId").getModel().oData.SelectedOperationsAddPhaseMaster
                 }
 
-                for(var i=0; i<table.length; i++){
+                for (var i = 0; i < table.length; i++) {
                     dataObjectToSend = {}
-                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.id = "001"
                     dataObjectToSend.MasterProductionOrder = table[i].MasterProductionOrder
                     dataObjectToSend.ManufacturingOrderOperation = table[i].ManufacturingOrderOperation
                     dataObjectToSend.WorkCenter = table[i].WorkCenter
                     dataObjectToSend.Plant = table[i].Plant
                     dataObjectToSend.OperationControlProfile = table[i].OperationControlProfile
-                    dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText   
-                    dataObjectToSend.MaterialGroup = table[i].MaterialGroup 
+                    dataObjectToSend.MfgOrderOperationText = table[i].MfgOrderOperationText
+                    dataObjectToSend.MaterialGroup = table[i].MaterialGroup
                     dataObjectToSend.unit = ""//table[i].
                     dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].
                     dataObjectToSend.ManufacturingOrderSequence = table[i].ManufacturingOrderSequence
-                    if(oController.buttonSelected === "modifyPhase"){
+                    if (oController.buttonSelected === "modifyPhase") {
                         dataObjectToSend.action = "UPD"
-                    } else if(oController.buttonSelected === "addPhase"){
+                    } else if (oController.buttonSelected === "addPhase") {
                         dataObjectToSend.action = "ADD"
-                    }  else {
+                    } else {
                         dataObjectToSend.action = "WRK"
-                    }        
+                    }
                     dataToSend.push(dataObjectToSend)
                 }
 
@@ -447,14 +503,14 @@ sap.ui.define(
 
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/ManageODPPhase(...)");
-                oBindingContext.setParameter("Record", 
+                oBindingContext.setParameter("Record",
                     dataToSend
                 );
 
-                if(dataToSend.length > 0){
+                if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();        
-                        if(oContext.getObject().value.to_operations[0].flag_error === "true"){
+                        var oContext = oBindingContext.getBoundContext();
+                        if (oContext.getObject().value.to_operations[0].flag_error === "true") {
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
                             oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
@@ -463,11 +519,11 @@ sap.ui.define(
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
-                        oBusyDialog.close();                        
-                        
+                        oBusyDialog.close();
+
                     }).catch((oError) => {
                         oBusyDialog.close();
-                        if(oError.error !== undefined && oError.error !== null){
+                        if (oError.error !== undefined && oError.error !== null) {
                             oController.openDialogMessageText(oError.error.message, "E");
                         } else {
                             oController.openDialogMessageText(oError, "E");
@@ -476,35 +532,35 @@ sap.ui.define(
                 } else {
                     //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
                     oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
-                    
+
                     oBusyDialog.close();
-                }   
-                if(oController.buttonSelected === "addPhase"){
+                }
+                if (oController.buttonSelected === "addPhase") {
                     oController.pOperationsAddPhaseMasterDialog.close()
-                } else if(oController.buttonSelected === "modifyPhase"){
+                } else if (oController.buttonSelected === "modifyPhase") {
                     oController.pOperationsAddPhaseMasterDialog.close()
-                }  else {
+                } else {
                     oController.pOperationsChangeWCMasterDialog.close()
-                }             
+                }
             },
 
-            onDeleteOperationsMaster: function(oEvent){
+            onDeleteOperationsMaster: function (oEvent) {
                 console.log("onDeleteOperationsMaster");
                 var dataToSend = []
                 var dataObjectToSend = {}
 
                 var table = this.byId("TableOperations").getSelectedContexts()
 
-                for(var i=0; i<table.length; i++){
+                for (var i = 0; i < table.length; i++) {
                     dataObjectToSend = {}
-                    dataObjectToSend.id = "001"                    
+                    dataObjectToSend.id = "001"
                     dataObjectToSend.MasterProductionOrder = table[i].getObject().MasterProductionOrder
                     dataObjectToSend.ManufacturingOrderOperation = table[i].getObject().ManufacturingOrderOperation
                     dataObjectToSend.WorkCenter = table[i].getObject().WorkCenter
                     dataObjectToSend.Plant = table[i].getObject().Plant
                     dataObjectToSend.OperationControlProfile = table[i].getObject().OperationControlProfile
-                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText   
-                    dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup 
+                    dataObjectToSend.MfgOrderOperationText = table[i].getObject().MfgOrderOperationText
+                    dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup
                     dataObjectToSend.ManufacturingOrderSequence = table[i].getObject().ManufacturingOrderSequence
                     dataObjectToSend.unit = ""//table[i].getObject().
                     //dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].getObject().           
@@ -517,27 +573,27 @@ sap.ui.define(
 
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/ManageODPPhase(...)");
-                oBindingContext.setParameter("Record", 
+                oBindingContext.setParameter("Record",
                     dataToSend
                 );
 
-                if(dataToSend.length > 0){
+                if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
-                        var oContext = oBindingContext.getBoundContext();       
-                        if(oContext.getObject().value.to_operations[0].flag_error === "true"){
+                        var oContext = oBindingContext.getBoundContext();
+                        if (oContext.getObject().value.to_operations[0].flag_error === "true") {
                             oController.openDialogMessageText(oContext.getObject().value.to_operations[0].msg, "E");
                         } else {
                             oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                        }                     
+                        }
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations").getMDCTable().clearSelection()
                         oBusyDialog.close();
-                        
+
                     }).catch((oError) => {
                         oBusyDialog.close();
-                        if(oError.error !== undefined && oError.error !== null){
+                        if (oError.error !== undefined && oError.error !== null) {
                             oController.openDialogMessageText(oError.error.message, "E");
                         } else {
                             oController.openDialogMessageText(oError, "E");
@@ -546,7 +602,7 @@ sap.ui.define(
                 } else {
                     //MessageToast.show(oController.getResourceBundle().getText("noDataToSend"))                     
                     oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
-                    
+
                     oBusyDialog.close();
                 }
             },
@@ -554,7 +610,7 @@ sap.ui.define(
             openDialogMessageText: function (text, messType) {
                 var vTitle = "Message";
                 var vState = "Error";
-    
+
                 if (messType === "E") {
                     vTitle = this.getResourceBundle().getText("errorTitle");
                     vState = "Error";
@@ -563,7 +619,7 @@ sap.ui.define(
                         vTitle = this.getResourceBundle().getText("successTitle");
                         vState = "Success";
                     }
-    
+
                 var dialog = new Dialog({
                     title: vTitle,
                     type: "Message",
@@ -571,7 +627,7 @@ sap.ui.define(
                     content: new sap.m.Text({
                         text: text
                     }),
-    
+
                     beginButton: new sap.m.Button({
                         text: "OK",
                         press: function () {
@@ -582,15 +638,15 @@ sap.ui.define(
                         dialog.destroy();
                     }
                 });
-    
+
                 dialog.open();
             },
 
             onValueHelpRequestWorkCenters: function (oEvent) {
                 //this.byId("shippingPointID").setValue();
-                if(oController.pWorkCentersDialog === null || oController.pWorkCentersDialog === undefined){
+                if (oController.pWorkCentersDialog === null || oController.pWorkCentersDialog === undefined) {
                     oController.pWorkCentersDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.WorkCentersList",
-                    oController);
+                        oController);
                     oController.getView().addDependent(oController.pWorkCentersDialog);
                 }
 
@@ -598,7 +654,7 @@ sap.ui.define(
                 oController._oWorkCenterContext = oInput.getBindingContext();
 
                 // recupero indice della righe selezionata e poi filtro 
-                var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length-1]
+                var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length - 1]
                 var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsChangeWCMasterTableId").getBinding("items").getContexts()[index].getObject().Plant
                 var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
                 oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
@@ -606,7 +662,7 @@ sap.ui.define(
                 oController.pWorkCentersDialog.open();
             },
 
-            onValueHelpWorkCentersConfirm: function(oEvent){
+            onValueHelpWorkCentersConfirm: function (oEvent) {
                 var oSelectedItem = oEvent.getParameter("selectedItem");
                 oEvent.getSource().getBinding("items").filter([]);
 
@@ -627,15 +683,15 @@ sap.ui.define(
 
             },
 
-            onValueHelpWorkCentersClose: function(oEvent){
+            onValueHelpWorkCentersClose: function (oEvent) {
                 oController.pWorkCentersDialog.close();
             },
 
-            onValueHelpWorkCentersSearch: function(oEvent){
+            onValueHelpWorkCentersSearch: function (oEvent) {
                 var sValue = oEvent.getParameter("value");
-			    var oFilter = new sap.ui.model.Filter("workcentertext", sap.ui.model.FilterOperator.Contains, sValue);
+                var oFilter = new sap.ui.model.Filter("workcentertext", sap.ui.model.FilterOperator.Contains, sValue);
 
-			    oEvent.getSource().getBinding("items").filter([oFilter]);
+                oEvent.getSource().getBinding("items").filter([oFilter]);
             }
 
             /**

@@ -21,10 +21,22 @@ using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKC
 using { ZZ1_MFP_REASON_NOTE_CDS as reasonsNotes } from './external/ZZ1_MFP_REASON_NOTE_CDS';
 using { ZMF_IMD_MATERIAL_CDS as materialCharacteristics } from './external/ZMF_IMD_MATERIAL_CDS';
 using { zmfp_mrp_plant_f4 } from './external/zmfp_mrp_plant_f4';
+using { ZZ1_COMBPLNORDERSSTOCKAPI_CDS } from './external/ZZ1_COMBPLNORDERSSTOCKAPI_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
 service CatalogService {
+
+     type BatchTypeReturn {
+         batch : String;
+     }
+
+     type BatchTypePayload {
+        Material: String;
+        Plant: String;
+        StorageLocation: String;
+     }
+     
 
     @readonly
     entity ZZ1_PRODUCTION_COCKPIT_API as projection on mainService.ZZ1_PRODUCTION_COCKPIT_API{
@@ -64,7 +76,13 @@ service CatalogService {
         null as chart_percent        : Integer,
         null as chart_criticality    : Integer,
         null as Note                 : String,
-        null as Reason               : String
+        null as Reason               : String,
+
+        to_ZZ1_CombPlnOrdersStock     : Composition of many ZZ1_CombPlnOrdersStock
+                                        on  Material         = $self.Material
+                                        and Plant            = $self.Plant 
+                                        and StorageLocation  = $self.StorageLocation
+
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -72,6 +90,19 @@ service CatalogService {
         *,
          @sap.label : 'Criticality virtual'
         null as RowCriticality : Integer
+    }
+
+    @Capabilities.DeleteRestrictions.Deletable: false
+    entity ZZ1_CombPlnOrdersStock as projection on ZZ1_COMBPLNORDERSSTOCKAPI_CDS.ZZ1_CombPlnOrdersStock{
+        *,
+       null as StorageLocationStock : Decimal(13, 3),
+       null as CustomQty            : String(20),
+       null as TotalProdAllQty      : Decimal(13, 3),
+       null as TotalPlanAllQty      : Decimal(13, 3),
+       null as TotalInDelQty        : Decimal(13, 3),
+       null as AvaibilityQty        : Decimal(13, 3),
+       null as CombPlanAllQty       : Decimal(13, 3),
+       null as CprodOrd             : String
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -201,7 +232,8 @@ service CatalogService {
         @Common.Label: '{i18n>flagPurchaseOrder}'
         null as flagPurchaseOrder: String,
          @sap.label : 'Criticality virtual'
-        null as RowCriticality : Integer
+        null as RowCriticality : Integer,
+        null as IntermediatePhaseIndicator : String
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
@@ -359,6 +391,8 @@ service CatalogService {
     action GetMaterialDetails(oidOrdine: TYPES.ConfODPData) returns LargeString;
 
     action GetOrdersList(MasterOrderList: array of String) returns LargeString;
+
+    action GetBatchList(Payload: BatchTypePayload) returns array of BatchTypeReturn;
 
 
 }

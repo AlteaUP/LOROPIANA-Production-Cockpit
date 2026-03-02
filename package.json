@@ -83,6 +83,82 @@
           }
         }
       },
+      "ZZ1_COMBPLNORDERSSTOCKAPI_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_COMBPLNORDERSSTOCKAPI_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_COMBPLNORDERSSTOCKAPI_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_COMBPLNORDERSSTOCKAPI_CDS"
+          }
+        }
+      },
+      "ZZ1_MFP_ASSIGNMENT_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFP_ASSIGNMENT_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFP_ASSIGNMENT_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_MFP_ASSIGNMENT_CDS"
+          }
+        }
+      },
+      "ZZ1_I_SUMQTYDELIVERY_T_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_I_SUMQTYDELIVERY_T_CDS",
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_SUMQTYDELIVERY_T_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_SUMQTYDELIVERY_T_CDS"
+          }
+        }
+      },
+      "ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS",
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS"
+          }
+        }
+      },
       "API_PRODUCTION_ORDER_2_SRV": {
         "kind": "odata-v4",
         "model": "srv/external/API_PRODUCTION_ORDER_2_SRV",

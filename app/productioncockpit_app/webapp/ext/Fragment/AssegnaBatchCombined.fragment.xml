@@ -1,0 +1,135 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="AssegnaBatchCombinedDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="{i18n>replacementComp}">
+      <content>
+         <f:SimpleForm id="SimpleFormDisplay354A"
+          editable="false"
+          layout="ResponsiveGridLayout"
+          labelSpanXL="3"
+          labelSpanL="3"
+          labelSpanM="3"
+          labelSpanS="12"
+          adjustLabelSpan="false"
+          emptySpanXL="4"
+          emptySpanL="4"
+          emptySpanM="4"
+          emptySpanS="0"
+          columnsXL="1"
+          columnsL="1"
+          columnsM="1"
+          singleContainerFullSize="false" >
+          <f:content>
+            <Label text="Material" />
+            <Text text="{viewBatch>/Material}"/>
+            <Label text="Reqired Qty" />
+            <Text text="{viewBatch>/TotalQuantityInEntryUnit}"/>
+          </f:content>
+        </f:SimpleForm>
+      	<Table id="AssegnaBatchCombinedTableId"
+          items="{local>/SelectedAssegnaBatchCombined}">
+          <columns>
+                <Column>
+                    <Text text="{i18n>CprodOrd}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>plant}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>material}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>newMaterial}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>ManufacturingOrderOperation}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>quantity}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>lgort1}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>reason}"/>
+                </Column>
+                <Column>
+                    <Text text="{i18n>note}"/>
+                </Column>
+                <Column id="checkboxRecharge_IDA">
+                  <Text text="{i18n>rechargeStockFlag}"/>
+                </Column>               
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{local>CprodOrd}" editable="false" />
+                <Input 
+                  value="{local>Plant}" editable="false" />
+                <Input 
+                  value="{local>Material}" editable="false" />
+                <Input 
+                  value="{local>NewMaterial}" editable="false" />
+                  <Input
+                      value="{local>Batch}"
+                      editable="false"
+                      width="100%" />
+                <Input 
+                  value="{local>ManufacturingOrderOperation}" editable="false" />
+                <Input 
+                  value="{local>TotalQuantityInEntryUnit}" description="{local>BaseUnit}" editable="false" />
+                <Input 
+                  value="{local>StorageLocation}" editable="false" />
+                <Select id="reasonSelectIdCombinedAssegna"
+                    forceSelection="true"
+                    change=".onReasonChange"
+                    width="100%"
+                    items="{
+                        path: 'reasonServiceCombinedAssegna>/ReasonSet',
+                        sorter: { path: 'Reason' }
+                    }"
+                    selectedKey="{local>ReasonKey}">
+                    <core:Item id="_IDGenItem6" key="{reasonServiceCombinedAssegna>SAP_UUID}" text="{reasonServiceCombinedAssegna>Reason} - {reasonServiceCombinedAssegna>Note}" />
+                </Select>      
+                <Input 
+                  value="{local>Note}" editable="true" />
+                 <CheckBox id="checkboxRechargeStockCompMasterIdA" visible="{local>visibleCheckboxRecharge}" selected="{local>selectedCheckboxRecharge}" enabled="{local>editableCheckboxRecharge}" ></CheckBox>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseAssegnaBatchCombinedDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseAssegnaBatchCombinedDialog"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="ConfirmAssegnaBatchCombinedDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmAssegnaBatchCombinedDialog"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>

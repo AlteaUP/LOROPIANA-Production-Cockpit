@@ -20,6 +20,10 @@ module.exports = cds.service.impl(async function (srv) {
     const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
     const reasonsNotes = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
     const materialCharacteristics = await cds.connect.to('ZMF_IMD_MATERIAL_CDS');
+    /////
+    const ZZ1_I_SUMQTYDELIVERY_T_CDS = await cds.connect.to("ZZ1_I_SUMQTYDELIVERY_T_CDS");
+    const ZZ1_I_ARUN_BDBSSUMQTY_CDS = await cds.connect.to("ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS");
+    const ZZ1_MFP_ASSIGNMENT_CDS = await cds.connect.to("ZZ1_MFP_ASSIGNMENT_CDS");
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -91,22 +95,22 @@ module.exports = cds.service.impl(async function (srv) {
 
             const chartData = await chartDataService.tx(request).run(
                 SELECT.from('C_RFM_ManageMasterMfgOrder')
-                    .where({ MasterProductionOrder: { in: uniqueMasterOrders} })
+                    .where({ MasterProductionOrder: { in: uniqueMasterOrders } })
                     .limit(1000)
             );
 
             const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
             const componentsData = await srv.read('ZZ1_C_MASTERORDER_COMP')
-                    .where({ FshMprodOrd: { in: uniqueMasterOrders} }).limit(1000);
+                .where({ FshMprodOrd: { in: uniqueMasterOrders } }).limit(1000);
 
-            console.log("uniqueMasterOrders "+JSON.stringify(uniqueMasterOrders))
-            console.log("chartData "+JSON.stringify(chartData))
+            console.log("uniqueMasterOrders " + JSON.stringify(uniqueMasterOrders))
+            console.log("chartData " + JSON.stringify(chartData))
 
             var foundRed = 0, foundGreen = 0, foundOrange = 0
             for (var i = 0; i < data.length; i++) {
                 const filteredData = chartData.filter(item => item.MasterProductionOrder === data[i].MasterProductionOrder);
-                console.log("filteredData "+JSON.stringify(filteredData))
-                if(filteredData.length > 0){
+                console.log("filteredData " + JSON.stringify(filteredData))
+                if (filteredData.length > 0) {
                     data[i].CreatedStatusQtyInPercent = filteredData[0].CreatedStatusQtyInPercent
                     data[i].OrderIsCreated = filteredData[0].OrderIsCreated
                     data[i].ReleasedStatusQtyInPercent = filteredData[0].ReleasedStatusQtyInPercent
@@ -127,22 +131,22 @@ module.exports = cds.service.impl(async function (srv) {
                     data[i].OrderHasQualityIssue = filteredData[0].OrderHasQualityIssue
                 }
                 // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
-                const filteredComponentsData = componentsData.filter(item => item.FshMprodOrd === data[i].MasterProductionOrder);  
-                for(var y=0; y<filteredComponentsData.length; y++){              
-                    if(filteredComponentsData[y].CriticalComponentType !== ""){
-                        if(filteredComponentsData[y].chart_criticality === 1){
+                const filteredComponentsData = componentsData.filter(item => item.FshMprodOrd === data[i].MasterProductionOrder);
+                for (var y = 0; y < filteredComponentsData.length; y++) {
+                    if (filteredComponentsData[y].CriticalComponentType !== "") {
+                        if (filteredComponentsData[y].chart_criticality === 1) {
                             foundRed = foundRed + 1
-                        } else if (filteredComponentsData[y].chart_criticality === 2){
+                        } else if (filteredComponentsData[y].chart_criticality === 2) {
                             foundOrange = foundOrange + 1
                         } else {
                             foundGreen = foundGreen + 1
                         }
                     }
                 }
-                if(foundRed === data.length){
+                if (foundRed === data.length) {
                     data[i].RowCriticality = 1
                     data[i].RowCriticalityValue = ""
-                } else if(foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)){
+                } else if (foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)) {
                     data[i].RowCriticality = 3
                     data[i].RowCriticalityValue = ""
                 } else {
@@ -168,17 +172,17 @@ module.exports = cds.service.impl(async function (srv) {
 
             const chartData = await chartDataService.tx(request).run(
                 SELECT.from('C_RFM_ManageCombinedMfgOrder')
-                    .where({ CombinedProductionOrder: { in: uniqueCombinedOrders} })
+                    .where({ CombinedProductionOrder: { in: uniqueCombinedOrders } })
                     .limit(1000)
             );
 
             const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
             const componentsData = await srv.read('ZZ1_C_COMBORDER_COMP')
-                    .where({ CprodOrd: { in: uniqueCombinedOrders} }).limit(1000);
+                .where({ CprodOrd: { in: uniqueCombinedOrders } }).limit(1000);
 
             var foundRed = 0, foundGreen = 0, foundOrange = 0
             for (var i = 0; i < data.length; i++) {
-                const filteredData = chartData.filter(item => item.CombinedProductionOrder === data[i].CombinedOrder);                
+                const filteredData = chartData.filter(item => item.CombinedProductionOrder === data[i].CombinedOrder);
 
                 data[i].CreatedStatusQtyInPercent = filteredData[0].CreatedStatusQtyInPercent
                 data[i].OrderIsCreated = filteredData[0].OrderIsCreated
@@ -200,29 +204,29 @@ module.exports = cds.service.impl(async function (srv) {
                 data[i].OrderHasQualityIssue = filteredData[0].OrderHasQualityIssue
 
                 // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
-                const filteredComponentsData = componentsData.filter(item => item.CprodOrd === data[i].CombinedOrder);  
-                for(var y=0; y<filteredComponentsData.length; y++){              
-                    if(filteredComponentsData[y].CriticalComponentType !== ""){
-                        if(filteredComponentsData[y].chart_criticality === 1){
+                const filteredComponentsData = componentsData.filter(item => item.CprodOrd === data[i].CombinedOrder);
+                for (var y = 0; y < filteredComponentsData.length; y++) {
+                    if (filteredComponentsData[y].CriticalComponentType !== "") {
+                        if (filteredComponentsData[y].chart_criticality === 1) {
                             foundRed = foundRed + 1
-                        } else if (filteredComponentsData[y].chart_criticality === 2){
+                        } else if (filteredComponentsData[y].chart_criticality === 2) {
                             foundOrange = foundOrange + 1
                         } else {
                             foundGreen = foundGreen + 1
                         }
                     }
                 }
-                if(foundRed === data.length){
+                if (foundRed === data.length) {
                     data[i].RowCriticality = 1
                     data[i].RowCriticalityValue = ""
-                } else if(foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)){
+                } else if (foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)) {
                     data[i].RowCriticality = 3
                     data[i].RowCriticalityValue = ""
                 } else {
                     data[i].RowCriticality = 2
                     data[i].RowCriticalityValue = ""
                 }
-            }            
+            }
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
         return data;
@@ -439,35 +443,56 @@ module.exports = cds.service.impl(async function (srv) {
 
         if (finalData.length > 0) {
             console.log("risultati MASTER OPER final Data: ", finalData.length)
-            for(var i=0; i<finalData.length; i++){
+            for (var i = 0; i < finalData.length; i++) {
                 // valorizzo stato avanzamento
-                if(finalData[i].SumOpTotalConfirmedYieldQty === "0"){
+                if (finalData[i].SumOpTotalConfirmedYieldQty === "0") {
                     finalData[i].RowCriticality = 1
-                } else if(finalData[i].SumOpTotalConfirmedYieldQty === finalData[i].SumOpPlannedTotalQuantity){
+                } else if (finalData[i].SumOpTotalConfirmedYieldQty === finalData[i].SumOpPlannedTotalQuantity) {
                     finalData[i].RowCriticality = 3
                 } else {
                     finalData[i].RowCriticality = 2
                 }
-                if(finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== ""){
+                if (finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== "") {
                     finalData[i].flagPurchaseOrder = 'X'
                 }
             }
             return finalData;
         } else {
             console.log("risultati MASTER OPER: ", data.length)
-            for(var i=0; i<data.length; i++){
+            for (var i = 0; i < data.length; i++) {
                 // valorizzo stato avanzamento
-                if(data[i].SumOpTotalConfirmedYieldQty === "0"){
+                if (data[i].SumOpTotalConfirmedYieldQty === "0") {
                     data[i].RowCriticality = 1
-                } else if(data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity){
+                } else if (data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity) {
                     data[i].RowCriticality = 3
                 } else {
                     data[i].RowCriticality = 2
                 }
-                if(data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== ""){
+                if (data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== "") {
                     data[i].flagPurchaseOrder = 'X'
                 }
             }
+            //aggiungo flag IntermediatePhaseIndicator 
+            let maxOp = -Infinity;
+            let maxIdx = -1;
+
+            data.forEach((row, idx) => {
+                row.IntermediatePhaseIndicator = "";
+
+                if (row.OperationIsDeleted === "X") return;
+                row.IntermediatePhaseIndicator = "X";
+
+                const opNum = parseInt(row.ManufacturingOrderOperation, 10);
+                if (Number.isNaN(opNum)) return;
+
+                if (opNum > maxOp) {
+                    if (maxIdx !== -1) data[maxIdx].IntermediatePhaseIndicator = "X";
+                    maxOp = opNum;
+                    maxIdx = idx;
+                }
+            });
+            if (maxIdx !== -1) data[maxIdx].IntermediatePhaseIndicator = "";
+
             return data;
         }
     });
@@ -646,12 +671,12 @@ module.exports = cds.service.impl(async function (srv) {
             path: "/ZZ1_C_MFG_COMBINEDOPER_SUM?$filter=CprodOrd eq '" + id + "'"
         })
 
-        if(data.length > 0){
-            for(var i=0; i<data.length; i++){
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
                 // valorizzo stato avanzamento
-                if(data[i].SumOpTotalConfirmedYieldQty === "0"){
+                if (data[i].SumOpTotalConfirmedYieldQty === "0") {
                     data[i].RowCriticality = 1
-                } else if(data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity){
+                } else if (data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity) {
                     data[i].RowCriticality = 3
                 } else {
                     data[i].RowCriticality = 2
@@ -863,7 +888,7 @@ module.exports = cds.service.impl(async function (srv) {
             } else {
                 return callCreate
             }*/
-           return callCreate
+            return callCreate
 
         } catch (error) {
 
@@ -1139,20 +1164,20 @@ module.exports = cds.service.impl(async function (srv) {
         const { oidOrdine } = req.data;
         var result = []
 
-        console.log("DATO INVIATO "+JSON.stringify(oidOrdine))
-        
+        console.log("DATO INVIATO " + JSON.stringify(oidOrdine))
+
         var srvOrderLinked = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
         var dataOrderLinked = await srvOrderLinked.read('ZZ1_PRODUCTION_COCKPIT_API').where({ FshMprodOrd: oidOrdine.MasterProductionOrder })
 
-        console.log("dataOrderLinked "+JSON.stringify(dataOrderLinked))
-        console.log("lunghezza dataOrderLinked "+dataOrderLinked.length)
+        console.log("dataOrderLinked " + JSON.stringify(dataOrderLinked))
+        console.log("lunghezza dataOrderLinked " + dataOrderLinked.length)
 
-        if(dataOrderLinked.length > 0){
+        if (dataOrderLinked.length > 0) {
             var srvMaterialDet = await cds.connect.to('ZMF_IMD_MATERIAL_CDS')
             var arrayDataMaterial = []
-            for(var i=0; i<dataOrderLinked.length; i++){
+            for (var i = 0; i < dataOrderLinked.length; i++) {
                 arrayDataMaterial = await srvMaterialDet.read('ZMF_IMD_MATERIAL').where({ matnr: dataOrderLinked[i].Material })
-                if(arrayDataMaterial.length > 0){
+                if (arrayDataMaterial.length > 0) {
                     dataOrderLinked[i].zzcolor = arrayDataMaterial[0].zzcolor
                     dataOrderLinked[i].zztagliadesc = arrayDataMaterial[0].zztagliadesc
                     dataOrderLinked[i].ManufacturingOrderOperation = oidOrdine.ManufacturingOrderOperation
@@ -1165,7 +1190,7 @@ module.exports = cds.service.impl(async function (srv) {
         }
         // sorto per taglia
         dataOrderLinked.sort((a, b) => {
-        return Number(a.zztagliadesc) - Number(b.zztagliadesc);
+            return Number(a.zztagliadesc) - Number(b.zztagliadesc);
         });
 
         return dataOrderLinked;
@@ -1179,13 +1204,236 @@ module.exports = cds.service.impl(async function (srv) {
 
         const OrderList = req.data.MasterOrderList;
 
-        if(OrderList.length > 0){
+        if (OrderList.length > 0) {
             const srv = await cds.connect.to('ZZ1_PRODUCTION_COCKPIT_API_CDS')
             orderData = await srv.read('ZZ1_PRODUCTION_COCKPIT_API')
-                    .where({ FshMprodOrd: { in: OrderList} }).limit(1000);
+                .where({ FshMprodOrd: { in: OrderList } }).limit(1000);
         }
 
         return orderData
+    });
+
+    /*     this.on("GetBatchList", async (req) => {
+            const srv = await cds.connect.to('ZZ1_COMBPLNORDERSSTOCKAPI_CDS');
+            const Material = req.data.Payload.Material;
+            const Plant = req.data.Payload.Plant;
+            const StorageLocation = req.data.Payload.StorageLocation;
+    
+            let stockData = await srv.run(
+                SELECT.from('ZZ1_CombPlnOrdersStock')
+                    .where({
+                        Material: Material,
+                        Plant: Plant,
+                        StorageLocation: StorageLocation
+                    }))
+    
+            var res = stockData.filter(
+                ({ InventoryStockType }) => InventoryStockType === '01'
+            );
+    
+            return res;
+        }); */
+    // Helper functions
+    function createLookupMap(data, ...keys) {
+        const map = {};
+        if (!Array.isArray(data)) return map;
+
+        data.forEach(item => {
+            const keyValues = keys.map(k => item[k]);
+            const key = keyValues.join('|');
+            if (!map[key]) map[key] = [];
+            map[key].push(item);
+        });
+        return map;
+    }
+
+    function sumValues(items, propertyName) {
+        if (!Array.isArray(items)) return 0;
+        return items.reduce((sum, item) => sum + parseFloat(item[propertyName] || 0), 0);
+    }
+
+    this.on("READ", "ZZ1_CombPlnOrdersStock", async (req) => {
+        console.log("chiamata ZZ1_CombPlnOrdersStock")
+        const RemoteEntity = "ZZ1_CombPlnOrdersStock";
+        //recupero valori nei filtri
+        let material;
+        let plant;
+        let storageLocation;
+        let CprodOrd;
+
+        const where = req.query.SELECT.where;
+
+        if (where) {
+            for (let i = 0; i < where.length; i++) {
+
+                if (where[i].ref?.[0] === 'Material') {
+                    material = where[i + 2]?.val;
+                }
+                if (where[i].ref?.[0] === 'Plant') {
+                    plant = where[i + 2]?.val;
+                }
+                if (where[i].ref?.[0] === 'StorageLocation') {
+                    storageLocation = where[i + 2]?.val;
+                }
+                //recupero CprodOrd
+                if (where[i].ref?.[0] === 'CprodOrd') {
+
+                    CprodOrd = where[i + 2]?.val;
+                    where.splice(i, 3);
+
+                    if (where[i] === 'and') {
+                        where.splice(i, 1);
+                    }
+                    else if (where[i - 1] === 'and') {
+                        where.splice(i - 1, 1);
+                        i--;
+                    }
+                    break;
+                }
+            }
+        }
+
+        console.log("Material:", material);
+        console.log("Plant:", plant);
+        console.log("StorageLocation:", storageLocation);
+        console.log("Cplndord:", CprodOrd);
+
+        const srv = await cds.connect.to('ZZ1_COMBPLNORDERSSTOCKAPI_CDS');
+
+        if (req.query.SELECT.columns) {
+            req.query.SELECT.columns.push({ ref: ["InventoryStockType"] });
+            req.query.SELECT.columns.push({ ref: ["MatlWrhsStkQtyInMatlBaseUnit"] });
+        }
+
+        if (!material || !plant || !storageLocation) {
+            return [];
+        }
+
+        let stockData = await srv.run(
+            SELECT.from(RemoteEntity)
+                .where({
+                    Material: material,
+                    Plant: plant,
+                    StorageLocation: storageLocation
+                }))
+
+
+        if (!Array.isArray(stockData) || stockData.length === 0) return stockData;
+
+        stockData = stockData.filter(
+            ({ InventoryStockType }) => InventoryStockType === '01'
+        );
+
+        const plants = [...new Set(stockData.map(i => i.Plant).filter(Boolean))];
+        const mats = [...new Set(stockData.map(i => i.Material).filter(Boolean))];
+
+        // 3. Batch query for TotalProdAllQty
+        const prodAllQtyPromise = ZZ1_I_ARUN_BDBSSUMQTY_CDS.run(
+            SELECT.from('ZZ1_I_ARUN_BDBSSUMQTY_CDS')
+                .where({
+                    Plant: { in: plants },
+                    Material: { in: mats }
+                })
+        );
+
+        // 4. Batch query for TotalPlanAllQty
+        const planAllQtyPromise = ZZ1_MFP_ASSIGNMENT_CDS.run(
+            SELECT.from('ZZ1_MFP_ASSIGNMENT')
+                .where({ WERKS: { in: plants }, MATNR: { in: mats } })
+        );
+
+        // 5. Batch query for CombPlanAllQty with the specific planned order
+        const cprod = (CprodOrd ?? '').trim();
+
+        const combPlanAllQtyPromise = cprod
+            ? ZZ1_MFP_ASSIGNMENT_CDS.run(
+                SELECT.from('ZZ1_MFP_ASSIGNMENT')
+                    .where({
+                        FSH_MPLO_ORD: cprod,
+                        WERKS: { in: plants },
+                        MATNR: { in: mats }
+                    })
+            )
+            : Promise.resolve([]);
+
+        // 6. Batch query for TotalDeliveryQty
+        const deliveryQtyPromise = ZZ1_I_SUMQTYDELIVERY_T_CDS.run(
+            SELECT.from('ZZ1_I_SUMQTYDELIVERY_T')
+                .where({
+                    Material: { in: stockData.map(i => i.Material) },
+                    StorLoc: { in: stockData.map(i => i.StorageLocation) }
+                })
+        );
+
+        const [prodAllQtyData, planAllQtyDataRaw, combPlanAllQtyData, deliveryQtyData] =
+            await Promise.all([prodAllQtyPromise, planAllQtyPromise, combPlanAllQtyPromise, deliveryQtyPromise]);
+        const planAllQtyData = (planAllQtyDataRaw || []).filter(row =>
+            !(
+                typeof row.FSH_MPLO_ORD === 'string' &&
+                row.FSH_MPLO_ORD.endsWith('_O')
+            )
+        )
+
+        // 8. Create lookup maps for faster association
+        const prodAllQtyMap = createLookupMap(prodAllQtyData, 'Plant', 'Material', 'StorageLocation', 'Batch');
+        const planAllQtyMap = createLookupMap(planAllQtyData, 'WERKS', 'MATNR', 'LGORT', 'CHARG');
+        const combPlanAllQtyMap = createLookupMap(combPlanAllQtyData, 'WERKS', 'MATNR', 'LGORT', 'CHARG');
+        const deliveryQtyMap = createLookupMap(deliveryQtyData, 'Material', 'StorLoc', 'Batch');
+
+        // 9. Process results with maps instead of additional queries
+        var res = stockData.filter(({ InventoryStockType }) => InventoryStockType === '01').map(item => {
+            const { Plant, Material, StorageLocation, Batch } = item;
+            const key = `${Plant}|${Material}|${StorageLocation}|${Batch}`;
+
+            const prodItems = prodAllQtyMap[key] || [];
+            const planItems = planAllQtyMap[`${Plant}|${Material}|${StorageLocation}|${Batch}`] || [];
+            const combPlanItems = combPlanAllQtyMap[`${Plant}|${Material}|${StorageLocation}|${Batch}`] || [];
+            const deliveryItems = deliveryQtyMap[`${Material}|${StorageLocation}|${Batch}`] || [];
+
+            const TotalProdAllQty = sumValues(prodItems, 'TotalAllocQty');
+            const TotalPlanAllQty = sumValues(planItems, 'QTA_ASS_V');
+            const CombPlanAllQty = sumValues(combPlanItems, 'QTA_ASS_V');
+            const TotalDeliveryQty = sumValues(deliveryItems, 'TotDeliveryQty');
+
+            let StorageLocationStock = parseFloat(item.MatlWrhsStkQtyInMatlBaseUnit).toFixed(3).toString();
+
+            let AvaibilityQty = (parseFloat(item.MatlWrhsStkQtyInMatlBaseUnit) -
+                TotalProdAllQty - TotalPlanAllQty - TotalDeliveryQty).toFixed(3).toString();
+            if (AvaibilityQty < 0) AvaibilityQty = "0.000";
+            return {
+                ...item,
+                StorageLocationStock,
+                TotalProdAllQty: TotalProdAllQty.toFixed(3).toString(),
+                TotalPlanAllQty: TotalPlanAllQty.toFixed(3).toString(),
+                CombPlanAllQty: CombPlanAllQty.toFixed(3).toString(),
+                AvaibilityQty,
+                TotalInDelQty: TotalDeliveryQty.toFixed(3).toString(),
+                CustomQty: parseFloat(item.MatlWrhsStkQtyInMatlBaseUnit).toFixed(3).toString()
+            };
+        });
+
+        //normalizzazioni chiavi
+        const norm = v => (v === null || v === undefined) ? '' : v;
+
+        res.forEach(rec => {
+            rec.Material = norm(rec.Material);
+            rec.Plant = norm(rec.Plant);
+            rec.StorageLocation = norm(rec.StorageLocation);
+            rec.Supplier = norm(rec.Supplier);
+            rec.SDDocument = norm(rec.SDDocument);
+            rec.SDDocumentItem = norm(rec.SDDocumentItem);
+            rec.WBSElementInternalID = norm(rec.WBSElementInternalID);
+            rec.Customer = norm(rec.Customer);
+            rec.SpecialStockIdfgStockOwner = norm(rec.SpecialStockIdfgStockOwner);
+            rec.InventoryStockType = norm(rec.InventoryStockType);
+            rec.InventorySpecialStockType = norm(rec.InventorySpecialStockType);
+            rec.MaterialBaseUnit = norm(rec.MaterialBaseUnit);
+            rec.CostEstimate = norm(rec.CostEstimate);
+            rec.ResourceID = norm(rec.ResourceID);
+        });
+
+        return res;
+
     });
 
     this.on('READ', "ZZ1_MFG_ROL_ORDERS", async request => {

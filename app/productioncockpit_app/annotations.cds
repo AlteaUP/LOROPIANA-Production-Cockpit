@@ -587,7 +587,12 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(
             $Type : 'UI.DataField',
             Value : PurchaseOrder,
             Label : '{i18n>purchaseOrder}',
-        },
+        }
+       /*  {
+            $Type : 'UI.DataField',
+            Value : IntermediatePhaseIndicator,
+            Label : 'IntermediatePhaseIndicator',
+        }, */
     ]
 );
 
@@ -802,5 +807,239 @@ annotate service.ZZ1_C_MFG_ORDEROPE  with @(
         }
     ]
 );
+
+annotate service.ZZ1_CombPlnOrdersStock with @(
+    UI.SelectionFields#tableStock: [Material, Plant, StorageLocation, CprodOrd],
+    UI.LineItem #Stock: [
+    {
+        $Type: 'UI.DataField',
+        Value: Batch,
+        Label: 'Batch',
+    },
+    {
+        $Type                : 'UI.DataField',
+        Value                : Material,
+        Label                : 'Material',
+        ![@UI.Hidden],
+        ![@HTML5.CssDefaults]: {width: '10rem',
+        },
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: Plant,
+        Label: 'Plant',
+        ![@UI.Hidden]
+    },
+    {
+        $Type                : 'UI.DataField',
+        Value                : StorageLocation,
+        Label                : 'Storage Location',
+        ![@HTML5.CssDefaults]: {width: '5rem',
+        },
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: StorageLocationStock,
+        Label: 'Storage Location Stock'
+    }, 
+    {
+        $Type                : 'UI.DataField',
+        Value                : MaterialBaseUnit,
+        Label                : 'Base Unit',
+        ![@HTML5.CssDefaults]: {width: '5rem',
+        },
+    },
+    {
+        $Type                : 'UI.DataField',
+        Value                : dye_lot,
+        Label                : 'Dye Lot',
+        ![@HTML5.CssDefaults]: {width: '5rem',
+        },
+    },
+    {
+        $Type                : 'UI.DataField',
+        Value                : choice,
+        Label                : 'Leather grade',
+        ![@HTML5.CssDefaults]: {width: '5rem',
+        },
+    },
+    {
+        $Type                : 'UI.DataField',
+        Value                : CERTIFICATO,
+        Label                : 'Certificato',
+        ![@HTML5.CssDefaults]: {width: '9rem',
+        }
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: AvaibilityQty,
+        Label: 'Availability Qty'
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: TotalProdAllQty,
+        Label: 'Tot Assigned PrO'
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: TotalPlanAllQty,
+        Label: 'Tot Assigned PlO'
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: CombPlanAllQty,
+        Label: 'Tot Assigned Comb'
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: TotalInDelQty,
+        Label: 'Tot Delivery Qty'
+    }, 
+    {
+        $Type: 'UI.DataField',
+        Value: StockSegment,
+        Label: 'Stock Segment',
+    },
+/*     {
+        $Type: 'UI.DataField',
+        Value: StockSegmentCode,
+        Label: 'Stock Segment Code',
+    },  */    
+    {
+        $Type: 'UI.DataField',
+        Value: BatchBySupplier,
+        Label: 'Batch By Supplier',
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: GROSS_LENGHT,
+        Label: 'GROSS_LENGHT',
+        ![@UI.Hidden],
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: NET_HEIGHT,
+        Label: 'NET_HEIGHT',
+        ![@UI.Hidden],
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: DEROGA,
+        Label: 'DEROGA',
+        ![@UI.Hidden],
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: PDF_RATING_ID,
+        Label: 'PDF_RATING_ID',
+        ![@UI.Hidden],
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: SERIALE_MATRICOLA,
+        Label: 'SERIALE_MATRICOLA',
+        ![@UI.Hidden],
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: ALTEZZA_STANDARD,
+        Label: 'ALTEZZA_STANDARD',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: Supplier,
+        Label: 'Supplier',
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: SDDocument,
+        Label: 'SDDocument',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: SDDocumentItem,
+        Label: 'SDDocumentItem',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: WBSElementInternalID,
+        Label: 'WBSElementInternalID',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: Customer,
+        Label: 'Customer',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: SpecialStockIdfgStockOwner,
+        Label: 'SpecialStockIdfgStockOwner',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: InventoryStockType,
+        Label: 'InventoryStockType',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: InventorySpecialStockType,
+        Label: 'InventorySpecialStockType',
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: CostEstimate,
+        Label: 'CostEstimate',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: ResourceID,
+        Label: 'ResourceID',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: CompanyCode,
+        Label: 'CompanyCode',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: MatlWrhsStkQtyInMatlBaseUnit,
+        Label: 'MatlWrhsStkQtyInMatlBaseUnit',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: MatlCnsmpnQtyInMatlBaseUnit,
+        Label: 'MatlCnsmpnQtyInMatlBaseUnit',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: MatlStkIncrQtyInMatlBaseUnit,
+        Label: 'MatlStkIncrQtyInMatlBaseUnit',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: MatlStkDecrQtyInMatlBaseUnit,
+        Label: 'MatlStkDecrQtyInMatlBaseUnit',
+        ![@UI.Hidden]
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: CustomQty,
+        Label: 'CustomQty',
+        ![@UI.Hidden]
+    },
+]);
 
 
