@@ -73,7 +73,8 @@ type ConfODP : {
     ext_flag       : String;
     po_flag        : String;
     ddt            : String;     
-    ddt_date       : String;
+    ddt_date       : Date;
+    po_num         : String;
 }
 
 type OrdersKittingRecord {

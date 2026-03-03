@@ -120,6 +120,19 @@ sap.ui.define(
                 }
             },
 
+            onValidateRequired: function (oEvent) {
+                if (!this._isSubcontracting) {
+                    return;
+                }
+                const oControl = oEvent.getSource();
+                const sValue = (oControl.getValue() || "").trim();
+
+                if (!sValue) {
+                    oControl.setValueState("Error");
+                } else {
+                    oControl.setValueState("None");
+                }
+            },
             onCloseOperationsChangeWCMasterDialog: function () {
                 oController.pOperationsChangeWCMasterDialog.close();
             },
@@ -134,6 +147,36 @@ sap.ui.define(
 
             onConfirmOperationsMovePhaseDialog: function () {
                 console.log("onConfirmOperationsMovePhaseDialog");
+                const oTableModel = this.byId("OperationsMovePhaseTableId")
+                    .getModel()
+                    .getProperty("/SelectedOperationsMovePhase") || [];;
+                //blocco se ddt e ddt_date sono required e non compilati
+                if (oTableModel[0].ExtProcgOperationHasSubcontrg === "X") {
+                    const oDdt = this.byId("ddtId");
+                    const oDdtDate = this.byId("ddtDateId");
+
+                    const sDdt = (oDdt.getValue() || "").trim();
+                    const sDateValue = (oDdtDate.getValue() || "").trim();
+
+                    let bValid = true;
+                    // DDT
+                    if (!sDdt) {
+                        oDdt.setValueState("Error");
+                        bValid = false;
+                    } else {
+                        oDdt.setValueState("None");
+                    }
+                    // Data
+                    if (!sDateValue) {
+                        oDdtDate.setValueState("Error");
+                        bValid = false;
+                    } else {
+                        oDdtDate.setValueState("None");
+                    }
+                    if (!bValid) {
+                        return; // blocca
+                    }
+                }
                 var dataToSend = []
                 var dataObjectToSend = {}
                 // Prendo il valore dell’Input
@@ -141,15 +184,7 @@ sap.ui.define(
 
                 // Prendo la data dal DatePicker
                 const oDatePicker = this.byId("ddtDateId");
-                const oDate = oDatePicker.getDateValue();
-                //data formattata
-                let sFormattedDate = "";
-                if (oDate) {
-                    const yyyy = oDate.getFullYear();
-                    const mm = String(oDate.getMonth() + 1).padStart(2, "0");
-                    const dd = String(oDate.getDate()).padStart(2, "0");
-                    sFormattedDate = `${yyyy}-${mm}-${dd}`;
-                }
+                const sDate = oDatePicker.getValue();
 
                 for (var i = 0; i < this.byId("OperationsMovePhaseTableId").getItems().length; i++) {
                     var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext().sPath
@@ -164,8 +199,9 @@ sap.ui.define(
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
                     dataObjectToSend.ext_flag = object.ExtProcgOperationHasSubcontrg
                     dataObjectToSend.po_flag = object.IntermediatePhaseIndicator
+                    dataObjectToSend.po_num  = object.PurchaseOrder
                     dataObjectToSend.ddt = sDdt;
-                    dataObjectToSend.ddt_date = sFormattedDate
+                    dataObjectToSend.ddt_date = sDate
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
                     dataObjectToSend.rework = Number(object.QtyToRework)*/
                     dataObjectToSend.vornr = object.ManufacturingOrderOperation
@@ -191,11 +227,11 @@ sap.ui.define(
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
-                        if (oContext.getObject().value.to_confodp[0].fl_err_o) {
+                         if (oContext.getObject().value.to_confodp[0].fl_err_o) {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "E");
                         } else {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
-                        }
+                        } 
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
@@ -382,8 +418,10 @@ sap.ui.define(
                         // modifica DL - controllo quale riga ho selezionato, se è l'ultima disabilito il flag WIP batch
                         if (oController.byId("TableOperations").getRowBinding().getLength() - 1 === oController.byId("TableOperations").getMDCTable().getSelectedContexts()[0].getIndex()) {
                             oController.byId("generateWIPbatchCheckBoxId").setEnabled(false)
+                            oController.byId("generateWIPbatchCheckBoxId").setSelected(false)
                         } else {
                             oController.byId("generateWIPbatchCheckBoxId").setEnabled(true)
+                            oController.byId("generateWIPbatchCheckBoxId").setSelected(false)
                         }
 
                         oController.pOperationsMovePhaseMasterDialog.open();
@@ -392,6 +430,22 @@ sap.ui.define(
                         var oBusyDialog = new sap.m.BusyDialog();
                         oBusyDialog.open();
 
+                        //rendo obbligatori i campi ddt e ddt_date se ExtProcgOperationHasSubcontrg é true
+                        const itemSelected = oController.byId("TableOperations").getSelectedContexts()[0].getObject();
+                        const bSubcontrg = itemSelected.ExtProcgOperationHasSubcontrg === "X";
+                        this._isSubcontracting = bSubcontrg;
+
+                        const oDdt = oController.byId("ddtId");        // id campo DDT
+                        const oDdtDate = oController.byId("ddtDateId"); // id DatePicker
+
+                        if (oDdt && oDdt.setRequired) {
+                            oDdt.setRequired(bSubcontrg);
+                        }
+
+                        if (oDdtDate && oDdtDate.setRequired) {
+                            oDdtDate.setRequired(bSubcontrg);
+                        }
+
                         var dataToSend = {}
                         dataToSend.MasterProductionOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().MasterProductionOrder
                         dataToSend.ManufacturingOrderSequence = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ManufacturingOrderSequence
@@ -399,8 +453,10 @@ sap.ui.define(
                         dataToSend.sumOpTotalConfirmedYieldQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedYieldQty
                         dataToSend.sumOpTotalConfirmedReworkQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedReworkQty
                         dataToSend.sumOpTotalConfirmedScrapQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedScrapQty
-                        //recupero campo ExtProcgOperationHasSubcontrg
+                        //recupero campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder
                         this.ExtProcgOperationHasSubcontrg = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ExtProcgOperationHasSubcontrg
+                        this.IntermediatePhaseIndicator = oController.byId("TableOperations").getSelectedContexts()[0].getObject().IntermediatePhaseIndicator
+                        this.PurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().PurchaseOrder
 
                         const oModelView = oController.getView().getModel();
                         var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
@@ -418,8 +474,10 @@ sap.ui.define(
                                     //selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
                                     //selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
                                     //selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
-                                    //aggiungo al model il campo ExtProcgOperationHasSubcontrg
+                                    //aggiungo al model i campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder
                                     selectedOperationsMasterObject.ExtProcgOperationHasSubcontrg = this.ExtProcgOperationHasSubcontrg
+                                    selectedOperationsMasterObject.IntermediatePhaseIndicator = this.IntermediatePhaseIndicator
+                                    selectedOperationsMasterObject.PurchaseOrder = this.PurchaseOrder
                                     selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }

@@ -33,9 +33,9 @@
             <Label text="{i18n>generateWIPbatch}" />
             <CheckBox id="generateWIPbatchCheckBoxId" selected="true"/>
             <Label text="{i18n>DDT}" />
-            <Input id="ddtId"/>
+            <Input id="ddtId" change=".onValidateRequired"/>
             <Label text="{i18n>ddtDate}" />
-            <DatePicker id="ddtDateId"/>
+            <DatePicker id="ddtDateId" change=".onValidateRequired" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd"/>
           </f:content>
         </f:SimpleForm>
       	<Table id="OperationsMovePhaseTableId"
