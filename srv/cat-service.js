@@ -15,11 +15,14 @@ module.exports = cds.service.impl(async function (srv) {
     const rol = await cds.connect.to("ZZ1_MFG_ROL_ORDERS_CDS");
     const urlRolExternal = await cds.connect.to("ROL");
     const zmfp_mrp_plant_f4 = await cds.connect.to("zmfp_mrp_plant_f4");
+    const zmfg_tipo_ordine_f4 = await cds.connect.to("zmfg_tipo_ordine_f4");
     const cdsMRPController = await cds.connect.to('ZZ1_MRPCONTROLLER_F4_CDS');
     const chartMaster = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
     const workCenters = await cds.connect.to('ZZ1_RFM_WRKCHARVAL_F4_CDS');
+    const workCenterMatchCode = await cds.connect.to('ZMFP_MRP_WRKCNTRSUPPLIER_F4');
     const reasonsNotes = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
     const materialCharacteristics = await cds.connect.to('ZMF_IMD_MATERIAL_CDS');
+    const stockSegment = await cds.connect.to('ZZ1_MFG_STOCKSEGMENT_CDS');
     /////
     const ZZ1_I_SUMQTYDELIVERY_T_CDS = await cds.connect.to("ZZ1_I_SUMQTYDELIVERY_T_CDS");
     const ZZ1_I_ARUN_BDBSSUMQTY_CDS = await cds.connect.to("ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS");
@@ -58,9 +61,26 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
+    this.on('READ', "ZC_RFM_WORKCENTERSUPPLIER", async (req) => {
+        req.query.SELECT.count = false
+        var data = await workCenterMatchCode.tx(req).run(req.query);
+        return data.value;
+        //const result = await workCenterMatchCode.run(req.query);
+        //return result; 
+    });
+       
     this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
-        console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4_CDS")
+        console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4")
         var data = await workCenters.tx(request).run(request.query);
+        console.log("lunghezza array " + data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_MFG_STOCKSEGMENT", async request => {
+        console.log("chiamata ZZ1_MFG_STOCKSEGMENT")
+        request.query.SELECT.count = false
+        var data = await stockSegment.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 
         return data;
@@ -84,7 +104,38 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on('READ', "ZZ1_C_MASTERPRODORDER", async request => {
         console.log("chiamata ZZ1_C_MASTERPRODORDER")
+        //recupero dal where se presente OrderIsReleasedFlag
+        let orderIsReleasedFlag;
+        const where = request.query?.SELECT?.where;
+        if (where) {
+
+            for (let i = 0; i < where.length; i++) {
+
+                if (where[i].ref && where[i].ref[0] === 'OrderIsReleasedFlag') {
+
+                    // valore (true/false)
+                    orderIsReleasedFlag = where[i + 2].val;
+
+                    // rimuove: campo = valore
+                    where.splice(i, 3);
+
+                    // se c'è un AND prima o dopo lo rimuove
+                    if (where[i] === 'and') where.splice(i, 1);
+                    else if (where[i - 1] === 'and') where.splice(i - 1, 1);
+
+                    break;
+                }
+            }
+        }
+
         var data = await combProdOrd.tx(request).run(request.query);
+
+        if (orderIsReleasedFlag !== undefined) {
+            data = data.map(item => ({
+                ...item,
+                OrderIsReleasedFlag: orderIsReleasedFlag
+            }));
+        }
         console.log("lunghezza array " + data.length)
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
@@ -156,13 +207,60 @@ module.exports = cds.service.impl(async function (srv) {
             }
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
+        //se presente filtro data per orderIsReleasedFlag
+        const result = [];
+        data.forEach(item => {
 
+            if (item.OrderIsReleasedFlag === undefined) {
+                result.push(item);
+                return;
+            }
+
+            const expected = item.OrderIsReleasedFlag ? "X" : "";
+
+            if (item.OrderIsReleased === expected) {
+                result.push(item);
+            }
+        });
+
+        data = result;
         return data;
     });
 
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
         console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
+        //recupero dal where se presente OrderIsReleasedFlag
+        let orderIsReleasedFlag;
+        const where = request.query?.SELECT?.where;
+        if (where) {
+
+            for (let i = 0; i < where.length; i++) {
+
+                if (where[i].ref && where[i].ref[0] === 'OrderIsReleasedFlag') {
+
+                    // valore (true/false)
+                    orderIsReleasedFlag = where[i + 2].val;
+
+                    // rimuove: campo = valore
+                    where.splice(i, 3);
+
+                    // se c'è un AND prima o dopo lo rimuove
+                    if (where[i] === 'and') where.splice(i, 1);
+                    else if (where[i - 1] === 'and') where.splice(i - 1, 1);
+
+                    break;
+                }
+            }
+        }
+
         var data = await combProdOrd.tx(request).run(request.query);
+
+        if (orderIsReleasedFlag !== undefined) {
+            data = data.map(item => ({
+                ...item,
+                OrderIsReleasedFlag: orderIsReleasedFlag
+            }));
+        }
 
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico
         const chartDataService = await cds.connect.to('UI_RFM_MNG_MSTRPRODNORD');
@@ -229,6 +327,23 @@ module.exports = cds.service.impl(async function (srv) {
             }
         }
         // modifica DL - 16/01/2026 - chiamo servizio per recupero valori grafico - FINE
+        //se presente filtro data per orderIsReleasedFlag
+        const result = [];
+        data.forEach(item => {
+
+            if (item.OrderIsReleasedFlag === undefined) {
+                result.push(item);
+                return;
+            }
+
+            const expected = item.OrderIsReleasedFlag ? "X" : "";
+
+            if (item.OrderIsReleased === expected) {
+                result.push(item);
+            }
+        });
+
+        data = result;
         return data;
     });
 
@@ -729,7 +844,7 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if (OrderID.length > 1) {
+        if (OrderID.length > 0) {
             // array di valori
             for (var i = 0; i < OrderID.length; i++) {
                 // chiamo l'API in get per recuperare etag
@@ -761,16 +876,7 @@ module.exports = cds.service.impl(async function (srv) {
             }
 
         } else {
-            try {
-                const result = await changeOrderProduction.send({
-                    method: 'POST',
-                    path: "ReleaseOrder?ManufacturingOrder='" + OrderID[0] + "'"
-                });
-                return result
-            } catch (error) {
-                //console.log("ERRORE "+error)
-                return error
-            }
+            return response
         }
 
         console.log("RISPOSTA " + response)
@@ -783,36 +889,39 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if (OrderID.length > 1) {
+        if (OrderID.length > 0) {
             // array di valori
             for (var i = 0; i < OrderID.length; i++) {
-                try {
-                    const result = await changeOrderProduction.send({
-                        method: 'POST',
-                        path: "TechlyCmpltOrder?ManufacturingOrder='" + OrderID[i] + "'"
-                    });
-                    response = response + ";" + result
-                } catch (error) {
-                    console.log("ERRORE " + error)
-                    if (response !== "") {
-                        response = response + "|" + error
-                    } else {
-                        response = error
+                // chiamo l'API in get per recuperare etag
+                const orderDetail = await changeOrderProduction.send({
+                    method: 'GET',
+                    path: "A_ProductionOrder_2('" + OrderID[i] + "')"
+                });
+                let eTag = orderDetail.d.__metadata.etag;
+                if (eTag !== null && eTag !== undefined && eTag !== "") {
+                    try {
+                        const result = await changeOrderProduction.send({
+                            method: 'POST',
+                            path: "TechlyCmpltOrder?ManufacturingOrder='" + OrderID[i] + "'",
+                            headers: {
+                                'If-Match': eTag,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        response = response + ";" + result.d.TechlyCmpltOrder.SystemMessageLongText
+                    } catch (error) {
+                        console.log("ERRORE " + error)
+                        if (response !== "") {
+                            response = response + "|" + error
+                        } else {
+                            response = error
+                        }
                     }
                 }
             }
 
         } else {
-            try {
-                const result = await changeOrderProduction.send({
-                    method: 'POST',
-                    path: "TechlyCmpltOrder?ManufacturingOrder='" + OrderID[0] + "'"
-                });
-                return result
-            } catch (error) {
-                //console.log("ERRORE "+error)
-                return error
-            }
+            return response
         }
 
         return response
@@ -824,36 +933,38 @@ module.exports = cds.service.impl(async function (srv) {
         const { OrderID } = req.data;
         var response = ""
 
-        if (OrderID.length > 1) {
+        if (OrderID.length > 0) {
             // array di valori
             for (var i = 0; i < OrderID.length; i++) {
-                try {
-                    const result = await changeOrderProduction.send({
-                        method: 'POST',
-                        path: "CloseOrder?ManufacturingOrder='" + OrderID[i] + "'"
-                    });
-                    response = response + ";" + result
-                } catch (error) {
-                    console.log("ERRORE " + error)
-                    if (response !== "") {
-                        response = response + "|" + error
-                    } else {
-                        response = error
+                // chiamo l'API in get per recuperare etag
+                const orderDetail = await changeOrderProduction.send({
+                    method: 'GET',
+                    path: "A_ProductionOrder_2('" + OrderID[i] + "')"
+                });
+                let eTag = orderDetail.d.__metadata.etag;
+                if (eTag !== null && eTag !== undefined && eTag !== "") {
+                    try {
+                        const result = await changeOrderProduction.send({
+                            method: 'POST',
+                            path: "CloseOrder?ManufacturingOrder='" + OrderID[i] + "'",
+                            headers: {
+                                'If-Match': eTag,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        response = response + ";" + result.d.CloseOrder.SystemMessageLongText
+                    } catch (error) {
+                        console.log("ERRORE " + error)
+                        if (response !== "") {
+                            response = response + "|" + error
+                        } else {
+                            response = error
+                        }
                     }
                 }
             }
-
         } else {
-            try {
-                const result = await changeOrderProduction.send({
-                    method: 'POST',
-                    path: "CloseOrder?ManufacturingOrder='" + OrderID[0] + "'"
-                });
-                return result
-            } catch (error) {
-                //console.log("ERRORE "+error)
-                return error
-            }
+            return response
         }
 
         return response
@@ -1446,6 +1557,11 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
         const result = await zmfp_mrp_plant_f4.run(req.query);
+        return result;
+    });
+
+    this.on("READ", "ZZMFG_TIPO_ORDINE", async (req) => {
+        const result = await zmfg_tipo_ordine_f4.run(req.query);
         return result;
     });
 

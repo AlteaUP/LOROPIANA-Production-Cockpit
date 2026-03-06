@@ -152,7 +152,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         ProductCollection,
         ProductTheme,
         MRPController,
-        OrderIsReleased,
+        OrderIsReleasedFlag,
         OrderHasMissingComponents,
         OrganizationBPName1,
         CreationDate
@@ -199,6 +199,16 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(
              ![@HTML5.CssDefaults] : {
                 width : '3rem',
             }
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zzproj,
+            Label : '{i18n>zzproj}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zzprojdesc,
+            Label : '{i18n>zzprojdesc}',
         },
         {
             $Type : 'UI.DataField',
@@ -1042,4 +1052,84 @@ annotate service.ZZ1_CombPlnOrdersStock with @(
     },
 ]);
 
+
+annotate service.ZZMFG_TIPO_ORDINE with @(
+    UI.SelectionFields: [OrderType, OrderTypeName]
+);
+
+annotate service.ZC_RFM_WORKCENTERSUPPLIER with @(
+    UI.SelectionFields: [SupplierName]
+);
+
+annotate service.ZZ1_RFM_WRKCHARVAL_F4 with {
+    workcentertext @Common.Label : '{i18n>workcenterText}';
+};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    OrderIsReleasedFlag @Common.Label : '{i18n>OrderIsReleased}'
+};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    OrganizationBPName1 @(
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'ZC_RFM_WORKCENTERSUPPLIER',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : OrganizationBPName1,
+                    ValueListProperty : 'SupplierName',
+                },                
+                {
+                    $Type            : 'Common.ValueListParameterIn', 
+                    LocalDataProperty: ProductionPlant, 
+                    ValueListProperty: 'plant',
+                } 
+            ],
+            Label : '{i18n>organizationBPName1}',
+        },
+        Common.ValueListWithFixedValues : false,
+)};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    StockSegment @(
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'ZZ1_MFG_STOCKSEGMENT',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : StockSegment,
+                    ValueListProperty : 'SEGMENTO',
+                },                
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'DESCRIZIONE'
+                }
+            ],
+            Label : '{i18n>StockSegment}',
+        },
+        Common.ValueListWithFixedValues : false,
+)};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    ManufacturingOrderType @(
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'ZZMFG_TIPO_ORDINE',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : StockSegment,
+                    ValueListProperty : 'OrderType',
+                },                
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'OrderTypeName'
+                }
+            ],
+            Label : '{i18n>ManufacturingOrderType}',
+        },
+        Common.ValueListWithFixedValues : false,
+)};
 

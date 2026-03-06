@@ -75,6 +75,7 @@ type ConfODP : {
     ddt            : String;     
     ddt_date       : Date;
     po_num         : String;
+    intermed_flag  : String;
 }
 
 type OrdersKittingRecord {

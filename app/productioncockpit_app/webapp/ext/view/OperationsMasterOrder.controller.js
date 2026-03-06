@@ -198,8 +198,9 @@ sap.ui.define(
                     dataObjectToSend.meins = object.ProductionUnit
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
                     dataObjectToSend.ext_flag = object.ExtProcgOperationHasSubcontrg
-                    dataObjectToSend.po_flag = object.IntermediatePhaseIndicator
+                    dataObjectToSend.intermed_flag = object.IntermediatePhaseIndicator
                     dataObjectToSend.po_num  = object.PurchaseOrder
+                    dataObjectToSend.po_flag = object.FlagPurchaseOrder
                     dataObjectToSend.ddt = sDdt;
                     dataObjectToSend.ddt_date = sDate
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
@@ -453,10 +454,12 @@ sap.ui.define(
                         dataToSend.sumOpTotalConfirmedYieldQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedYieldQty
                         dataToSend.sumOpTotalConfirmedReworkQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedReworkQty
                         dataToSend.sumOpTotalConfirmedScrapQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedScrapQty
-                        //recupero campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder
+                        //recupero campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder - FlagPurchaseOrder - Plant
                         this.ExtProcgOperationHasSubcontrg = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ExtProcgOperationHasSubcontrg
                         this.IntermediatePhaseIndicator = oController.byId("TableOperations").getSelectedContexts()[0].getObject().IntermediatePhaseIndicator
                         this.PurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().PurchaseOrder
+                        this.FlagPurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().FlagPurchaseOrder
+                        this.Plant = oController.byId("TableOperations").getSelectedContexts()[0].getObject().Plant
 
                         const oModelView = oController.getView().getModel();
                         var oBindingContext = oModelView.bindContext("/GetMaterialDetails(...)");
@@ -474,10 +477,12 @@ sap.ui.define(
                                     //selectedOperationsMasterObject.CrossPlantConfigurableProduct = oContext.getObject().value[p].matnr
                                     //selectedOperationsMasterObject.zztagliadesc = oContext.getObject().value[p].zztagliadesc
                                     //selectedOperationsMasterObject.zzcolor = oContext.getObject().value[p].zzcolor
-                                    //aggiungo al model i campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder
+                                    //aggiungo al model i campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder - FlagPurchaseOrder - Plant
                                     selectedOperationsMasterObject.ExtProcgOperationHasSubcontrg = this.ExtProcgOperationHasSubcontrg
                                     selectedOperationsMasterObject.IntermediatePhaseIndicator = this.IntermediatePhaseIndicator
                                     selectedOperationsMasterObject.PurchaseOrder = this.PurchaseOrder
+                                    selectedOperationsMasterArray.FlagPurchaseOrder = this.FlagPurchaseOrder
+                                    selectedOperationsMasterArray.Plant = this.Plant
                                     selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }

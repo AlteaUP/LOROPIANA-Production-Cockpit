@@ -88,6 +88,18 @@
       "ZZ1_I_SUMQTYDELIVERY_T_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_I_SUMQTYDELIVERY_T_CDS"
+      },
+      "ZZ1_MFG_STOCKSEGMENT_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_MFG_STOCKSEGMENT_CDS"
+      },
+      "zmfg_tipo_ordine_f4": {
+        "kind": "odata",
+        "model": "srv/external/zmfg_tipo_ordine_f4"
+      },
+      "ZMFP_MRP_WRKCNTRSUPPLIER_F4": {
+        "kind": "odata",
+        "model": "srv/external/ZMFP_MRP_WRKCNTRSUPPLIER_F4"
       }
     }
   },

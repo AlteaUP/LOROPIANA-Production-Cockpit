@@ -227,6 +227,8 @@
 <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:aggregation-role="dimension" sap:display-format="Date" sap:required-in-filter="false" sap:label="CreationDate"/>
 <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Fornitore" sap:quickinfo="Numero conto del fornitore"/>
 <Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="35" sap:aggregation-role="dimension" sap:required-in-filter="false" sap:label="Nome" sap:quickinfo="Nome 1"/>
+<Property Name="zzproj" Type="Edm.String" MaxLength="7" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Codice Articolo Proj"/>
+<Property Name="zzprojdesc" Type="Edm.String" MaxLength="50" sap:aggregation-role="dimension" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Desc. Articolo Proj" sap:quickinfo="Descrizione Articolo Proj"/>
 </EntityType>
 <EntityType Name="ZZ1_C_COMBORDER_COMPType" sap:semantics="aggregate" sap:label="ZZ1_C_COMBORDER_COMP" sap:content-version="1">
 <Key>
@@ -780,7 +782,7 @@
 <Property Name="PurchaseRequisition" Type="Edm.String" Nullable="false" MaxLength="1" sap:required-in-filter="false" sap:label="Richiesta d'acquisto"/>
 <Property Name="PurchaseRequisitionItem" Type="Edm.String" Nullable="false" MaxLength="1" sap:required-in-filter="false" sap:label="Posizione della richiesta d'acquisto"/>
 <Property Name="PurchaseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Ord. acquisto" sap:quickinfo="Numero del documento acquisti"/>
-<Property Name="PurchaseOrderItem" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="NonNegative" sap:required-in-filter="false" sap:label="Pos. ord. acq." sap:quickinfo="Numero posizione documento d'acquisto"/>
+<Property Name="PurchaseOrderItem" Type="Edm.String" Nullable="false" MaxLength="1" sap:required-in-filter="false" sap:label="Pos. ord. acq."/>
 <Property Name="PurchasingInfoRecord" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Record info" sap:quickinfo="Record info acquisti"/>
 <Property Name="PurgInfoRecdDataIsFixed" Type="Edm.Boolean" Nullable="false" sap:required-in-filter="false" sap:label="Il prezzo è fisso" sap:quickinfo="I dati del record info acquisti sono fissi"/>
 <Property Name="PurchasingInfoRecordCategory" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Categoria record info acquisti"/>

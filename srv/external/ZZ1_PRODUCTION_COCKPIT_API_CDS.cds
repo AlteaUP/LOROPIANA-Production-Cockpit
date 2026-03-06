@@ -1,4 +1,4 @@
-/* checksum : 9c31a423e7b944c83242d0644cac651a */
+/* checksum : 051dfe474a51c99a500ae6947ad1b1c3 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -550,7 +550,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.I_WrkCtrBySemanticKeyStdVH {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -685,6 +685,17 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
   @sap.label : 'Nome'
   @sap.quickinfo : 'Nome 1'
   OrganizationBPName1 : String(35);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Codice Articolo Proj'
+  zzproj : String(7);
+  @sap.aggregation.role : 'dimension'
+  @sap.display.format : 'UpperCase'
+  @sap.required.in.filter : 'false'
+  @sap.label : 'Desc. Articolo Proj'
+  @sap.quickinfo : 'Descrizione Articolo Proj'
+  zzprojdesc : String(50);
 };
 
 @cds.external : true
@@ -698,7 +709,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBINEDPRODORDER {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -1067,7 +1078,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_COMBORDER_COMP {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -1407,7 +1418,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERORDER_COMP {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MASTERPRODORDER {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
@@ -2335,11 +2346,9 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_MFG_MASTEROPER_SUM {
   @sap.label : 'Ord. acquisto'
   @sap.quickinfo : 'Numero del documento acquisti'
   key PurchaseOrder : String(10) not null;
-  @sap.display.format : 'NonNegative'
   @sap.required.in.filter : 'false'
   @sap.label : 'Pos. ord. acq.'
-  @sap.quickinfo : 'Numero posizione documento d''acquisto'
-  key PurchaseOrderItem : String(5) not null;
+  key PurchaseOrderItem : String(1) not null;
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'
   @sap.label : 'Record info'
@@ -4208,7 +4217,7 @@ entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_C_UNION_PROD_COMP {
 entity ZZ1_PRODUCTION_COCKPIT_API_CDS.ZZ1_PRODUCTION_COCKPIT_API {
   @sap.sortable : 'false'
   @sap.filterable : 'false'
-  key ID : LargeString not null;
+  key ID : String not null;
   @sap.aggregation.role : 'dimension'
   @sap.display.format : 'UpperCase'
   @sap.required.in.filter : 'false'

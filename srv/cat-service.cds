@@ -17,11 +17,14 @@ using {ZMFG_SB_PRODOR_OPERATIONS as managePhase } from './external/ZMFG_SB_PRODO
 using {ZZ1_MFG_ROL_ORDERS_CDS as rol} from './external/ZZ1_MFG_ROL_ORDERS_CDS';
 using { ZZ1_MRPCONTROLLER_F4_CDS as MRPControllerCDS } from './external/ZZ1_MRPCONTROLLER_F4_CDS';
 using { UI_RFM_MNG_MSTRPRODNORD as chart } from './external/UI_RFM_MNG_MSTRPRODNORD';
+using { ZMFP_MRP_WRKCNTRSUPPLIER_F4 as workCentersMatchCode } from './external/ZMFP_MRP_WRKCNTRSUPPLIER_F4';
 using { ZZ1_RFM_WRKCHARVAL_F4_CDS as workCenters } from './external/ZZ1_RFM_WRKCHARVAL_F4_CDS';
 using { ZZ1_MFP_REASON_NOTE_CDS as reasonsNotes } from './external/ZZ1_MFP_REASON_NOTE_CDS';
 using { ZMF_IMD_MATERIAL_CDS as materialCharacteristics } from './external/ZMF_IMD_MATERIAL_CDS';
 using { zmfp_mrp_plant_f4 } from './external/zmfp_mrp_plant_f4';
+using { zmfg_tipo_ordine_f4 } from './external/zmfg_tipo_ordine_f4';
 using { ZZ1_COMBPLNORDERSSTOCKAPI_CDS } from './external/ZZ1_COMBPLNORDERSSTOCKAPI_CDS';
+using { ZZ1_MFG_STOCKSEGMENT_CDS } from './external/ZZ1_MFG_STOCKSEGMENT_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -271,6 +274,7 @@ service CatalogService {
         null as ReleasedStatusQtyInPercent: String,
         @Common.Label: '{i18n>OrderIsReleased}'
         null as OrderIsReleased: String,
+        null as OrderIsReleasedFlag: Boolean,
         null as OrderIsPartiallyReleased: String,
         null as ConfirmedStatusQtyInPercent: String,
         null as OrderIsConfirmed: String,
@@ -322,6 +326,7 @@ service CatalogService {
         null as OrderIsCreated: String,
         null as ReleasedStatusQtyInPercent: String,
         null as OrderIsReleased: String,
+        null as OrderIsReleasedFlag: Boolean,
         null as OrderIsPartiallyReleased: String,
         null as ConfirmedStatusQtyInPercent: String,
         null as OrderIsConfirmed: String,
@@ -360,6 +365,8 @@ service CatalogService {
 
     entity C_RFM_ManageCombinedMfgOrder as projection on chart.C_RFM_ManageCombinedMfgOrder;
 
+    entity ZC_RFM_WORKCENTERSUPPLIER as projection on workCentersMatchCode.ZC_RFM_WORKCENTERSUPPLIER;
+
     entity ZZ1_RFM_WRKCHARVAL_F4 as projection on workCenters.ZZ1_RFM_WRKCHARVAL_F4;
 
     entity ZZ1_MFP_REASON_NOTE as projection on reasonsNotes.ZZ1_MFP_REASON_NOTE;
@@ -367,6 +374,10 @@ service CatalogService {
     entity ZMF_IMD_MATERIAL as projection on materialCharacteristics.ZMF_IMD_MATERIAL;
 
     entity ZC_RFM_PRODUCTION_PLANT_F4 as projection on zmfp_mrp_plant_f4.ZC_RFM_PRODUCTION_PLANT_F4;
+
+    entity ZZ1_MFG_STOCKSEGMENT as projection on ZZ1_MFG_STOCKSEGMENT_CDS.ZZ1_MFG_STOCKSEGMENT;
+
+    entity ZZMFG_TIPO_ORDINE as projection on zmfg_tipo_ordine_f4.ZZMFG_TIPO_ORDINE;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 
