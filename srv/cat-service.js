@@ -68,7 +68,7 @@ module.exports = cds.service.impl(async function (srv) {
         //const result = await workCenterMatchCode.run(req.query);
         //return result; 
     });
-       
+
     this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
         console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4")
         var data = await workCenters.tx(request).run(request.query);
@@ -569,6 +569,8 @@ module.exports = cds.service.impl(async function (srv) {
                 }
                 if (finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== "") {
                     finalData[i].flagPurchaseOrder = 'X'
+                }else {
+                    finalData[i].flagPurchaseOrder = ''
                 }
             }
             return finalData;
@@ -585,6 +587,8 @@ module.exports = cds.service.impl(async function (srv) {
                 }
                 if (data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== "") {
                     data[i].flagPurchaseOrder = 'X'
+                }else {
+                    data[i].flagPurchaseOrder = ''
                 }
             }
             //aggiungo flag IntermediatePhaseIndicator 
@@ -1240,8 +1244,10 @@ module.exports = cds.service.impl(async function (srv) {
 
         // scrivo nel CBO
         if (result !== undefined && result !== null) {
+            const parentUUID = cds.utils.uuid();  // genera un UUID
+
             const newRecord = {
-                SAP_UUID: cds.utils.uuid(), // genera un UUID
+                SAP_UUID: parentUUID,
                 numeroOrdineROL: result.numeroOrdineROL,
                 articoloCod: result.articoloCod,
                 coloreCod: result.coloreCod,
@@ -1249,6 +1255,12 @@ module.exports = cds.service.impl(async function (srv) {
                 numeroPezzi: result.numeroPezzi,
                 tessuto: result.tessuto,
                 //dataConsegnaBorgosesia: "",
+                to_MFG_ROL_ATTRIBUTES: (result.attributi || []).map(item => ({
+                    SAP_UUID: cds.utils.uuid(),
+                    SAP_PARENT_UUID: parentUUID,
+                    zlabel: String(item.label ?? '').slice(0, 20),
+                    valore: String(item.valore ?? '').slice(0, 20)
+                }))
             };
 
             // controllo se esiste già record con quell'ordine
@@ -1256,11 +1268,13 @@ module.exports = cds.service.impl(async function (srv) {
                 SELECT("ZZ1_MFG_ROL_ORDERS").where({ numeroOrdineROL: result.numeroOrdineROL })
             );
 
-            if (Object.keys(selectROL).length === 0) {
-                await rol.run(
-                    INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
-                );
+            if (selectROL.length === 0) {
+                  await rol.run(
+                     INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
+                 ); 
             }
+
+            var child = await rol.run(SELECT("ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL"));
 
             console.log("SALVO su CBO ")
 

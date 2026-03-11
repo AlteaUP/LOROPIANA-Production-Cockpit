@@ -200,7 +200,7 @@ sap.ui.define(
                     dataObjectToSend.ext_flag = object.ExtProcgOperationHasSubcontrg
                     dataObjectToSend.intermed_flag = object.IntermediatePhaseIndicator
                     dataObjectToSend.po_num  = object.PurchaseOrder
-                    dataObjectToSend.po_flag = object.FlagPurchaseOrder
+                    dataObjectToSend.po_flag = object.flagPurchaseOrder
                     dataObjectToSend.ddt = sDdt;
                     dataObjectToSend.ddt_date = sDate
                     /*dataObjectToSend.scrap = Number(object.QtyToDiscard)
@@ -458,7 +458,7 @@ sap.ui.define(
                         this.ExtProcgOperationHasSubcontrg = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ExtProcgOperationHasSubcontrg
                         this.IntermediatePhaseIndicator = oController.byId("TableOperations").getSelectedContexts()[0].getObject().IntermediatePhaseIndicator
                         this.PurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().PurchaseOrder
-                        this.FlagPurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().FlagPurchaseOrder
+                        this.flagPurchaseOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().flagPurchaseOrder
                         this.Plant = oController.byId("TableOperations").getSelectedContexts()[0].getObject().Plant
 
                         const oModelView = oController.getView().getModel();
@@ -481,8 +481,8 @@ sap.ui.define(
                                     selectedOperationsMasterObject.ExtProcgOperationHasSubcontrg = this.ExtProcgOperationHasSubcontrg
                                     selectedOperationsMasterObject.IntermediatePhaseIndicator = this.IntermediatePhaseIndicator
                                     selectedOperationsMasterObject.PurchaseOrder = this.PurchaseOrder
-                                    selectedOperationsMasterArray.FlagPurchaseOrder = this.FlagPurchaseOrder
-                                    selectedOperationsMasterArray.Plant = this.Plant
+                                    selectedOperationsMasterObject.flagPurchaseOrder = this.flagPurchaseOrder
+                                    selectedOperationsMasterObject.Plant = this.Plant
                                     selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }

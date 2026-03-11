@@ -359,6 +359,8 @@ service CatalogService {
 
     entity ZZ1_MFG_ROL_ORDERS as projection on rol.ZZ1_MFG_ROL_ORDERS;
 
+    entity ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL as projection on rol.ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL;
+
     entity ZC_RFM_MRPCONTROLLER_F4 as projection on MRPControllerCDS.ZC_RFM_MRPCONTROLLER_F4;
 
     entity C_RFM_ManageMasterMfgOrder as projection on chart.C_RFM_ManageMasterMfgOrder;
