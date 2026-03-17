@@ -327,7 +327,7 @@ sap.ui.define(
                     dataObjectToSend.matnr_old = table[i].Material
                     dataObjectToSend.charg = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
-                    dataObjectToSend.menge = Number(table[i].TotalConfdQtyForATPInBaseUoM)
+                    dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
@@ -360,7 +360,6 @@ sap.ui.define(
                 oBindingContext.setParameter("Record",
                     dataToSend
                 );
-                return
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
