@@ -115,12 +115,23 @@ sap.ui.define(
                 const p = this._navParams || {};
                 const oRow = p.row;
 
+                let material;
+                let action;
+                if (p.action === "replacement") {
+                    action = "Sostituzione"
+                    material = p.row.NewMaterial
+                } else {
+                    action = "Integrazione"
+                    material = p.row.Material
+                }
+
                 //setto tot item e altri campi 
                 const oModelStock = this.getView().getModel("stocksModel");
                 oModelStock.setProperty('/tableCount', aRows.length)
                 oModelStock.setProperty('/CprodOrd', p.row.CprodOrd);
-                oModelStock.setProperty('/Material', p.row.Material);
+                oModelStock.setProperty('/Material', material);
                 oModelStock.setProperty('/TotalQuantityInEntryUnit', p.row.TotalQuantityInEntryUnit);
+                oModelStock.setProperty('/Action', action)
             },
             onAfterRendering: function () {
                 // recupero CDS delle reason
@@ -133,6 +144,40 @@ sap.ui.define(
                 }).catch(err => {
                     console.error("Errore nella chiamata OData:", err);
                 });
+            },
+            openDialogMessageText: function (text, messType) {
+                var vTitle = "Message";
+                var vState = "Error";
+
+                if (messType === "E") {
+                    vTitle = this.getResourceBundle().getText("errorTitle");
+                    vState = "Error";
+                } else
+                    if (messType === "I" || messType === "S") {
+                        vTitle = this.getResourceBundle().getText("successTitle");
+                        vState = "Success";
+                    }
+
+                var dialog = new Dialog({
+                    title: vTitle,
+                    type: "Message",
+                    state: vState,
+                    content: new sap.m.Text({
+                        text: text
+                    }),
+
+                    beginButton: new sap.m.Button({
+                        text: "OK",
+                        press: function () {
+                            dialog.close();
+                        }
+                    }),
+                    afterClose: function () {
+                        dialog.destroy();
+                    }
+                });
+
+                dialog.open();
             },
             onReasonChange: function (oEvent) {
                 const oSelect = oEvent.getSource();
@@ -199,12 +244,19 @@ sap.ui.define(
                    const p = JSON.parse(s); */
                 const p = this._navParams || {};
                 const oRow = p.row;
+                let material;
+
+                if (p.action === "replacement") {
+                    material = oRow.NewMaterial ? oRow.NewMaterial : oRow.Material;
+                } else {
+                    material = oRow.Material
+                }
 
                 //creo model per il dialog batch da assegnare
                 const oViewBatchModel = new sap.ui.model.json.JSONModel({
                     //required quantity
                     TotalQuantityInEntryUnit: oRow.TotalQuantityInEntryUnit,
-                    Material: oRow.Material
+                    Material: material
                 });
                 const oDialog = this.byId("AssegnaBatchCombinedDialog");
                 oDialog.setModel(oViewBatchModel, "viewBatch");
@@ -229,7 +281,7 @@ sap.ui.define(
                         oNew.visibleCheckboxRecharge = true;
                     }
 
-                    oNew.NewMaterial = oNew.Material ? oNew.Material : "";
+                    oNew.NewMaterial = material;
 
                     if (oNew.requirementtype !== "BB") {
                         oNew.selectedCheckboxRecharge = false;
@@ -253,22 +305,103 @@ sap.ui.define(
             },
 
             onConfirmAssegnaBatchCombinedDialog: function () {
-                //assegno batch e metto id record assegnato in storage
+                //assegno batch e metto id record assegnato in storage          
                 const p = this._navParams || {};
                 const oRow = p.row;
+                var dataToSend = []
+                var dataObjectToSend = {}
+                var table = this.byId("AssegnaBatchCombinedTableId")
+                    .getModel("local")
+                    .getProperty("/SelectedAssegnaBatchCombined") || [];
 
-                sessionStorage.setItem("batchAssigned", JSON.stringify({
-                    ID: String(oRow.ID),
-                }));
-                //torno al popup sostituzione/integrazione 
-                const Key = `.1~${String(oRow.CprodOrd).padStart(12, '0')}`;
-                const oComponent = this.getOwnerComponent().getExtensionComponent();
-                this.oRouter = oComponent.getRouter();
-
-                this.oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
-                    ZZ1_C_COMBINEDORDER_COMPKey: "'" + Key + "'", "?query": {
+                for (var i = 0; i < table.length; i++) {
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"
+                    dataObjectToSend.CprodOrd = table[i].CprodOrd
+                    dataObjectToSend.FshMprodOrd = table[i].FshMprodOrd
+                    if (table[i].NewMaterial !== null && table[i].NewMaterial !== undefined) {
+                        dataObjectToSend.matnr_new = table[i].NewMaterial
+                    } else {
+                        dataObjectToSend.matnr_new = ""
                     }
-                });
+                    dataObjectToSend.matnr_old = table[i].Material
+                    dataObjectToSend.charg = table[i].Batch
+                    dataObjectToSend.meins = table[i].BaseUnit
+                    dataObjectToSend.menge = Number(table[i].TotalConfdQtyForATPInBaseUoM)
+                    dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
+                    dataObjectToSend.note = table[i].Note
+                    dataObjectToSend.reason = table[i].Reason;
+                    dataObjectToSend.lgort = table[i].Lgort1
+                    dataObjectToSend.werks = table[i].Plant
+                    dataObjectToSend.stk_seg = table[i].RequirementSegment
+                    if (p.action === 'replacement') {
+                        dataObjectToSend.action = "SOST"
+                        if (table[i].selectedCheckboxRecharge === true) {
+                            dataObjectToSend.recharge = 'X'
+                        } else {
+                            dataObjectToSend.recharge = ''
+                        }
+                    } else if (p.action === 'integration') {
+                        dataObjectToSend.action = "INTE"
+                    } else {
+                        dataObjectToSend.action = ""
+                    }
+                    dataToSend.push(dataObjectToSend)
+                }
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+
+                const oModel = oController.getView().getModel();
+                /*   oBusyDialog.close();
+                  return */
+                var oBindingContext = oModel.bindContext("/Replacement(...)");
+                oBindingContext.setParameter("Record",
+                    dataToSend
+                );
+                return
+                if (dataToSend.length > 0) {
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
+                        var v = oContext.getObject().value;
+                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }
+                        oBusyDialog.close();
+
+                        sessionStorage.setItem("batchAssigned", JSON.stringify({
+                            ID: String(oRow.ID),
+                        }));
+                        //torno al popup sostituzione/integrazione 
+                        const Key = `.1~${String(oRow.CprodOrd).padStart(12, '0')}`;
+                        const oComponent = this.getOwnerComponent().getExtensionComponent();
+                        this.oRouter = oComponent.getRouter();
+
+                        this.oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
+                            ZZ1_C_COMBINEDORDER_COMPKey: "'" + Key + "'", "?query": {
+                            }
+                        });
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if (oError.error !== undefined && oError.error !== null) {
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    oBusyDialog.close();
+                }
+                oController.pAssegnaBatchCombinedDialog.close();
             },
             onCloseAssegnaBatchCombinedDialog: function () {
                 oController.pAssegnaBatchCombinedDialog.close();

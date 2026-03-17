@@ -14,6 +14,10 @@
                 <Label text="Required Qty" width="120px"/>
                 <Text text="{stocksModel>/TotalQuantityInEntryUnit}" width="200px"/>
             </HBox>
+             <HBox class="sapUiTinyMarginTop">
+                <Label text="Action" width="120px"/>
+                <Text text="{stocksModel>/Action}" width="200px"/>
+            </HBox>
         </VBox>
           <Title text="Stock ({stocksModel>/tableCount})" level="H3" class="sapUiSmallMarginBegin"/>
           <macros:FilterBar metaPath="/ZZ1_CombPlnOrdersStock/@com.sap.vocabularies.UI.v1.SelectionFields#tableStock" id="orderComponentFilter" visible="false"/>

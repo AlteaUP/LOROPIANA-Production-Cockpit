@@ -148,7 +148,7 @@ sap.ui.define(
             onConfirmOperationsMovePhaseDialog: function () {
                 console.log("onConfirmOperationsMovePhaseDialog");
                 const oTableModel = this.byId("OperationsMovePhaseTableId")
-                    .getModel()
+                    .getModel("local")
                     .getProperty("/SelectedOperationsMovePhase") || [];;
                 //blocco se ddt e ddt_date sono required e non compilati
                 if (oTableModel[0].ExtProcgOperationHasSubcontrg === "X") {
@@ -187,8 +187,8 @@ sap.ui.define(
                 const sDate = oDatePicker.getValue();
 
                 for (var i = 0; i < this.byId("OperationsMovePhaseTableId").getItems().length; i++) {
-                    var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext().sPath
-                    var object = this.byId("OperationsMovePhaseTableId").getModel().getObject(path)
+                    var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext("local").sPath
+                    var object = this.byId("OperationsMovePhaseTableId").getModel("local").getObject(path)
                     dataObjectToSend = {}
                     dataObjectToSend.id = String(i + 1).padStart(3, "0");//"001"                    
                     dataObjectToSend.CprodOrd = object.CprodOrd
@@ -199,7 +199,7 @@ sap.ui.define(
                     dataObjectToSend.yield = Number(object.QtyToConfirm)
                     dataObjectToSend.ext_flag = object.ExtProcgOperationHasSubcontrg
                     dataObjectToSend.intermed_flag = object.IntermediatePhaseIndicator
-                    dataObjectToSend.po_num  = object.PurchaseOrder
+                    dataObjectToSend.po_num = object.PurchaseOrder
                     dataObjectToSend.po_flag = object.flagPurchaseOrder
                     dataObjectToSend.ddt = sDdt;
                     dataObjectToSend.ddt_date = sDate
@@ -228,11 +228,11 @@ sap.ui.define(
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
-                         if (oContext.getObject().value.to_confodp[0].fl_err_o) {
+                        if (oContext.getObject().value.to_confodp[0].fl_err_o) {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "E");
                         } else {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
-                        } 
+                        }
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);
@@ -490,8 +490,11 @@ sap.ui.define(
                             var oTable = oController.byId("OperationsMovePhaseTableId");
 
                             var oModel = new JSONModel();
+                            oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
                             oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray })
-                            oTable.setModel(oModel);
+                            oTable.setModel(oModel, "local");
+                            console.log("table model", this.byId("OperationsMovePhaseTableId").getModel("local"));
+                            console.log("view model", this.getView().getModel("local"));
 
                             oBusyDialog.close();
 

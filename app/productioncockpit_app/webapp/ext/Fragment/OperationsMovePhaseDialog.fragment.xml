@@ -39,9 +39,7 @@
           </f:content>
         </f:SimpleForm>
       	<Table id="OperationsMovePhaseTableId"
-          items="{
-            path: '/SelectedOperationsMovePhase'
-          }">
+          items="{local>/SelectedOperationsMovePhase}">
           <columns>
                 <Column width="14%">
                     <Text text="{i18n>FinishProduct}"/>
@@ -81,27 +79,27 @@
             <ColumnListItem vAlign="Middle">
               <cells>
                 <Input 
-                  value="{Material}" editable="false" />
+                  value="{local>Material}" editable="false" />
                 <Input 
-                  value="{zzcolor}" editable="false"/>
+                  value="{local>zzcolor}" editable="false"/>
                 <Input 
-                  value="{zztagliadesc}" editable="false"/>
+                  value="{local>zztagliadesc}" editable="false"/>
                 <Input 
-                  value="{MfgOrderPlannedTotalQty}" editable="false" />
+                  value="{local>MfgOrderPlannedTotalQty}" editable="false" />
                 <Input 
-                  value="{MfgOrderConfirmedYieldQty}" editable="false" />
+                  value="{local>MfgOrderConfirmedYieldQty}" editable="false" />
                 <Input 
-                  value="{MfgOrderConfirmedScrapQty}" editable="false"/>
+                  value="{local>MfgOrderConfirmedScrapQty}" editable="false"/>
                 <Input 
-                  value="{MfgOrderConfirmedReworkQty}" editable="false"/>
+                  value="{local>MfgOrderConfirmedReworkQty}" editable="false"/>
                 <Input 
-                  value="{QtyToConfirm}"/>
+                  value="{local>QtyToConfirm}"/>
                 <Input 
-                  value="{QtyToDiscard}" editable="true"/>
+                  value="{local>/QtyToDiscard}" editable="true"/>
                 <Input 
-                  value="{QtyToRework}" editable="true"/>
+                  value="{local>QtyToRework}" editable="true"/>
                 <Input 
-                  value="{Reason}" />                
+                  value="{local>Reason}" />                
               </cells>
             </ColumnListItem>
           </items>

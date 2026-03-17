@@ -569,7 +569,7 @@ module.exports = cds.service.impl(async function (srv) {
                 }
                 if (finalData[i].PurchaseOrder !== null && finalData[i].PurchaseOrder !== undefined && finalData[i].PurchaseOrder !== "") {
                     finalData[i].flagPurchaseOrder = 'X'
-                }else {
+                } else {
                     finalData[i].flagPurchaseOrder = ''
                 }
             }
@@ -587,7 +587,7 @@ module.exports = cds.service.impl(async function (srv) {
                 }
                 if (data[i].PurchaseOrder !== null && data[i].PurchaseOrder !== undefined && data[i].PurchaseOrder !== "") {
                     data[i].flagPurchaseOrder = 'X'
-                }else {
+                } else {
                     data[i].flagPurchaseOrder = ''
                 }
             }
@@ -1269,9 +1269,9 @@ module.exports = cds.service.impl(async function (srv) {
             );
 
             if (selectROL.length === 0) {
-                  await rol.run(
-                     INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
-                 ); 
+                await rol.run(
+                    INSERT.into("ZZ1_MFG_ROL_ORDERS").entries(newRecord)
+                );
             }
 
             var child = await rol.run(SELECT("ZZ1_MFG_ROL_ATTRIBUTES_MFG_ROL"));
@@ -1449,8 +1449,8 @@ module.exports = cds.service.impl(async function (srv) {
             ({ InventoryStockType }) => InventoryStockType === '01'
         );
 
-        const plants = [...new Set(stockData.map(i => i.Plant).filter(Boolean))];
-        const mats = [...new Set(stockData.map(i => i.Material).filter(Boolean))];
+        const plants = [...new Set((stockData ?? []).map(i => i.Plant).filter(Boolean))];
+        const mats = [...new Set((stockData ?? []).map(i => i.Material).filter(Boolean))];
 
         // 3. Batch query for TotalProdAllQty
         const prodAllQtyPromise = ZZ1_I_ARUN_BDBSSUMQTY_CDS.run(

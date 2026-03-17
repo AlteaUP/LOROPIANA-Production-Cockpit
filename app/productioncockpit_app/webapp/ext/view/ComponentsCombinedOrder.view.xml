@@ -2,7 +2,7 @@
     <Page id="CombinedComponents" title="{i18n>ComponentsTitle}">
         <content>
             <macros:FilterBar metaPath="/ZZ1_C_COMBORDER_COMP/@com.sap.vocabularies.UI.v1.SelectionFields#CombinedComp" id="FilterBarCombinedComp"/>
-            <macros:Table id="TableCombinedComponents" selectionMode="ForceMulti" rowCountMode="Auto" filterBar="FilterBarCombinedComp" rowCount="20" type="GridTable" metaPath="to_ZZ1_C_COMBORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroCombinedComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control">
+            <macros:Table id="TableCombinedComponents"  selectionMode="ForceMulti" rowCountMode="Fixed" filterBar="FilterBarCombinedComp" rowCount="20" type="GridTable" metaPath="to_ZZ1_C_COMBORDER_COMP/@com.sap.vocabularies.UI.v1.LineItem#tableMacroCombinedComponents" beforeRebindTable="modifyDataBeforeRebind" variantManagement="Control">
                 <macros:actions>
                     <table:Action id="replacementCompCombinedID" key="replacementCompCombinedAction" text="{i18n>replacementComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="integrationCompCombinedID" key="integrationCompCombinedAction" text="{i18n>integrationComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>

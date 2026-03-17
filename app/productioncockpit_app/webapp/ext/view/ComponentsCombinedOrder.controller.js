@@ -293,6 +293,7 @@ sap.ui.define(
                     Material: sMaterial,
                     Plant: sPlant,
                     StorageLocation: sStorageLocation,
+                    action: oController.buttonSelected,
                     ID: oRow.ID,
                     row: {
                         ...oRow
@@ -333,7 +334,7 @@ sap.ui.define(
                     dataObjectToSend.matnr_old = table[i].Material
                     dataObjectToSend.charg = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
-                    dataObjectToSend.menge = Number(table[i].TotalConfdQtyForATPInBaseUoM)
+                    dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
@@ -355,7 +356,6 @@ sap.ui.define(
                     }
                     dataToSend.push(dataObjectToSend)
                 }
-
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
 
