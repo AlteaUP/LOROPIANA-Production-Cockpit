@@ -236,7 +236,9 @@ sap.ui.define(
                         ? (aReasons[0].Reason + " - " + aReasons[0].Note)
                         : "";
                     selectedComponentsCombinedObject.ReasonKey =
-                        aReasons[0].SAP_UUID;
+                        (aReasons && aReasons.length > 0 && aReasons[0].SAP_UUID)
+                            ? aReasons[0].SAP_UUID
+                            : "";
 
                     for (var i = 0; i < oController.byId("TableCombinedComponents").getSelectedContexts().length; i++) {
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
@@ -560,8 +562,8 @@ sap.ui.define(
                 }
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
-              /*   oBusyDialog.close();
-                return */
+                /*   oBusyDialog.close();
+                  return */
                 var oBindingContext = Model.bindContext("/Replacement(...)");
                 oBindingContext.setParameter("Record",
                     dataToSend
@@ -581,7 +583,7 @@ sap.ui.define(
                             //oController.openDialogMessageText(oContext.getObject().value, "S");
                             oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }
-                        
+
                         oMacroTable.getMDCTable().clearSelection();
                         const oBinding = oMacroTable.getRowBinding();
                         if (oBinding && oBinding.isA("sap.ui.model.odata.v4.ODataListBinding")) {
