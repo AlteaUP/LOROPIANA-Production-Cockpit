@@ -2,9 +2,10 @@ sap.ui.define(
     [
         'sap/fe/core/PageController',
         'sap/ui/model/json/JSONModel',
+        "sap/m/MessageToast",
         "sap/m/Dialog",
     ],
-    function (PageController, JSONModel, Dialog) {
+    function (PageController, JSONModel, MessageToast, Dialog) {
         'use strict';
 
         var oController;
@@ -39,12 +40,27 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::deleteCompCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::assegnaBatchCombinedAction").setEnabled(true);
+                        //oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::disassegnaBatchCombinedAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::replacementCompCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::deleteCompCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::assegnaBatchCombinedAction").setEnabled(false);
+                        //oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::disassegnaBatchCombinedAction").setEnabled(false);
                     }
+                    //gestione action disassegna Batch
+                    var aSelectedContexts = oEvent.getParameters().selectedContext;
+
+                    var bEnable = aSelectedContexts.length > 0 &&
+                        aSelectedContexts.every(function (oContext) {
+                            var oObject = oContext.getObject();
+                            return oObject.Batch && oObject.Batch !== "";
+                        });
+
+                    oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::disassegnaBatchCombinedAction")
+                        .setEnabled(bEnable);
                 });
                 var reasonDataModel = new JSONModel({
                     ReasonSet: []
@@ -468,6 +484,123 @@ sap.ui.define(
                     oBusyDialog.close();
                 }
 
+            },
+
+            onActionAssegnaBatchCombined: function (oEvent) {
+                sessionStorage.removeItem("CombinedReturnState");
+                var buttonSelected = "Assegna Batch"
+                const selectedContext = oController.byId("TableCombinedComponents").getSelectedContexts();
+                const oRow = selectedContext[0].getObject();
+
+                if (selectedContext.length > 1) {
+                    MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                    return
+                }
+
+                const oComponent = this.getOwnerComponent().getExtensionComponent();
+                this.oRouter = oComponent.getRouter();
+
+                const sMaterial = oRow.Material;
+                const sPlant = oRow.Plant;
+                const sStorageLocation = oRow.StorageLocation;
+
+                sessionStorage.setItem("stockNavParams", JSON.stringify({
+                    Material: sMaterial,
+                    Plant: sPlant,
+                    StorageLocation: sStorageLocation,
+                    action: buttonSelected,
+                    row: {
+                        ...oRow
+                    },
+                }));
+
+                this.oRouter.navTo("ZZ1_CombPlnOrdersStockPage", { query: { _ts: Date.now().toString() } });
+
+            },
+
+            onActionDisassegnaBatchCombined: function (oEvent) {
+                const selectedContext = oController.byId("TableCombinedComponents").getSelectedContexts();
+                //const oRow = selectedContext[0].getObject();
+                const Model = oController.getView().getModel();
+
+                if (selectedContext.length === 0) {
+                    //MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                    return
+                }
+
+                //preparo payload per action
+                var dataToSend = []
+                var dataObjectToSend = {}
+
+                for (var i = 0; i < selectedContext.length; i++) {
+                    var obj = selectedContext[i].getObject();
+                    dataObjectToSend = {}
+                    dataObjectToSend.id = "001"
+                    dataObjectToSend.CprodOrd = obj.CprodOrd
+                    dataObjectToSend.FshMprodOrd = obj.FshMprodOrd
+                    if (obj.NewMaterial !== null && obj.NewMaterial !== undefined) {
+                        dataObjectToSend.matnr_new = obj.NewMaterial
+                    } else {
+                        dataObjectToSend.matnr_new = ""
+                    }
+                    dataObjectToSend.matnr_old = obj.Material
+                    dataObjectToSend.charg = obj.Batch
+                    dataObjectToSend.meins = obj.BaseUnit
+                    dataObjectToSend.menge = Number(obj.TotalQuantityInEntryUnit)
+                    dataObjectToSend.vornr = obj.ManufacturingOrderOperation
+                    dataObjectToSend.plnfl = obj.ManufacturingOrderSequence
+                    dataObjectToSend.note = obj.Note
+                    dataObjectToSend.reason = obj.Reason;
+                    dataObjectToSend.lgort = obj.Lgort1
+                    dataObjectToSend.werks = obj.Plant
+                    dataObjectToSend.stk_seg = obj.RequirementSegment
+                    dataObjectToSend.action = "BADA"
+
+                    dataToSend.push(dataObjectToSend)
+                }
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
+              /*   oBusyDialog.close();
+                return */
+                var oBindingContext = Model.bindContext("/Replacement(...)");
+                oBindingContext.setParameter("Record",
+                    dataToSend
+                );
+                if (dataToSend.length > 0) {
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();
+                        var v = oContext.getObject().value;
+                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        const oMacroTable = oController.byId("TableCombinedComponents")
+
+                        oBusyDialog.close();
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }
+                        
+                        oMacroTable.getMDCTable().clearSelection();
+                        const oBinding = oMacroTable.getRowBinding();
+                        if (oBinding && oBinding.isA("sap.ui.model.odata.v4.ODataListBinding")) {
+                            oBinding.refresh();
+                        }
+
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if (oError.error !== undefined && oError.error !== null) {
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                } else {
+                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                    oBusyDialog.close();
+                }
             },
 
             openDialogMessageText: function (text, messType) {

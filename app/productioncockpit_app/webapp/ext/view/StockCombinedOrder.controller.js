@@ -120,8 +120,12 @@ sap.ui.define(
                 if (p.action === "replacement") {
                     action = "Sostituzione"
                     material = p.row.NewMaterial
-                } else {
+                } else if (p.action === "Integrazione") {
                     action = "Integrazione"
+                    material = p.row.Material
+                } else {
+                    //action  Assegna Batch
+                    action = p.action
                     material = p.row.Material
                 }
 
@@ -145,7 +149,7 @@ sap.ui.define(
                     console.error("Errore nella chiamata OData:", err);
                 });
             },
-            openDialogMessageText: function (text, messType) {
+            openDialogMessageText: function (text, messType, fnAfterClose) {
                 var vTitle = "Message";
                 var vState = "Error";
 
@@ -173,6 +177,11 @@ sap.ui.define(
                         }
                     }),
                     afterClose: function () {
+                        console.log("afterClose called");
+                        if (fnAfterClose) {
+                            console.log("fnAfterClose exists");
+                            fnAfterClose();
+                        }
                         dialog.destroy();
                     }
                 });
@@ -208,12 +217,101 @@ sap.ui.define(
 
             pressAssegna: function () {
                 debugger;
+                const p = this._navParams || {};
+                const oRow = p.row;
+                const Model = oController.getView().getModel();
+                let material;
                 const oTableStock = oController.byId("TableStock");
                 const aSelCtx = oTableStock ? oTableStock.getSelectedContexts() : [];
                 if (!aSelCtx || aSelCtx.length === 0) {
                     MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
                     return;
                 }
+                //controllo: se sono in Assegna Batch -> non apro popup e chiamo servizio selezionando max 1 solo record - INIZIO
+                if (p.action === "Assegna Batch") {
+                    if (aSelCtx.length > 1) {
+                        MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                        return
+                    }
+                    //preparo payload per action
+                    var dataToSend = []
+                    var dataObjectToSend = {}
+
+                    for (var i = 0; i < aSelCtx.length; i++) {
+                        var obj = aSelCtx[i].getObject();
+                        dataObjectToSend = {}
+                        dataObjectToSend.id = "001"
+                        dataObjectToSend.CprodOrd = oRow.CprodOrd
+                        dataObjectToSend.FshMprodOrd = oRow.FshMprodOrd
+                        if (oRow.NewMaterial !== null && oRow.NewMaterial !== undefined) {
+                            dataObjectToSend.matnr_new = oRow.NewMaterial
+                        } else {
+                            dataObjectToSend.matnr_new = ""
+                        }
+                        dataObjectToSend.matnr_old = oRow.Material
+                        dataObjectToSend.charg = obj.Batch
+                        dataObjectToSend.meins = oRow.BaseUnit
+                        dataObjectToSend.menge = Number(oRow.TotalQuantityInEntryUnit)
+                        dataObjectToSend.vornr = oRow.ManufacturingOrderOperation
+                        dataObjectToSend.plnfl = oRow.ManufacturingOrderSequence
+                        dataObjectToSend.note = oRow.Note
+                        dataObjectToSend.reason = oRow.Reason;
+                        dataObjectToSend.lgort = oRow.Lgort1
+                        dataObjectToSend.werks = oRow.Plant
+                        dataObjectToSend.stk_seg = oRow.RequirementSegment
+                        dataObjectToSend.action = "BAAS"
+
+                        dataToSend.push(dataObjectToSend)
+                    }
+                    var oBusyDialog = new sap.m.BusyDialog();
+                    oBusyDialog.open();
+                    /*   oBusyDialog.close();
+                      return */
+                    var oBindingContext = Model.bindContext("/Replacement(...)");
+                    oBindingContext.setParameter("Record",
+                        dataToSend
+                    );
+                    if (dataToSend.length > 0) {
+                        oBindingContext.execute().then((oResult) => {
+                            var oContext = oBindingContext.getBoundContext();
+                            var v = oContext.getObject().value;
+                            var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                            const Key = `.1~${String(oRow.CprodOrd).padStart(12, '0')}`;
+                            const oComponent = this.getOwnerComponent().getExtensionComponent();
+                            const oRouter = oComponent.getRouter();
+
+                            const fnNavBack = function () {
+                                oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
+                                    ZZ1_C_COMBINEDORDER_COMPKey: "'" + Key + "'",
+                                    "?query": {}
+                                });
+                            }.bind(this);
+
+                            oBusyDialog.close();
+                            //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                            if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                                oController.openDialogMessageText(oContext.getObject().value, "E", fnNavBack);
+                            } else {
+                                //oController.openDialogMessageText(oContext.getObject().value, "S");
+                                oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S", fnNavBack);
+                            }
+
+                        }).catch((oError) => {
+                            oBusyDialog.close();
+                            if (oError.error !== undefined && oError.error !== null) {
+                                oController.openDialogMessageText(oError.error.message, "E");
+                            } else {
+                                oController.openDialogMessageText(oError, "E");
+                            }
+                        });
+                    } else {
+                        //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                        oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                        oBusyDialog.close();
+                    }
+                } else {
+                //controllo: se sono in Assegna Batch -> non apro popup e chiamo servizio selezionando max 1 solo record - FINE
+
                 if (!oController.pAssegnaBatchCombinedDialog) {
                     oController.pAssegnaBatchCombinedDialog = sap.ui.xmlfragment(
                         oController.getView().getId(),
@@ -242,9 +340,6 @@ sap.ui.define(
                 /*    const s = sessionStorage.getItem("stockNavParams");
                    if (!s) return;
                    const p = JSON.parse(s); */
-                const p = this._navParams || {};
-                const oRow = p.row;
-                let material;
 
                 if (p.action === "replacement") {
                     material = oRow.NewMaterial ? oRow.NewMaterial : oRow.Material;
@@ -263,25 +358,38 @@ sap.ui.define(
 
                 // 4) Batch selezionati dal table dentro al fragment (o view)
 
-                const fEach = (Number(oRow.TotalQuantityInEntryUnit) || 0) / aSelCtx.length;
+                const fRequiredQty = Number(oRow.TotalQuantityInEntryUnit) || 0;
+
+                // preparo i batch selezionati con AvaibilityQty numerico
+                const aBatchData = aSelCtx.map(function (oCtx) {
+                    const oBatchObj = oCtx.getObject();
+                    return {
+                        batchObj: oBatchObj,
+                        AvaibilityQty: Number(oBatchObj.AvaibilityQty) || 0
+                    };
+                });
+
+                // somma totale disponibilità
+                const fTotalAvailability = aBatchData.reduce(function (sum, oItem) {
+                    return sum + oItem.AvaibilityQty;
+                }, 0);
 
                 const aSelected = [];
-                for (let i = 0; i < aSelCtx.length; i++) {
-                    const oBatchObj = aSelCtx[i].getObject(); // record batch selezionato
 
-                    // CLONE profondo di oRow
+                // funzione di supporto per clonare e valorizzare i campi comuni
+                const createNewRow = function (oSourceRow, oBatchObj, sQty) {
                     const oNew = (typeof structuredClone === "function")
-                        ? structuredClone(oRow)
-                        : JSON.parse(JSON.stringify(oRow));
+                        ? structuredClone(oSourceRow)
+                        : JSON.parse(JSON.stringify(oSourceRow));
 
-                    oNew.Batch = oBatchObj.Batch;
+                    oNew.Batch = oBatchObj ? oBatchObj.Batch : "";
+                    oNew.NewMaterial = material;
+
                     if (sAction === "integration") {
                         oNew.visibleCheckboxRecharge = false;
                     } else {
                         oNew.visibleCheckboxRecharge = true;
                     }
-
-                    oNew.NewMaterial = material;
 
                     if (oNew.requirementtype !== "BB") {
                         oNew.selectedCheckboxRecharge = false;
@@ -291,9 +399,63 @@ sap.ui.define(
                         oNew.editableCheckboxRecharge = true;
                     }
 
-                    oNew.TotalQuantityInEntryUnit = Number(fEach.toFixed(3));
+                    // quantity come stringa con 3 decimali
+                    oNew.TotalQuantityInEntryUnit = Number(sQty).toFixed(2);
 
-                    aSelected.push(oNew);
+                    return oNew;
+                };
+
+                if (fTotalAvailability > fRequiredQty) {
+                    // CASO 1: disponibilità totale superiore alla quantità richiesta
+                    // distribuzione proporzionale in base ad AvaibilityQty
+
+                    let fAssignedSum = 0;
+
+                    for (let i = 0; i < aBatchData.length; i++) {
+                        const oItem = aBatchData[i];
+
+                        let fAssignedQty;
+                        if (i === aBatchData.length - 1) {
+                            // ultimo record: prende il residuo per evitare problemi di arrotondamento
+                            fAssignedQty = fRequiredQty - fAssignedSum;
+                        } else {
+                            fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
+                            fAssignedQty = Number(fAssignedQty.toFixed(3));
+                            fAssignedSum += fAssignedQty;
+                        }
+
+                        const oNew = createNewRow(oRow, oItem.batchObj, fAssignedQty);
+                        aSelected.push(oNew);
+                    }
+
+                } else if (fTotalAvailability === fRequiredQty) {
+                    // CASO 2: disponibilità totale uguale alla quantità richiesta
+                    // assegno ad ogni batch il proprio AvaibilityQty
+
+                    for (let i = 0; i < aBatchData.length; i++) {
+                        const oItem = aBatchData[i];
+                        const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
+                        aSelected.push(oNew);
+                    }
+
+                } else {
+                    // CASO 3: disponibilità totale inferiore alla quantità richiesta
+                    // assegno ad ogni batch il proprio AvaibilityQty
+                    // e creo una riga extra con il residuo
+
+                    for (let i = 0; i < aBatchData.length; i++) {
+                        const oItem = aBatchData[i];
+                        const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
+                        aSelected.push(oNew);
+                    }
+
+                    const fRemainingQty = Number((fRequiredQty - fTotalAvailability).toFixed(3));
+
+                    if (fRemainingQty > 0) {
+                        const oExtra = createNewRow(oRow, null, fRemainingQty);
+                        oExtra.Batch = "";
+                        aSelected.push(oExtra);
+                    }
                 }
                 const oModel = new sap.ui.model.json.JSONModel({
                     SelectedAssegnaBatchCombined: aSelected
@@ -302,6 +464,7 @@ sap.ui.define(
 
                 const oTable = this.byId("AssegnaBatchCombinedTableId");
                 oTable.setModel(oModel, "local");
+                }
             },
 
             onConfirmAssegnaBatchCombinedDialog: function () {
@@ -363,30 +526,33 @@ sap.ui.define(
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
-                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                         var v = oContext.getObject().value;
                         var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
-                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
-                        } else {
-                            //oController.openDialogMessageText(oContext.getObject().value, "S");
-                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                        }
-                        oBusyDialog.close();
+                        const Key = `.1~${String(oRow.CprodOrd).padStart(12, '0')}`;
+                        const oComponent = this.getOwnerComponent().getExtensionComponent();
+                        const oRouter = oComponent.getRouter();
+
+                        const fnNavBack = function () {
+                            oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
+                                ZZ1_C_COMBINEDORDER_COMPKey: "'" + Key + "'",
+                                "?query": {}
+                            });
+                        }.bind(this);
+
 
                         sessionStorage.setItem("batchAssigned", JSON.stringify({
                             ID: String(oRow.ID),
                         }));
-                        //torno al popup sostituzione/integrazione 
-                        const Key = `.1~${String(oRow.CprodOrd).padStart(12, '0')}`;
-                        const oComponent = this.getOwnerComponent().getExtensionComponent();
-                        this.oRouter = oComponent.getRouter();
 
-                        this.oRouter.navTo("ZZ1_C_COMBINEDORDER_COMPComponentsPage", {
-                            ZZ1_C_COMBINEDORDER_COMPKey: "'" + Key + "'", "?query": {
-                            }
-                        });
+                        oBusyDialog.close();
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E", fnNavBack);
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S", fnNavBack);
+                        }
+
                     }).catch((oError) => {
                         oBusyDialog.close();
                         if (oError.error !== undefined && oError.error !== null) {

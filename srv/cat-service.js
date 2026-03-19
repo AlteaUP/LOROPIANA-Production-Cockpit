@@ -1449,6 +1449,10 @@ module.exports = cds.service.impl(async function (srv) {
             ({ InventoryStockType }) => InventoryStockType === '01'
         );
 
+        if(stockData.length === 0){
+            return [];
+        }
+
         const plants = [...new Set((stockData ?? []).map(i => i.Plant).filter(Boolean))];
         const mats = [...new Set((stockData ?? []).map(i => i.Material).filter(Boolean))];
 
@@ -1557,7 +1561,14 @@ module.exports = cds.service.impl(async function (srv) {
             rec.ResourceID = norm(rec.ResourceID);
         });
 
-        return res;
+        const result = res
+            .filter(item => Number(item.AvaibilityQty) !== 0)
+            .map(item => ({
+                ...item,
+                AvaibilityQty: Number(item.AvaibilityQty).toFixed(3)
+            }));
+
+        return result;
 
     });
 

@@ -8,6 +8,8 @@
                     <table:Action id="integrationCompCombinedID" key="integrationCompCombinedAction" text="{i18n>integrationComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="deleteCompCombinedID" key="deleteCompCombinedAction" text="{i18n>deleteComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
                     <table:Action id="closeCompCombinedID" key="closeCompCombinedAction" text="{i18n>closeComp}" press=".onActionComponentsCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="assegnaBatchCombinedID" key="assegnaBatchCombinedAction" text="{i18n>assegnaBatch}" press=".onActionAssegnaBatchCombined" placement="After" requiresSelection="true"/>
+                    <table:Action id="disassegnaBatchCombinedID" key="disassegnaBatchCombinedAction" text="{i18n>disassegnaBatch}" press=".onActionDisassegnaBatchCombined" placement="After" requiresSelection="true"/>
                 </macros:actions>
             </macros:Table>
         </content>

@@ -2,10 +2,10 @@
     <Page id="stock">
         <content>
          <VBox class="sapUiSmallMargin">            
-            <HBox>
+       <!--      <HBox>
                 <Label text="Ordine" width="120px"/>
                 <Text text="{stocksModel>/CprodOrd}" width="200px"/>
-            </HBox>
+            </HBox> -->
             <HBox class="sapUiTinyMarginTop">
                 <Label text="Material" width="120px"/>
                 <Text text="{stocksModel>/Material}" width="200px"/>
