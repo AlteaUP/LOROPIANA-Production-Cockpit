@@ -236,7 +236,7 @@ sap.ui.define(
                         ? (aReasons[0].Reason + " - " + aReasons[0].Note)
                         : "";
                     selectedComponentsCombinedObject.ReasonKey =
-                        aReasons[0]?.SAP_UUID || "";
+                        aReasons.length > 0 ? aReasons[0].SAP_UUID : "";
 
                     for (var i = 0; i < oController.byId("TableCombinedComponents").getSelectedContexts().length; i++) {
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
