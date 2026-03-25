@@ -62,8 +62,13 @@
                   value="{Plant}" editable="false" />
                 <Input 
                   value="{Material}" editable="false" />
-                <Input 
-                  value="{NewMaterial}" editable="true" />
+               <Input
+                  id="NewMaterialInput"
+                  value="{NewMaterial}"
+                  editable="{viewModel>/materialEditable}"
+                  showValueHelp="{viewModel>/showMaterialValueHelp}"
+                  valueHelpRequest=".onOpenMaterialListDialog"
+                  width="100%" />
                 <HBox alignItems="Center">
                   <Input
                       value="{Batch}"

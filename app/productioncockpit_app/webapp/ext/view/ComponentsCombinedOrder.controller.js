@@ -10,6 +10,7 @@ sap.ui.define(
 
         var oController;
         var keyRouting;
+        var debounceTimer;
 
         return PageController.extend('productioncockpitapp.ext.view.Components', {
             /**
@@ -218,20 +219,35 @@ sap.ui.define(
                         oController.getView().addDependent(oController.pReplacementCompCombinedDialog);
                     }
 
+                    if (!oController.getView().getModel("viewModel")) {
+                        oController.getView().setModel(new sap.ui.model.json.JSONModel({
+                            showMaterialValueHelp: true
+                        }), "viewModel");
+                    }
+
                     oController.pReplacementCompCombinedDialog.open();
 
                     if (oController.buttonSelected === "integration") {
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
                         oController.byId("checkboxRecharge_ID").setVisible(false)
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/showMaterialValueHelp", false);
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/materialEditable", false);
                     } else {
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
                         oController.byId("checkboxRecharge_ID").setVisible(true)
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/showMaterialValueHelp", true);
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/materialEditable", true);
                     }
 
                     var selectedComponentsCombinedArray = []
                     var selectedComponentsCombinedObject = {}
                     //setto il valore di default alla prorpietà reason del model
                     var aReasons = this.getView().getModel("reasonServiceCombined").getProperty("/ReasonSet") || [];
+                    aReasons = [];
                     var sDefaultText = aReasons.length
                         ? (aReasons[0].Reason + " - " + aReasons[0].Note)
                         : "";
@@ -297,6 +313,13 @@ sap.ui.define(
                 const oCtx = oInput.getBindingContext();
                 const oRow = oCtx.getObject();
 
+                const nMaterial = oCtx.getProperty("NewMaterial");
+
+                if (!nMaterial || !nMaterial.trim()) {
+                    sap.m.MessageToast.show("Inserire il materiale prima di continuare");
+                    return;
+                }
+
                 const oComponent = this.getOwnerComponent().getExtensionComponent();
                 this.oRouter = oComponent.getRouter();
 
@@ -328,6 +351,108 @@ sap.ui.define(
 
             },
             //function per gestire view -> assegnazione Batch tab componenti Combined - FINE
+
+            //Funzioni per aprire dialog material list integrazione/sostituzione - INIZIO
+            onOpenMaterialListDialog: function (oEvent) {
+                // salvo il contesto
+                this._oMaterialInputSource = oEvent.getSource();
+                this._oMaterialRowContext = this._oMaterialInputSource.getBindingContext();
+
+                if (!this._oMaterialListDialog) {
+                    this._oMaterialListDialog = sap.ui.xmlfragment(
+                        this.getView().getId(),
+                        "productioncockpitapp.ext.Fragment.MaterialListDialog",
+                        this
+                    );
+                    this.getView().addDependent(this._oMaterialListDialog);
+                }
+
+                this._oMaterialListDialog.open();
+            },
+
+            onCloseMaterialListDialog: function () {
+                if (this._oMaterialListDialog) {
+                    this._oMaterialListDialog.close();
+                }
+            },
+
+            onMaterialSearch: function (oEvent) {
+                var sQuery = oEvent.getParameter("newValue");
+                // fallback
+                if (sQuery === undefined) {
+                    sQuery = oEvent.getSource().getValue();
+                }
+
+                clearTimeout(this._materialDebounceTimer);
+
+                this._materialDebounceTimer = setTimeout(function () {
+
+                    var oTable = this.byId("MaterialTable");
+                    if (!oTable) {
+                        return;
+                    }
+
+                    var oBinding = oTable.getBinding("items");
+                    if (!oBinding) {
+                        return;
+                    }
+
+                    var aFilters = [];
+
+                    if (sQuery && sQuery.trim().length > 0) {
+
+                        var oFilterMatnr = new sap.ui.model.Filter(
+                            "matnr",
+                            sap.ui.model.FilterOperator.Contains,
+                            sQuery
+                        );
+
+                        var oFilterMaktg = new sap.ui.model.Filter(
+                            "maktg",
+                            sap.ui.model.FilterOperator.Contains,
+                            sQuery
+                        );
+
+                        aFilters.push(new sap.ui.model.Filter({
+                            filters: [oFilterMatnr, oFilterMaktg],
+                            and: false
+                        }));
+                    }
+
+                    // applica filtro
+                    oBinding.filter(aFilters);
+
+                }.bind(this), 250);
+            },
+
+            onMaterialSelect: function (oEvent) {
+                var oSelectedItem = oEvent.getParameter("listItem") || oEvent.getSource();
+                if (!oSelectedItem) {
+                    return;
+                }
+
+                var oSelectedContext = oSelectedItem.getBindingContext();
+                if (!oSelectedContext) {
+                    return;
+                }
+
+                var sMaterial = oSelectedContext.getProperty("matnr");
+
+                // contesto della riga della tabella principale
+                if (!this._oMaterialRowContext) {
+                    this.onCloseMaterialListDialog();
+                    return;
+                }
+
+                var oModel = this._oMaterialRowContext.getModel();
+                var sRowPath = this._oMaterialRowContext.getPath();
+
+                // aggiorna la proprietà bindata all'Input
+                oModel.setProperty(sRowPath + "/NewMaterial", sMaterial);
+
+                this.onCloseMaterialListDialog();
+            },
+            //Funzioni per aprire dialog material list integrazione/sostituzione - FINE
 
             onConfirmReplacementCompCombinedDialog: function () {
                 console.log("onConfirmReplacementCompCombinedDialog");

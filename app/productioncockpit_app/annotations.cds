@@ -153,7 +153,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         ProductTheme,
         MRPController,
         OrderIsReleasedFlag,
-        OrderHasMissingComponents,
+        OrderHasMissingComponentsFlag,
         OrganizationBPName1,
         CreationDate
     ],
@@ -774,7 +774,37 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             Value : Lgort1,
             Label : 'Magazzino',
             ![@HTML5.CssDefaults]: {width: '5rem'}
-        }
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zzcolor,
+            Label : 'Colore PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zzproj,
+            Label : 'Codice PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zzprojdesc,
+            Label : 'Descrizione PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zztaglia,
+            Label : 'Taglia PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : zztagliadesc,
+            Label : 'Descrizione taglia PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : color_descr,
+            Label : 'Descrizione colore PROJ',
+        },
     ]
 );
 
@@ -1132,4 +1162,8 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
         },
         Common.ValueListWithFixedValues : false,
 )};
+
+annotate service.ZZ1_C_MASTERPRODORDER with {
+    OrderHasMissingComponentsFlag @Common.Label : '{i18n>OrderHasMissingComponentsFlag}'
+};
 

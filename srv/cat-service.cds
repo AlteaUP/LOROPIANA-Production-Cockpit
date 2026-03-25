@@ -25,6 +25,7 @@ using { zmfp_mrp_plant_f4 } from './external/zmfp_mrp_plant_f4';
 using { zmfg_tipo_ordine_f4 } from './external/zmfg_tipo_ordine_f4';
 using { ZZ1_COMBPLNORDERSSTOCKAPI_CDS } from './external/ZZ1_COMBPLNORDERSSTOCKAPI_CDS';
 using { ZZ1_MFG_STOCKSEGMENT_CDS } from './external/ZZ1_MFG_STOCKSEGMENT_CDS';
+using { ZMF_IMD_MATERIAL_DESC_CDS } from './external/ZMF_IMD_MATERIAL_DESC_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -288,6 +289,7 @@ service CatalogService {
         null as OrderHasExecutionDelay: String,
          @Common.Label: '{i18n>OrderHasMissingComponents}'
         null as OrderHasMissingComponents: String,
+        null as OrderHasMissingComponentsFlag : Boolean,
         null as OrderHasDeviation: String,
         null as OrderHasQualityIssue: String,
         null as RowCriticality : Integer,
@@ -339,6 +341,7 @@ service CatalogService {
         null as OrderHasProductionHold: String,
         null as OrderHasExecutionDelay: String,
         null as OrderHasMissingComponents: String,
+        null as OrderHasMissingComponentsFlag: Boolean,
         null as OrderHasDeviation: String,
         null as OrderHasQualityIssue: String,
         null as RowCriticality : Integer,
@@ -380,6 +383,8 @@ service CatalogService {
     entity ZZ1_MFG_STOCKSEGMENT as projection on ZZ1_MFG_STOCKSEGMENT_CDS.ZZ1_MFG_STOCKSEGMENT;
 
     entity ZZMFG_TIPO_ORDINE as projection on zmfg_tipo_ordine_f4.ZZMFG_TIPO_ORDINE;
+
+    entity ZMF_IMD_MATERIAL_DESC as projection on ZMF_IMD_MATERIAL_DESC_CDS.ZMF_IMD_MATERIAL_DESC;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 

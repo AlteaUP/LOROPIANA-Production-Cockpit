@@ -103,6 +103,26 @@
           }
         }
       },
+      "ZMF_IMD_MATERIAL_DESC_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZMF_IMD_MATERIAL_DESC_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZMF_IMD_MATERIAL_DESC_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZMF_IMD_MATERIAL_DESC_CDS"
+          }
+        }
+      },
       "ZZ1_MFP_ASSIGNMENT_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_MFP_ASSIGNMENT_CDS",
@@ -316,6 +336,24 @@
             "requestTimeout": 300000,
             "destination": "S4HANA",
             "path": "/sap/opu/odata/sap/ZZ1_MFP_REASON_NOTE_CDS"
+          }
+        }
+      },
+      "ZZ1_STORAGE_LOCATION_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_STORAGE_LOCATION_CDS",
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_STORAGE_LOCATION_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_STORAGE_LOCATION_CDS"
           }
         }
       },

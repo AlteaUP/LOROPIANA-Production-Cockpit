@@ -27,6 +27,8 @@ module.exports = cds.service.impl(async function (srv) {
     const ZZ1_I_SUMQTYDELIVERY_T_CDS = await cds.connect.to("ZZ1_I_SUMQTYDELIVERY_T_CDS");
     const ZZ1_I_ARUN_BDBSSUMQTY_CDS = await cds.connect.to("ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS");
     const ZZ1_MFP_ASSIGNMENT_CDS = await cds.connect.to("ZZ1_MFP_ASSIGNMENT_CDS");
+    const ZZ1_STORAGE_LOCATION_CDS = await cds.connect.to("ZZ1_STORAGE_LOCATION_CDS");
+    const ZMF_IMD_MATERIAL_DESC_CDS = await cds.connect.to("ZMF_IMD_MATERIAL_DESC_CDS");
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -106,24 +108,35 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("chiamata ZZ1_C_MASTERPRODORDER")
         //recupero dal where se presente OrderIsReleasedFlag
         let orderIsReleasedFlag;
+        let orderHasMissingComponentsFlag;
+
         const where = request.query?.SELECT?.where;
         if (where) {
-
             for (let i = 0; i < where.length; i++) {
 
                 if (where[i].ref && where[i].ref[0] === 'OrderIsReleasedFlag') {
-
-                    // valore (true/false)
                     orderIsReleasedFlag = where[i + 2].val;
 
-                    // rimuove: campo = valore
                     where.splice(i, 3);
 
                     // se c'è un AND prima o dopo lo rimuove
                     if (where[i] === 'and') where.splice(i, 1);
                     else if (where[i - 1] === 'and') where.splice(i - 1, 1);
 
-                    break;
+                    i--;
+                    continue;
+                }
+
+                if (where[i].ref && where[i].ref[0] === 'OrderHasMissingComponentsFlag') {
+                    orderHasMissingComponentsFlag = where[i + 2].val;
+
+                    where.splice(i, 3);
+
+                    // se c'è un AND prima o dopo lo rimuove
+                    if (where[i] === 'and') where.splice(i, 1);
+                    else if (where[i - 1] === 'and') where.splice(i - 1, 1);
+
+                    i--;
                 }
             }
         }
@@ -134,6 +147,12 @@ module.exports = cds.service.impl(async function (srv) {
             data = data.map(item => ({
                 ...item,
                 OrderIsReleasedFlag: orderIsReleasedFlag
+            }));
+        }
+        if (orderHasMissingComponentsFlag !== undefined) {
+            data = data.map(item => ({
+                ...item,
+                OrderHasMissingComponentsFlag: orderHasMissingComponentsFlag
             }));
         }
         console.log("lunghezza array " + data.length)
@@ -210,17 +229,24 @@ module.exports = cds.service.impl(async function (srv) {
         //se presente filtro data per orderIsReleasedFlag
         const result = [];
         data.forEach(item => {
+            // --- OrderIsReleasedFlag ---
+            if (item.OrderIsReleasedFlag !== undefined) {
+                const expected = item.OrderIsReleasedFlag ? "X" : "";
 
-            if (item.OrderIsReleasedFlag === undefined) {
-                result.push(item);
-                return;
+                if (item.OrderIsReleased !== expected) {
+                    return;
+                }
+            }
+            // --- OrderHasMissingComponentsFlag ---
+            if (item.OrderHasMissingComponentsFlag !== undefined) {
+                const expected = item.OrderHasMissingComponentsFlag ? "X" : "";
+
+                if (item.OrderHasMissingComponents !== expected) {
+                    return;
+                }
             }
 
-            const expected = item.OrderIsReleasedFlag ? "X" : "";
-
-            if (item.OrderIsReleased === expected) {
-                result.push(item);
-            }
+            result.push(item);
         });
 
         data = result;
@@ -229,36 +255,53 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on('READ', "ZZ1_C_COMBINEDPRODORDER", async request => {
         console.log("chiamata ZZ1_C_COMBINEDPRODORDER")
-        //recupero dal where se presente OrderIsReleasedFlag
+        //recupero dal where se presente OrderIsReleasedFlag e OrderHasMissingComponentsFlag
         let orderIsReleasedFlag;
+        let orderHasMissingComponentsFlag;
+
         const where = request.query?.SELECT?.where;
         if (where) {
 
             for (let i = 0; i < where.length; i++) {
 
                 if (where[i].ref && where[i].ref[0] === 'OrderIsReleasedFlag') {
-
-                    // valore (true/false)
                     orderIsReleasedFlag = where[i + 2].val;
 
-                    // rimuove: campo = valore
                     where.splice(i, 3);
 
                     // se c'è un AND prima o dopo lo rimuove
                     if (where[i] === 'and') where.splice(i, 1);
                     else if (where[i - 1] === 'and') where.splice(i - 1, 1);
 
-                    break;
+                    i--;
+                    continue;
+                }
+
+                if (where[i].ref && where[i].ref[0] === 'OrderHasMissingComponentsFlag') {
+                    orderHasMissingComponentsFlag = where[i + 2].val;
+
+                    where.splice(i, 3);
+
+                    // se c'è un AND prima o dopo lo rimuove
+                    if (where[i] === 'and') where.splice(i, 1);
+                    else if (where[i - 1] === 'and') where.splice(i - 1, 1);
+
+                    i--;
                 }
             }
         }
-
         var data = await combProdOrd.tx(request).run(request.query);
 
         if (orderIsReleasedFlag !== undefined) {
             data = data.map(item => ({
                 ...item,
                 OrderIsReleasedFlag: orderIsReleasedFlag
+            }));
+        }
+        if (orderHasMissingComponentsFlag !== undefined) {
+            data = data.map(item => ({
+                ...item,
+                OrderHasMissingComponentsFlag: orderHasMissingComponentsFlag
             }));
         }
 
@@ -330,17 +373,24 @@ module.exports = cds.service.impl(async function (srv) {
         //se presente filtro data per orderIsReleasedFlag
         const result = [];
         data.forEach(item => {
+            // --- OrderIsReleasedFlag ---
+            if (item.OrderIsReleasedFlag !== undefined) {
+                const expected = item.OrderIsReleasedFlag ? "X" : "";
 
-            if (item.OrderIsReleasedFlag === undefined) {
-                result.push(item);
-                return;
+                if (item.OrderIsReleased !== expected) {
+                    return;
+                }
+            }
+            // --- OrderHasMissingComponentsFlag ---
+            if (item.OrderHasMissingComponentsFlag !== undefined) {
+                const expected = item.OrderHasMissingComponentsFlag ? "X" : "";
+
+                if (item.OrderHasMissingComponents !== expected) {
+                    return;
+                }
             }
 
-            const expected = item.OrderIsReleasedFlag ? "X" : "";
-
-            if (item.OrderIsReleased === expected) {
-                result.push(item);
-            }
+            result.push(item);
         });
 
         data = result;
@@ -950,13 +1000,13 @@ module.exports = cds.service.impl(async function (srv) {
                     try {
                         const result = await changeOrderProduction.send({
                             method: 'POST',
-                            path: "CloseOrder?ManufacturingOrder='" + OrderID[i] + "'",
+                            path: "DeletionFlagOrder?ManufacturingOrder='" + OrderID[i] + "'",
                             headers: {
                                 'If-Match': eTag,
                                 'Content-Type': 'application/json'
                             }
                         });
-                        response = response + ";" + result.d.CloseOrder.SystemMessageLongText
+                        response = response + ";" + result.d.DeletionFlagOrder.SystemMessageLongText
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
@@ -1449,7 +1499,7 @@ module.exports = cds.service.impl(async function (srv) {
             ({ InventoryStockType }) => InventoryStockType === '01'
         );
 
-        if(stockData.length === 0){
+        if (stockData.length === 0) {
             return [];
         }
 
@@ -1580,10 +1630,10 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-    this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
-        const result = await zmfp_mrp_plant_f4.run(req.query);
-        return result;
-    });
+    /*   this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
+          const result = await zmfp_mrp_plant_f4.run(req.query);
+          return result;
+      }); */
 
     this.on("READ", "ZZMFG_TIPO_ORDINE", async (req) => {
         const result = await zmfg_tipo_ordine_f4.run(req.query);
@@ -1612,8 +1662,30 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
+        const PlantData = await ZZ1_STORAGE_LOCATION_CDS.run(
+            SELECT.from('ZZ1_STORAGE_LOCATION').columns('PLANT')
+        );
+        const aPlants = [...new Set(
+            PlantData.map(x => x.PLANT).filter(Boolean)
+        )];
+
+        if (aPlants.length === 0) {
+            return [];
+        }
+        req.query.where('Plant in', aPlants);
+
         const result = await zmfp_mrp_plant_f4.run(req.query);
         return result;
+    });
+
+    this.on('READ', "ZMF_IMD_MATERIAL_DESC", async (req) => {
+        req.query.SELECT.count = false;
+
+        if (!req.query.SELECT.limit) {
+            req.query.SELECT.limit = { rows: { val: 10 } };
+        }
+
+        return await ZMF_IMD_MATERIAL_DESC_CDS.run(req.query);
     });
 
     /*this.on("READ", "ZZ1_PRODUCTION_COCKPIT_API/to_char_data", async (req) => {
