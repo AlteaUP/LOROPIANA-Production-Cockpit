@@ -72,6 +72,7 @@ service CatalogService {
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
+    @Capabilities.SearchRestrictions.Searchable: false
     entity ZZ1_C_COMBORDER_COMP as projection on mainService.ZZ1_C_COMBORDER_COMP{
         key ID,
         key REASON,
@@ -241,6 +242,7 @@ service CatalogService {
     }
 
     @Capabilities.DeleteRestrictions.Deletable: false
+    @Capabilities.SearchRestrictions.Searchable: false
     entity ZZ1_C_MASTERPRODORDER as projection on mainService.ZZ1_C_MASTERPRODORDER{
         key ID,
         @Common.Label: '{i18n>MRPController}'
@@ -297,6 +299,7 @@ service CatalogService {
     };
 
     @Capabilities.DeleteRestrictions.Deletable: false
+    @Capabilities.SearchRestrictions.Searchable: false
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER{
         key ID,
         @Common.Label: '{i18n>MRPController}'

@@ -30,13 +30,6 @@
                         placement="Before"
                         key="assegna"
                     />
-                    <table:Action
-                        id="disassegna"
-                        text="Disassegna"
-                        press="pressDisassegna"
-                        placement="After"
-                        key="disassegna"
-                    />
                 </macros:actions>
             </macros:Table>       
         </content>

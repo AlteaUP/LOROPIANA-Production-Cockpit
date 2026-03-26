@@ -370,63 +370,36 @@ sap.ui.define(
                 this._oMaterialListDialog.open();
             },
 
-            onCloseMaterialListDialog: function () {
-                if (this._oMaterialListDialog) {
-                    this._oMaterialListDialog.close();
-                }
-            },
+            /*      onCloseMaterialListDialog: function (oEvent) {
+                     const search = this.byId("MaterialSearchField");
+                     search.setValue("");
+                     if (this._oMaterialListDialog) {
+                         this._oMaterialListDialog.close();
+                     }
+                 }, */
 
             onMaterialSearch: function (oEvent) {
-                var sQuery = oEvent.getParameter("newValue");
-                // fallback
-                if (sQuery === undefined) {
-                    sQuery = oEvent.getSource().getValue();
+                var sValue = (oEvent.getParameter("value") || "").trim().toUpperCase();
+                var oBinding = oEvent.getParameter("itemsBinding");
+
+                if (!oBinding) {
+                    return;
                 }
 
-                clearTimeout(this._materialDebounceTimer);
+                if (!sValue) {
+                    oBinding.filter([]);
+                    return;
+                }
 
-                this._materialDebounceTimer = setTimeout(function () {
+                oBinding.filter([
+                    new sap.ui.model.Filter("matnr", sap.ui.model.FilterOperator.StartsWith, sValue)
+                ]);
 
-                    var oTable = this.byId("MaterialTable");
-                    if (!oTable) {
-                        return;
-                    }
-
-                    var oBinding = oTable.getBinding("items");
-                    if (!oBinding) {
-                        return;
-                    }
-
-                    var aFilters = [];
-
-                    if (sQuery && sQuery.trim().length > 0) {
-
-                        var oFilterMatnr = new sap.ui.model.Filter(
-                            "matnr",
-                            sap.ui.model.FilterOperator.Contains,
-                            sQuery
-                        );
-
-                        var oFilterMaktg = new sap.ui.model.Filter(
-                            "maktg",
-                            sap.ui.model.FilterOperator.Contains,
-                            sQuery
-                        );
-
-                        aFilters.push(new sap.ui.model.Filter({
-                            filters: [oFilterMatnr, oFilterMaktg],
-                            and: false
-                        }));
-                    }
-
-                    // applica filtro
-                    oBinding.filter(aFilters);
-
-                }.bind(this), 250);
+                //oBinding.sort([new sap.ui.model.Sorter("matnr", false)]);
             },
 
             onMaterialSelect: function (oEvent) {
-                var oSelectedItem = oEvent.getParameter("listItem") || oEvent.getSource();
+                var oSelectedItem = oEvent.getParameter("selectedItem");
                 if (!oSelectedItem) {
                     return;
                 }
@@ -438,7 +411,6 @@ sap.ui.define(
 
                 var sMaterial = oSelectedContext.getProperty("matnr");
 
-                // contesto della riga della tabella principale
                 if (!this._oMaterialRowContext) {
                     this.onCloseMaterialListDialog();
                     return;
@@ -447,7 +419,6 @@ sap.ui.define(
                 var oModel = this._oMaterialRowContext.getModel();
                 var sRowPath = this._oMaterialRowContext.getPath();
 
-                // aggiorna la proprietà bindata all'Input
                 oModel.setProperty(sRowPath + "/NewMaterial", sMaterial);
 
                 this.onCloseMaterialListDialog();

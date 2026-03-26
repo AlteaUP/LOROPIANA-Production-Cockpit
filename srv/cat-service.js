@@ -700,9 +700,9 @@ module.exports = cds.service.impl(async function (srv) {
                 const combinedWhere = [
                     { ref: ['CprodOrd'] }, '=', { val: id }, 'and', ...where
                 ]
-                data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
+                data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere).orderBy(request.query.SELECT.orderBy || []);
             } else {
-                data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id })
+                data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: id }).orderBy(request.query.SELECT.orderBy || []);
             }
         } else {
             for (var i = 0; i < idArray.length; i++) {
@@ -714,10 +714,10 @@ module.exports = cds.service.impl(async function (srv) {
                     const combinedWhere = [
                         { ref: ['CprodOrd'] }, '=', { val: idArray[i] }, 'and', ...where
                     ]
-                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere)
+                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where(combinedWhere).orderBy(request.query.SELECT.orderBy || []);
                     console.log("DATAAAA " + JSON.stringify(data))
                 } else {
-                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: idArray[i] })
+                    data = await srv.read('ZZ1_C_COMBORDER_COMP').where({ CprodOrd: idArray[i] }).orderBy(request.query.SELECT.orderBy || []);
                     console.log("DATAAAA " + JSON.stringify(data))
                 }
                 finalData.push(...data)
@@ -921,9 +921,9 @@ module.exports = cds.service.impl(async function (srv) {
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
-                            response = response + "|" + error
+                            response = response + "|" + error.message
                         } else {
-                            response = error
+                            response = error.message
                         }
                     }
                 }
@@ -962,7 +962,7 @@ module.exports = cds.service.impl(async function (srv) {
                                 'Content-Type': 'application/json'
                             }
                         });
-                        response = response + ";" + result.d.TechlyCmpltOrder.SystemMessageLongText
+                        response = response + "|" + result.d.TechlyCmpltOrder.SystemMessageLongText
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
@@ -1006,7 +1006,7 @@ module.exports = cds.service.impl(async function (srv) {
                                 'Content-Type': 'application/json'
                             }
                         });
-                        response = response + ";" + result.d.DeletionFlagOrder.SystemMessageLongText
+                        response = response + "|" + result.d.DeletionFlagOrder.SystemMessageLongText
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
@@ -1679,13 +1679,8 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZMF_IMD_MATERIAL_DESC", async (req) => {
-        req.query.SELECT.count = false;
+       return await ZMF_IMD_MATERIAL_DESC_CDS.run(req.query);
 
-        if (!req.query.SELECT.limit) {
-            req.query.SELECT.limit = { rows: { val: 10 } };
-        }
-
-        return await ZMF_IMD_MATERIAL_DESC_CDS.run(req.query);
     });
 
     /*this.on("READ", "ZZ1_PRODUCTION_COCKPIT_API/to_char_data", async (req) => {

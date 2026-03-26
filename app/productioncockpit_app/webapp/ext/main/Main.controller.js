@@ -659,6 +659,7 @@ sap.ui.define(
 
             onConfirmComponentsToClosingDialogDialog: function (oEvent) {
                 console.log("onConfirmComponentsToClosingDialogDialog");
+                var tableCombined = oController.byId("TableCombined");
                 var dataToSend = []
                 var dataObjectToSend = {}
                 var table = this.getView()
@@ -686,8 +687,8 @@ sap.ui.define(
 
                     dataToSend.push(dataObjectToSend)
                 }
-                var oBusyDialog = new sap.m.BusyDialog();
-                oBusyDialog.open();
+                oController.oBusyDialog = new sap.m.BusyDialog();
+                oController.oBusyDialog.open();
 
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/Replacement(...)");
@@ -696,20 +697,86 @@ sap.ui.define(
                 );
 
                 if (dataToSend.length > 0) {
-                    oBindingContext.execute().then((oResult) => {
+                    oBindingContext.execute().then(async (oResult) => {
                         var oContext = oBindingContext.getBoundContext();
+                        oController.oCtx = oContext;
                         //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         var v = oContext.getObject().value;
-                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        oController.s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
                         //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
-                            oController.openDialogMessageText(oContext.getObject().value, "E");
-                        } else {
-                            //oController.openDialogMessageText(oContext.getObject().value, "S");
-                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                        }
-                        oBusyDialog.close();
+                        //alert("chiamo CLOSE action")
+                        var dataProductionOrder = await oController.getProductionOrder()
+                        //alert(JSON.stringify(dataProductionOrder))
+                        //const oModel = oController.getView().getModel();
+                        var oBinding = oModel.bindContext("/CloseOrder(...)");
 
+                        oBinding.setParameter("OrderID",
+                            dataProductionOrder //'1234567'
+                        );
+
+                        oBinding.execute().then((oResult) => {
+                            var oContext = oBinding.getBoundContext();
+                            if (/* oContext.getObject().value.indexOf("Error") > -1 */oController.s.includes("Error")) {
+                                oController.openDialogMessageText(oController.oCtx.getObject().value, "E");
+                            } else {
+                                var message = ""
+                                var messageArray = oContext.getObject().value.split("|")
+                                if (messageArray.length === 0 || messageArray[0] === '') {
+                                    message = oContext.getObject().value
+                                    oController.openDialogMessageText(message, "E");
+                                } else {
+                                    if (oContext.getObject().value.indexOf("Error") > -1) {
+                                        sap.m.MessageBox.error(
+                                            oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
+                                            messageArray.join("\n"),
+                                            {
+                                                title: oController.getResourceBundle().getText("errors")
+                                            }
+                                        );
+                                    } else {
+                                        //oController.openDialogMessageText(oContext.getObject().value, "S");
+                                        oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                                    }
+                                }
+                            }
+                            /*   var message = ""
+                              var messageArray = oContext.getObject().value.split("|")
+                              if (messageArray.length === 0) {
+                                  message = oContext.getObject().value
+                                  oController.openDialogMessageText(message, "E");
+                              } else {
+                                  if (oContext.getObject().value.indexOf("Error") > -1) {
+                                      sap.m.MessageBox.error(
+                                          oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
+                                          messageArray.join("\n"),
+                                          {
+                                              title: oController.getResourceBundle().getText("errors")
+                                          }
+                                      );
+                                  } else {
+                                      sap.m.MessageBox.success(
+                                          messageArray.join("\n"),
+                                          {
+                                              title: oController.getResourceBundle().getText("success")
+                                          }
+                                      );
+                                  }
+                              } */
+                            if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                                tableCombined.getMDCTable().clearSelection();
+                            }
+                            sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                            oController.oBusyDialog.close();
+                        }).catch((oError) => {
+                            oController.oBusyDialog.close();
+                            /*   if (oError.error !== undefined && oError.error !== null) {
+                                  oController.openDialogMessageText(oError.error.message, "E");
+                              } else {
+                                  oController.openDialogMessageText(oError, "E");
+                              } */
+                        });
+                        //refresh tabella Combined
+                        oController.oBusyDialog.close();
                     }).catch((oError) => {
                         oBusyDialog.close();
                         if (oError.error !== undefined && oError.error !== null) {
