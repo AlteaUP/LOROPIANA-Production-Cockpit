@@ -52,9 +52,9 @@
                 <Input 
                   value="{SelectedComponentsToClosing>Batch}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>TotalConfdQtyForATPInBaseUoM}" description="{BaseUnit}" editable="false" />
+                  value="{SelectedComponentsToClosing>TotalQuantityInEntryUnit}" description="{BaseUnit}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>StorageLocation}" editable="false" />
+                  value="{SelectedComponentsToClosing>Lgort1}" editable="false" />
                   <CheckBox id="checkboxRechargeStockMasterId" selected="{SelectedComponentsToClosing>selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>

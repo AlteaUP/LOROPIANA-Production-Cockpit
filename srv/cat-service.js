@@ -966,9 +966,9 @@ module.exports = cds.service.impl(async function (srv) {
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
-                            response = response + "|" + error
+                            response = response + "|" + error.message
                         } else {
-                            response = error
+                            response = error.message
                         }
                     }
                 }
@@ -1010,9 +1010,9 @@ module.exports = cds.service.impl(async function (srv) {
                     } catch (error) {
                         console.log("ERRORE " + error)
                         if (response !== "") {
-                            response = response + "|" + error
+                            response = response + "|" + error.message
                         } else {
-                            response = error
+                            response = error.message
                         }
                     }
                 }
