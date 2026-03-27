@@ -85,7 +85,7 @@
                 <Input 
                   value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 
-                  value="{StorageLocation}" editable="true" />
+                  value="{Lgort1}" editable="true" />
                 <Select id="reasonSelectIdCombined"
                     forceSelection="true"
                     change=".onReasonChange"

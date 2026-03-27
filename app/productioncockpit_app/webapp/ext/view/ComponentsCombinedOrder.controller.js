@@ -278,6 +278,11 @@ sap.ui.define(
                         if (selectedComponentsCombinedObject.Note === undefined) {
                             selectedComponentsCombinedObject.Note = "";
                         }
+                        selectedComponentsCombinedObject.Lgort1 =
+                            selectedComponentsCombinedObject.Lgort1
+                                ? selectedComponentsCombinedObject.Lgort1
+                                : selectedComponentsCombinedObject.StorageLocation;
+                                
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }
 
@@ -432,6 +437,17 @@ sap.ui.define(
                 var table = this.byId("ReplacementCompCombinedTableId")
                     .getModel()
                     .getProperty("/SelectedComponentsCombined") || [];
+
+                //check su newMaterial -> se sono in sost
+                if (oController.buttonSelected === 'replacement') {
+                    var hasEmptyNewMaterial = table.some(function (item) {
+                        return !item.NewMaterial || item.NewMaterial === "";
+                    });
+                    if (hasEmptyNewMaterial) {
+                        sap.m.MessageToast.show("Inserire il materiale prima di continuare");
+                        return;
+                    }
+                }
 
                 for (var i = 0; i < table.length; i++) {
                     dataObjectToSend = {}
