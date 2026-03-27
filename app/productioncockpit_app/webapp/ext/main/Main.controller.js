@@ -485,8 +485,8 @@ sap.ui.define(
             },
 
             onCloseOrder: async function (oEvent) {
+                oController.action = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length - 1]
                 const that = this;
-
                 const procede = async function () {
                     var found = false
                     var tableCombined = oController.byId("TableCombined")
@@ -498,95 +498,89 @@ sap.ui.define(
                         oController.oBusyDialog.open();
 
                         oListBinding.requestContexts().then(async aContexts => {
-                            var data = []
-                            found = false
-                            var objectCopy = {}
-                            for (var i = 0; i < aContexts.map(oContext => oContext.getObject()).length; i++) {
-                                objectCopy = {}
-                                if (aContexts.map(oContext => oContext.getObject())[i].requirementtype !== 'BB') {
-
-                                } else {
-                                    found = true
-                                    objectCopy = aContexts.map(oContext => oContext.getObject())[i]
-                                    objectCopy.selectedCheckboxRecharge = true
-                                    objectCopy.editableCheckboxRecharge = true
-                                    data.push(objectCopy)
-                                }
-                            }
-
                             oController.oBusyDialog.close();
 
                             console.log("Dati letti:", aContexts.map(oContext => oContext.getObject()));
 
-                            if (found) {
-                                // apro popup con componenti che hanno flag di ricarica stock
-                                if (oController.pComponentsToClosing === null || oController.pComponentsToClosing === undefined) {
-                                    oController.pComponentsToClosing = sap.ui.xmlfragment(oController.getView().getId(), "productioncockpitapp.ext.Fragment.ComponentsToClosing", oController);
-                                    oController.getView().addDependent(oController.pComponentsToClosing);
-                                }
-                                const oModel = new sap.ui.model.json.JSONModel(data);
-                                oController.getView().setModel(oModel, "SelectedComponentsToClosing");
-                                oController.pComponentsToClosing.open()
-                            } else {
-                                //alert("chiamo CLOSE action")
-                                var dataProductionOrder = await oController.getProductionOrder()
-                                //alert(JSON.stringify(dataProductionOrder))
+                            var dataProductionOrder = await oController.getProductionOrder()
 
-                                var oBusyDialog = new sap.m.BusyDialog();
-                                oBusyDialog.open();
-                                const oModel = oController.getView().getModel();
-                                var oBindingContext = oModel.bindContext("/CloseOrder(...)");
+                            var oBusyDialog = new sap.m.BusyDialog();
+                            oBusyDialog.open();
+                            const oModel = oController.getView().getModel();
+                            var oBindingContext = oModel.bindContext("/CloseOrder(...)");
 
-                                oBindingContext.setParameter("OrderID",
-                                    dataProductionOrder //'1234567'
-                                );
+                            oBindingContext.setParameter("OrderID", dataProductionOrder);
 
-                                oBindingContext.execute().then((oResult) => {
-                                    var oContext = oBindingContext.getBoundContext();
+                            oBindingContext.execute().then((oResult) => {
+                                var oContext = oBindingContext.getBoundContext();
 
-                                    var message = ""
-                                    var messageArray = oContext.getObject().value.split("|")
-                                    if (messageArray.length === 0) {
-                                        message = oContext.getObject().value
-                                        oController.openDialogMessageText(message, "E");
+                                var message = ""
+                                var value = oContext.getObject().value;
+                                var messageArray = value.split("|");
+
+                                if (!value || value.trim() === "") {
+                                    message = value
+                                    oController.openDialogMessageText(message, "E");
+                                } else {
+                                    if (oContext.getObject().value.indexOf("Error") > -1) {
+                                        sap.m.MessageBox.error(
+                                            oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
+                                            messageArray.join("\n"),
+                                            {
+                                                title: oController.getResourceBundle().getText("errors")
+                                            }
+                                        );
                                     } else {
-                                        if (oContext.getObject().value.indexOf("Error") > -1) {
-                                            sap.m.MessageBox.error(
-                                                oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
-                                                messageArray.join("\n"),
-                                                {
-                                                    title: oController.getResourceBundle().getText("errors")
-                                                }
-                                            );
-                                        } else {
-                                            sap.m.MessageBox.success(
-                                                messageArray.join("\n"),
-                                                {
-                                                    title: oController.getResourceBundle().getText("success")
-                                                }
-                                            );
+                                        var data = []
+                                        found = false
+                                        var objectCopy = {}
+
+                                        for (var i = 0; i < aContexts.map(oContext => oContext.getObject()).length; i++) {
+                                            objectCopy = {}
+                                            if (aContexts.map(oContext => oContext.getObject())[i].requirementtype !== 'BB') {
+
+                                            } else {
+                                                found = true
+                                                objectCopy = aContexts.map(oContext => oContext.getObject())[i]
+                                                objectCopy.selectedCheckboxRecharge = true
+                                                objectCopy.editableCheckboxRecharge = true
+                                                data.push(objectCopy)
+                                            }
+                                        }
+
+                                        if (found) {
+                                            // apro popup con componenti che hanno flag di ricarica stock
+                                            if (oController.pComponentsToClosing === null || oController.pComponentsToClosing === undefined) {
+                                                oController.pComponentsToClosing = sap.ui.xmlfragment(oController.getView().getId(), "productioncockpitapp.ext.Fragment.ComponentsToClosing", oController);
+                                                oController.getView().addDependent(oController.pComponentsToClosing);
+                                            }
+                                            const oModel = new sap.ui.model.json.JSONModel(data);
+                                            oController.getView().setModel(oModel, "SelectedComponentsToClosing");
+                                            oController.pComponentsToClosing.open()
+                                            oBusyDialog.close();
+                                            return;
                                         }
                                     }
-                                    //refresh tabella Combined
-                                    if (tableCombined && tableCombined.getMDCTable().clearSelection) {
-                                        tableCombined.getMDCTable().clearSelection();
-                                    }
-                                    sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
-                                    oBusyDialog.close();
-                                }).catch((oError) => {
-                                    oBusyDialog.close();
-                                    if (oError.error !== undefined && oError.error !== null) {
-                                        oController.openDialogMessageText(oError.error.message, "E");
-                                    } else {
-                                        oController.openDialogMessageText(oError, "E");
-                                    }
-                                });
-                            }
+                                }
+                                //refresh tabella Combined
+                                if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                                    tableCombined.getMDCTable().clearSelection();
+                                }
+                                sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                                oBusyDialog.close();
+                            }).catch((oError) => {
+                                oBusyDialog.close();
+                                if (oError.error !== undefined && oError.error !== null) {
+                                    oController.openDialogMessageText(oError.error.message, "E");
+                                } else {
+                                    oController.openDialogMessageText(oError, "E");
+                                }
+                            });
 
                         }).catch(err => {
+                            oController.oBusyDialog.close();
                             console.log("Errore nella chiamata OData:", err);
                         });
-
                     } else {
                         MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
                     }
@@ -687,8 +681,9 @@ sap.ui.define(
 
                     dataToSend.push(dataObjectToSend)
                 }
-                oController.oBusyDialog = new sap.m.BusyDialog();
-                oController.oBusyDialog.open();
+
+                var oBusyDialog = new sap.m.BusyDialog();
+                oBusyDialog.open();
 
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/Replacement(...)");
@@ -698,85 +693,25 @@ sap.ui.define(
 
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then(async (oResult) => {
+                        oBusyDialog.close();
                         var oContext = oBindingContext.getBoundContext();
-                        oController.oCtx = oContext;
                         //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         var v = oContext.getObject().value;
-                        oController.s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+
+                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        }
                         //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         //alert("chiamo CLOSE action")
-                        var dataProductionOrder = await oController.getProductionOrder()
-                        //alert(JSON.stringify(dataProductionOrder))
-                        //const oModel = oController.getView().getModel();
-                        var oBinding = oModel.bindContext("/CloseOrder(...)");
-
-                        oBinding.setParameter("OrderID",
-                            dataProductionOrder //'1234567'
-                        );
-
-                        oBinding.execute().then((oResult) => {
-                            var oContext = oBinding.getBoundContext();
-                            if (/* oContext.getObject().value.indexOf("Error") > -1 */oController.s.includes("Error")) {
-                                oController.openDialogMessageText(oController.oCtx.getObject().value, "E");
-                            } else {
-                                var message = ""
-                                var messageArray = oContext.getObject().value.split("|")
-                                if (messageArray.length === 0 || messageArray[0] === '') {
-                                    message = oContext.getObject().value
-                                    oController.openDialogMessageText(message, "E");
-                                } else {
-                                    if (oContext.getObject().value.indexOf("Error") > -1) {
-                                        sap.m.MessageBox.error(
-                                            oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
-                                            messageArray.join("\n"),
-                                            {
-                                                title: oController.getResourceBundle().getText("errors")
-                                            }
-                                        );
-                                    } else {
-                                        //oController.openDialogMessageText(oContext.getObject().value, "S");
-                                        oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
-                                    }
-                                }
-                            }
-                            /*   var message = ""
-                              var messageArray = oContext.getObject().value.split("|")
-                              if (messageArray.length === 0) {
-                                  message = oContext.getObject().value
-                                  oController.openDialogMessageText(message, "E");
-                              } else {
-                                  if (oContext.getObject().value.indexOf("Error") > -1) {
-                                      sap.m.MessageBox.error(
-                                          oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
-                                          messageArray.join("\n"),
-                                          {
-                                              title: oController.getResourceBundle().getText("errors")
-                                          }
-                                      );
-                                  } else {
-                                      sap.m.MessageBox.success(
-                                          messageArray.join("\n"),
-                                          {
-                                              title: oController.getResourceBundle().getText("success")
-                                          }
-                                      );
-                                  }
-                              } */
-                            if (tableCombined && tableCombined.getMDCTable().clearSelection) {
-                                tableCombined.getMDCTable().clearSelection();
-                            }
-                            sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
-                            oController.oBusyDialog.close();
-                        }).catch((oError) => {
-                            oController.oBusyDialog.close();
-                            /*   if (oError.error !== undefined && oError.error !== null) {
-                                  oController.openDialogMessageText(oError.error.message, "E");
-                              } else {
-                                  oController.openDialogMessageText(oError, "E");
-                              } */
-                        });
                         //refresh tabella Combined
-                        oController.oBusyDialog.close();
+                        if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                            tableCombined.getMDCTable().clearSelection();
+                        }
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
                     }).catch((oError) => {
                         oBusyDialog.close();
                         if (oError.error !== undefined && oError.error !== null) {
@@ -798,59 +733,126 @@ sap.ui.define(
             },
 
             onTechnicalCompleteOrder: async function (oEvent) {
-                var dataProductionOrder = await oController.getProductionOrder()
-                var tableCombined = oController.byId("TableCombined")
-                //alert(JSON.stringify(dataProductionOrder))
+                oController.action = oEvent.getParameters().id.split("::")[oEvent.getParameters().id.split("::").length - 1]
+                var found = false
+                if (oController.byId("TableCombined").getSelectedContexts().length === 1) {
+                    // cerco se esiste almeno un componente con ricarica stock
+                    var oModel = oController.getView().getModel(); // OData V4 Model
+                    var oListBinding = oModel.bindList("/ZZ1_PRODUCTION_COCKPIT_API('" + oController.byId("TableCombined").getSelectedContexts()[0].getObject().ID + "')/to_ZZ1_C_COMBORDER_COMP");
+                    oController.oBusyDialog = new sap.m.BusyDialog();
+                    oController.oBusyDialog.open();
 
-                var oBusyDialog = new sap.m.BusyDialog();
-                oBusyDialog.open();
-                const oModel = oController.getView().getModel();
-                var oBindingContext = oModel.bindContext("/TechnicalCompleteOrder(...)");
+                    oListBinding.requestContexts().then(async aContexts => {
+                        oController.oBusyDialog.close();
 
-                oBindingContext.setParameter("OrderID",
-                    dataProductionOrder //'1234567'
-                );
+                        console.log("Dati letti:", aContexts.map(oContext => oContext.getObject()));
 
-                oBindingContext.execute().then((oResult) => {
-                    var oContext = oBindingContext.getBoundContext();
+                        var dataProductionOrder = await oController.getProductionOrder()
+                        var tableCombined = oController.byId("TableCombined")
 
-                    var message = ""
-                    var messageArray = oContext.getObject().value.split("|")
-                    if (messageArray.length === 0) {
-                        message = oContext.getObject().value
-                        oController.openDialogMessageText(message, "E");
-                    } else {
-                        if (oContext.getObject().value.indexOf("Error") > -1) {
-                            sap.m.MessageBox.error(
-                                oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
-                                messageArray.join("\n"),
-                                {
-                                    title: oController.getResourceBundle().getText("errors")
+                        var oBusyDialog = new sap.m.BusyDialog();
+                        oBusyDialog.open();
+                        const oModel = oController.getView().getModel();
+                        var oBindingContext = oModel.bindContext("/TechnicalCompleteOrder(...)");
+
+                        oBindingContext.setParameter("OrderID",
+                            dataProductionOrder //'1234567'
+                        );
+
+                        oBindingContext.execute().then((oResult) => {
+                            var oContext = oBindingContext.getBoundContext();
+
+                            var message = ""
+                            var value = oContext.getObject().value
+                            var messageArray = value.split("|")
+
+                            if (!value || value.trim() === "") {
+                                message = value
+                                oController.openDialogMessageText(message, "E");
+
+                                //refresh tabella Combined
+                                if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                                    tableCombined.getMDCTable().clearSelection();
                                 }
-                            );
-                        } else {
-                            sap.m.MessageBox.success(
-                                messageArray.join("\n"),
-                                {
-                                    title: oController.getResourceBundle().getText("success")
+                                sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                                oBusyDialog.close();
+                            } else {
+                                if (oContext.getObject().value.indexOf("Error") > -1) {
+                                    sap.m.MessageBox.error(
+                                        oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
+                                        messageArray.join("\n"),
+                                        {
+                                            title: oController.getResourceBundle().getText("errors")
+                                        }
+                                    );
+
+                                    //refresh tabella Combined
+                                    if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                                        tableCombined.getMDCTable().clearSelection();
+                                    }
+                                    sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                                    oBusyDialog.close();
+                                } else {
+                                    sap.m.MessageBox.success(
+                                        messageArray.join("\n"),
+                                        {
+                                            title: oController.getResourceBundle().getText("success"),
+                                            onClose: function () {
+                                                var data = []
+                                                found = false
+                                                var objectCopy = {}
+                                                for (var i = 0; i < aContexts.map(oContext => oContext.getObject()).length; i++) {
+                                                    objectCopy = {}
+                                                    if (aContexts.map(oContext => oContext.getObject())[i].requirementtype !== 'BB') {
+
+                                                    } else {
+                                                        found = true
+                                                        objectCopy = aContexts.map(oContext => oContext.getObject())[i]
+                                                        objectCopy.selectedCheckboxRecharge = true
+                                                        objectCopy.editableCheckboxRecharge = true
+                                                        data.push(objectCopy)
+                                                    }
+                                                }
+
+                                                if (found) {
+                                                    // apro popup con componenti che hanno flag di ricarica stock
+                                                    if (oController.pComponentsToClosing === null || oController.pComponentsToClosing === undefined) {
+                                                        oController.pComponentsToClosing = sap.ui.xmlfragment(oController.getView().getId(), "productioncockpitapp.ext.Fragment.ComponentsToClosing", oController);
+                                                        oController.getView().addDependent(oController.pComponentsToClosing);
+                                                    }
+                                                    const oModel = new sap.ui.model.json.JSONModel(data);
+                                                    oController.getView().setModel(oModel, "SelectedComponentsToClosing");
+                                                    oController.pComponentsToClosing.open()
+                                                    oBusyDialog.close();
+                                                    return;
+                                                }
+
+                                                //refresh tabella Combined
+                                                if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                                                    tableCombined.getMDCTable().clearSelection();
+                                                }
+                                                sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                                                oBusyDialog.close();
+                                            }
+                                        }
+                                    );
                                 }
-                            );
-                        }
-                    }
-                    //refresh tabella Combined
-                    if (tableCombined && tableCombined.getMDCTable().clearSelection) {
-                        tableCombined.getMDCTable().clearSelection();
-                    }
-                    sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
-                    oBusyDialog.close();
-                }).catch((oError) => {
-                    oBusyDialog.close();
-                    if (oError.error !== undefined && oError.error !== null) {
-                        oController.openDialogMessageText(oError.error.message, "E");
-                    } else {
-                        oController.openDialogMessageText(oError, "E");
-                    }
-                });
+                            }
+                        }).catch((oError) => {
+                            oBusyDialog.close();
+                            if (oError.error !== undefined && oError.error !== null) {
+                                oController.openDialogMessageText(oError.error.message, "E");
+                            } else {
+                                oController.openDialogMessageText(oError, "E");
+                            }
+                        });
+                    }).catch(err => {
+                        console.log("Errore nella chiamata OData:", err);
+                    });
+
+                } else {
+                    MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
+                }
             },
 
             onRelaseOrder: async function (oEvent) {
