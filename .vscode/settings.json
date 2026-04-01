@@ -20,5 +20,6 @@
     "*.rule": "default",
     "*.properties": "default",
     "*.fragment": "default"
-  }
+  },
+  "cds.trace.level": "verbose"
 }

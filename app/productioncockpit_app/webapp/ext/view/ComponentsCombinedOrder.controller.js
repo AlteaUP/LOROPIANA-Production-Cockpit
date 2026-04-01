@@ -470,6 +470,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].Lgort1
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
+                    dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     if (oController.buttonSelected === 'replacement') {
                         dataObjectToSend.action = "SOST"
                         if (table[i].selectedCheckboxRecharge === true) {
