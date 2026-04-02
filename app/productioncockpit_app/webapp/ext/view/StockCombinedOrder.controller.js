@@ -311,160 +311,160 @@ sap.ui.define(
                         oBusyDialog.close();
                     }
                 } else {
-                //controllo: se sono in Assegna Batch -> non apro popup e chiamo servizio selezionando max 1 solo record - FINE
+                    //controllo: se sono in Assegna Batch -> non apro popup e chiamo servizio selezionando max 1 solo record - FINE
 
-                if (!oController.pAssegnaBatchCombinedDialog) {
-                    oController.pAssegnaBatchCombinedDialog = sap.ui.xmlfragment(
-                        oController.getView().getId(),
-                        "productioncockpitapp.ext.Fragment.AssegnaBatchCombined",
-                        oController
-                    );
-                    oController.getView().addDependent(oController.pAssegnaBatchCombinedDialog);
-                }
+                    if (!oController.pAssegnaBatchCombinedDialog) {
+                        oController.pAssegnaBatchCombinedDialog = sap.ui.xmlfragment(
+                            oController.getView().getId(),
+                            "productioncockpitapp.ext.Fragment.AssegnaBatchCombined",
+                            oController
+                        );
+                        oController.getView().addDependent(oController.pAssegnaBatchCombinedDialog);
+                    }
 
-                oController.pAssegnaBatchCombinedDialog.open();
+                    oController.pAssegnaBatchCombinedDialog.open();
 
-                const sRet = sessionStorage.getItem("CombinedReturnState");
-                if (!sRet) return;
+                    const sRet = sessionStorage.getItem("CombinedReturnState");
+                    if (!sRet) return;
 
-                const oRet = JSON.parse(sRet);
-                const sAction = oRet.action;
-                if (sAction === "integration") {
-                    oController.byId("AssegnaBatchCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"));
-                    oController.byId("checkboxRecharge_IDA").setVisible(false);
-                } else {
-                    oController.byId("AssegnaBatchCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"));
-                    oController.byId("checkboxRecharge_IDA").setVisible(true);
-                }
-
-                // 3) Recupero riga base (oRow) da storage stockNavParams
-                /*    const s = sessionStorage.getItem("stockNavParams");
-                   if (!s) return;
-                   const p = JSON.parse(s); */
-
-                if (p.action === "replacement") {
-                    material = oRow.NewMaterial ? oRow.NewMaterial : oRow.Material;
-                } else {
-                    material = oRow.Material
-                }
-
-                //creo model per il dialog batch da assegnare
-                const oViewBatchModel = new sap.ui.model.json.JSONModel({
-                    //required quantity
-                    TotalQuantityInEntryUnit: oRow.TotalQuantityInEntryUnit,
-                    Material: material
-                });
-                const oDialog = this.byId("AssegnaBatchCombinedDialog");
-                oDialog.setModel(oViewBatchModel, "viewBatch");
-
-                // 4) Batch selezionati dal table dentro al fragment (o view)
-
-                const fRequiredQty = Number(oRow.TotalQuantityInEntryUnit) || 0;
-
-                // preparo i batch selezionati con AvaibilityQty numerico
-                const aBatchData = aSelCtx.map(function (oCtx) {
-                    const oBatchObj = oCtx.getObject();
-                    return {
-                        batchObj: oBatchObj,
-                        AvaibilityQty: Number(oBatchObj.AvaibilityQty) || 0
-                    };
-                });
-
-                // somma totale disponibilità
-                const fTotalAvailability = aBatchData.reduce(function (sum, oItem) {
-                    return sum + oItem.AvaibilityQty;
-                }, 0);
-
-                const aSelected = [];
-
-                // funzione di supporto per clonare e valorizzare i campi comuni
-                const createNewRow = function (oSourceRow, oBatchObj, sQty) {
-                    const oNew = (typeof structuredClone === "function")
-                        ? structuredClone(oSourceRow)
-                        : JSON.parse(JSON.stringify(oSourceRow));
-
-                    oNew.Batch = oBatchObj ? oBatchObj.Batch : "";
-                    oNew.NewMaterial = material;
-
+                    const oRet = JSON.parse(sRet);
+                    const sAction = oRet.action;
                     if (sAction === "integration") {
-                        oNew.visibleCheckboxRecharge = false;
+                        oController.byId("AssegnaBatchCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"));
+                        oController.byId("checkboxRecharge_IDA").setVisible(false);
                     } else {
-                        oNew.visibleCheckboxRecharge = true;
+                        oController.byId("AssegnaBatchCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"));
+                        oController.byId("checkboxRecharge_IDA").setVisible(true);
                     }
 
-                    if (oNew.requirementtype !== "BB") {
-                        oNew.selectedCheckboxRecharge = false;
-                        oNew.editableCheckboxRecharge = false;
+                    // 3) Recupero riga base (oRow) da storage stockNavParams
+                    /*    const s = sessionStorage.getItem("stockNavParams");
+                       if (!s) return;
+                       const p = JSON.parse(s); */
+
+                    if (p.action === "replacement") {
+                        material = oRow.NewMaterial ? oRow.NewMaterial : oRow.Material;
                     } else {
-                        oNew.selectedCheckboxRecharge = true;
-                        oNew.editableCheckboxRecharge = true;
+                        material = oRow.Material
                     }
 
-                    // quantity come stringa con 3 decimali
-                    oNew.TotalQuantityInEntryUnit = Number(sQty).toFixed(2);
+                    //creo model per il dialog batch da assegnare
+                    const oViewBatchModel = new sap.ui.model.json.JSONModel({
+                        //required quantity
+                        TotalQuantityInEntryUnit: oRow.TotalQuantityInEntryUnit,
+                        Material: material
+                    });
+                    const oDialog = this.byId("AssegnaBatchCombinedDialog");
+                    oDialog.setModel(oViewBatchModel, "viewBatch");
 
-                    return oNew;
-                };
+                    // 4) Batch selezionati dal table dentro al fragment (o view)
 
-                if (fTotalAvailability > fRequiredQty) {
-                    // CASO 1: disponibilità totale superiore alla quantità richiesta
-                    // distribuzione proporzionale in base ad AvaibilityQty
+                    const fRequiredQty = Number(oRow.TotalQuantityInEntryUnit) || 0;
 
-                    let fAssignedSum = 0;
+                    // preparo i batch selezionati con AvaibilityQty numerico
+                    const aBatchData = aSelCtx.map(function (oCtx) {
+                        const oBatchObj = oCtx.getObject();
+                        return {
+                            batchObj: oBatchObj,
+                            AvaibilityQty: Number(oBatchObj.AvaibilityQty) || 0
+                        };
+                    });
 
-                    for (let i = 0; i < aBatchData.length; i++) {
-                        const oItem = aBatchData[i];
+                    // somma totale disponibilità
+                    const fTotalAvailability = aBatchData.reduce(function (sum, oItem) {
+                        return sum + oItem.AvaibilityQty;
+                    }, 0);
 
-                        let fAssignedQty;
-                        if (i === aBatchData.length - 1) {
-                            // ultimo record: prende il residuo per evitare problemi di arrotondamento
-                            fAssignedQty = fRequiredQty - fAssignedSum;
+                    const aSelected = [];
+
+                    // funzione di supporto per clonare e valorizzare i campi comuni
+                    const createNewRow = function (oSourceRow, oBatchObj, sQty) {
+                        const oNew = (typeof structuredClone === "function")
+                            ? structuredClone(oSourceRow)
+                            : JSON.parse(JSON.stringify(oSourceRow));
+
+                        oNew.Batch = oBatchObj ? oBatchObj.Batch : "";
+                        oNew.NewMaterial = material;
+
+                        if (sAction === "integration") {
+                            oNew.visibleCheckboxRecharge = false;
                         } else {
-                            fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
-                            fAssignedQty = Number(fAssignedQty.toFixed(3));
-                            fAssignedSum += fAssignedQty;
+                            oNew.visibleCheckboxRecharge = true;
                         }
 
-                        const oNew = createNewRow(oRow, oItem.batchObj, fAssignedQty);
-                        aSelected.push(oNew);
+                        if (oNew.requirementtype !== "BB") {
+                            oNew.selectedCheckboxRecharge = false;
+                            oNew.editableCheckboxRecharge = false;
+                        } else {
+                            oNew.selectedCheckboxRecharge = true;
+                            oNew.editableCheckboxRecharge = true;
+                        }
+
+                        // quantity come stringa con 3 decimali
+                        oNew.TotalQuantityInEntryUnit = Number(sQty).toFixed(3);
+
+                        return oNew;
+                    };
+
+                    if (fTotalAvailability > fRequiredQty) {
+                        // CASO 1: disponibilità totale superiore alla quantità richiesta
+                        // distribuzione proporzionale in base ad AvaibilityQty
+                        let fAssignedSum = 0;
+
+                        for (let i = 0; i < aBatchData.length; i++) {
+                            const oItem = aBatchData[i];
+                            let fAssignedQty = 0;
+
+                            if (i === aBatchData.length - 1) {
+                                // ultimo record: prende il residuo
+                                fAssignedQty = fRequiredQty - fAssignedSum;
+                                fAssignedQty = Number(fAssignedQty.toFixed(3));
+                            } else {
+                                fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
+                                fAssignedQty = Number(fAssignedQty.toFixed(3));
+                                fAssignedSum += fAssignedQty;
+                            }
+
+                            const oNew = createNewRow(oRow, oItem.batchObj, fAssignedQty);
+                            aSelected.push(oNew);
+                        }
+
+                    } else if (fTotalAvailability === fRequiredQty) {
+                        // CASO 2: disponibilità totale uguale alla quantità richiesta
+                        // assegno ad ogni batch il proprio AvaibilityQty
+
+                        for (let i = 0; i < aBatchData.length; i++) {
+                            const oItem = aBatchData[i];
+                            const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
+                            aSelected.push(oNew);
+                        }
+
+                    } else {
+                        // CASO 3: disponibilità totale inferiore alla quantità richiesta
+                        // assegno ad ogni batch il proprio AvaibilityQty
+                        // e creo una riga extra con il residuo
+
+                        for (let i = 0; i < aBatchData.length; i++) {
+                            const oItem = aBatchData[i];
+                            const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
+                            aSelected.push(oNew);
+                        }
+
+                        const fRemainingQty = Number((fRequiredQty - fTotalAvailability).toFixed(3));
+
+                        if (fRemainingQty > 0) {
+                            const oExtra = createNewRow(oRow, null, fRemainingQty);
+                            oExtra.Batch = "";
+                            aSelected.push(oExtra);
+                        }
                     }
+                    const oModel = new sap.ui.model.json.JSONModel({
+                        SelectedAssegnaBatchCombined: aSelected
+                    });
+                    oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
 
-                } else if (fTotalAvailability === fRequiredQty) {
-                    // CASO 2: disponibilità totale uguale alla quantità richiesta
-                    // assegno ad ogni batch il proprio AvaibilityQty
-
-                    for (let i = 0; i < aBatchData.length; i++) {
-                        const oItem = aBatchData[i];
-                        const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
-                        aSelected.push(oNew);
-                    }
-
-                } else {
-                    // CASO 3: disponibilità totale inferiore alla quantità richiesta
-                    // assegno ad ogni batch il proprio AvaibilityQty
-                    // e creo una riga extra con il residuo
-
-                    for (let i = 0; i < aBatchData.length; i++) {
-                        const oItem = aBatchData[i];
-                        const oNew = createNewRow(oRow, oItem.batchObj, oItem.AvaibilityQty);
-                        aSelected.push(oNew);
-                    }
-
-                    const fRemainingQty = Number((fRequiredQty - fTotalAvailability).toFixed(3));
-
-                    if (fRemainingQty > 0) {
-                        const oExtra = createNewRow(oRow, null, fRemainingQty);
-                        oExtra.Batch = "";
-                        aSelected.push(oExtra);
-                    }
-                }
-                const oModel = new sap.ui.model.json.JSONModel({
-                    SelectedAssegnaBatchCombined: aSelected
-                });
-                oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
-
-                const oTable = this.byId("AssegnaBatchCombinedTableId");
-                oTable.setModel(oModel, "local");
+                    const oTable = this.byId("AssegnaBatchCombinedTableId");
+                    oTable.setModel(oModel, "local");
                 }
             },
 

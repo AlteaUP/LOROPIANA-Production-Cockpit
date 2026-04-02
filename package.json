@@ -335,7 +335,7 @@
           "credentials": {
             "requestTimeout": 300000,
             "destination": "S4HANA",
-            "path": "/sap/opu/odata/sap/ZZ1_MFP_REASON_NOTE_CDS"
+            "path": "/sap/opu/odata/sap/ZZ1_RFM_WRKCHARVAL_F4_CDS"
           }
         }
       },

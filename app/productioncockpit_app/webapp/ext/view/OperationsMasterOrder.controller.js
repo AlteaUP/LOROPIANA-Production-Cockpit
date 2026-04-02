@@ -636,6 +636,7 @@ sap.ui.define(
                     dataObjectToSend.MaterialGroup = table[i].getObject().MaterialGroup
                     dataObjectToSend.ManufacturingOrderSequence = table[i].getObject().ManufacturingOrderSequence
                     dataObjectToSend.unit = ""//table[i].getObject().
+                    dataObjectToSend.umson = table[i].FreeFlag
                     //dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].getObject().           
                     dataObjectToSend.action = "DEL"
                     dataToSend.push(dataObjectToSend)
