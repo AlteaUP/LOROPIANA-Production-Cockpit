@@ -761,7 +761,7 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
         {
             $Type                : 'UI.DataField',
             Value                : Lgort1,
-            Label                : 'Magazzino',
+            Label                : 'Lgort1',
             ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
@@ -793,6 +793,11 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             $Type: 'UI.DataField',
             Value: color_descr,
             Label: 'Descrizione colore PROJ',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : StorageLocation,
+            Label : 'Magazzino',
         },
     ]
 );

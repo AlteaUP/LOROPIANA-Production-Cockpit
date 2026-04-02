@@ -202,26 +202,53 @@ module.exports = cds.service.impl(async function (srv) {
                 }
                 // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
                 const filteredComponentsData = componentsData.filter(item => item.FshMprodOrd === data[i].MasterProductionOrder);
-                for (var y = 0; y < filteredComponentsData.length; y++) {
-                    if (filteredComponentsData[y].CriticalComponentType !== "") {
-                        if (filteredComponentsData[y].chart_criticality === 1) {
-                            foundRed = foundRed + 1
-                        } else if (filteredComponentsData[y].chart_criticality === 2) {
-                            foundOrange = foundOrange + 1
+                for (let y = 0; y < filteredComponentsData.length; y++) {
+                    const item = filteredComponentsData[y];
+
+                    if (item.CriticalComponentType !== "") {
+                        let chart_percent = 0;
+
+                        if (
+                            item.TotalConfdQtyForATPInBaseUoM != null &&
+                            item.TotalRequiredQuantity != null &&
+                            parseFloat(item.TotalRequiredQuantity) !== 0
+                        ) {
+                            chart_percent = Math.round(
+                                (parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                                    parseFloat(item.TotalRequiredQuantity)) * 100
+                            );
+                        }
+
+                        let chart_criticality;
+
+                        if (chart_percent >= 100) {
+                            chart_criticality = 3;
+                        } else if (chart_percent > 0) {
+                            chart_criticality = 2;
                         } else {
-                            foundGreen = foundGreen + 1
+                            chart_criticality = 1;
+                            chart_percent = 100;
+                        }
+
+                        if (chart_criticality === 1) {
+                            foundRed++;
+                        } else if (chart_criticality === 2) {
+                            foundOrange++;
+                        } else {
+                            foundGreen++;
                         }
                     }
                 }
-                if (foundRed === data.length) {
-                    data[i].RowCriticality = 1
-                    data[i].RowCriticalityValue = ""
-                } else if (foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)) {
-                    data[i].RowCriticality = 3
-                    data[i].RowCriticalityValue = ""
+
+                if (foundRed > 0) {
+                    data[i].RowCriticality = 1;
+                    data[i].RowCriticalityValue = "";
+                } else if (foundOrange > 0) {
+                    data[i].RowCriticality = 2;
+                    data[i].RowCriticalityValue = "";
                 } else {
-                    data[i].RowCriticality = 2
-                    data[i].RowCriticalityValue = ""
+                    data[i].RowCriticality = 3;
+                    data[i].RowCriticalityValue = "";
                 }
             }
         }
@@ -346,26 +373,53 @@ module.exports = cds.service.impl(async function (srv) {
 
                 // interrogo componenti per capire quanti sono i componenti critici e la loro disponibilità in modo da valorizzare semaforo
                 const filteredComponentsData = componentsData.filter(item => item.CprodOrd === data[i].CombinedOrder);
-                for (var y = 0; y < filteredComponentsData.length; y++) {
-                    if (filteredComponentsData[y].CriticalComponentType !== "") {
-                        if (filteredComponentsData[y].chart_criticality === 1) {
-                            foundRed = foundRed + 1
-                        } else if (filteredComponentsData[y].chart_criticality === 2) {
-                            foundOrange = foundOrange + 1
+                for (let y = 0; y < filteredComponentsData.length; y++) {
+                    const item = filteredComponentsData[y];
+
+                    if (item.CriticalComponentType !== "") {
+                        let chart_percent = 0;
+
+                        if (
+                            item.TotalConfdQtyForATPInBaseUoM != null &&
+                            item.TotalRequiredQuantity != null &&
+                            parseFloat(item.TotalRequiredQuantity) !== 0
+                        ) {
+                            chart_percent = Math.round(
+                                (parseFloat(item.TotalConfdQtyForATPInBaseUoM) /
+                                    parseFloat(item.TotalRequiredQuantity)) * 100
+                            );
+                        }
+
+                        let chart_criticality;
+
+                        if (chart_percent >= 100) {
+                            chart_criticality = 3;
+                        } else if (chart_percent > 0) {
+                            chart_criticality = 2;
                         } else {
-                            foundGreen = foundGreen + 1
+                            chart_criticality = 1;
+                            chart_percent = 100;
+                        }
+
+                        if (chart_criticality === 1) {
+                            foundRed++;
+                        } else if (chart_criticality === 2) {
+                            foundOrange++;
+                        } else {
+                            foundGreen++;
                         }
                     }
                 }
-                if (foundRed === data.length) {
-                    data[i].RowCriticality = 1
-                    data[i].RowCriticalityValue = ""
-                } else if (foundGreen === data.length || (foundRed === 0 && foundOrange === 0 && foundGreen === 0)) {
-                    data[i].RowCriticality = 3
-                    data[i].RowCriticalityValue = ""
+
+                if (foundRed > 0) {
+                    data[i].RowCriticality = 1;
+                    data[i].RowCriticalityValue = "";
+                } else if (foundOrange > 0) {
+                    data[i].RowCriticality = 2;
+                    data[i].RowCriticalityValue = "";
                 } else {
-                    data[i].RowCriticality = 2
-                    data[i].RowCriticalityValue = ""
+                    data[i].RowCriticality = 3;
+                    data[i].RowCriticalityValue = "";
                 }
             }
         }

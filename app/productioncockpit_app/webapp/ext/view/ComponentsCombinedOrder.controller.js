@@ -279,10 +279,10 @@ sap.ui.define(
                         if (selectedComponentsCombinedObject.Note === undefined) {
                             selectedComponentsCombinedObject.Note = "";
                         }
-                        selectedComponentsCombinedObject.Lgort1 =
+                    /*     selectedComponentsCombinedObject.Lgort1 =
                             selectedComponentsCombinedObject.Lgort1
                                 ? selectedComponentsCombinedObject.Lgort1
-                                : selectedComponentsCombinedObject.StorageLocation;
+                                : selectedComponentsCombinedObject.StorageLocation; */
                                 
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }
