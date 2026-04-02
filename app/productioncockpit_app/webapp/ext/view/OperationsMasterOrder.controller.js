@@ -560,6 +560,7 @@ sap.ui.define(
                     dataObjectToSend.unit = ""//table[i].
                     dataObjectToSend.price = Number(table[i].OpExternalProcessingPrice) //table[i].
                     dataObjectToSend.ManufacturingOrderSequence = table[i].ManufacturingOrderSequence
+                    dataObjectToSend.umson = table[i].FreeFlag
                     if (oController.buttonSelected === "modifyPhase") {
                         dataObjectToSend.action = "UPD"
                     } else if (oController.buttonSelected === "addPhase") {

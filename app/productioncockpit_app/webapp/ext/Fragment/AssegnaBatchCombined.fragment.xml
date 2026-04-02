@@ -32,7 +32,7 @@
           <f:content>
             <Label text="Material" />
             <Text text="{viewBatch>/Material}"/>
-            <Label text="Reqired Qty" />
+            <Label text="Required Qty" />
             <Text text="{viewBatch>/TotalQuantityInEntryUnit}"/>
           </f:content>
         </f:SimpleForm>

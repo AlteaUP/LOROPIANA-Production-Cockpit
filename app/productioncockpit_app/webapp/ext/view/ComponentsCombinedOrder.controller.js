@@ -549,6 +549,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Lgort1 // o lgort2?
                     dataObjectToSend.werks = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Plant
                     dataObjectToSend.stk_seg = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().RequirementSegment
+                    dataObjectToSend.posnr = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().BillOfMaterialItemNumber_2
                     if (oController.buttonSelected === 'delete') {
                         dataObjectToSend.action = "CANC"
                     } else if (oController.buttonSelected === 'close') {
@@ -668,6 +669,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = obj.Lgort1
                     dataObjectToSend.werks = obj.Plant
                     dataObjectToSend.stk_seg = obj.RequirementSegment
+                    dataObjectToSend.posnr = obj.BillOfMaterialItemNumber_2
                     dataObjectToSend.action = "BADA"
 
                     dataToSend.push(dataObjectToSend)

@@ -104,6 +104,7 @@ type ManageODPPhase {
     unit                        : String;
     price                       : Decimal(9, 3);   
     action                      : String;
+    umson                       : String;
 }
 
 type ConfODPData {
