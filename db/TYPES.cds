@@ -113,4 +113,5 @@ type ConfODPData {
     sumOpTotalConfirmedScrapQty : String;
     sumOpTotalConfirmedReworkQty: String;
     sumOpTotalConfirmedYieldQty : String;
+    CrossPlantConfigurableProduct: String;
 }

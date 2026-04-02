@@ -142,6 +142,11 @@ sap.ui.define(
             },
 
             onCloseOperationsMovePhaseDialog: function () {
+                const ddtDate = this.byId("ddtDateId");
+                const ddt     = this.byId("ddtId");
+                //pulisco campi
+                ddtDate.setValue("");
+                ddt.setValue("");
                 oController.pOperationsMovePhaseMasterDialog.close();
             },
 
@@ -422,7 +427,7 @@ sap.ui.define(
                             oController.byId("generateWIPbatchCheckBoxId").setSelected(false)
                         } else {
                             oController.byId("generateWIPbatchCheckBoxId").setEnabled(true)
-                            oController.byId("generateWIPbatchCheckBoxId").setSelected(false)
+                            oController.byId("generateWIPbatchCheckBoxId").setSelected(true)
                         }
 
                         oController.pOperationsMovePhaseMasterDialog.open();
@@ -454,6 +459,7 @@ sap.ui.define(
                         dataToSend.sumOpTotalConfirmedYieldQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedYieldQty
                         dataToSend.sumOpTotalConfirmedReworkQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedReworkQty
                         dataToSend.sumOpTotalConfirmedScrapQty = oController.byId("TableOperations").getSelectedContexts()[0].getObject().SumOpTotalConfirmedScrapQty
+                        dataToSend.CrossPlantConfigurableProduct = oController.byId("TableOperations").getSelectedContexts()[0].getObject().CrossPlantConfigurableProduct
                         //recupero campi ExtProcgOperationHasSubcontrg - IntermediatePhaseIndicator - PurchaseOrder - FlagPurchaseOrder - Plant
                         this.ExtProcgOperationHasSubcontrg = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ExtProcgOperationHasSubcontrg
                         this.IntermediatePhaseIndicator = oController.byId("TableOperations").getSelectedContexts()[0].getObject().IntermediatePhaseIndicator
@@ -723,8 +729,12 @@ sap.ui.define(
                 var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length - 1]
                 var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsChangeWCMasterTableId").getBinding("items").getContexts()[index].getObject().Plant
                 var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
-                oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
+                //oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
 
+                var oList = oController.byId("selectWorkCentersDialog");
+                var oBinding = oList.getBinding("items");
+                oBinding.filter(aFilters);
+                oBinding.refresh();
                 oController.pWorkCentersDialog.open();
             },
 
@@ -749,9 +759,9 @@ sap.ui.define(
 
             },
 
-            onValueHelpWorkCentersClose: function (oEvent) {
+           /*  onValueHelpWorkCentersClose: function (oEvent) {
                 oController.pWorkCentersDialog.close();
-            },
+            }, */
 
             onValueHelpWorkCentersSearch: function (oEvent) {
                 var sValue = oEvent.getParameter("value");

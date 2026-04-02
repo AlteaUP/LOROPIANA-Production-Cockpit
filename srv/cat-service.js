@@ -1357,7 +1357,7 @@ module.exports = cds.service.impl(async function (srv) {
                     dataOrderLinked[i].zztagliadesc = arrayDataMaterial[0].zztagliadesc
                     dataOrderLinked[i].ManufacturingOrderOperation = oidOrdine.ManufacturingOrderOperation
                     dataOrderLinked[i].ManufacturingOrderSequence = oidOrdine.ManufacturingOrderSequence
-                    dataOrderLinked[i].MfgOrderConfirmedYieldQty = oidOrdine.sumOpTotalConfirmedYieldQty
+                    //dataOrderLinked[i].MfgOrderConfirmedYieldQty = oidOrdine.sumOpTotalConfirmedYieldQty
                     dataOrderLinked[i].MfgOrderConfirmedReworkQty = oidOrdine.sumOpTotalConfirmedReworkQty
                     dataOrderLinked[i].MfgOrderConfirmedScrapQty = oidOrdine.sumOpTotalConfirmedScrapQty
                 }
@@ -1366,6 +1366,29 @@ module.exports = cds.service.impl(async function (srv) {
         // sorto per taglia
         dataOrderLinked.sort((a, b) => {
             return Number(a.zztagliadesc) - Number(b.zztagliadesc);
+        });
+
+        //aggiorno campo MfgOrderConfirmedYieldQty
+        const filtered = dataOrderLinked.filter(item => {
+            return item.ManufacturingOrder;
+        });
+        const manufacturingOrders = filtered.map(item => item.ManufacturingOrder);
+
+        var mfgOrderOpe = await combProdOrd.read('ZZ1_C_MFG_ORDEROPE').where({
+            ManufacturingOrder: { in: manufacturingOrders },
+            ManufacturingOrderOperation: oidOrdine.ManufacturingOrderOperation
+        });
+
+        const totalConfirmedYieldQty = mfgOrderOpe
+            .reduce((sum, item) => {
+                const rawValue = item.OpTotalConfirmedYieldQty || "0";
+                const value = Number(String(rawValue).replace(",", "."));
+                return sum + (isNaN(value) ? 0 : value);
+            }, 0)
+            .toString();
+
+        dataOrderLinked.forEach(item => {
+            item.MfgOrderConfirmedYieldQty = totalConfirmedYieldQty;
         });
 
         return dataOrderLinked;
@@ -1679,7 +1702,7 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZMF_IMD_MATERIAL_DESC", async (req) => {
-       return await ZMF_IMD_MATERIAL_DESC_CDS.run(req.query);
+        return await ZMF_IMD_MATERIAL_DESC_CDS.run(req.query);
 
     });
 

@@ -171,6 +171,8 @@ sap.ui.define(
                 }).catch(err => {
                     console.error("Errore nella chiamata OData:", err);
                 });
+
+                //sessionStorage.removeItem("CombinedReturnState");
             },
 
             onActionComponentsCombined: function (oEvent) {
@@ -247,7 +249,6 @@ sap.ui.define(
                     var selectedComponentsCombinedObject = {}
                     //setto il valore di default alla prorpietà reason del model
                     var aReasons = this.getView().getModel("reasonServiceCombined").getProperty("/ReasonSet") || [];
-                    aReasons = [];
                     var sDefaultText = aReasons.length
                         ? (aReasons[0].Reason + " - " + aReasons[0].Note)
                         : "";

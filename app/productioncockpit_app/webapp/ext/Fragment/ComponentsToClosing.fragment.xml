@@ -52,7 +52,7 @@
                 <Input 
                   value="{SelectedComponentsToClosing>Batch}" editable="false" />
                 <Input 
-                  value="{SelectedComponentsToClosing>TotalQuantityInEntryUnit}" description="{BaseUnit}" editable="false" />
+                  value="{SelectedComponentsToClosing>TotalQuantityInEntryUnit}" description="{BaseUnit}" editable="true" />
                 <Input 
                   value="{SelectedComponentsToClosing>Lgort1}" editable="false" />
                   <CheckBox id="checkboxRechargeStockMasterId" selected="{SelectedComponentsToClosing>selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
