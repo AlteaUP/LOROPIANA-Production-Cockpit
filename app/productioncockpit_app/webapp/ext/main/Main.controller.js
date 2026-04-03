@@ -660,6 +660,10 @@ sap.ui.define(
                     .getModel("SelectedComponentsToClosing")
                     .getProperty("/") || [];
 
+                table = table.filter(function (item) {
+                    return item.selectedCheckboxRecharge;
+                });
+
                 for (var i = 0; i < table.length; i++) {
                     dataObjectToSend = {}
                     dataObjectToSend.id = "001"
