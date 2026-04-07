@@ -143,7 +143,7 @@ sap.ui.define(
 
             onCloseOperationsMovePhaseDialog: function () {
                 const ddtDate = this.byId("ddtDateId");
-                const ddt     = this.byId("ddtId");
+                const ddt = this.byId("ddtId");
                 //pulisco campi
                 ddtDate.setValue("");
                 ddt.setValue("");
@@ -729,7 +729,19 @@ sap.ui.define(
 
                 // recupero indice della righe selezionata e poi filtro 
                 var index = oEvent.getSource().getId().split("-")[oEvent.getSource().getId().split("-").length - 1]
-                var currentPlant = oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsChangeWCMasterTableId").getBinding("items").getContexts()[index].getObject().Plant
+                var oControl =
+                    oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsChangeWCMasterTableId") ||
+                    oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--OperationsAddPhaseMasterTableId");
+
+                var currentPlant;
+
+                if (oControl && oControl.getBinding("items")) {
+                    var aContexts = oControl.getBinding("items").getContexts();
+
+                    if (aContexts[index]) {
+                        currentPlant = aContexts[index].getObject().Plant;
+                    }
+                }
                 var aFilters = [new sap.ui.model.Filter("plant", sap.ui.model.FilterOperator.EQ, currentPlant)];
                 //oController.byId("selectWorkCentersDialog").getBinding("items").filter(aFilters)
 
@@ -761,9 +773,9 @@ sap.ui.define(
 
             },
 
-           /*  onValueHelpWorkCentersClose: function (oEvent) {
-                oController.pWorkCentersDialog.close();
-            }, */
+            /*  onValueHelpWorkCentersClose: function (oEvent) {
+                 oController.pWorkCentersDialog.close();
+             }, */
 
             onValueHelpWorkCentersSearch: function (oEvent) {
                 var sValue = oEvent.getParameter("value");
