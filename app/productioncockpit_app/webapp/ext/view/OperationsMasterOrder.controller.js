@@ -189,7 +189,7 @@ sap.ui.define(
 
                 // Prendo la data dal DatePicker
                 const oDatePicker = this.byId("ddtDateId");
-                const sDate = oDatePicker.getValue();
+                const sDate = oDatePicker.getValue() || null;
 
                 for (var i = 0; i < this.byId("OperationsMovePhaseTableId").getItems().length; i++) {
                     var path = this.byId("OperationsMovePhaseTableId").getItems()[i].getBindingContext("local").sPath

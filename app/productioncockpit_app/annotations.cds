@@ -516,7 +516,7 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(UI.LineItem #tableMacroOperatio
         Value                : ObjectInternalID,
         Criticality          : RowCriticality,
         Label                : '{i18n>statusProgress}',
-        ![@HTML5.CssDefaults]: {width: '3rem',
+        ![@HTML5.CssDefaults]: {width: '5rem',
         }
     },
     {
@@ -524,6 +524,13 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(UI.LineItem #tableMacroOperatio
         Value                : MasterProductionOrder,
         Label                : '{i18n>masterProductionOrder}',
         ![@HTML5.CssDefaults]: {width: '3%',
+        }
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: MfgOrderOperationText,
+        Label: '{i18n>MfgOrderOperationText}',
+        ![@HTML5.CssDefaults]: {width: '10rem',
         }
     },
     {
