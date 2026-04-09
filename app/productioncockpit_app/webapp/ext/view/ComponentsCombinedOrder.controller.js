@@ -68,6 +68,31 @@ sap.ui.define(
                 });
                 reasonDataModel.setDefaultBindingMode("TwoWay");
                 this.setModel(reasonDataModel, "reasonServiceCombined");
+
+                var oRemainingModel = new sap.ui.model.json.JSONModel({
+                    remainingChars: 26
+                });
+
+                oRemainingModel.setDefaultBindingMode("TwoWay");
+
+                this.setModel(oRemainingModel, "noteModel");
+            },
+            onLiveChangeNote: function (oEvent) {
+                const sValue = oEvent.getParameter("value");
+                const iRemaining = 26 - sValue.length;
+                const oInput = oEvent.getSource();
+
+                this.getModel("noteModel").setProperty("/remainingChars", iRemaining);
+
+                oInput.setShowValueStateMessage(false);
+
+                if (iRemaining === 0) {
+                    oInput.setValueState("Success");
+                } else if (iRemaining <= 5) {
+                    oInput.setValueState("Warning");
+                } else {
+                    oInput.setValueState("None");
+                }
             },
             _onRouteMatched: function () {
                 debugger;
@@ -279,11 +304,11 @@ sap.ui.define(
                         if (selectedComponentsCombinedObject.Note === undefined) {
                             selectedComponentsCombinedObject.Note = "";
                         }
-                    /*     selectedComponentsCombinedObject.Lgort1 =
-                            selectedComponentsCombinedObject.Lgort1
-                                ? selectedComponentsCombinedObject.Lgort1
-                                : selectedComponentsCombinedObject.StorageLocation; */
-                                
+                        /*     selectedComponentsCombinedObject.Lgort1 =
+                                selectedComponentsCombinedObject.Lgort1
+                                    ? selectedComponentsCombinedObject.Lgort1
+                                    : selectedComponentsCombinedObject.StorageLocation; */
+
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }
 
@@ -435,6 +460,8 @@ sap.ui.define(
                 console.log("onConfirmReplacementCompCombinedDialog");
                 var dataToSend = []
                 var dataObjectToSend = {}
+                this.OK = false;
+                this.old_material = "";
                 var table = this.byId("ReplacementCompCombinedTableId")
                     .getModel()
                     .getProperty("/SelectedComponentsCombined") || [];
@@ -468,12 +495,14 @@ sap.ui.define(
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
                     dataObjectToSend.reason = table[i].Reason;
-                    dataObjectToSend.lgort = table[i].Lgort1
+                    dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
                     dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     if (oController.buttonSelected === 'replacement') {
                         dataObjectToSend.action = "SOST"
+                        this.OK = true
+                        this.old_material = table[i].Material
                         if (table[i].selectedCheckboxRecharge === true) {
                             dataObjectToSend.recharge = 'X'
                         } else {
@@ -498,7 +527,7 @@ sap.ui.define(
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
-                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
+                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                         var v = oContext.getObject().value;
                         var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
                         //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
@@ -508,6 +537,20 @@ sap.ui.define(
                             //oController.openDialogMessageText(oContext.getObject().value, "S");
                             oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }
+                        const oTable = sap.ui.getCore().byId(
+                            "productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable"
+                        );
+
+                        if (this.OK) {
+                            const oBinding = oTable.getBinding("rows");
+
+                            oBinding.filter([
+                                new sap.ui.model.Filter("Material", sap.ui.model.FilterOperator.EQ, this.old_material)
+                            ]);
+
+                        }
+
+                        oBinding.refresh();
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()
                         oBusyDialog.close();
 
@@ -546,7 +589,7 @@ sap.ui.define(
                     dataObjectToSend.plnfl = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderSequence
                     dataObjectToSend.note = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Note
                     dataObjectToSend.reason = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Reason
-                    dataObjectToSend.lgort = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Lgort1 // o lgort2?
+                    dataObjectToSend.lgort = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().StorageLocation // o lgort2?
                     dataObjectToSend.werks = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Plant
                     dataObjectToSend.stk_seg = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().RequirementSegment
                     dataObjectToSend.posnr = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().BillOfMaterialItemNumber_2
@@ -666,7 +709,7 @@ sap.ui.define(
                     dataObjectToSend.plnfl = obj.ManufacturingOrderSequence
                     dataObjectToSend.note = obj.Note
                     dataObjectToSend.reason = obj.Reason;
-                    dataObjectToSend.lgort = obj.Lgort1
+                    dataObjectToSend.lgort = obj.StorageLocation
                     dataObjectToSend.werks = obj.Plant
                     dataObjectToSend.stk_seg = obj.RequirementSegment
                     dataObjectToSend.posnr = obj.BillOfMaterialItemNumber_2

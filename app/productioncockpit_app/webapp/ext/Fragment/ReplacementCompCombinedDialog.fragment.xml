@@ -96,8 +96,17 @@
                     }">
                     <core:Item id="_IDGenItem6" key="{reasonServiceCombined>SAP_UUID}" text="{reasonServiceCombined>Reason} - {reasonServiceCombined>Note}" />
                 </Select>
-                <Input 
-                  value="{Note}" editable="true" />
+              <VBox>
+               <TextArea
+                 value="{Note}"
+                 width="100%"
+                 rows="2"
+                 growing="true"
+                 growingMaxLines="8"
+                 maxLength="26"
+                 liveChange=".onLiveChangeNote" />
+                <Text text="Caratteri rimanenti: {noteModel>/remainingChars}" />
+              </VBox>
                  <CheckBox id="checkboxRechargeStockCompMasterId" visible="{visibleCheckboxRecharge}" selected="{selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>

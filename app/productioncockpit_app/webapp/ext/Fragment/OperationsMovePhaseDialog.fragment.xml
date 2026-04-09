@@ -65,7 +65,7 @@
                 <Column>
                     <Text text="{i18n>QtyToConfirm}"/>
                 </Column>
-                <Column>
+        <!--         <Column>
                     <Text text="{i18n>QtyToDiscard}"/>
                 </Column>
                 <Column>
@@ -73,7 +73,7 @@
                 </Column>
                 <Column>
                     <Text text="{i18n>reason}"/>
-                </Column>                
+                </Column>  -->               
             </columns>
           <items>
             <ColumnListItem vAlign="Middle">
@@ -94,12 +94,12 @@
                   value="{local>MfgOrderConfirmedReworkQty}" editable="false"/>
                 <Input 
                   value="{local>QtyToConfirm}"/>
-                <Input 
+            <!--     <Input 
                   value="{local>/QtyToDiscard}" editable="true"/>
                 <Input 
                   value="{local>QtyToRework}" editable="true"/>
                 <Input 
-                  value="{local>Reason}" />                
+                  value="{local>Reason}" />  -->               
               </cells>
             </ColumnListItem>
           </items>

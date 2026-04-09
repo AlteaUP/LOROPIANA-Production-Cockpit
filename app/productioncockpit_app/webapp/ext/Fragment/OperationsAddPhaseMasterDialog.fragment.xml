@@ -70,7 +70,7 @@
                   value="{OpExternalProcessingPrice}" 
                   enabled="{= !${FreeFlag} }"/>
                 <Input 
-                  value="{OperationControlProfile}" editable="{OperationControlProfileEditable}"/>
+                  value="{OperationControlProfile}" editable="false"/>
                 <CheckBox id="checkboxFreeFlagMasterId" selected="{FreeFlag}" select=".onFreeFlagSelectMaster"></CheckBox>
               </cells>
             </ColumnListItem>

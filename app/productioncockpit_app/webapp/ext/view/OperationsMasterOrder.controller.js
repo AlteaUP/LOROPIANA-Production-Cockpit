@@ -29,12 +29,40 @@ sap.ui.define(
                     console.log("View binding context:", ctx && ctx.getPath());
                 });
                 this.byId("TableOperations").attachSelectionChange(function (oEvent) {
-                    if (oEvent.getParameters().selectedContext.length > 0) {
+                    var aSelected = oEvent.getParameters().selectedContext;
+
+                    if (aSelected.length > 0) {
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::deletePhaseMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::modifyPhaseMasterAction").setEnabled(true);
+
+                        if (aSelected.length > 1) {
+                            oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);
+                            oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(false);
+                            oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::modifyPhaseMasterAction").setEnabled(false);
+
+                            var bAllQtaNotZero = aSelected.every(function (oCtx) {
+                                return Number(oCtx.getObject().SumOpTotalConfirmedYieldQty) !== 0;
+                            });
+
+                            if (bAllQtaNotZero) {
+                                oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(false);
+                            }
+
+                        } else if (aSelected.length === 1) {
+                            var oObj = aSelected[0].getObject();
+
+                            if (oObj.ExtProcgOperationHasSubcontrg === "") {
+                                oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);
+                            }
+
+                            if (Number(oObj.SumOpTotalConfirmedYieldQty) !== 0) {
+                                oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(false);
+                                oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(false);
+                            }
+                        }
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::changeWCMasterAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::addPhaseMasterAction").setEnabled(false);
@@ -327,6 +355,10 @@ sap.ui.define(
                     var selectedOperationsMasterObject = {}
                     for (var i = 0; i < oController.byId("TableOperations").getSelectedContexts().length; i++) {
                         selectedOperationsMasterObject = oController.byId("TableOperations").getSelectedContexts()[i].getObject()
+                        //Escludi record con sumOpTotalConfirmedYieldQty diverso da 0
+                        if (Number(selectedOperationsMasterObject.SumOpTotalConfirmedYieldQty) !== 0) {
+                            continue;
+                        }
                         selectedOperationsMasterObject.NewMaterial = selectedOperationsMasterObject.Material
                         selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                     }
@@ -452,6 +484,61 @@ sap.ui.define(
                             oDdtDate.setRequired(bSubcontrg);
                         }
 
+                        //calcolo il campo SumopTotalConfirmetYieldQty da mostrare nella popup
+                        var oTable = oController.byId("TableOperations");
+                        const oMDCTable = oTable.getMDCTable && oTable.getMDCTable();
+                        console.log("oMDCTable", oMDCTable);
+
+                        const oInnerTable = oMDCTable && oMDCTable._oTable;
+                        console.log("oInnerTable", oInnerTable);
+
+                        const oBinding = oInnerTable && (oInnerTable.getBinding("items") || oInnerTable.getBinding("rows"));
+                        console.log("oBinding", oBinding);
+
+                        var oSelectedObject = oTable.getSelectedContexts()[0].getObject();
+
+                        // flag
+                        var bHasPreviousOperation = false;
+
+                        //var sPreviousSumOpTotalConfirmedYieldQty = null;
+
+                        // recupero tutti i record della tabella                       
+                        var aContexts = oBinding.getContexts();
+                        var aAllObjects = aContexts.map(function (oContext) {
+                            return oContext.getObject();
+                        });
+
+                        // sequenza e operazione del record selezionato
+                        var sSelectedSequence = oSelectedObject.ManufacturingOrderSequence;
+                        var iSelectedOperation = Number(oSelectedObject.ManufacturingOrderOperation);
+
+                        // filtro i record con la stessa sequenza
+                        var aSameSequence = aAllObjects.filter(function (oItem) {
+                            return oItem.ManufacturingOrderSequence === sSelectedSequence;
+                        });
+
+                        // se c'è solo il record selezionato, non può esistere una precedente
+                        if (aSameSequence.length > 1) {
+                            // ordino per operazione numerica crescente
+                            aSameSequence.sort(function (a, b) {
+                                return Number(a.ManufacturingOrderOperation) - Number(b.ManufacturingOrderOperation);
+                            });
+
+                            // trovo l'indice del record selezionato nell'array ordinato
+                            var iSelectedIndex = aSameSequence.findIndex(function (oItem) {
+                                return Number(oItem.ManufacturingOrderOperation) === iSelectedOperation;
+                            });
+
+                            this.sPreviousSumOpTotalConfirmedYieldQty = null;
+                            // se l'indice è > 0, esiste una operazione precedente
+                            if (iSelectedIndex > 0) {
+                                bHasPreviousOperation = true;
+
+                                var oPreviousOperation = aSameSequence[iSelectedIndex - 1];
+                                this.sPreviousSumOpTotalConfirmedYieldQty = oPreviousOperation.SumOpTotalConfirmedYieldQty;
+                            }
+                        }
+
                         var dataToSend = {}
                         dataToSend.MasterProductionOrder = oController.byId("TableOperations").getSelectedContexts()[0].getObject().MasterProductionOrder
                         dataToSend.ManufacturingOrderSequence = oController.byId("TableOperations").getSelectedContexts()[0].getObject().ManufacturingOrderSequence
@@ -477,6 +564,7 @@ sap.ui.define(
                             var oContext = oBindingContext.getBoundContext();
                             var selectedOperationsMasterArray = []
                             var selectedOperationsMasterObject = {}
+                            var vPrevQty = this.sPreviousSumOpTotalConfirmedYieldQty;
                             if (oContext.getObject().value.length > 0) {
                                 for (var p = 0; p < oContext.getObject().value.length; p++) {
                                     selectedOperationsMasterObject = oContext.getObject().value[p]
@@ -489,7 +577,11 @@ sap.ui.define(
                                     selectedOperationsMasterObject.PurchaseOrder = this.PurchaseOrder
                                     selectedOperationsMasterObject.flagPurchaseOrder = this.flagPurchaseOrder
                                     selectedOperationsMasterObject.Plant = this.Plant
-                                    selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
+                                    //selectedOperationsMasterObject.QtyToConfirm = Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty)
+                                    selectedOperationsMasterObject.QtyToConfirm =
+                                        vPrevQty !== null && vPrevQty !== undefined && vPrevQty !== ""
+                                            ? Number(vPrevQty)
+                                            : (Number(selectedOperationsMasterObject.MfgOrderPlannedTotalQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedYieldQty) - Number(selectedOperationsMasterObject.MfgOrderConfirmedScrapQty));
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }
                             }
@@ -762,6 +854,20 @@ sap.ui.define(
 
                 var oModel = oController._oWorkCenterContext.getModel();
                 var sPath = oController._oWorkCenterContext.getPath();
+
+                var sValue = oSelectedItem.getTitle ? oSelectedItem.getTitle() : oSelectedItem.getText();
+
+                var sProfile =
+                    sValue && sValue.startsWith("E") ? "PP02" :
+                        sValue && sValue.startsWith("I") ? "PP01" : "";
+
+                if (oModel && sPath) {
+                    var oCurrentObject = oModel.getProperty(sPath);
+
+                    if (oCurrentObject && Object.prototype.hasOwnProperty.call(oCurrentObject, "OperationControlProfile")) {
+                        oModel.setProperty(sPath + "/OperationControlProfile", sProfile);
+                    }
+                }
 
                 // Valori scelti nel SelectDialog
                 var sWorkCenter = oSelectedItem.getTitle();
