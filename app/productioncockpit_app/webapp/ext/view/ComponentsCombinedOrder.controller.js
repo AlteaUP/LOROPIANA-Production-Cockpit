@@ -86,13 +86,13 @@ sap.ui.define(
 
                 oInput.setShowValueStateMessage(false);
 
-                if (iRemaining === 0) {
+                /* if (iRemaining === 0) {
                     oInput.setValueState("Success");
                 } else if (iRemaining <= 5) {
                     oInput.setValueState("Warning");
                 } else {
                     oInput.setValueState("None");
-                }
+                } */
             },
             _onRouteMatched: function () {
                 debugger;
@@ -253,6 +253,14 @@ sap.ui.define(
                     }
 
                     oController.pReplacementCompCombinedDialog.open();
+
+                    //pulisco textArea
+                    const oTextArea = this.byId("txtArea");
+                    if (oTextArea) {
+                        oTextArea.setValue("");
+                    }
+
+                    this.getModel("noteModel").setProperty("/remainingChars", 26);
 
                     if (oController.buttonSelected === "integration") {
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("integrationComp"))
@@ -460,7 +468,6 @@ sap.ui.define(
                 console.log("onConfirmReplacementCompCombinedDialog");
                 var dataToSend = []
                 var dataObjectToSend = {}
-                this.OK = false;
                 this.old_material = "";
                 var table = this.byId("ReplacementCompCombinedTableId")
                     .getModel()
@@ -498,11 +505,9 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
-                    dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
+                    //dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     if (oController.buttonSelected === 'replacement') {
                         dataObjectToSend.action = "SOST"
-                        this.OK = true
-                        this.old_material = table[i].Material
                         if (table[i].selectedCheckboxRecharge === true) {
                             dataObjectToSend.recharge = 'X'
                         } else {
@@ -540,15 +545,7 @@ sap.ui.define(
                         const oTable = sap.ui.getCore().byId(
                             "productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable"
                         );
-
-                        if (this.OK) {
-                            const oBinding = oTable.getBinding("rows");
-
-                            oBinding.filter([
-                                new sap.ui.model.Filter("Material", sap.ui.model.FilterOperator.EQ, this.old_material)
-                            ]);
-
-                        }
+                        const oBinding = oTable.getBinding("rows");
 
                         oBinding.refresh();
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection()

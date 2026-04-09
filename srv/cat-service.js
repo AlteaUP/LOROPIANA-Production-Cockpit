@@ -869,7 +869,7 @@ module.exports = cds.service.impl(async function (srv) {
                 // modifica DL - 22/01/2026 - recupero note e reason - FINE
             };
             // MDB - gestione grafico percentuale - FINE
-            
+
             data = data.filter(item => item.BOMItemCategory === "L");
 
             return data;

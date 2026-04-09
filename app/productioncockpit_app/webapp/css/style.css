@@ -5,3 +5,7 @@
 .sapSuiteRMCOutsideLabel.sapSuiteRMCFont.sapSuiteRMCTextColorError {
   visibility: hidden;
 }
+
+.smallText {
+    font-size: 0.70rem;
+}

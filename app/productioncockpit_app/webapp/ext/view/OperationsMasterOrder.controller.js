@@ -514,7 +514,8 @@ sap.ui.define(
 
                         // filtro i record con la stessa sequenza
                         var aSameSequence = aAllObjects.filter(function (oItem) {
-                            return oItem.ManufacturingOrderSequence === sSelectedSequence;
+                            return oItem.ManufacturingOrderSequence === sSelectedSequence
+                            && oItem.OperationIsDeleted !== "X";
                         });
 
                         // se c'è solo il record selezionato, non può esistere una precedente
