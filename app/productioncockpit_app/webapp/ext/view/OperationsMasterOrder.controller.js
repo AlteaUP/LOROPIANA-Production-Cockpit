@@ -860,7 +860,7 @@ sap.ui.define(
 
                 var sProfile =
                     sValue && sValue.startsWith("E") ? "PP02" :
-                        sValue && sValue.startsWith("I") ? "PP01" : "";
+                        sValue && sValue.startsWith("S") ? "PP01" : "";
 
                 if (oModel && sPath) {
                     var oCurrentObject = oModel.getProperty(sPath);
