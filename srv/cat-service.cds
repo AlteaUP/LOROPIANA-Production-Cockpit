@@ -82,7 +82,6 @@ service CatalogService {
         null as chart_criticality    : Integer,
         null as Note                 : String,
         null as Reason               : String,
-        null as old_material         : String,
 
         to_ZZ1_CombPlnOrdersStock     : Composition of many ZZ1_CombPlnOrdersStock
                                         on  Material         = $self.Material

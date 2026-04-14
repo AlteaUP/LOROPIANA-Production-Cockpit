@@ -25,6 +25,11 @@ sap.ui.define(
                     .getRouter()
                     .getRoute("ZZ1_C_COMBINEDORDER_COMPComponentsPage")
                     .attachPatternMatched(this._onRouteMatched, this);
+                const oRouter = this.getOwnerComponent().getExtensionComponent().getRouter();
+                oRouter.attachRouteMatched((oEvent) => {
+                    this._sLastRoute = oEvent.getParameter("name");
+                }, this);
+                oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);
 
                 this.getView().attachModelContextChange(() => {
                     const ctx = this.getView().getBindingContext();
@@ -144,6 +149,15 @@ sap.ui.define(
                   oRemainingModel.setDefaultBindingMode("TwoWay");
   
                   this.setModel(oRemainingModel, "noteModel"); */
+            },
+            _onBeforeRouteMatched: function (oEvent) {
+                debugger
+                let sNextRoute = oEvent.getParameter("name");
+                if (this._sLastRoute === "ZZ1_C_COMBINEDORDER_COMPComponentsPage" && sNextRoute !== "ZZ1_C_COMBINEDORDER_COMPComponentsPage" && sNextRoute === "ZZ1_PRODUCTION_COCKPIT_APIMain") {
+                    console.log("Uscita da ZZ1_C_COMBINEDORDER_COMPComponentsPage");
+                    //elimino storage "CombinedReturnState" 
+                    sessionStorage.removeItem("CombinedReturnState");
+                }
             },
             onLiveChangeNote: function (oEvent) {
                 const sValue = oEvent.getParameter("value");

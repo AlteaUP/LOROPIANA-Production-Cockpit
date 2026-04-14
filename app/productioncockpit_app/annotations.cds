@@ -744,16 +744,6 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             ![@HTML5.CssDefaults]: {width: '5rem'}
         },
         {
-            $Type: 'UI.DataField',
-            Value: NOTE,
-            Label: 'Note',
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: REASON,
-            Label: 'Motivo',
-        },
-        {
             $Type                : 'UI.DataField',
             Value                : ReservationIsFinallyIssued,
             Label                : 'Chiusura Fabbisogno',
@@ -805,6 +795,11 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             $Type : 'UI.DataField',
             Value : StorageLocation,
             Label : 'Magazzino',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : BOMItemDescription,
+            Label : 'Motivo-Note',
         },
     ]
 );

@@ -872,6 +872,31 @@ module.exports = cds.service.impl(async function (srv) {
 
             data = data.filter(item => item.BOMItemCategory === "L");
 
+            //se BOMItemDescription è valorozzato lo gestisco
+            for (const row of data) {
+                if (!row.BOMItemDescription || typeof row.BOMItemDescription !== 'string') continue
+
+                const parts = row.BOMItemDescription.split('-')
+
+                // se non c'è almeno il codice iniziale, salto
+                if (parts.length < 2) continue
+
+                const reason = parts[0]              // Z0..
+                const resto = parts.slice(1).join('-') // MATERIAL-NOTE
+
+                // leggo la entity ZZ1_MFG filtrando per reason = codice
+                const result = await reasonSost.run(
+                    SELECT.one.from('ZZ1_MFG_REASON_SOST').where({ Reason: reason })
+                )
+
+                // se non trovo nulla o note vuota, lascio BOM invariato
+                if (!result || !result.Note) continue
+
+                // sostituisco il codice iniziale con la note
+                row.BOMItemDescription = `${result.Note}-${resto}`
+                // risultato: "MOTIVO-MATERIAL-NOTE"
+            }
+
             return data;
         }
     });

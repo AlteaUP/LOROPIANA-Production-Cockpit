@@ -94,7 +94,30 @@ sap.ui.define(
                     }
                 }, 400);
             },
+            onLiveChangeNote: function (oEvent) {
+                const sValue = oEvent.getParameter("value");
+                //const iRemaining = 24 - sValue.length;
+                const oInput = oEvent.getSource();
 
+                const oContext = oInput.getBindingContext("local"); // o getBindingContext("nomeModello")
+                const iMaxNoteLength = oContext.getProperty("maxNoteLength") || 0;
+                const iRemaining = Math.max(0, iMaxNoteLength - sValue.length);
+
+                oContext.getModel().setProperty(
+                    oContext.getPath() + "/remainingChars",
+                    iRemaining
+                );
+
+                oInput.setShowValueStateMessage(false);
+
+                /* if (iRemaining === 0) {
+                    oInput.setValueState("Success");
+                } else if (iRemaining <= 5) {
+                    oInput.setValueState("Warning");
+                } else {
+                    oInput.setValueState("None");
+                } */
+            },
             _onUpdateFinished: function (oEvent) {
                 debugger
                 const oInnerTable = oEvent.getSource();
@@ -215,7 +238,7 @@ sap.ui.define(
                     } */
             /*  }, */
 
-            pressAssegna: function () { 
+            pressAssegna: function () {
                 debugger;
                 const p = this._navParams || {};
                 const oRow = p.row;
@@ -401,6 +424,13 @@ sap.ui.define(
                             oNew.editableCheckboxRecharge = true;
                         }
 
+                           //aggiorno textArea
+                        oNew.maxNoteLength = Math.max(
+                            0,
+                            35 - (oNew.Material || "").length
+                        );
+                        oNew.remainingChars = oNew.maxNoteLength;
+
                         // quantity come stringa con 3 decimali
                         oNew.TotalQuantityInEntryUnit = Number(sQty).toFixed(3);
 
@@ -501,9 +531,14 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].Lgort1
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
+                    const reason = (table[i].Reason || "").substring(0, 3);
+                    const old_matnr = table[i].Material || "";
+                    const note = table[i].Note || "";
                     //dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     if (p.action === 'replacement') {
                         dataObjectToSend.action = "SOST"
+                        //concateno potxt con old_material
+                        dataObjectToSend.potxt = `${reason.trimEnd()}-${old_matnr.trimEnd()}-${note.trimEnd()}`;
                         if (table[i].selectedCheckboxRecharge === true) {
                             dataObjectToSend.recharge = 'X'
                         } else {
@@ -511,6 +546,8 @@ sap.ui.define(
                         }
                     } else if (p.action === 'integration') {
                         dataObjectToSend.action = "INTE"
+                        //concateno potxt senza old_material
+                        dataObjectToSend.potxt = `${reason.trimEnd()}-${note.trimEnd()}`;
                     } else {
                         dataObjectToSend.action = ""
                     }

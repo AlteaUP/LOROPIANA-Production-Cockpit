@@ -94,7 +94,7 @@
                   <Input
                       value="{local>Batch}"
                       editable="false"
-                      width="7rem" />
+                      width="100%" />
                 <Input 
                   value="{local>ManufacturingOrderOperation}" editable="false" />
                 <Input 
@@ -112,8 +112,20 @@
                     selectedKey="{local>ReasonKey}">
                     <core:Item id="_IDGenItem6" key="{reasonServiceCombinedAssegna>SAP_UUID}" text="{reasonServiceCombinedAssegna>Reason} - {reasonServiceCombinedAssegna>Note}" />
                 </Select>      
-                <Input 
-                  value="{local>Note}" editable="true" />
+                 <VBox width="100%">
+               <TextArea
+                 id="txtArea"
+                 value="{local>Note}"
+                 width="100%"
+                 rows="2"
+                 growing="true"
+                 growingMaxLines="8"
+                 maxLength="{local>maxNoteLength}"
+                 liveChange=".onLiveChangeNote" />
+                 <HBox width="100%" justifyContent="Center">
+                   <Text text="Caratteri rimanenti: {local>remainingChars}" class="smallText" />
+                </HBox>
+              </VBox>
                  <CheckBox id="checkboxRechargeStockCompMasterIdA" visible="{local>visibleCheckboxRecharge}" selected="{local>selectedCheckboxRecharge}" enabled="{local>editableCheckboxRecharge}" ></CheckBox>
               </cells>
             </ColumnListItem>

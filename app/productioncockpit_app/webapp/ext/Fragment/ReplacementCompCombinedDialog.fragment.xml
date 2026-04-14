@@ -80,7 +80,7 @@
                   <Input
                       value="{Batch}"
                       editable="false" 
-                      width="6rem"/>
+                      width="100%"/>
                   <Button
                       icon="sap-icon://add"
                       type="Transparent"
