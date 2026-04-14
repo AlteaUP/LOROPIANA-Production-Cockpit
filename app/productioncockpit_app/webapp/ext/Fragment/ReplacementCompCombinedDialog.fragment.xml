@@ -29,6 +29,9 @@
                     <Text text="{i18n>material}"/>
                 </Column>
                 <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+                <Column>
                     <Text text="{i18n>newMaterial}"/>
                 </Column>
                 <Column>
@@ -62,6 +65,10 @@
                   value="{Plant}" editable="false" />
                 <Input 
                   value="{Material}" editable="false" />
+                <Input
+                  value="{Batch_old}"
+                  editable="false"
+                  width="100%" />
                <Input
                   id="NewMaterialInput"
                   value="{NewMaterial}"
@@ -72,8 +79,8 @@
                 <HBox alignItems="Center">
                   <Input
                       value="{Batch}"
-                      editable="false"
-                      width="100%" />
+                      editable="false" 
+                      width="6rem"/>
                   <Button
                       icon="sap-icon://add"
                       type="Transparent"
@@ -81,7 +88,7 @@
                       press=".onBatchViewCombined"/>
                 </HBox>
                 <Input 
-                  value="{ManufacturingOrderOperation}" editable="true" />
+                  value="{ManufacturingOrderOperation}" editable="true"/>
                 <Input 
                   value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 
@@ -104,10 +111,10 @@
                  rows="2"
                  growing="true"
                  growingMaxLines="8"
-                 maxLength="26"
+                 maxLength="{maxNoteLength}"
                  liveChange=".onLiveChangeNote" />
                  <HBox width="100%" justifyContent="Center">
-                   <Text text="Caratteri rimanenti: {noteModel>/remainingChars}" class="smallText" />
+                   <Text text="Caratteri rimanenti: {remainingChars}" class="smallText" />
                 </HBox>
               </VBox>
                  <CheckBox id="checkboxRechargeStockCompMasterId" visible="{visibleCheckboxRecharge}" selected="{selectedCheckboxRecharge}" enabled="{editableCheckboxRecharge}" ></CheckBox>

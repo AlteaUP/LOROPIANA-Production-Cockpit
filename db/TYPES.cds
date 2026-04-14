@@ -6,7 +6,8 @@ type ReplacementRecord : {
     FshMprodOrd    : String;
     matnr_new      : String;
     matnr_old      : String;
-    charg          : String;
+    charg_old      : String;
+    charg_new      : String;
     meins          : String;
     menge          : Decimal(9, 3);
     vornr          : String;
@@ -19,6 +20,7 @@ type ReplacementRecord : {
     action         : String;
     recharge       : String;
     posnr          : String;
+    potxt          : String(40)
 }
 
 type MaterialCreateDocument : {

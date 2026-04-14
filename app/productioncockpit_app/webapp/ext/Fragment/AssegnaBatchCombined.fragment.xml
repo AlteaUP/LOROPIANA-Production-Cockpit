@@ -49,6 +49,9 @@
                     <Text text="{i18n>material}"/>
                 </Column>
                 <Column>
+                    <Text text="{i18n>batch}"/>
+                </Column>
+                <Column>
                     <Text text="{i18n>newMaterial}"/>
                 </Column>
                 <Column>
@@ -82,12 +85,16 @@
                   value="{local>Plant}" editable="false" />
                 <Input 
                   value="{local>Material}" editable="false" />
+                <Input
+                  value="{local>Batch_old}"
+                  editable="false"
+                  width="7rem" />
                 <Input 
                   value="{local>NewMaterial}" editable="false" />
                   <Input
                       value="{local>Batch}"
                       editable="false"
-                      width="100%" />
+                      width="7rem" />
                 <Input 
                   value="{local>ManufacturingOrderOperation}" editable="false" />
                 <Input 

@@ -1436,16 +1436,25 @@ module.exports = cds.service.impl(async function (srv) {
             ManufacturingOrderOperation: oidOrdine.ManufacturingOrderOperation
         });
 
-        const totalConfirmedYieldQty = mfgOrderOpe
-            .reduce((sum, item) => {
-                const rawValue = item.OpTotalConfirmedYieldQty || "0";
-                const value = Number(String(rawValue).replace(",", "."));
-                return sum + (isNaN(value) ? 0 : value);
-            }, 0)
-            .toString();
+        // creo una mappa: { ManufacturingOrder -> somma OpTotalConfirmedYieldQty }
+        const confirmedYieldByOrder = mfgOrderOpe.reduce((acc, item) => {
+            const order = item.ManufacturingOrder;
+            const rawValue = item.OpTotalConfirmedYieldQty || "0";
+            const value = Number(String(rawValue).replace(",", "."));
 
+            if (!acc[order]) {
+                acc[order] = 0;
+            }
+
+            acc[order] += isNaN(value) ? 0 : value;
+            return acc;
+        }, {});
+
+        // assegno a ogni record la somma relativa al suo ManufacturingOrder
         dataOrderLinked.forEach(item => {
-            item.MfgOrderConfirmedYieldQty = totalConfirmedYieldQty;
+            item.MfgOrderConfirmedYieldQty = (
+                confirmedYieldByOrder[item.ManufacturingOrder] || 0
+            ).toString();
         });
 
         return dataOrderLinked;

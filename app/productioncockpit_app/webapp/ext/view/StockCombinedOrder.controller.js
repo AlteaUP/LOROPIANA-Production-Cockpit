@@ -215,7 +215,7 @@ sap.ui.define(
                     } */
             /*  }, */
 
-            pressAssegna: function () {
+            pressAssegna: function () { 
                 debugger;
                 const p = this._navParams || {};
                 const oRow = p.row;
@@ -249,7 +249,8 @@ sap.ui.define(
                             dataObjectToSend.matnr_new = ""
                         }
                         dataObjectToSend.matnr_old = oRow.Material
-                        dataObjectToSend.charg = obj.Batch
+                        dataObjectToSend.charg_old = oRow.Batch_old
+                        dataObjectToSend.charg_new = obj.Batch
                         dataObjectToSend.meins = oRow.BaseUnit
                         dataObjectToSend.menge = Number(oRow.TotalQuantityInEntryUnit)
                         dataObjectToSend.vornr = oRow.ManufacturingOrderOperation
@@ -259,7 +260,7 @@ sap.ui.define(
                         dataObjectToSend.lgort = oRow.Lgort1
                         dataObjectToSend.werks = oRow.Plant
                         dataObjectToSend.stk_seg = oRow.RequirementSegment
-                        dataObjectToSend.posnr = oRow.BillOfMaterialItemNumber_2
+                        //dataObjectToSend.posnr = oRow.BillOfMaterialItemNumber_2
                         dataObjectToSend.action = "BAAS"
 
                         dataToSend.push(dataObjectToSend)
@@ -489,7 +490,8 @@ sap.ui.define(
                         dataObjectToSend.matnr_new = ""
                     }
                     dataObjectToSend.matnr_old = table[i].Material
-                    dataObjectToSend.charg = table[i].Batch
+                    dataObjectToSend.charg_old = table[i].Batch_old
+                    dataObjectToSend.charg_new = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
                     dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
@@ -499,7 +501,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].Lgort1
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
-                    dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
+                    //dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     if (p.action === 'replacement') {
                         dataObjectToSend.action = "SOST"
                         if (table[i].selectedCheckboxRecharge === true) {
