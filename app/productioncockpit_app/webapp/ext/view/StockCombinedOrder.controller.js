@@ -387,6 +387,8 @@ sap.ui.define(
 
                     const bIsRequiredQtyInteger = Number.isInteger(fRequiredQty);
 
+                    const iBatchCount = aBatchData.length;
+
                     // preparo i batch selezionati con AvaibilityQty numerico
                     const aBatchData = aSelCtx.map(function (oCtx) {
                         const oBatchObj = oCtx.getObject();
@@ -395,6 +397,11 @@ sap.ui.define(
                             AvaibilityQty: Number(oBatchObj.AvaibilityQty) || 0
                         };
                     });
+
+                    if (bIsRequiredQtyInteger && fRequiredQty < iBatchCount) {
+                        sap.m.MessageToast.show("Non è possibile procedere con l'assegnazione: quantità intera inferiore al numero di batch selezionati.");
+                        return;
+                    }
 
                     //somma totale disponibilità
                     const fTotalAvailability = aBatchData.reduce(function (sum, oItem) {
@@ -442,13 +449,15 @@ sap.ui.define(
 
                     if (fTotalAvailability > fRequiredQty) {
                         // CASO 1: disponibilità totale superiore alla quantità richiesta
-                        // distribuzione proporzionale in base ad AvaibilityQty
 
                         if (bIsRequiredQtyInteger) {
-                            // quantità richiesta intera:
-                            // uso metodo dei resti maggiori per avere solo interi
+                            // quantità intera:
+                            // assegno 1 a ogni batch e distribuisco il residuo proporzionalmente
+                            const iMinQtyPerBatch = 1;
+                            const iQtyToDistribute = fRequiredQty - (iBatchCount * iMinQtyPerBatch);
+
                             const aProportions = aBatchData.map(function (oItem, index) {
-                                const fExactQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
+                                const fExactQty = (oItem.AvaibilityQty / fTotalAvailability) * iQtyToDistribute;
                                 const iBaseQty = Math.floor(fExactQty);
 
                                 return {
@@ -459,34 +468,39 @@ sap.ui.define(
                                 };
                             });
 
-                            let iAssignedSum = aProportions.reduce(function (sum, oItem) {
+                            let iAssignedResidual = aProportions.reduce(function (sum, oItem) {
                                 return sum + oItem.baseQty;
                             }, 0);
 
-                            let iRemaining = fRequiredQty - iAssignedSum;
+                            let iRemainingResidual = iQtyToDistribute - iAssignedResidual;
 
-                            // assegno +1 ai batch con resto maggiore
+                            // distribuisco il residuo ai batch con resto maggiore
                             aProportions.sort(function (a, b) {
                                 return b.remainder - a.remainder;
                             });
 
-                            for (let i = 0; i < aProportions.length && iRemaining > 0; i++, iRemaining--) {
+                            for (let i = 0; i < aProportions.length && iRemainingResidual > 0; i++, iRemainingResidual--) {
                                 aProportions[i].baseQty += 1;
                             }
 
-                            // ripristino l'ordine originale
+                            // ripristino ordine originale
                             aProportions.sort(function (a, b) {
                                 return a.index - b.index;
                             });
 
                             for (let i = 0; i < aProportions.length; i++) {
-                                const oNew = createNewRow(oRow, aProportions[i].batchObj, aProportions[i].baseQty);
+                                const iFinalQty = iMinQtyPerBatch + aProportions[i].baseQty;
+                                const oNew = createNewRow(oRow, aProportions[i].batchObj, iFinalQty);
                                 aSelected.push(oNew);
                             }
 
                         } else {
-                            // quantità richiesta decimale:
-                            // distribuzione proporzionale a 3 decimali, ultimo record a conguaglio
+                            // quantità decimale:
+                            // assegno 0.001 a ogni batch e distribuisco il residuo proporzionalmente
+                            const fMinQtyPerBatch = 0.001;
+                            const fReservedQty = Number((iBatchCount * fMinQtyPerBatch).toFixed(3));
+                            const fQtyToDistribute = fRequiredQty - fReservedQty;
+
                             let fAssignedSum = 0;
 
                             for (let i = 0; i < aBatchData.length; i++) {
@@ -494,12 +508,11 @@ sap.ui.define(
                                 let fAssignedQty = 0;
 
                                 if (i === aBatchData.length - 1) {
-                                    // ultimo record: prende il residuo
-                                    fAssignedQty = fRequiredQty - fAssignedSum;
-                                    fAssignedQty = Number(fAssignedQty.toFixed(3));
+                                    // ultimo record: prende il residuo finale per chiudere il totale
+                                    fAssignedQty = Number((fRequiredQty - fAssignedSum).toFixed(3));
                                 } else {
-                                    fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
-                                    fAssignedQty = Number(fAssignedQty.toFixed(3));
+                                    const fProportionalQty = (oItem.AvaibilityQty / fTotalAvailability) * fQtyToDistribute;
+                                    fAssignedQty = Number((fMinQtyPerBatch + fProportionalQty).toFixed(3));
                                     fAssignedSum += fAssignedQty;
                                 }
 
@@ -507,7 +520,6 @@ sap.ui.define(
                                 aSelected.push(oNew);
                             }
                         }
-
                     } else if (fTotalAvailability === fRequiredQty) {
                         // CASO 2: disponibilità totale uguale alla quantità richiesta
                         // assegno ad ogni batch il proprio AvaibilityQty
