@@ -387,8 +387,6 @@ sap.ui.define(
 
                     const bIsRequiredQtyInteger = Number.isInteger(fRequiredQty);
 
-                    const iBatchCount = aBatchData.length;
-
                     // preparo i batch selezionati con AvaibilityQty numerico
                     const aBatchData = aSelCtx.map(function (oCtx) {
                         const oBatchObj = oCtx.getObject();
@@ -397,6 +395,8 @@ sap.ui.define(
                             AvaibilityQty: Number(oBatchObj.AvaibilityQty) || 0
                         };
                     });
+
+                    const iBatchCount = aBatchData.length;
 
                     if (bIsRequiredQtyInteger && fRequiredQty < iBatchCount) {
                         sap.m.MessageToast.show("Non è possibile procedere con l'assegnazione: quantità intera inferiore al numero di batch selezionati.");
