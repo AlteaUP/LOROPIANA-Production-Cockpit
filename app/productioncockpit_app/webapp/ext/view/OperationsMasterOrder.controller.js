@@ -29,6 +29,23 @@ sap.ui.define(
                     console.log("View binding context:", ctx && ctx.getPath());
                 });
                 this.byId("TableOperations").attachSelectionChange(function (oEvent) {
+                    // recupero CBO ABILITA/AVANZA
+                    var oModel = oController.getView().getModel(); // OData V4 Model
+                    var oListBinding = oModel.bindList("/ZZ1_ABILITA_AVANZA");
+
+                    oListBinding.requestContexts().then(function (aContexts) {
+                        if (aContexts.length > 0) {
+                            var oData = aContexts[0].getObject(); 
+                            var bValore = oData.Enabled; 
+
+                            oController._bAbilitaAvanza = bValore;
+
+                            console.log("Valore boolean:", oController._bAbilitaAvanza);
+                        }
+                    }).catch(function (err) {
+                            console.error("Errore nella chiamata OData:", err);
+                        });
+
                     var aSelected = oEvent.getParameters().selectedContext;
 
                     if (aSelected.length > 0) {
@@ -54,7 +71,7 @@ sap.ui.define(
                         } else if (aSelected.length === 1) {
                             var oObj = aSelected[0].getObject();
 
-                            if (oObj.ExtProcgOperationHasSubcontrg === "") {
+                            if (oObj.ExtProcgOperationHasSubcontrg === "" && !oController._bAbilitaAvanza) {
                                 oController.byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content::CustomAction::movePhaseMasterAction").setEnabled(false);
                             }
 
@@ -515,7 +532,7 @@ sap.ui.define(
                         // filtro i record con la stessa sequenza
                         var aSameSequence = aAllObjects.filter(function (oItem) {
                             return oItem.ManufacturingOrderSequence === sSelectedSequence
-                            && oItem.OperationIsDeleted !== "X";
+                                && oItem.OperationIsDeleted !== "X";
                         });
 
                         // se c'è solo il record selezionato, non può esistere una precedente

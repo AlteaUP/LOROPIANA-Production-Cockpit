@@ -385,6 +385,8 @@ sap.ui.define(
 
                     const fRequiredQty = Number(oRow.TotalQuantityInEntryUnit) || 0;
 
+                    const bIsRequiredQtyInteger = Number.isInteger(fRequiredQty);
+
                     // preparo i batch selezionati con AvaibilityQty numerico
                     const aBatchData = aSelCtx.map(function (oCtx) {
                         const oBatchObj = oCtx.getObject();
@@ -394,7 +396,7 @@ sap.ui.define(
                         };
                     });
 
-                    // somma totale disponibilità
+                    //somma totale disponibilità
                     const fTotalAvailability = aBatchData.reduce(function (sum, oItem) {
                         return sum + oItem.AvaibilityQty;
                     }, 0);
@@ -424,15 +426,16 @@ sap.ui.define(
                             oNew.editableCheckboxRecharge = true;
                         }
 
-                           //aggiorno textArea
+                        //aggiorno textArea
                         oNew.maxNoteLength = Math.max(
                             0,
                             35 - (oNew.Material || "").length
                         );
                         oNew.remainingChars = oNew.maxNoteLength;
 
-                        // quantity come stringa con 3 decimali
-                        oNew.TotalQuantityInEntryUnit = Number(sQty).toFixed(3);
+                        oNew.TotalQuantityInEntryUnit = bIsRequiredQtyInteger
+                            ? String(Number(sQty))
+                            : String(Math.ceil(Number(sQty) * 1000) / 1000);
 
                         return oNew;
                     };
@@ -440,24 +443,69 @@ sap.ui.define(
                     if (fTotalAvailability > fRequiredQty) {
                         // CASO 1: disponibilità totale superiore alla quantità richiesta
                         // distribuzione proporzionale in base ad AvaibilityQty
-                        let fAssignedSum = 0;
 
-                        for (let i = 0; i < aBatchData.length; i++) {
-                            const oItem = aBatchData[i];
-                            let fAssignedQty = 0;
+                        if (bIsRequiredQtyInteger) {
+                            // quantità richiesta intera:
+                            // uso metodo dei resti maggiori per avere solo interi
+                            const aProportions = aBatchData.map(function (oItem, index) {
+                                const fExactQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
+                                const iBaseQty = Math.floor(fExactQty);
 
-                            if (i === aBatchData.length - 1) {
-                                // ultimo record: prende il residuo
-                                fAssignedQty = fRequiredQty - fAssignedSum;
-                                fAssignedQty = Number(fAssignedQty.toFixed(3));
-                            } else {
-                                fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
-                                fAssignedQty = Number(fAssignedQty.toFixed(3));
-                                fAssignedSum += fAssignedQty;
+                                return {
+                                    index: index,
+                                    batchObj: oItem.batchObj,
+                                    baseQty: iBaseQty,
+                                    remainder: fExactQty - iBaseQty
+                                };
+                            });
+
+                            let iAssignedSum = aProportions.reduce(function (sum, oItem) {
+                                return sum + oItem.baseQty;
+                            }, 0);
+
+                            let iRemaining = fRequiredQty - iAssignedSum;
+
+                            // assegno +1 ai batch con resto maggiore
+                            aProportions.sort(function (a, b) {
+                                return b.remainder - a.remainder;
+                            });
+
+                            for (let i = 0; i < aProportions.length && iRemaining > 0; i++, iRemaining--) {
+                                aProportions[i].baseQty += 1;
                             }
 
-                            const oNew = createNewRow(oRow, oItem.batchObj, fAssignedQty);
-                            aSelected.push(oNew);
+                            // ripristino l'ordine originale
+                            aProportions.sort(function (a, b) {
+                                return a.index - b.index;
+                            });
+
+                            for (let i = 0; i < aProportions.length; i++) {
+                                const oNew = createNewRow(oRow, aProportions[i].batchObj, aProportions[i].baseQty);
+                                aSelected.push(oNew);
+                            }
+
+                        } else {
+                            // quantità richiesta decimale:
+                            // distribuzione proporzionale a 3 decimali, ultimo record a conguaglio
+                            let fAssignedSum = 0;
+
+                            for (let i = 0; i < aBatchData.length; i++) {
+                                const oItem = aBatchData[i];
+                                let fAssignedQty = 0;
+
+                                if (i === aBatchData.length - 1) {
+                                    // ultimo record: prende il residuo
+                                    fAssignedQty = fRequiredQty - fAssignedSum;
+                                    fAssignedQty = Number(fAssignedQty.toFixed(3));
+                                } else {
+                                    fAssignedQty = (oItem.AvaibilityQty / fTotalAvailability) * fRequiredQty;
+                                    fAssignedQty = Number(fAssignedQty.toFixed(3));
+                                    fAssignedSum += fAssignedQty;
+                                }
+
+                                const oNew = createNewRow(oRow, oItem.batchObj, fAssignedQty);
+                                aSelected.push(oNew);
+                            }
                         }
 
                     } else if (fTotalAvailability === fRequiredQty) {
@@ -481,7 +529,9 @@ sap.ui.define(
                             aSelected.push(oNew);
                         }
 
-                        const fRemainingQty = Number((fRequiredQty - fTotalAvailability).toFixed(3));
+                        const fRemainingQty = bIsRequiredQtyInteger
+                            ? (fRequiredQty - fTotalAvailability)
+                            : Number((fRequiredQty - fTotalAvailability).toFixed(3));
 
                         if (fRemainingQty > 0) {
                             const oExtra = createNewRow(oRow, null, fRemainingQty);

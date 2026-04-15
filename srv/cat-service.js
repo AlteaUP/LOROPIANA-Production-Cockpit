@@ -23,6 +23,7 @@ module.exports = cds.service.impl(async function (srv) {
     const reasonsNotes = await cds.connect.to('ZZ1_MFP_REASON_NOTE_CDS');
     const materialCharacteristics = await cds.connect.to('ZMF_IMD_MATERIAL_CDS');
     const stockSegment = await cds.connect.to('ZZ1_MFG_STOCKSEGMENT_CDS');
+    const abilitaAvanza = await cds.connect.to('ZZ1_ABILITA_AVANZA_CDS');
     /////
     const ZZ1_I_SUMQTYDELIVERY_T_CDS = await cds.connect.to("ZZ1_I_SUMQTYDELIVERY_T_CDS");
     const ZZ1_I_ARUN_BDBSSUMQTY_CDS = await cds.connect.to("ZZ1_I_ARUN_BDBSSUMQTY_CDS_CDS");
@@ -58,6 +59,14 @@ module.exports = cds.service.impl(async function (srv) {
     this.on('READ', "ZZ1_MFG_REASON_SOST", async request => {
         console.log("chiamata ZZ1_MFG_REASON_SOST_CDS")
         var data = await reasonSost.tx(request).run(request.query);
+        console.log("lunghezza array " + data.length)
+
+        return data;
+    });
+
+    this.on('READ', "ZZ1_ABILITA_AVANZA", async request => {
+        console.log("chiamata ZZ1_ABILITA_AVANZA")
+        var data = await abilitaAvanza.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 
         return data;

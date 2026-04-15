@@ -319,6 +319,26 @@
           }
         }
       },
+      "ZZ1_ABILITA_AVANZA_CDS": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZZ1_ABILITA_AVANZA_CDS",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_ABILITA_AVANZA_CDS"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata/sap/ZZ1_ABILITA_AVANZA_CDS"
+          }
+        }
+      },
       "ZZ1_RFM_WRKCHARVAL_F4_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_RFM_WRKCHARVAL_F4_CDS",

@@ -26,6 +26,7 @@ using { zmfg_tipo_ordine_f4 } from './external/zmfg_tipo_ordine_f4';
 using { ZZ1_COMBPLNORDERSSTOCKAPI_CDS } from './external/ZZ1_COMBPLNORDERSSTOCKAPI_CDS';
 using { ZZ1_MFG_STOCKSEGMENT_CDS } from './external/ZZ1_MFG_STOCKSEGMENT_CDS';
 using { ZMF_IMD_MATERIAL_DESC_CDS } from './external/ZMF_IMD_MATERIAL_DESC_CDS';
+using { ZZ1_ABILITA_AVANZA_CDS } from './external/ZZ1_ABILITA_AVANZA_CDS';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -388,6 +389,8 @@ service CatalogService {
     entity ZZMFG_TIPO_ORDINE as projection on zmfg_tipo_ordine_f4.ZZMFG_TIPO_ORDINE;
 
     entity ZMF_IMD_MATERIAL_DESC as projection on ZMF_IMD_MATERIAL_DESC_CDS.ZMF_IMD_MATERIAL_DESC;
+
+    entity ZZ1_ABILITA_AVANZA as projection on ZZ1_ABILITA_AVANZA_CDS.ZZ1_ABILITA_AVANZA;
 
     action ReleaseOrder (OrderID : array of String) returns String;
 
