@@ -470,12 +470,14 @@ sap.ui.define(
                     : oRow.Material;
                 const sPlant = oRow.Plant;
                 const sStorageLocation = oRow.StorageLocation;
+                const sStockSegment = oRow.StockSegment
                 const sID = oRow.ID;
 
                 sessionStorage.setItem("stockNavParams", JSON.stringify({
                     Material: sMaterial,
                     Plant: sPlant,
                     StorageLocation: sStorageLocation,
+                    StockSegment: sStockSegment,
                     action: oController.buttonSelected,
                     ID: oRow.ID,
                     row: {
@@ -772,11 +774,13 @@ sap.ui.define(
                 const sMaterial = oRow.Material;
                 const sPlant = oRow.Plant;
                 const sStorageLocation = oRow.StorageLocation;
+                const sStockSegment = oRow.StockSegment
 
                 sessionStorage.setItem("stockNavParams", JSON.stringify({
                     Material: sMaterial,
                     Plant: sPlant,
                     StorageLocation: sStorageLocation,
+                    StockSegment: sStockSegment,
                     action: buttonSelected,
                     row: {
                         ...oRow

@@ -1558,35 +1558,43 @@ module.exports = cds.service.impl(async function (srv) {
         let plant;
         let storageLocation;
         let CprodOrd;
+        let StockSegment;
 
         const where = req.query.SELECT.where;
 
         if (where) {
             for (let i = 0; i < where.length; i++) {
+                const field = where[i].ref?.[0];
 
-                if (where[i].ref?.[0] === 'Material') {
+                if (field === 'Material') {
                     material = where[i + 2]?.val;
                 }
-                if (where[i].ref?.[0] === 'Plant') {
+                if (field === 'Plant') {
                     plant = where[i + 2]?.val;
                 }
-                if (where[i].ref?.[0] === 'StorageLocation') {
+                if (field === 'StorageLocation') {
                     storageLocation = where[i + 2]?.val;
                 }
-                //recupero CprodOrd
-                if (where[i].ref?.[0] === 'CprodOrd') {
+                if (where[i].ref?.[0] === 'StockSegment') {
+                    StockSegment = where[i + 2]?.val;
 
+                    if (StockSegment === "__EMPTY__") {
+                        StockSegment = "";
+                    }
+                }
+                if (field === 'CprodOrd') {
                     CprodOrd = where[i + 2]?.val;
+
                     where.splice(i, 3);
 
                     if (where[i] === 'and') {
                         where.splice(i, 1);
-                    }
-                    else if (where[i - 1] === 'and') {
+                    } else if (where[i - 1] === 'and') {
                         where.splice(i - 1, 1);
                         i--;
                     }
-                    break;
+
+                    i--; // continua a scorrere
                 }
             }
         }
@@ -1594,6 +1602,7 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("Material:", material);
         console.log("Plant:", plant);
         console.log("StorageLocation:", storageLocation);
+        console.log("StockSegment:", StockSegment);
         console.log("Cplndord:", CprodOrd);
 
         const srv = await cds.connect.to('ZZ1_COMBPLNORDERSSTOCKAPI_CDS');
@@ -1607,13 +1616,26 @@ module.exports = cds.service.impl(async function (srv) {
             return [];
         }
 
+        const remoteWhere = {
+            Material: material,
+            Plant: plant,
+            StorageLocation: storageLocation
+        };
+
+        if (StockSegment !== undefined) {
+            remoteWhere.StockSegment = StockSegment; // anche ""
+        }
+
         let stockData = await srv.run(
-            SELECT.from(RemoteEntity)
-                .where({
-                    Material: material,
-                    Plant: plant,
-                    StorageLocation: storageLocation
-                }))
+            SELECT.from(RemoteEntity).where(remoteWhere)
+        );
+        /*   let stockData = await srv.run(
+              SELECT.from(RemoteEntity)
+                  .where({
+                      Material: material,
+                      Plant: plant,
+                      StorageLocation: storageLocation
+                  })) */
 
 
         if (!Array.isArray(stockData) || stockData.length === 0) return stockData;

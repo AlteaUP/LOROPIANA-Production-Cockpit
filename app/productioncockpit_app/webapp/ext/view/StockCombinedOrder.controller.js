@@ -75,6 +75,12 @@ sap.ui.define(
                 oFilterBar.setFilterValues("Material", p.Material);
                 oFilterBar.setFilterValues("Plant", p.Plant);
                 oFilterBar.setFilterValues("StorageLocation", p.StorageLocation);
+                //gestione StockSegment
+                if (p.StockSegment === "") {
+                    oFilterBar.setFilterValues("StockSegment", "__EMPTY__");
+                } else {
+                    oFilterBar.setFilterValues("StockSegment", p.StockSegment);
+                }
                 const cprod = (p.row && p.row.CprodOrd ? String(p.row.CprodOrd) : "").trim();
                 oFilterBar.setFilterValues("CprodOrd", cprod);
 
@@ -279,8 +285,8 @@ sap.ui.define(
                         dataObjectToSend.vornr = oRow.ManufacturingOrderOperation
                         dataObjectToSend.plnfl = oRow.ManufacturingOrderSequence
                         dataObjectToSend.note = oRow.Note
-                        dataObjectToSend.reason = oRow.Reason;
-                        dataObjectToSend.lgort = oRow.Lgort1
+                        dataObjectToSend.reason = oRow.Reason
+                        dataObjectToSend.lgort = oRow.StorageLocation
                         dataObjectToSend.werks = oRow.Plant
                         dataObjectToSend.stk_seg = oRow.RequirementSegment
                         //dataObjectToSend.posnr = oRow.BillOfMaterialItemNumber_2
@@ -589,8 +595,8 @@ sap.ui.define(
                     dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
-                    dataObjectToSend.reason = table[i].Reason;
-                    dataObjectToSend.lgort = table[i].Lgort1
+                    dataObjectToSend.reason = table[i].Reason
+                    dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
                     const reason = (table[i].Reason || "").substring(0, 3);
