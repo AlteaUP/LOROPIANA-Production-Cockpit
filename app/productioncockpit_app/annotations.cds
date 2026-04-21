@@ -801,6 +801,11 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             Value : BOMItemDescription,
             Label : 'Motivo-Note',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : TotalWithdrawnQuantity,
+            Label : 'Quantità Tot Prelevata',
+        },
     ]
 );
 
