@@ -76,10 +76,10 @@ sap.ui.define(
                 oFilterBar.setFilterValues("Plant", p.Plant);
                 oFilterBar.setFilterValues("StorageLocation", p.StorageLocation);
                 //gestione StockSegment
-                if (p.StockSegment === "") {
+                if (p.RequirementSegment === "") {
                     oFilterBar.setFilterValues("StockSegment", "__EMPTY__");
                 } else {
-                    oFilterBar.setFilterValues("StockSegment", p.StockSegment);
+                    oFilterBar.setFilterValues("StockSegment", p.RequirementSegment);
                 }
                 const cprod = (p.row && p.row.CprodOrd ? String(p.row.CprodOrd) : "").trim();
                 oFilterBar.setFilterValues("CprodOrd", cprod);
