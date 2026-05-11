@@ -250,6 +250,7 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(UI.LineItem #tableMacro2: [
 
 annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
     ProductionPlant @(
+        Common.FilterDefaultValue : 'IT10',
         Common.ValueList               : {
             $Type         : 'Common.ValueListType',
             CollectionPath: 'ZC_RFM_PRODUCTION_PLANT_F4',

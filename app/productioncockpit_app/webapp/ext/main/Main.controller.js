@@ -26,22 +26,22 @@ sap.ui.define(
                 this.byId("IconTabFilterId").setSelectedKey("combined");
                 this.byId("TableMaster").attachSelectionChange(function (oEvent) {
                     if (oEvent.getParameters().selectedContext.length > 0) {
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(true); */
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(true);                        
                         //Modifica MDB - gestione abilitazione action ROL in base a selezione e a valore OrderPersonalization - 02/02/2026 - INIZIO
-                        if (oEvent.getParameters().selectedContext.length > 1) {
+                        /* if (oEvent.getParameters().selectedContext.length > 1) {
                             oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false);
                         } else {
                             oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction")
                                 .setEnabled(oEvent.getParameters().selectedContext[0].getObject().OrderPersonalization !== "");
-                        }
+                        } */
                         //Modifica MDB - gestione abilitazione action ROL in base a selezione e a valore OrderPersonalization - 02/02/2026 - FINE
                     } else {
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::componentsAction").setEnabled(false); */
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::operationsAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::kittingAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableMaster-content::CustomAction::rolAction").setEnabled(false); */
                     }
                 });
                 this.byId("TableCombined").attachSelectionChange(function (oEvent) {
@@ -50,15 +50,17 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true); */
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::creaOrdineAction").setEnabled(true); */
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::closeOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
-                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
+                       /*  oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false); */
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
+                        /* oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::creaOrdineAction").setEnabled(false); */
                     }
                 });
                 /*this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -977,6 +979,18 @@ sap.ui.define(
                     }
                 }*/
 
+            },
+
+            onCreateOrder: function () {
+                if (oController.pCreateOrderDialog === null || oController.pCreateOrderDialog === undefined) {
+                    oController.pCreateOrderDialog = sap.ui.xmlfragment(this.getView().getId(), "productioncockpitapp.ext.Fragment.CreaOrdine", oController);
+                    oController.getView().addDependent(oController.pCreateOrderDialog);
+                }
+                oController.pCreateOrderDialog.open();
+            },
+
+            onCloseCreateOrder: function () {
+               oController.pCreateOrderDialog.close();
             },
 
             openDialogMessageText: function (text, messType) {

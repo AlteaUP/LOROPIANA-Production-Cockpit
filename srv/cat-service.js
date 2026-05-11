@@ -1785,7 +1785,10 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on("READ", "ZC_RFM_PRODUCTION_PLANT_F4", async (req) => {
-        const PlantData = await ZZ1_STORAGE_LOCATION_CDS.run(
+         req.query.where({
+            Plant: 'IT10'
+        });
+/*         const PlantData = await ZZ1_STORAGE_LOCATION_CDS.run(
             SELECT.from('ZZ1_STORAGE_LOCATION').columns('PLANT')
         );
         const aPlants = [...new Set(
@@ -1795,7 +1798,7 @@ module.exports = cds.service.impl(async function (srv) {
         if (aPlants.length === 0) {
             return [];
         }
-        req.query.where('Plant in', aPlants);
+        req.query.where('Plant in', aPlants); */
 
         const result = await zmfp_mrp_plant_f4.run(req.query);
         return result;

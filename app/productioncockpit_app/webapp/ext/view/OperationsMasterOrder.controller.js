@@ -278,11 +278,18 @@ sap.ui.define(
                 if (dataToSend.length > 0) {
                     oBindingContext.execute().then((oResult) => {
                         var oContext = oBindingContext.getBoundContext();
-                        if (oContext.getObject().value.to_confodp[0].fl_err_o) {
+                        var v = oContext.getObject().value;
+                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        if (s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
+                        } else {
+                            oController.openDialogMessageText(oContext.getObject().value, "S");
+                        }
+                       /*  if (oContext.getObject().value.to_confodp[0].fl_err_o) {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "E");
                         } else {
                             oController.openDialogMessageText(oContext.getObject().value.to_confodp[0].log_mess_o, "S");
-                        }
+                        } */
                         setTimeout(() => {
                             sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_MASTERORDER_OPEROperationsPage--TableOperations-content-innerTable").getBinding("rows").refresh()
                         }, 1000);

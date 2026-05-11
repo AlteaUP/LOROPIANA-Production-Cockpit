@@ -185,22 +185,31 @@ sap.ui.define(
             },
             _onRouteMatched: function () {
                 debugger;
-                const oTable = this.byId("TableCombinedComponents");
-                if (!oTable) return;
-
-                const oMDCTable = oTable.getMDCTable?.();
+                const oMDCTable = this.byId("TableCombinedComponents")?.getMDCTable?.();
                 if (!oMDCTable) return;
 
-                const oBinding = oMDCTable.getRowBinding?.();
-                if (!oBinding) return;
+                oMDCTable.initialized().then(() => {
+                    const tryAttach = () => {
+                        const oBinding =
+                            oMDCTable.getRowBinding?.() ||
+                            oMDCTable._oTable?.getBinding?.("items") ||
+                            oMDCTable._oTable?.getBinding?.("rows");
 
-                // evita attach multipli
-                if (this._bDataReceivedAttached !== true) {
-                    oBinding.attachDataReceived(this._onDataReceived, this);
-                    this._bDataReceivedAttached = true;
-                }
+                        if (!oBinding) {
+                            setTimeout(tryAttach, 100);
+                            return;
+                        }
 
-                this._onDataReceived();
+                        if (!this._bAttached) {
+                            oBinding.attachDataReceived(this._onDataReceived, this);
+                            this._bAttached = true;
+                        }
+
+                        this._onDataReceived();
+                    };
+
+                    tryAttach();
+                });
             },
 
             _onDataReceived: async function (oEvent) {

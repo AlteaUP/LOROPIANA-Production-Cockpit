@@ -1,0 +1,80 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+	 xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="CreaOrdineDialog"
+      contentHeight="60%"
+      contentWidth="90%"
+      beforeOpen=".clearFields"
+      resizable="false"
+      type="Message"
+      state="None"
+      icon="sap-icon://it-host"
+      title="Crea Ordine">
+      <content>
+        <f:SimpleForm id="SimpleFormDisplay3545"
+          editable="true"
+          layout="ResponsiveGridLayout"
+          labelSpanXL="3"
+          labelSpanL="3"
+          labelSpanM="3"
+          labelSpanS="12"
+          adjustLabelSpan="false"
+          emptySpanXL="4"
+          emptySpanL="4"
+          emptySpanM="4"
+          emptySpanS="0"
+          columnsXL="1"
+          columnsL="1"
+          columnsM="1"
+          singleContainerFullSize="false" >
+          <f:content>
+            <Label text="prova 3" />
+            <Input id="pp" change=".onValidateRequired"/>
+            <Label text="prova 4" />
+            <DatePicker id="ddt" change=".onValidateRequired" displayFormat="dd/MM/yyyy" valueFormat="yyyy-MM-dd"/>
+          </f:content>
+        </f:SimpleForm>
+      	<Table id="CreaOrdineTableId"
+          items="{local>/SelectedCreaOrdine}">
+          <columns>
+                <Column width="14%">
+                    <Text text="Prova 1"/>
+                </Column>
+                <Column width="6%">
+                    <Text text="Prova 2"/>
+                </Column>      
+            </columns>
+          <items>
+            <ColumnListItem vAlign="Middle">
+              <cells>
+                <Input 
+                  value="{local>}" editable="false" />
+                <Input 
+                  value="{local>}" editable="false"/>              
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+      <beginButton>
+        <Button 
+          id="CloseOrderDialogButton" 
+          type="Emphasized"
+          width="47.5%"
+          icon="sap-icon://decline"
+          press=".onCloseCreateOrder"
+          text="{i18n>Close}"/>
+        </beginButton>
+        <endButton>
+        <Button 
+          id="onConfirmOrderDialogButton" 
+          type="Accept"
+          width="47.5%"
+          icon="sap-icon://accept"
+          press=".onConfirmCreateOrder"
+          text="{i18n>Create}"/>
+      </endButton>
+      </Dialog>
+</core:FragmentDefinition>
