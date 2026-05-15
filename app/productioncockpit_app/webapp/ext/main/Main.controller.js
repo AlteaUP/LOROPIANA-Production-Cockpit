@@ -918,7 +918,7 @@ sap.ui.define(
 
                                     dataToSend.push(dataObjectToSend);
                                 }
-                                
+
                                 var oBusyDialog = new sap.m.BusyDialog();
                                 oBusyDialog.open();
 

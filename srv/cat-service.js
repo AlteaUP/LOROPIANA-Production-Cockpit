@@ -1163,9 +1163,19 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on("getUserName", async (req) => {
-        return req.user?.id === "anonymous"
-            ? ""
-            : req.user.id;
+        /*  return req.user?.id === "anonymous"
+             ? ""
+             : req.user.id; */
+        const user = req.user || {};
+
+        const sUserName =
+            user.attr?.logonName ||
+            user.attr?.user_name ||
+            user.attr?.email ||
+            user.id ||
+            "";
+
+        return user.id === "anonymous" ? "" : sUserName;
     });
 
     this.on("Stampa", async (req) => {
