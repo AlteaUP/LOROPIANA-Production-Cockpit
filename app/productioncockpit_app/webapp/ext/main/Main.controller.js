@@ -52,6 +52,7 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::stampaAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderAction").setEnabled(false);
@@ -59,6 +60,7 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::componentsCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::operationsCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::stampaAction").setEnabled(false);
                     }
                 });
                 /*this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -430,12 +432,16 @@ sap.ui.define(
                 }
                 const selectedItem = selectedItemContext[0].getObject();
                 const oidOrdine = selectedItem.OrderPersonalization;
+                const masterOrder = selectedItem.MasterProductionOrder;
                 //Modifica MDB - recupero OrderPersonalization per action GetOrderDetails - 02/02/2026 - FINE
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/GetOrderDetails(...)");
 
                 oBindingContext.setParameter("oidOrdine",
                     oidOrdine
+                );
+                oBindingContext.setParameter("masterOrder",
+                    masterOrder
                 );
 
                 var oBusyDialog = new sap.m.BusyDialog();
@@ -857,6 +863,119 @@ sap.ui.define(
                 } else {
                     MessageToast.show(oController.getResourceBundle().getText("selectOnlyOneRecord"))
                 }
+            },
+
+            onStampa: async function (oEvent) {
+                if (!this._oMaterialDialog) {
+                    this._oRadioGroup = new sap.m.RadioButtonGroup({
+                        columns: 1,
+                        selectedIndex: 0,
+                        buttons: [
+                            new sap.m.RadioButton({ text: "Tutti i Materiali" }),
+                            new sap.m.RadioButton({ text: "Solo Materiali Critici" })
+                        ]
+                    });
+
+                    this._oMaterialDialog = new sap.m.Dialog({
+                        title: "Seleziona materiali",
+                        contentWidth: "300px",
+                        content: [
+                            this._oRadioGroup
+                        ],
+                        beginButton: new sap.m.Button({
+                            text: "Conferma",
+                            type: "Emphasized",
+                            press: async function () {
+                                const iSelectedIndex = this._oRadioGroup.getSelectedIndex();
+                                var dataToSend = []
+                                var tableCombined = oController.byId("TableCombined")
+                                const oModel = oController.getView().getModel();
+                                const oSelectedContext = tableCombined.getSelectedContexts();
+
+                                const sScelta = iSelectedIndex === 0
+                                    ? "T"
+                                    : "C";
+
+                                console.log("Scelta:", sScelta);
+
+                                //recupero utente -> se è undefined fallback ""
+                                const oContext = oModel.bindContext("/getUserName(...)");
+                                await oContext.execute();
+
+                                const sUserName = oContext.getBoundContext().getObject().value;
+
+                                this._oMaterialDialog.close();
+
+                                for (var i = 0; i < oSelectedContext.length; i++) {
+                                    const obj = oSelectedContext[i].getObject();
+                                    const dataObjectToSend = {
+                                        id: "01",
+                                        cprodOrd: obj.CombinedOrder,
+                                        plant: obj.ProductionPlant,
+                                        rtype: sScelta,
+                                        uname: sUserName
+                                    };
+
+                                    dataToSend.push(dataObjectToSend);
+                                }
+                                
+                                var oBusyDialog = new sap.m.BusyDialog();
+                                oBusyDialog.open();
+
+                                var oBindingContext = oModel.bindContext("/Stampa(...)");
+                                oBindingContext.setParameter("Record",
+                                    dataToSend
+                                );
+                                if (dataToSend.length > 0) {
+                                    oBindingContext.execute().then((oResult) => {
+                                        var oContext = oBindingContext.getBoundContext();
+                                        //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
+                                        /*   var v = oContext.getObject().value;
+                                          var s = (typeof v === "string") ? v : JSON.stringify(v ?? ""); */
+                                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                                        //if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                                        /*       oController.openDialogMessageText(oContext.getObject().value, "E");
+                                          } else { */
+                                        //oController.openDialogMessageText(oContext.getObject().value, "S");
+                                        /*    oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                                       } */
+                                        /*                   const oTable = sap.ui.getCore().byId(
+                                                              "productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable"
+                                                          );
+                                                          const oBinding = oTable.getBinding("rows");
+                  
+                                                          oBinding.refresh();
+                                                          sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents").getMDCTable().clearSelection() */
+                                        oBusyDialog.close();
+
+                                    }).catch((oError) => {
+                                        oBusyDialog.close();
+                                        /*  if (oError.error !== undefined && oError.error !== null) {
+                                             oController.openDialogMessageText(oError.error.message, "E");
+                                         } else {
+                                             oController.openDialogMessageText(oError, "E");
+                                         } */
+                                    });
+                                } else {
+                                    //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
+                                    oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");
+                                    oBusyDialog.close();
+                                }
+
+                            }.bind(this)
+                        }),
+                        endButton: new sap.m.Button({
+                            text: "Annulla",
+                            press: function () {
+                                this._oMaterialDialog.close();
+                            }.bind(this)
+                        })
+                    });
+
+                    this.getView().addDependent(this._oMaterialDialog);
+                }
+
+                this._oMaterialDialog.open();
             },
 
             onRelaseOrder: async function (oEvent) {

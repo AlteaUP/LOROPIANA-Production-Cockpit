@@ -112,6 +112,10 @@
       "ZZ1_ABILITA_AVANZA_CDS": {
         "kind": "odata-v2",
         "model": "srv/external/ZZ1_ABILITA_AVANZA_CDS"
+      },
+      "ZMFG_SD_PRINT_COMM_H": {
+        "kind": "odata",
+        "model": "srv/external/ZMFG_SD_PRINT_COMM_H"
       }
     }
   },

@@ -23,6 +23,14 @@ type ReplacementRecord : {
     potxt          : String(40)
 }
 
+type StampaRecord : {
+    id             : String;
+    cprodOrd       : String;
+    plant          : String;
+    rtype          : String;
+    uname          : String;
+}
+
 type MaterialCreateDocument : {
     Material        : String not null;
     Plant           : String;

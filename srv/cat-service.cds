@@ -410,13 +410,18 @@ service CatalogService {
 
     action DoKitting (Record: many TYPES.OrdersKittingRecord) returns String;
 
-    action GetOrderDetails(oidOrdine: String) returns LargeString;
+    action GetOrderDetails(oidOrdine: String, masterOrder: String) returns LargeString;
 
     action GetMaterialDetails(oidOrdine: TYPES.ConfODPData) returns LargeString;
 
     action GetOrdersList(MasterOrderList: array of String) returns LargeString;
 
     action GetBatchList(Payload: BatchTypePayload) returns array of BatchTypeReturn;
+
+    action Stampa (Record: many TYPES.StampaRecord) returns String;
+
+    ///
+    function getUserName() returns String;
 
 
 }

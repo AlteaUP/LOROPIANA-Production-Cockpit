@@ -30,6 +30,8 @@ module.exports = cds.service.impl(async function (srv) {
     const ZZ1_MFP_ASSIGNMENT_CDS = await cds.connect.to("ZZ1_MFP_ASSIGNMENT_CDS");
     const ZZ1_STORAGE_LOCATION_CDS = await cds.connect.to("ZZ1_STORAGE_LOCATION_CDS");
     const ZMF_IMD_MATERIAL_DESC_CDS = await cds.connect.to("ZMF_IMD_MATERIAL_DESC_CDS");
+    ////
+    const stampa = await cds.connect.to("ZMFG_SD_PRINT_COMM_H");
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -1160,6 +1162,40 @@ module.exports = cds.service.impl(async function (srv) {
         }
     });
 
+    this.on("getUserName", async (req) => {
+        return req.user?.id === "anonymous"
+            ? ""
+            : req.user.id;
+    });
+
+    this.on("Stampa", async (req) => {
+        console.log("Stampa Action")
+
+        const Records = req.data.Record;
+
+        var payload = {
+            "id": "01", "to_print": Records
+        }
+
+        console.log("PAYLOAD " + JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+            let callStampa = await stampa.tx(req).post("/printcommh", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callStampa))
+
+            return callStampa
+
+        } catch (error) {
+
+            console.log("ERRORE " + error)
+
+            return error
+        }
+    });
+
     this.on("CreateMaterialDocument", async (req) => {
         console.log("Chiamata ACTION CreateMaterialDocument")
 
@@ -1351,6 +1387,7 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("GetOrderDetails Action")
 
         const { oidOrdine } = req.data;
+        const { masterOrder } = req.data;
         var result
 
         const endpoint =
@@ -1395,6 +1432,7 @@ module.exports = cds.service.impl(async function (srv) {
                 taglia: result.taglia,
                 numeroPezzi: result.numeroPezzi,
                 tessuto: result.tessuto,
+                masterOrdine: masterOrder,
                 //dataConsegnaBorgosesia: "",
                 to_MFG_ROL_ATTRIBUTES: (result.attributi || []).map(item => ({
                     SAP_UUID: cds.utils.uuid(),

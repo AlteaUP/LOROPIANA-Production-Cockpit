@@ -67,7 +67,8 @@
                                     </FlexBox>
                                 </table:Column>
                             </macros:columns>
-                            <macros:actions>                                
+                            <macros:actions>
+                                <table:Action id="stampaID" key="stampaAction" text="Stampa" press=".onStampa" placement="After" requiresSelection="true"/>                                
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="technicalCompleteOrderID" key="technicalCompleteOrderAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="closeOrderID" key="closeOrderAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>
