@@ -31,6 +31,12 @@ type StampaRecord : {
     uname          : String;
 }
 
+type releaseRecord : {
+    id             : String;
+    combined_order : String;
+    werks          : String;
+}
+
 type MaterialCreateDocument : {
     Material        : String not null;
     Plant           : String;

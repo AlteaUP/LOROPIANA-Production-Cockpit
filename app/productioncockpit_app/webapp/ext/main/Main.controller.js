@@ -913,7 +913,7 @@ sap.ui.define(
                                         cprodOrd: obj.CombinedOrder,
                                         plant: obj.ProductionPlant,
                                         rtype: sScelta,
-                                        uname: sUserName
+                                        uname: "VITALEF"
                                     };
 
                                     dataToSend.push(dataObjectToSend);
@@ -981,8 +981,21 @@ sap.ui.define(
             onRelaseOrder: async function (oEvent) {
                 var dataProductionOrder = await oController.getProductionOrder()
                 var tableCombined = oController.byId("TableCombined")
-                const oBinding = tableCombined.getRowBinding();
-                //alert(JSON.stringify(dataProductionOrder))
+                var oSelectedContext = tableCombined.getSelectedContexts();
+                this.dataToSend = [];
+                //
+                for (var i = 0; i < oSelectedContext.length; i++) {
+                    const obj = oSelectedContext[i].getObject();
+                    const dataObjectToSend = {
+                        id: "001",
+                        combined_order: obj.CombinedOrder,
+                        werks: obj.ProductionPlant,
+                        rtype: sScelta,
+                        uname: sUserName
+                    };
+
+                    dataToSend.push(dataObjectToSend);
+                }
 
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
@@ -992,40 +1005,69 @@ sap.ui.define(
                 oBindingContext.setParameter("OrderID",
                     dataProductionOrder//'1234567'
                 );
-
                 oBindingContext.execute().then((oResult) => {
                     var oContext = oBindingContext.getBoundContext();
 
                     var message = ""
-                    var messageArray = oContext.getObject().value.split("|")
-                    if (messageArray.length === 0) {
-                        message = oContext.getObject().value
-                        oController.openDialogMessageText(message, "E");
-                    } else {
-                        if (oContext.getObject().value.indexOf("Error") > -1) {
-                            sap.m.MessageBox.error(
-                                oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
-                                messageArray.join("\n"),
-                                {
-                                    title: oController.getResourceBundle().getText("errors")
-                                }
-                            );
+                    //var messageArray = oContext.getObject().value.split("|")
+                    var oBusyDialog = new sap.m.BusyDialog();
+                    oBusyDialog.open();
+                    const oModel = oController.getView().getModel();
+                    var oBindingContext = oModel.bindContext("/actionRelease(...)");
+
+                    oBindingContext.setParameter("Record",
+                        this.dataToSend
+                    );
+                    oBindingContext.execute().then((oResult) => {
+                        var oContext = oBindingContext.getBoundContext();
+
+                        var message = ""
+                        //var value = oContext.getObject().value
+                        var v = oContext.getObject().value;
+                        var s = (typeof v === "string") ? v : JSON.stringify(v ?? "");
+                        //oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
+                        if (/* oContext.getObject().value.indexOf("Error") > -1 */s.includes("Error")) {
+                            oController.openDialogMessageText(oContext.getObject().value, "E");
                         } else {
-                            sap.m.MessageBox.success(
-                                messageArray.join("\n"),
-                                {
-                                    title: oController.getResourceBundle().getText("success")
-                                }
-                            );
+                            //oController.openDialogMessageText(oContext.getObject().value, "S");
+                            oController.openDialogMessageText(oController.getResourceBundle().getText("operationCompletedSuccefully"), "S");
                         }
-                    }
-                    //refresh tabella Combined
-                    if (tableCombined && tableCombined.getMDCTable().clearSelection) {
-                        tableCombined.getMDCTable().clearSelection();
-                    }
-                    sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
-                    //tableCombined.getBinding("rows").refresh()
-                    oBusyDialog.close();
+
+                        if (tableCombined && tableCombined.getMDCTable().clearSelection) {
+                            tableCombined.getMDCTable().clearSelection();
+                        }
+                        sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
+                        //tableCombined.getBinding("rows").refresh()
+                        oBusyDialog.close();
+                    }).catch((oError) => {
+                        oBusyDialog.close();
+                        if (oError.error !== undefined && oError.error !== null) {
+                            oController.openDialogMessageText(oError.error.message, "E");
+                        } else {
+                            oController.openDialogMessageText(oError, "E");
+                        }
+                    });
+                    /*   if (messageArray.length === 0) {
+                          message = oContext.getObject().value
+                          oController.openDialogMessageText(message, "E");
+                      } else {
+                          if (oContext.getObject().value.indexOf("Error") > -1) {
+                              sap.m.MessageBox.error(
+                                  oController.getResourceBundle().getText("followingErrorsFound") + "\n\n" +
+                                  messageArray.join("\n"),
+                                  {
+                                      title: oController.getResourceBundle().getText("errors")
+                                  }
+                              );
+                          } else {
+                              sap.m.MessageBox.success(
+                                  messageArray.join("\n"),
+                                  {
+                                      title: oController.getResourceBundle().getText("success")
+                                  }
+                              );
+                          }
+                      } */
                 }).catch((oError) => {
                     oBusyDialog.close();
                     if (oError.error !== undefined && oError.error !== null) {

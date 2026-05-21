@@ -32,6 +32,7 @@ module.exports = cds.service.impl(async function (srv) {
     const ZMF_IMD_MATERIAL_DESC_CDS = await cds.connect.to("ZMF_IMD_MATERIAL_DESC_CDS");
     ////
     const stampa = await cds.connect.to("ZMFG_SD_PRINT_COMM_H");
+    const releasedOrder = await cds.connect.to("zmfg_sb_released_corders_h");
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -1167,7 +1168,8 @@ module.exports = cds.service.impl(async function (srv) {
              ? ""
              : req.user.id; */
         const user = req.user || {};
-
+        return user
+/* 
         const sUserName =
             user.attr?.logonName ||
             user.attr?.user_name ||
@@ -1175,7 +1177,7 @@ module.exports = cds.service.impl(async function (srv) {
             user.id ||
             "";
 
-        return user.id === "anonymous" ? "" : sUserName;
+        return user.id === "anonymous" ? "" : sUserName; */
     });
 
     this.on("Stampa", async (req) => {
@@ -1206,6 +1208,36 @@ module.exports = cds.service.impl(async function (srv) {
         }
     });
 
+    this.on("actionRelease", async (req) => {
+        console.log("Release Action")
+
+        const Records = req.data.Record;
+
+        var payload = {
+            "id": "001", "to_ril_cord": Records
+        }
+
+        console.log("PAYLOAD " + JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+
+            let callActionRelease = await releasedOrder.tx(req).post("/CORDH", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callActionRelease))
+
+            return callActionRelease
+
+        } catch (error) {
+
+            console.log("ERRORE " + error.message)
+
+            return error.message
+        }
+
+    });
+    
     this.on("CreateMaterialDocument", async (req) => {
         console.log("Chiamata ACTION CreateMaterialDocument")
 

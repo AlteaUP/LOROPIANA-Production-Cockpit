@@ -420,6 +420,8 @@ service CatalogService {
 
     action Stampa (Record: many TYPES.StampaRecord) returns String;
 
+    action actionRelease (Record: many TYPES.releaseRecord) returns String;
+
     ///
     function getUserName() returns String;
 

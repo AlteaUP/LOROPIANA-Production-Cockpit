@@ -398,6 +398,26 @@
           }
         }
       },
+      "zmfg_sb_released_corders_h": {
+        "kind": "odata-v2",
+        "model": "srv/external/zmfg_sb_released_corders_h",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_released_corders_h/srvd/sap/zmfg_sd_released_corders_h/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_released_corders_h/srvd/sap/zmfg_sd_released_corders_h/0001"
+          }
+        }
+      },
       "ZMFG_SD_PRINT_COMM_H": {
         "kind": "odata-v2",
         "model": "srv/external/ZMFG_SD_PRINT_COMM_H",
