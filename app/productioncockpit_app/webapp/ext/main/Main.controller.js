@@ -983,15 +983,13 @@ sap.ui.define(
                 var tableCombined = oController.byId("TableCombined")
                 var oSelectedContext = tableCombined.getSelectedContexts();
                 this.dataToSend = [];
-                //
+                //payload per actionRelease
                 for (var i = 0; i < oSelectedContext.length; i++) {
                     const obj = oSelectedContext[i].getObject();
                     const dataObjectToSend = {
                         id: "001",
                         combined_order: obj.CombinedOrder,
                         werks: obj.ProductionPlant,
-                        rtype: sScelta,
-                        uname: sUserName
                     };
 
                     dataToSend.push(dataObjectToSend);

@@ -76,11 +76,155 @@ module.exports = cds.service.impl(async function (srv) {
     });
 
     this.on('READ', "ZC_RFM_WORKCENTERSUPPLIER", async (req) => {
-        req.query.SELECT.count = false
-        var data = await workCenterMatchCode.tx(req).run(req.query);
-        return data.value;
+        //req.query.SELECT.count = false
+        //delete req.query.SELECT.limit
+        /*   req.query.SELECT.count = false;
+  
+          console.log('SEARCH:', JSON.stringify(req.query.SELECT.search));
+          console.log('WHERE:', JSON.stringify(req.query.SELECT.where));
+          console.log('LIMIT:', JSON.stringify(req.query.SELECT.limit));
+  
+          const data = await workCenterMatchCode.tx(req).run(req.query);
+          console.log('RESULTS:', data.value?.map(x => x.SupplierName));
+          return data.value ?? data; */
+        req.query.SELECT.count = false;
+
+        const search = req.query.SELECT.search?.[0]?.val;
+        const limit = req.query.SELECT.limit?.rows?.val ?? 10;
+
+        if (search) {
+            delete req.query.SELECT.search;
+
+            // aumenta solo per la suggest, non infinito
+            req.query.SELECT.limit = {
+                rows: { val: 500 }
+            };
+
+            const data = await workCenterMatchCode.tx(req).run(req.query);
+            const rows = data.value ?? data;
+
+            return rows
+                .filter(r =>
+                    r.SupplierName?.toLowerCase().includes(search.toLowerCase())
+                )
+                .slice(0, limit);
+        }
+
+        const data = await workCenterMatchCode.tx(req).run(req.query);
+        return data.value ?? data;
         //const result = await workCenterMatchCode.run(req.query);
         //return result; 
+    });
+
+    //matchcode anno - collezione - tema - stagione
+    this.on("*", "ZZ1_C_MASTERPRODORDER_year", async (req) => {
+        delete req.query.SELECT.limit;
+        const result = await combProdOrd.run(req.query);
+        const unique = [...new Set(
+            result
+                .map(r => r.ProductSeasonYear)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique.map(v => ({ ProductSeasonYear: v }));
+    });
+    this.on("*", "ZZ1_C_MASTERPRODORDER_collection", async (req) => {
+        delete req.query.SELECT.limit;
+        const result = await combProdOrd.run(req.query);
+        const unique = [...new Set(
+            result
+                .map(r => r.ProductCollection)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique.map(v => ({ ProductCollection: v }));
+    });
+    this.on("*", "ZZ1_C_MASTERPRODORDER_Season", async (req) => {
+        delete req.query.SELECT.limit;
+        const result = await combProdOrd.run(req.query);
+        const unique = [...new Set(
+            result
+                .map(r => r.ProductSeason)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique.map(v => ({ ProductSeason: v }));
+    });
+    this.on("*", "ZZ1_C_MASTERPRODORDER_Theme", async (req) => {
+        delete req.query.SELECT.limit;
+        const result = await combProdOrd.run(req.query);
+        const unique = [...new Set(
+            result
+                .map(r => r.ProductTheme)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique.map(v => ({ ProductTheme: v }));
+    });
+
+    function nextPrefix(s) {
+        if (!s) return s;
+
+        const chars = s.split("");
+        const last = chars.length - 1;
+
+        chars[last] = String.fromCharCode(
+            chars[last].charCodeAt(0) + 1
+        );
+
+        return chars.join("");
+    };
+
+    this.on("*", "ZMF_IMD_MATERIAL_DESC_matnr", async (req) => {
+        req.query.SELECT.count = false;
+
+        const search = req.query.SELECT.search?.[0]?.val;
+
+        const originalLimit =
+            req.query.SELECT.limit?.rows?.val ?? 10;
+
+        const fetchLimit = 500;
+
+        let q = SELECT.from("ZMF_IMD_MATERIAL_DESC")
+            .columns("matnr");
+
+        // mantiene eventuali filtri FE
+        if (req.query.SELECT.where) {
+            q.where(req.query.SELECT.where);
+        }
+
+        if (search) {
+
+            const s = search.toUpperCase();
+            const next = nextPrefix(s);
+
+            q.where([
+                { ref: ["matnr"] }, ">=", { val: s },
+                "and",
+                { ref: ["matnr"] }, "<", { val: next }
+            ]);
+
+            q.limit(fetchLimit);
+
+        } else {
+
+            q.limit(originalLimit);
+        }
+
+        const result =
+            await ZMF_IMD_MATERIAL_DESC_CDS.run(q);
+
+        const rows = result.value ?? result ?? [];
+
+        const unique = [...new Set(
+            rows
+                .map(r => r.matnr)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique
+            .slice(0, originalLimit)
+            .map(v => ({ matnr: v }));
     });
 
     this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
@@ -689,6 +833,28 @@ module.exports = cds.service.impl(async function (srv) {
                     finalData[i].flagPurchaseOrder = ''
                 }
             }
+
+            //aggiungo flag IntermediatePhaseIndicator 
+            let maxOp = -Infinity;
+            let maxIdx = -1;
+
+            finalData.forEach((row, idx) => {
+                row.IntermediatePhaseIndicator = "";
+
+                if (row.OperationIsDeleted === "X") return;
+                row.IntermediatePhaseIndicator = "X";
+
+                const opNum = parseInt(row.ManufacturingOrderOperation, 10);
+                if (Number.isNaN(opNum)) return;
+
+                if (opNum > maxOp) {
+                    if (maxIdx !== -1) finalData[maxIdx].IntermediatePhaseIndicator = "X";
+                    maxOp = opNum;
+                    maxIdx = idx;
+                }
+            });
+            if (maxIdx !== -1) finalData[maxIdx].IntermediatePhaseIndicator = "";
+
             return finalData;
         } else {
             console.log("risultati MASTER OPER: ", data.length)
@@ -836,6 +1002,33 @@ module.exports = cds.service.impl(async function (srv) {
                 // modifica DL - 22/01/2026 - recupero note e reason - FINE
             };
             //MDB - gestione grafico percentuale - FINE
+             finalData = finalData.filter(item => item.BOMItemCategory === "L");
+
+            //se BOMItemDescription è valorozzato lo gestisco
+            for (const row of data) {
+                if (!row.BOMItemDescription || typeof row.BOMItemDescription !== 'string') continue
+
+                const parts = row.BOMItemDescription.split('-')
+
+                // se non c'è almeno il codice iniziale, salto
+                if (parts.length < 2) continue
+
+                const reason = parts[0]              // Z0..
+                const resto = parts.slice(1).join('-') // MATERIAL-NOTE
+
+                // leggo la entity ZZ1_MFG filtrando per reason = codice
+                const result = await reasonSost.run(
+                    SELECT.one.from('ZZ1_MFG_REASON_SOST').where({ Reason: reason })
+                )
+
+                // se non trovo nulla o note vuota, lascio BOM invariato
+                if (!result || !result.Note) continue
+
+                // sostituisco il codice iniziale con la note
+                row.BOMItemDescription = `${result.Note}-${resto}`
+                // risultato: "MOTIVO-MATERIAL-NOTE"
+            }
+
             return finalData;
         } else {
             console.log("risultati COMBINED COMP: ", data.length)
@@ -1169,15 +1362,15 @@ module.exports = cds.service.impl(async function (srv) {
              : req.user.id; */
         const user = req.user || {};
         return user
-/* 
-        const sUserName =
-            user.attr?.logonName ||
-            user.attr?.user_name ||
-            user.attr?.email ||
-            user.id ||
-            "";
-
-        return user.id === "anonymous" ? "" : sUserName; */
+        /* 
+                const sUserName =
+                    user.attr?.logonName ||
+                    user.attr?.user_name ||
+                    user.attr?.email ||
+                    user.id ||
+                    "";
+        
+                return user.id === "anonymous" ? "" : sUserName; */
     });
 
     this.on("Stampa", async (req) => {
@@ -1237,7 +1430,7 @@ module.exports = cds.service.impl(async function (srv) {
         }
 
     });
-    
+
     this.on("CreateMaterialDocument", async (req) => {
         console.log("Chiamata ACTION CreateMaterialDocument")
 

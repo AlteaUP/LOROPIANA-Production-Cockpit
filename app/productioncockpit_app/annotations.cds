@@ -271,6 +271,98 @@ annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
 };
 
 annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    ProductSeasonYear @(
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'ZZ1_C_MASTERPRODORDER_year',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ProductSeasonYear,
+                    ValueListProperty: 'ProductSeasonYear',
+                }
+            ],
+            Label         : '{i18n>ProductSeasonYear}',
+        },
+        Common.ValueListWithFixedValues: false
+    )
+};
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    ProductSeason @(
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'ZZ1_C_MASTERPRODORDER_Season',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ProductSeason,
+                    ValueListProperty: 'ProductSeason',
+                }
+            ],
+            Label         : '{i18n>ProductSeason}',
+        },
+        Common.ValueListWithFixedValues: false
+    )
+};
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    ProductCollection @(
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'ZZ1_C_MASTERPRODORDER_collection',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ProductCollection,
+                    ValueListProperty: 'ProductCollection',
+                }
+            ],
+            Label         : '{i18n>ProductCollection}',
+        },
+        Common.ValueListWithFixedValues: false
+    )
+};
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    ProductTheme @(
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'ZZ1_C_MASTERPRODORDER_Theme',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ProductTheme,
+                    ValueListProperty: 'ProductTheme',
+                }
+            ],
+            Label         : '{i18n>ProductTheme}',
+        },
+        Common.ValueListWithFixedValues: false
+    )
+};
+
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
+    CrossPlantConfigurableProduct @(
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'ZMF_IMD_MATERIAL_DESC_matnr',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: CrossPlantConfigurableProduct,
+                    ValueListProperty: 'matnr',
+                }
+            ],
+            Label         : '{i18n>CrossPlantConfigurableProduct}',
+        },
+        Common.ValueListWithFixedValues: false
+    )
+};
+
+annotate service.ZMF_IMD_MATERIAL_DESC_matnr with {
+    matnr @Common.Label: '{i18n>CrossPlantConfigurableProduct}';
+};
+
+
+annotate CatalogService.ZZ1_C_MASTERPRODORDER with {
     MRPController @(
         Common.ValueList               : {
             $Type         : 'Common.ValueListType',
@@ -1106,6 +1198,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
         Common.ValueList               : {
             $Type         : 'Common.ValueListType',
             CollectionPath: 'ZC_RFM_WORKCENTERSUPPLIER',
+            SearchSupported: true,
             Parameters    : [
                 {
                     $Type            : 'Common.ValueListParameterInOut',
@@ -1122,6 +1215,9 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
         },
         Common.ValueListWithFixedValues: false,
     )
+};
+annotate service.ZC_RFM_WORKCENTERSUPPLIER with @cds.search: {
+  SupplierName
 };
 
 annotate service.ZZ1_C_MASTERPRODORDER with {

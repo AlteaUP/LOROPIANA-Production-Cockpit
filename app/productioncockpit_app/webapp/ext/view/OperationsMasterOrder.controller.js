@@ -35,16 +35,16 @@ sap.ui.define(
 
                     oListBinding.requestContexts().then(function (aContexts) {
                         if (aContexts.length > 0) {
-                            var oData = aContexts[0].getObject(); 
-                            var bValore = oData.Enabled; 
+                            var oData = aContexts[0].getObject();
+                            var bValore = oData.Enabled;
 
                             oController._bAbilitaAvanza = bValore;
 
                             console.log("Valore boolean:", oController._bAbilitaAvanza);
                         }
                     }).catch(function (err) {
-                            console.error("Errore nella chiamata OData:", err);
-                        });
+                        console.error("Errore nella chiamata OData:", err);
+                    });
 
                     var aSelected = oEvent.getParameters().selectedContext;
 
@@ -603,11 +603,51 @@ sap.ui.define(
                                     selectedOperationsMasterArray.push(selectedOperationsMasterObject)
                                 }
                             }
+                            //se nell array ci sono record uguali raggruppo e sommo quantità
+                            // Campi quantità da sommare
+                            const qtyFields = [
+                                "MfgOrderPlannedTotalQty",
+                                "MfgOrderConfirmedYieldQty",
+                                "MfgOrderConfirmedScrapQty",
+                                "MfgOrderConfirmedReworkQty",
+                                "QtyToConfirm"
+                            ];
+
+                            // Raggruppa per Material
+                            const groupedByMaterial = selectedOperationsMasterArray.reduce((acc, curr) => {
+
+                                const material = curr.Material;
+
+                                // Se non esiste ancora, crea clone oggetto
+                                if (!acc[material]) {
+                                    acc[material] = { ...curr };
+
+                                    // Converte i campi quantità in numero
+                                    qtyFields.forEach(field => {
+                                        acc[material][field] = Number(acc[material][field]) || 0;
+                                    });
+
+                                } else {
+
+                                    // Somma i campi quantità
+                                    qtyFields.forEach(field => {
+                                        acc[material][field] += Number(curr[field]) || 0;
+                                    });
+                                }
+
+                                return acc;
+
+                            }, {});
+
+                            // Array finale raggruppato
+                            const resultArray = Object.values(groupedByMaterial);
+
+                            console.log(resultArray);
                             var oTable = oController.byId("OperationsMovePhaseTableId");
 
                             var oModel = new JSONModel();
                             oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
-                            oModel.setData({ SelectedOperationsMovePhase: selectedOperationsMasterArray })
+                            oModel.setData({ SelectedOperationsMovePhase: resultArray })
                             oTable.setModel(oModel, "local");
                             console.log("table model", this.byId("OperationsMovePhaseTableId").getModel("local"));
                             console.log("view model", this.getView().getModel("local"));

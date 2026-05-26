@@ -46,8 +46,8 @@
     "watch-productioncockpit_app": "cds watch --open productioncockpit_app/webapp/index.html?sap-ui-xx-viewCache=false",
     "cds-bind-services-srv": "cds bind -2 zproduction_cockpit-auth-srv,zproduction_cockpit-destination,zproduction_cockpit-connectivity",
     "cds-bind-srv": "cds bind --to-app-services zproduction_cockpit-html5-srv",
-    "cds-srv-hybrid-run": "cds watch --profile hybrid",
-    "approuter-hybrid-run": "npm run start-local --prefix app/"
+    "approuter-hybrid-run": "npm run start-local --prefix app/",
+    "cds-srv-hybrid-run": "cds watch --profile hybrid"
   },
   "cds": {
     "requires": {

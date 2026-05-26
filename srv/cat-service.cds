@@ -299,6 +299,23 @@ service CatalogService {
         null as RowCriticalityValue : String
     };
 
+    //entity match code anno - stagione - tema - collezione (usiamo in copia la ZZ1_C_MASTERPRODORDER)
+    entity ZZ1_C_MASTERPRODORDER_year as projection on ZZ1_C_MASTERPRODORDER{
+        @Common.Label: '{i18n>ProductSeasonYear}'
+        key ProductSeasonYear
+    };
+     entity ZZ1_C_MASTERPRODORDER_collection as projection on ZZ1_C_MASTERPRODORDER{
+        @Common.Label: '{i18n>ProductCollection}'
+        key ProductCollection
+    };
+     entity ZZ1_C_MASTERPRODORDER_Season as projection on ZZ1_C_MASTERPRODORDER{
+        @Common.Label: '{i18n>ProductSeason}'
+        key ProductSeason
+    };
+     entity ZZ1_C_MASTERPRODORDER_Theme as projection on ZZ1_C_MASTERPRODORDER{
+        @Common.Label: '{i18n>ProductTheme}'
+        key ProductTheme
+    };
     @Capabilities.DeleteRestrictions.Deletable: false
     @Capabilities.SearchRestrictions.Searchable: false
     entity ZZ1_C_COMBINEDPRODORDER as projection on mainService.ZZ1_C_COMBINEDPRODORDER{
@@ -389,6 +406,11 @@ service CatalogService {
     entity ZZMFG_TIPO_ORDINE as projection on zmfg_tipo_ordine_f4.ZZMFG_TIPO_ORDINE;
 
     entity ZMF_IMD_MATERIAL_DESC as projection on ZMF_IMD_MATERIAL_DESC_CDS.ZMF_IMD_MATERIAL_DESC;
+
+    //match code prodotto finito
+    entity ZMF_IMD_MATERIAL_DESC_matnr as projection on ZMF_IMD_MATERIAL_DESC_CDS.ZMF_IMD_MATERIAL_DESC{
+        key matnr
+    };
 
     entity ZZ1_ABILITA_AVANZA as projection on ZZ1_ABILITA_AVANZA_CDS.ZZ1_ABILITA_AVANZA;
 
