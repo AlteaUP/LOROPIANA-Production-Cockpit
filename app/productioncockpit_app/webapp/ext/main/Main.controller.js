@@ -928,7 +928,60 @@ sap.ui.define(
                                 );
                                 if (dataToSend.length > 0) {
                                     oBindingContext.execute().then((oResult) => {
-                                        var oContext = oBindingContext.getBoundContext();
+                                        //download pdf
+                                        const oContext = oBindingContext.getBoundContext().getObject();
+
+                                        const aPdf = oContext.value.to_print || [];
+
+                                        let iDownloaded = 0;
+
+                                        aPdf.forEach((oPdf, iIndex) => {
+
+                                            const sBase64 = oPdf.pdf_return;
+
+                                            if (!sBase64) {
+                                                return;
+                                            }
+
+                                            const byteCharacters = atob(
+                                                sBase64.replace(/^data:application\/pdf;base64,/, "")
+                                            );
+
+                                            const byteNumbers = new Array(byteCharacters.length);
+
+                                            for (let i = 0; i < byteCharacters.length; i++) {
+                                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                            }
+
+                                            const byteArray = new Uint8Array(byteNumbers);
+
+                                            const blob = new Blob(
+                                                [byteArray],
+                                                { type: "application/octet-stream" }
+                                            );
+
+                                            const url = URL.createObjectURL(blob);
+
+                                            const link = document.createElement("a");
+
+                                            link.href = url;
+
+                                            link.download = `documento_${iIndex + 1}.pdf`;
+
+                                            document.body.appendChild(link);
+
+                                            link.click();
+
+                                            document.body.removeChild(link);
+
+                                            URL.revokeObjectURL(url);
+
+                                            iDownloaded++;
+                                        });
+
+                                        sap.m.MessageToast.show(
+                                            `${iDownloaded} PDF scaricati con successo`
+                                        ); 
                                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                                         /*   var v = oContext.getObject().value;
                                           var s = (typeof v === "string") ? v : JSON.stringify(v ?? ""); */
@@ -995,8 +1048,8 @@ sap.ui.define(
                     this.dataToSend.push(dataObjectToSend);
                 }
 
-                var oBusyDialog = new sap.m.BusyDialog();
-                oBusyDialog.open();
+                this.oBusyDialog = new sap.m.BusyDialog();
+                this.oBusyDialog.open();
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/ReleaseOrder(...)");
 
@@ -1004,12 +1057,8 @@ sap.ui.define(
                     dataProductionOrder//'1234567'
                 );
                 oBindingContext.execute().then((oResult) => {
-                    var oContext = oBindingContext.getBoundContext();
-
-                    var message = ""
                     //var messageArray = oContext.getObject().value.split("|")
                     var oBusyDialog = new sap.m.BusyDialog();
-                    oBusyDialog.open();
                     const oModel = oController.getView().getModel();
                     var oBindingContext = oModel.bindContext("/actionRelease(...)");
 
@@ -1036,9 +1085,9 @@ sap.ui.define(
                         }
                         sap.ui.getCore().byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content-innerTable").getBinding("rows").refresh()
                         //tableCombined.getBinding("rows").refresh()
-                        oBusyDialog.close();
+                        this.oBusyDialog.close();
                     }).catch((oError) => {
-                        oBusyDialog.close();
+                        this.oBusyDialog.close();
                         if (oError.error !== undefined && oError.error !== null) {
                             oController.openDialogMessageText(oError.error.message, "E");
                         } else {
