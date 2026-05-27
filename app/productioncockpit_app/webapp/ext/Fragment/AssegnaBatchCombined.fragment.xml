@@ -105,6 +105,7 @@
                     forceSelection="true"
                     change=".onReasonChange"
                     width="100%"
+                    required="true"
                     items="{
                         path: 'reasonServiceCombinedAssegna>/ReasonSet',
                         sorter: { path: 'Reason' }
@@ -114,14 +115,15 @@
                 </Select>      
                  <VBox width="100%">
                <TextArea
-                 id="txtArea"
+                 id="txtAreaNoteIdCombinedAssegna"
                  value="{local>Note}"
                  width="100%"
                  rows="2"
                  growing="true"
                  growingMaxLines="8"
                  maxLength="{local>maxNoteLength}"
-                 liveChange=".onLiveChangeNote" />
+                 liveChange=".onLiveChangeNote"
+                 required="true" />
                  <HBox width="100%" justifyContent="Center">
                    <Text text="Caratteri rimanenti: {local>remainingChars}" class="smallText" />
                 </HBox>

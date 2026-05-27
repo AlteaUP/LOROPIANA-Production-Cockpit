@@ -97,6 +97,7 @@
                     forceSelection="true"
                     change=".onReasonChange"
                     width="100%"
+                    required="true"
                     items="{
                         path: 'reasonServiceCombined>/ReasonSet',
                         sorter: { path: 'Reason' }
@@ -104,15 +105,17 @@
                     <core:Item id="_IDGenItem6" key="{reasonServiceCombined>SAP_UUID}" text="{reasonServiceCombined>Reason} - {reasonServiceCombined>Note}" />
                 </Select>
               <VBox width="100%">
+              <Label
+                 required="true"/>
                <TextArea
-                 id="txtArea"
+                 id="txtAreaNoteIdCombined"
                  value="{Note}"
                  width="100%"
                  rows="2"
                  growing="true"
                  growingMaxLines="8"
                  maxLength="{maxNoteLength}"
-                 liveChange=".onLiveChangeNote" />
+                 liveChange=".onLiveChangeNote"/>
                  <HBox width="100%" justifyContent="Center">
                    <Text text="Caratteri rimanenti: {remainingChars}" class="smallText" />
                 </HBox>

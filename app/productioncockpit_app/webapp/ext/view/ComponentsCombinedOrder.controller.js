@@ -369,7 +369,18 @@ sap.ui.define(
                     selectedComponentsCombinedObject.ReasonKey =
                         aReasons.length > 0 ? aReasons[0].SAP_UUID : "";
 
-                    const oTextArea = this.byId("txtArea");
+                    const oTextArea = this.byId("txtAreaNoteIdCombined");
+                    //rendo obbligatori note - reason 
+                /*     const reason = oController.byId("reasonSelectIdCombined");
+                    const note = oController.byId("txtAreaNoteIdCombined"); // id DatePicker
+
+                    if (reason && reason.setRequired) {
+                        reason.setRequired(true);
+                    }
+
+                    if (note && note.setRequired) {
+                        note.setRequired(true);
+                    } */
                     for (var i = 0; i < oController.byId("TableCombinedComponents").getSelectedContexts().length; i++) {
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
                         //aggiorno textArea
@@ -579,6 +590,23 @@ sap.ui.define(
                 var table = this.byId("ReplacementCompCombinedTableId")
                     .getModel()
                     .getProperty("/SelectedComponentsCombined") || [];
+
+                //blocco se note è vuoto
+                const note = this.byId("txtAreaNoteIdCombined");
+
+                const sNote = (note.getValue() || "").trim();
+
+                let bValid = true;
+    
+                if (!sNote) {
+                    note.setValueState("Error");
+                    bValid = false;
+                } else {
+                    note.setValueState("None");
+                }
+                if (!bValid) {
+                    return; // blocca
+                }
 
                 //check su newMaterial -> se sono in sost
                 if (oController.buttonSelected === 'replacement') {

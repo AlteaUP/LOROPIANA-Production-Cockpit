@@ -1,4 +1,4 @@
-/* checksum : ad5a217bc3c096a6876c07164fae1055 */
+/* checksum : 6b4abf8408fd05bfb10d202c0aaf4820 */
 @cds.external : true
 @Aggregation.ApplySupported.Transformations : [ 'aggregate', 'groupby', 'filter' ]
 @Aggregation.ApplySupported.Rollup : #None
@@ -40,7 +40,8 @@ service zmfg_tipo_ordine_f4 {};
 @cds.external : true
 @cds.persistence.skip : true
 @Common.Label : 'View for order type'
-@Capabilities.SearchRestrictions.Searchable : false
+@Capabilities.SearchRestrictions.Searchable : true
+@Capabilities.SearchRestrictions.UnsupportedExpressions : #phrase
 @Capabilities.InsertRestrictions.Insertable : false
 @Capabilities.DeleteRestrictions.Deletable : false
 @Capabilities.UpdateRestrictions.Updatable : false

@@ -822,7 +822,7 @@ module.exports = cds.service.impl(async function (srv) {
                 // valorizzo stato avanzamento
                 if (finalData[i].SumOpTotalConfirmedYieldQty === "0") {
                     finalData[i].RowCriticality = 1
-                } else if (finalData[i].SumOpTotalConfirmedYieldQty === finalData[i].SumOpPlannedTotalQuantity) {
+                } else if (Number(finalData[i].SumOpTotalConfirmedYieldQty) >= Number(finalData[i].SumOpPlannedTotalQuantity)) {
                     finalData[i].RowCriticality = 3
                 } else {
                     finalData[i].RowCriticality = 2
@@ -862,7 +862,7 @@ module.exports = cds.service.impl(async function (srv) {
                 // valorizzo stato avanzamento
                 if (data[i].SumOpTotalConfirmedYieldQty === "0") {
                     data[i].RowCriticality = 1
-                } else if (data[i].SumOpTotalConfirmedYieldQty >= data[i].SumOpPlannedTotalQuantity) {
+                } else if (Number(data[i].SumOpTotalConfirmedYieldQty) >= Number(data[i].SumOpPlannedTotalQuantity)) {
                     data[i].RowCriticality = 3
                 } else {
                     data[i].RowCriticality = 2
@@ -1002,31 +1002,36 @@ module.exports = cds.service.impl(async function (srv) {
                 // modifica DL - 22/01/2026 - recupero note e reason - FINE
             };
             //MDB - gestione grafico percentuale - FINE
-             finalData = finalData.filter(item => item.BOMItemCategory === "L");
+            finalData = finalData.filter(item => item.BOMItemCategory === "L");
 
-            //se BOMItemDescription è valorozzato lo gestisco
-            for (const row of data) {
+            // se BOMItemDescription è valorizzato lo gestisco
+            for (const row of finalData) {
                 if (!row.BOMItemDescription || typeof row.BOMItemDescription !== 'string') continue
 
-                const parts = row.BOMItemDescription.split('-')
+                // lo gestisco solo se inizia con "-"
+                if (!row.BOMItemDescription.startsWith('-')) {
+                    row.BOMItemDescription = ''
+                    continue
+                }
 
-                // se non c'è almeno il codice iniziale, salto
+                // tolgo solo il primo trattino iniziale
+                const descriptionWithoutInitialDash = row.BOMItemDescription.substring(1)
+
+                const parts = descriptionWithoutInitialDash.split('-')
+
+                // se non c'è almeno reason + note, salto
                 if (parts.length < 2) continue
 
-                const reason = parts[0]              // Z0..
-                const resto = parts.slice(1).join('-') // MATERIAL-NOTE
+                const reason = parts[0]                 // Z001
+                const resto = parts.slice(1).join('-') // NOTE
 
-                // leggo la entity ZZ1_MFG filtrando per reason = codice
                 const result = await reasonSost.run(
                     SELECT.one.from('ZZ1_MFG_REASON_SOST').where({ Reason: reason })
                 )
 
-                // se non trovo nulla o note vuota, lascio BOM invariato
                 if (!result || !result.Note) continue
 
-                // sostituisco il codice iniziale con la note
                 row.BOMItemDescription = `${result.Note}-${resto}`
-                // risultato: "MOTIVO-MATERIAL-NOTE"
             }
 
             return finalData;
@@ -1077,32 +1082,37 @@ module.exports = cds.service.impl(async function (srv) {
 
             data = data.filter(item => item.BOMItemCategory === "L");
 
-            //se BOMItemDescription è valorozzato lo gestisco
+            // se BOMItemDescription è valorizzato lo gestisco
             for (const row of data) {
                 if (!row.BOMItemDescription || typeof row.BOMItemDescription !== 'string') continue
 
-                const parts = row.BOMItemDescription.split('-')
+                // lo gestisco solo se inizia con "-"
+                if (!row.BOMItemDescription.startsWith('-')) {
+                    row.BOMItemDescription = ''
+                    continue
+                }
 
-                // se non c'è almeno il codice iniziale, salto
+                // tolgo solo il primo trattino iniziale
+                const descriptionWithoutInitialDash = row.BOMItemDescription.substring(1)
+
+                const parts = descriptionWithoutInitialDash.split('-')
+
+                // se non c'è almeno reason + note, salto
                 if (parts.length < 2) continue
 
-                const reason = parts[0]              // Z0..
-                const resto = parts.slice(1).join('-') // MATERIAL-NOTE
+                const reason = parts[0]                 // Z001
+                const resto = parts.slice(1).join('-') // NOTE
 
-                // leggo la entity ZZ1_MFG filtrando per reason = codice
                 const result = await reasonSost.run(
                     SELECT.one.from('ZZ1_MFG_REASON_SOST').where({ Reason: reason })
                 )
 
-                // se non trovo nulla o note vuota, lascio BOM invariato
                 if (!result || !result.Note) continue
 
-                // sostituisco il codice iniziale con la note
                 row.BOMItemDescription = `${result.Note}-${resto}`
-                // risultato: "MOTIVO-MATERIAL-NOTE"
             }
 
-            return data;
+            return data
         }
     });
 
@@ -2054,8 +2064,33 @@ module.exports = cds.service.impl(async function (srv) {
       }); */
 
     this.on("READ", "ZZMFG_TIPO_ORDINE", async (req) => {
-        const result = await zmfg_tipo_ordine_f4.run(req.query);
-        return result;
+        /* const result = await zmfg_tipo_ordine_f4.run(req.query);
+        return result; */
+        req.query.SELECT.count = false;
+
+        const search = req.query.SELECT.search?.[0]?.val;
+        const limit = req.query.SELECT.limit?.rows?.val ?? 10;
+
+        if (search) {
+            delete req.query.SELECT.search;
+
+            // aumenta solo per la suggest, non infinito
+            req.query.SELECT.limit = {
+                rows: { val: 500 }
+            };
+
+            const data = await zmfg_tipo_ordine_f4.tx(req).run(req.query);
+            const rows = data.value ?? data;
+
+            return rows
+                .filter(r =>
+                    r.OrderType?.toLowerCase().includes(search.toLowerCase())
+                )
+                .slice(0, limit);
+        }
+
+        const data = await zmfg_tipo_ordine_f4.tx(req).run(req.query);
+        return data.value ?? data;
     });
 
     this.on('READ', "ZC_RFM_MRPCONTROLLER_F4", async request => {
