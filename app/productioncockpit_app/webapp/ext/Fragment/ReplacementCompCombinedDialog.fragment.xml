@@ -88,7 +88,7 @@
                       press=".onBatchViewCombined"/>
                 </HBox>
                 <Input 
-                  value="{ManufacturingOrderOperation}" editable="true"/>
+                  value="{ManufacturingOrderOperation}" editable="{viewModel>/operationEditable}"/>
                 <Input 
                   value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 

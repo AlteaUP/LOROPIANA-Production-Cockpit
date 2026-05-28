@@ -282,7 +282,7 @@ sap.ui.define(
                         dataObjectToSend.charg_new = obj.Batch
                         dataObjectToSend.meins = oRow.BaseUnit
                         dataObjectToSend.menge = Number(oRow.TotalQuantityInEntryUnit)
-                        dataObjectToSend.vornr = oRow.ManufacturingOrderOperation
+                        dataObjectToSend.vornr_old = oRow.ManufacturingOrderOperation
                         dataObjectToSend.plnfl = oRow.ManufacturingOrderSequence
                         dataObjectToSend.note = oRow.Note
                         dataObjectToSend.reason = oRow.Reason
@@ -577,6 +577,16 @@ sap.ui.define(
                     .getModel("local")
                     .getProperty("/SelectedAssegnaBatchCombined") || [];
 
+                //blocco se note è vuoto
+                var bHasEmptyNote = table.some(function (oItem) {
+                    return !oItem.Note || oItem.Note.trim() === "";
+                });
+
+                if (bHasEmptyNote) {
+                    sap.m.MessageToast.show("Non è possibile procedere: completare il campo note");
+                    return;
+                }
+
                 for (var i = 0; i < table.length; i++) {
                     dataObjectToSend = {}
                     dataObjectToSend.id = "001"
@@ -592,7 +602,8 @@ sap.ui.define(
                     dataObjectToSend.charg_new = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
                     dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
-                    dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.vornr_old = oRow.oldOperation
+                    dataObjectToSend.vornr_new = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
                     dataObjectToSend.reason = table[i].Reason
@@ -624,6 +635,7 @@ sap.ui.define(
 
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
+                return
 
                 const oModel = oController.getView().getModel();
                 /*   oBusyDialog.close();

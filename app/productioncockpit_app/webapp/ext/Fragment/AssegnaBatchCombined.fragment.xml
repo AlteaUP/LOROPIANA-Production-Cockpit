@@ -114,6 +114,8 @@
                     <core:Item id="_IDGenItem6" key="{reasonServiceCombinedAssegna>SAP_UUID}" text="{reasonServiceCombinedAssegna>Reason} - {reasonServiceCombinedAssegna>Note}" />
                 </Select>      
                  <VBox width="100%">
+                <Label
+                 required="true"/>
                <TextArea
                  id="txtAreaNoteIdCombinedAssegna"
                  value="{local>Note}"

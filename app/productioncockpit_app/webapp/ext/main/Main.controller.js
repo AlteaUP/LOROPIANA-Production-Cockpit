@@ -677,10 +677,10 @@ sap.ui.define(
                     dataObjectToSend.FshMprodOrd = table[i].FshMprodOrd
                     dataObjectToSend.matnr_new = ""
                     dataObjectToSend.matnr_old = table[i].Material
-                    dataObjectToSend.charg = table[i].Batch
+                    dataObjectToSend.charg_old = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
                     dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
-                    dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.vornr_old = table[i].ManufacturingOrderOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = ""
                     dataObjectToSend.reason = ""
@@ -981,7 +981,7 @@ sap.ui.define(
 
                                         sap.m.MessageToast.show(
                                             `${iDownloaded} PDF scaricati con successo`
-                                        ); 
+                                        );
                                         //sap.ui.getCore().byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content-innerTable").getBinding("rows").refresh()
                                         /*   var v = oContext.getObject().value;
                                           var s = (typeof v === "string") ? v : JSON.stringify(v ?? ""); */
@@ -1003,12 +1003,14 @@ sap.ui.define(
 
                                     }).catch((oError) => {
                                         oBusyDialog.close();
-                                        /*  if (oError.error !== undefined && oError.error !== null) {
-                                             oController.openDialogMessageText(oError.error.message, "E");
-                                         } else {
-                                             oController.openDialogMessageText(oError, "E");
-                                         } */
-                                    });
+                                        console.error("Errore stampa:", oError);
+                                        sap.m.MessageBox.error(
+                                            "Errore durante la stampa del PDF"
+                                        );
+
+                                    }).finally(() => {
+                                        oBusyDialog.close();
+                                    });;
                                 } else {
                                     //MessageToast.show(oController.getResourceBundle().getText("noDataToSend")) 
                                     oController.openDialogMessageText(oController.getResourceBundle().getText("noDataToSend"), "E");

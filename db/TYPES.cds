@@ -11,6 +11,8 @@ type ReplacementRecord : {
     meins          : String;
     menge          : Decimal(9, 3);
     vornr          : String;
+    vornr_new      : String;
+    vornr_old      : String;
     plnfl          : String;
     note           : String;
     reason         : String;

@@ -555,6 +555,11 @@ sap.ui.define(
                                 var oPreviousOperation = aSameSequence[iSelectedIndex - 1];
                                 this.sPreviousSumOpTotalConfirmedYieldQty = oPreviousOperation.SumOpTotalConfirmedYieldQty;
                             }
+
+                            // se il record corrente ha già una quantità valorizzata
+                            if (Number(aSameSequence[iSelectedIndex]?.SumOpTotalConfirmedYieldQty) !== 0) {
+                                this.sPreviousSumOpTotalConfirmedYieldQty = "";
+                            }
                         }
 
                         var dataToSend = {}

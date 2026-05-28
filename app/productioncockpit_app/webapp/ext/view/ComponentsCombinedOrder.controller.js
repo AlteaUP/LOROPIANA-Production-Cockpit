@@ -350,6 +350,8 @@ sap.ui.define(
                             .setProperty("/showMaterialValueHelp", false);
                         oController.getView().getModel("viewModel")
                             .setProperty("/materialEditable", false);
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/operationEditable", true);
                     } else {
                         oController.byId("ReplacementCompCombinedDialog").setTitle(oController.getResourceBundle().getText("replacementComp"))
                         oController.byId("checkboxRecharge_ID").setVisible(true)
@@ -357,6 +359,8 @@ sap.ui.define(
                             .setProperty("/showMaterialValueHelp", true);
                         oController.getView().getModel("viewModel")
                             .setProperty("/materialEditable", true);
+                        oController.getView().getModel("viewModel")
+                            .setProperty("/operationEditable", false);
                     }
 
                     var selectedComponentsCombinedArray = []
@@ -371,16 +375,16 @@ sap.ui.define(
 
                     const oTextArea = this.byId("txtAreaNoteIdCombined");
                     //rendo obbligatori note - reason 
-                /*     const reason = oController.byId("reasonSelectIdCombined");
-                    const note = oController.byId("txtAreaNoteIdCombined"); // id DatePicker
-
-                    if (reason && reason.setRequired) {
-                        reason.setRequired(true);
-                    }
-
-                    if (note && note.setRequired) {
-                        note.setRequired(true);
-                    } */
+                    /*     const reason = oController.byId("reasonSelectIdCombined");
+                        const note = oController.byId("txtAreaNoteIdCombined"); // id DatePicker
+    
+                        if (reason && reason.setRequired) {
+                            reason.setRequired(true);
+                        }
+    
+                        if (note && note.setRequired) {
+                            note.setRequired(true);
+                        } */
                     for (var i = 0; i < oController.byId("TableCombinedComponents").getSelectedContexts().length; i++) {
                         selectedComponentsCombinedObject = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject()
                         //aggiorno textArea
@@ -403,7 +407,10 @@ sap.ui.define(
                             selectedComponentsCombinedObject.visibleCheckboxRecharge = false
                             selectedComponentsCombinedObject.NewMaterial = selectedComponentsCombinedObject.Material
                             selectedComponentsCombinedObject.Batch = ""
+                            //salvo valore operazione -> per vornr_old
+                            selectedComponentsCombinedObject.oldOperation = selectedComponentsCombinedObject.ManufacturingOrderOperation
                         } else {
+                            selectedComponentsCombinedObject.oldOperation = "";
                             var nQty = Number(selectedComponentsCombinedObject.TotalWithdrawnQuantity);
 
                             if (nQty !== 0) {
@@ -592,20 +599,13 @@ sap.ui.define(
                     .getProperty("/SelectedComponentsCombined") || [];
 
                 //blocco se note è vuoto
-                const note = this.byId("txtAreaNoteIdCombined");
+                var bHasEmptyNote = table.some(function (oItem) {
+                    return !oItem.Note || oItem.Note.trim() === "";
+                });
 
-                const sNote = (note.getValue() || "").trim();
-
-                let bValid = true;
-    
-                if (!sNote) {
-                    note.setValueState("Error");
-                    bValid = false;
-                } else {
-                    note.setValueState("None");
-                }
-                if (!bValid) {
-                    return; // blocca
+                if (bHasEmptyNote) {
+                    sap.m.MessageToast.show("Non è possibile procedere: completare il campo note");
+                    return;
                 }
 
                 //check su newMaterial -> se sono in sost
@@ -634,13 +634,16 @@ sap.ui.define(
                     dataObjectToSend.charg_new = table[i].Batch
                     dataObjectToSend.meins = table[i].BaseUnit
                     dataObjectToSend.menge = Number(table[i].TotalQuantityInEntryUnit)
-                    dataObjectToSend.vornr = table[i].ManufacturingOrderOperation
+                    //valorizzo campo operazione old
+                    dataObjectToSend.vornr_new = table[i].ManufacturingOrderOperation
+                    dataObjectToSend.vornr_old = table[i].oldOperation
                     dataObjectToSend.plnfl = table[i].ManufacturingOrderSequence
                     dataObjectToSend.note = table[i].Note
                     dataObjectToSend.reason = table[i].Reason;
                     dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
+
                     const reason = (table[i].Reason || "").substring(0, 3);
                     const old_matnr = table[i].Material || "";
                     const note = table[i].Note || "";
@@ -725,7 +728,7 @@ sap.ui.define(
                     dataObjectToSend.charg_old = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Batch
                     dataObjectToSend.meins = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().BaseUnit
                     dataObjectToSend.menge = Number(oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().TotalQuantityInEntryUnit)
-                    dataObjectToSend.vornr = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderOperation
+                    dataObjectToSend.vornr_old = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderOperation
                     dataObjectToSend.plnfl = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().ManufacturingOrderSequence
                     dataObjectToSend.note = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Note
                     dataObjectToSend.reason = oController.byId("TableCombinedComponents").getSelectedContexts()[i].getObject().Reason
@@ -848,7 +851,7 @@ sap.ui.define(
                     dataObjectToSend.charg_new = obj.Batch
                     dataObjectToSend.meins = obj.BaseUnit
                     dataObjectToSend.menge = Number(obj.TotalQuantityInEntryUnit)
-                    dataObjectToSend.vornr = obj.ManufacturingOrderOperation
+                    dataObjectToSend.vornr_old = obj.ManufacturingOrderOperation
                     dataObjectToSend.plnfl = obj.ManufacturingOrderSequence
                     dataObjectToSend.note = obj.Note
                     dataObjectToSend.reason = obj.Reason;
