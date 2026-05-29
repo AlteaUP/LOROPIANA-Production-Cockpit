@@ -27,6 +27,7 @@ using { ZZ1_COMBPLNORDERSSTOCKAPI_CDS } from './external/ZZ1_COMBPLNORDERSSTOCKA
 using { ZZ1_MFG_STOCKSEGMENT_CDS } from './external/ZZ1_MFG_STOCKSEGMENT_CDS';
 using { ZMF_IMD_MATERIAL_DESC_CDS } from './external/ZMF_IMD_MATERIAL_DESC_CDS';
 using { ZZ1_ABILITA_AVANZA_CDS } from './external/ZZ1_ABILITA_AVANZA_CDS';
+//using { zmfg_sb_cancel_closure_h } from './external/zmfg_sb_cancel_closure_h';
 
 @cds.query.limit.default: 500
 @cds.query.limit.max: 500
@@ -443,6 +444,8 @@ service CatalogService {
     action Stampa (Record: many TYPES.StampaRecord) returns String;
 
     action actionRelease (Record: many TYPES.releaseRecord) returns String;
+
+    action AnnullaOrdine (Record: many TYPES.AnnullaOrdineType) returns String;
 
     ///
     function getUserName() returns String;

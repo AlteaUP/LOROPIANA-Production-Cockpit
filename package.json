@@ -498,6 +498,26 @@
           }
         }
       },
+      "zmfg_sb_cancel_closure_h": {
+        "kind": "odata-v4",
+        "model": "srv/external/zmfg_sb_cancel_closure_h",
+        "csrf": true,
+        "csrfInBatch": true,
+        "[hybrid]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_cancel_closure_h/srvd/sap/zmfg_sd_cancel_closure_h/0001"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "requestTimeout": 300000,
+            "destination": "S4HANA",
+            "path": "/sap/opu/odata4/sap/zmfg_sb_cancel_closure_h/srvd/sap/zmfg_sd_cancel_closure_h/0001"
+          }
+        }
+      },
       "ROL": {
         "kind": "rest",
         "credentials": {

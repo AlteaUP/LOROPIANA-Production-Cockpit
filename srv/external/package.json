@@ -120,6 +120,10 @@
       "zmfg_sb_released_corders_h": {
         "kind": "odata",
         "model": "srv/external/zmfg_sb_released_corders_h"
+      },
+      "zmfg_sb_cancel_closure_h": {
+        "kind": "odata",
+        "model": "srv/external/zmfg_sb_cancel_closure_h"
       }
     }
   },

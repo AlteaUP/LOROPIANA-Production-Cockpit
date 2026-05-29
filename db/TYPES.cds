@@ -33,6 +33,11 @@ type StampaRecord : {
     uname          : String;
 }
 
+type AnnullaOrdineType : {
+    id             : String;
+    production_order : String;
+}
+
 type releaseRecord : {
     id             : String;
     combined_order : String;

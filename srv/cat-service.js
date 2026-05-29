@@ -33,6 +33,7 @@ module.exports = cds.service.impl(async function (srv) {
     ////
     const stampa = await cds.connect.to("ZMFG_SD_PRINT_COMM_H");
     const releasedOrder = await cds.connect.to("zmfg_sb_released_corders_h");
+    const annullaOrdine = await cds.connect.to("zmfg_sb_cancel_closure_h");
 
     this.on('READ', "ZZ1_PRODUCTION_COCKPIT_API", async request => {
         console.log("chiamata ZZ1_PRODUCTION_COCKPIT_API_CDS")
@@ -1233,6 +1234,41 @@ module.exports = cds.service.impl(async function (srv) {
         console.log("RISPOSTA " + response)
         return response
 
+    });
+
+    this.on("AnnullaOrdine", async (req) => {
+        const { Record } = req.data;
+
+        var payload = {
+            "id": "001","to_prodord": Record
+        }
+
+        console.log("PAYLOAD " + JSON.stringify(payload))
+
+        // Controllo che l'oggetto della request sia pieno
+        if (req.data.Record.length === 0) return;
+
+        try {
+
+            /* let callCreate = await componentsCall.tx(req).post("/intcomph", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callCreate))
+            return callCreate */
+            let callAnnulla = await annullaOrdine.tx(req).post("/CANCELH", payload)
+            console.log("Risultato chiamata " + JSON.stringify(callAnnulla))
+            return callAnnulla
+
+        } catch (error) {
+
+            console.log("ERRORE " + error.message)
+
+            return error.message
+
+            /*if(multipleDelivery){
+                response = response + "|| " + error.message
+            } else {
+                return error.message
+            }    */
+        }
     });
 
     this.on("TechnicalCompleteOrder", async (req) => {
