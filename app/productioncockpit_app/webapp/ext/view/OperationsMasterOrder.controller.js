@@ -407,9 +407,9 @@ sap.ui.define(
                         selectedOperationsMasterObject.MaterialGroupEditable = true
                         selectedOperationsMasterObject.ManufacturingOrderOperationEditable = true
                         selectedOperationsMasterObject.MfgOrderOperationTextEditable = true
-                        selectedOperationsMasterObject.SupplierEditable = true
+                        selectedOperationsMasterObject.SupplierEditable = false
                         selectedOperationsMasterObject.WorkCenterEditable = true
-                        selectedOperationsMasterObject.WorkCenterInternalID_1_TextEditable = true
+                        selectedOperationsMasterObject.WorkCenterInternalID_1_TextEditable = false
                         selectedOperationsMasterObject.OperationControlProfileEditable = true
                         //in addPhase applico maggiorazione di "5" al campo operation
                         let op = selectedOperationsMasterObject.ManufacturingOrderOperation;
@@ -922,7 +922,7 @@ sap.ui.define(
 
                 var sProfile =
                     sValue && sValue.startsWith("E") ? "PP02" :
-                        sValue && sValue.startsWith("S") ? "PP01" : "";
+                        sValue && sValue.startsWith("I") ? "PP01" : "";
 
                 if (oModel && sPath) {
                     var oCurrentObject = oModel.getProperty(sPath);

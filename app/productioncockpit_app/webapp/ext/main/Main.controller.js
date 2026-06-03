@@ -119,42 +119,69 @@ sap.ui.define(
             //  }
 
             customFilterSearch: function (oEvent) {
-                var oTable = this.byId("TableMaster"); // ID della tabella
-                var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
-                var filterArray = []
-
-                // Costruisci i filtri (in base al tuo scenario)
                 setTimeout(() => {
-                    oBinding.filter([]);
-                    if (this.byId("FilterBarMaster").getFilters().filters.length > 0) {
-                        if (this.byId("FilterBarMaster").getFilters().filters[0].aFilters === undefined || this.byId("FilterBarMaster").getFilters().filters[0].aFilters === null) {
-                            for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++) {
-                                var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, this.byId("FilterBarMaster").getFilters().filters[i].sOperator, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
-                                filterArray.push(oFilter)
-                                // Applica il filtro
-                                if (oBinding) {
-                                    oBinding.filter(filterArray);
-                                }
-                            }
-                        } else {
-                            for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters[0].aFilters.length; i++) {
-                                var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].sPath, this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].sOperator, this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].oValue1);
-                                filterArray.push(oFilter)
-                            }
-                            // Applica il filtro
-                            if (oBinding) {
-                                oBinding.filter(filterArray);
-                            }
-                        }
-                    } else {
-                        oBinding.filter([]);
-                    }
+                    const aFilters = this.byId("FilterBarMaster").getFilters()?.filters || [];
+
+                    this._aLastMasterFilters = aFilters;
+
+                    this._applyMasterFilters();
                 }, 100);
+                /*       var oTable = this.byId("TableMaster"); // ID della tabella
+                      var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                      var filterArray = []
+      
+                      // Costruisci i filtri (in base al tuo scenario)
+                      setTimeout(() => {
+                          oBinding.filter([]);
+                          if (this.byId("FilterBarMaster").getFilters().filters.length > 0) {
+                              if (this.byId("FilterBarMaster").getFilters().filters[0].aFilters === undefined || this.byId("FilterBarMaster").getFilters().filters[0].aFilters === null) {
+                                  for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++) {
+                                      var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, this.byId("FilterBarMaster").getFilters().filters[i].sOperator, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                                      filterArray.push(oFilter)
+                                      // Applica il filtro
+                                      if (oBinding) {
+                                          oBinding.filter(filterArray);
+                                      }
+                                  }
+                              } else {
+                                  for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters[0].aFilters.length; i++) {
+                                      var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].sPath, this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].sOperator, this.byId("FilterBarMaster").getFilters().filters[0].aFilters[i].oValue1);
+                                      filterArray.push(oFilter)
+                                  }
+                                  // Applica il filtro
+                                  if (oBinding) {
+                                      oBinding.filter(filterArray);
+                                  }
+                              }
+                          } else {
+                              oBinding.filter([]);
+                          }
+                      }, 100); */
 
             },
 
+            _applyMasterFilters: function () {
+                const oTable = this.byId("TableMaster");
+                const oBinding = oTable?.getRowBinding();
+
+                if (!oBinding) {
+                    return;
+                }
+
+                oBinding.filter(this._aLastMasterFilters || []);
+            },
+
             selectIconTabFilter: function (oEvent) {
-                if (oEvent.getSource().getSelectedKey() === "order") {
+                const sKey = oEvent.getSource().getSelectedKey();
+
+                if (sKey === "combined") {
+                    this.byId("TableCombined")?.getMDCTable()?.rebind();
+                }
+
+                if (sKey === "master") {
+                    this.customFilterSearch();
+                }
+                /* if (oEvent.getSource().getSelectedKey() === "order") {
                     // Ottieni la tabella
                     var oTable = this.byId("Table"); // ID della tabella
                     var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
@@ -208,30 +235,30 @@ sap.ui.define(
                         }
                     } else {
                         oBinding.filter([]);
-                    }
-                    // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini
-                    /*var oTable = this.byId("Table"); // ID della tabella
-                    var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
-                    var filterArray = []
+                    } */
+                // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini
+                /*var oTable = this.byId("Table"); // ID della tabella
+                var oBinding = oTable.getRowBinding(); // oTable.getBinding("rows") per Grid/Table classiche
+                var filterArray = []
 
-                    // Costruisci i filtri (in base al tuo scenario)
-                    if (this.byId("FilterBarMaster").getFilters().filters.length > 0) {
-                        for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++) {
-                            var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
-                            if (oFilter.sPath === 'CombinedOrder') {
-                                oFilter.sPath = 'CprodOrd'
-                            }
-                            filterArray.push(oFilter)
-                            // Applica il filtro
-                            if (oBinding) {
-                                oBinding.filter(filterArray);
-                            }
+                // Costruisci i filtri (in base al tuo scenario)
+                if (this.byId("FilterBarMaster").getFilters().filters.length > 0) {
+                    for (var i = 0; i < this.byId("FilterBarMaster").getFilters().filters.length; i++) {
+                        var oFilter = new sap.ui.model.Filter(this.byId("FilterBarMaster").getFilters().filters[i].sPath, sap.ui.model.FilterOperator.EQ, this.byId("FilterBarMaster").getFilters().filters[i].oValue1);
+                        if (oFilter.sPath === 'CombinedOrder') {
+                            oFilter.sPath = 'CprodOrd'
                         }
-                    } else {
-                        oBinding.filter([]);
-                    }*/
-                    // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini - FINE
-                }
+                        filterArray.push(oFilter)
+                        // Applica il filtro
+                        if (oBinding) {
+                            oBinding.filter(filterArray);
+                        }
+                    }
+                } else {
+                    oBinding.filter([]);
+                }*/
+                // modifica DL - 21/01/2025 - valorizzo anche la tabella degli ordini - FINE
+                //}
                 /// OLD
                 /*if(oEvent.getSource().getSelectedKey() === 'master'){
                     this.byId("FilterBarMaster").setVisible(true);

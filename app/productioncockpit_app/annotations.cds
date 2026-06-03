@@ -129,7 +129,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with @(
         {
             $Type: 'UI.DataField',
             Value: CreationDate,
-            Label: 'CreationDate',
+            Label: 'Data di Creazione',
         },
         {
             $Type        : 'UI.DataField',
@@ -1250,7 +1250,7 @@ annotate service.ZZ1_C_MASTERPRODORDER with {
             Parameters    : [
                 {
                     $Type            : 'Common.ValueListParameterInOut',
-                    LocalDataProperty: StockSegment,
+                    LocalDataProperty: ManufacturingOrderType,
                     ValueListProperty: 'OrderType',
                 },
                 {

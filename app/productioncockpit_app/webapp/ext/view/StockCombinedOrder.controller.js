@@ -635,8 +635,6 @@ sap.ui.define(
 
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
-                return
-
                 const oModel = oController.getView().getModel();
                 /*   oBusyDialog.close();
                   return */
