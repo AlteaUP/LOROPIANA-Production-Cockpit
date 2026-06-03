@@ -236,13 +236,62 @@ module.exports = cds.service.impl(async function (srv) {
         return data;
     });
 
-    this.on('READ', "ZZ1_MFG_STOCKSEGMENT", async request => {
-        console.log("chiamata ZZ1_MFG_STOCKSEGMENT")
-        request.query.SELECT.count = false
-        var data = await stockSegment.tx(request).run(request.query);
-        console.log("lunghezza array " + data.length)
+    this.on('READ', "ZZ1_MFG_STOCKSEGMENT", async (req) => {
+        /*  console.log("chiamata ZZ1_MFG_STOCKSEGMENT")
+         request.query.SELECT.count = false
+         var data = await stockSegment.tx(request).run(request.query);
+         console.log("lunghezza array " + data.length)
+ 
+         return data; */
+        req.query.SELECT.count = false;
 
-        return data;
+        const search = req.query.SELECT.search?.[0]?.val;
+
+        const originalLimit =
+            req.query.SELECT.limit?.rows?.val ?? 10;
+
+        const fetchLimit = 500;
+
+        let q = SELECT.from("ZZ1_MFG_STOCKSEGMENT")
+            .columns("SEGMENTO");
+
+        // mantiene eventuali filtri FE
+        if (req.query.SELECT.where) {
+            q.where(req.query.SELECT.where);
+        }
+
+        if (search) {
+
+            const s = search.toUpperCase();
+            const next = nextPrefix(s);
+
+            q.where([
+                { ref: ["SEGMENTO"] }, ">=", { val: s },
+                "and",
+                { ref: ["SEGMENTO"] }, "<", { val: next }
+            ]);
+
+            q.limit(fetchLimit);
+
+        } else {
+
+            q.limit(originalLimit);
+        }
+
+        const result =
+            await stockSegment.run(q);
+
+        const rows = result.value ?? result ?? [];
+
+        const unique = [...new Set(
+            rows
+                .map(r => r.SEGMENTO)
+                .filter(v => v != null && v !== "")
+        )];
+
+        return unique
+            .slice(0, originalLimit)
+            .map(v => ({ SEGMENTO: v }));
     });
 
     this.on('READ', "ZZ1_MFP_REASON_NOTE", async request => {
@@ -1240,7 +1289,7 @@ module.exports = cds.service.impl(async function (srv) {
         const { Record } = req.data;
 
         var payload = {
-            "id": "001","to_prodord": Record
+            "id": "001", "to_prodord": Record
         }
 
         console.log("PAYLOAD " + JSON.stringify(payload))

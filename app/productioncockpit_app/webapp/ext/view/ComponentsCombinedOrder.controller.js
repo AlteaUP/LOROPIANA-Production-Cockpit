@@ -58,6 +58,15 @@ sap.ui.define(
                                 oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::closeCompCombinedAction").setEnabled(false);
                                 oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::assegnaBatchCombinedAction").setEnabled(false);
                             }
+                            ////
+                            const oSelectedRow = oEvent.getParameters().selectedContext[0].getObject();
+                            const sBOMItemDescription = oSelectedRow.BOMItemDescription;
+
+                            if (sBOMItemDescription && sBOMItemDescription.trim() !== "") {
+                                oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(false);
+                            } else {
+                                oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(true);
+                            }
                         } else {
                             //in caso di selezione multipla disabilito assegnaBatch
                             oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::assegnaBatchCombinedAction").setEnabled(false);
@@ -96,6 +105,21 @@ sap.ui.define(
                                 oIntegration.setEnabled(true);
                                 oDelete.setEnabled(false);
                                 oClose.setEnabled(false);
+                            }
+                            ////
+                            const aSelectedContexts = oEvent.getParameters().selectedContext;
+
+                            // Basta che uno abbia BOO valorizzato
+                            const bAtLeastOneBOMValorizzato = aSelectedContexts.some(function (oContext) {
+                                const sBOMItemDescription = oContext.getObject().BOMItemDescription;
+
+                                return sBOMItemDescription && sBOMItemDescription.trim() !== "";
+                            });
+
+                            if (bAtLeastOneBOMValorizzato) {
+                                oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(false);
+                            } else {
+                                oController.byId("productioncockpitapp::ZZ1_C_COMBINEDORDER_COMPComponentsPage--TableCombinedComponents-content::CustomAction::integrationCompCombinedAction").setEnabled(true);
                             }
                         }
                     } else {
