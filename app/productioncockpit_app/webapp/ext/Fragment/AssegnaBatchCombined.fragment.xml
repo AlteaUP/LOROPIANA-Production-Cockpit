@@ -98,7 +98,7 @@
                 <Input 
                   value="{local>ManufacturingOrderOperation}" editable="false" />
                 <Input 
-                  value="{TotalQuantityInEntryUnit}" description="{local>BaseUnit}" editable="false" />
+                  value="{local>TotalQuantityInEntryUnit}" description="{local>BaseUnit}" editable="false" />
                 <Input 
                   value="{local>StorageLocation}" editable="false" />
                 <Select id="reasonSelectIdCombinedAssegna"
