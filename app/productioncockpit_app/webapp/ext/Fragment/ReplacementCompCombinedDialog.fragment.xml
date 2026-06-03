@@ -90,7 +90,7 @@
                 <Input 
                   value="{ManufacturingOrderOperation}" editable="{viewModel>/operationEditable}"/>
                 <Input 
-                  value="{path: 'TotalQuantityInEntryUnit', formatter: '.formatComma'}" description="{BaseUnit}" />
+                  value="{TotalQuantityInEntryUnit}" description="{BaseUnit}" />
                 <Input 
                   value="{StorageLocation}" editable="false" />
                 <Select id="reasonSelectIdCombined"

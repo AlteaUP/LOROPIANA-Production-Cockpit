@@ -464,9 +464,9 @@ sap.ui.define(
                                 selectedComponentsCombinedObject.Lgort1
                                     ? selectedComponentsCombinedObject.Lgort1
                                     : selectedComponentsCombinedObject.StorageLocation; */
-                        selectedComponentsCombinedObject.TotalQuantityInEntryUnit =
+                   /*      selectedComponentsCombinedObject.TotalQuantityInEntryUnit =
                             String(selectedComponentsCombinedObject.TotalQuantityInEntryUnit || "")
-                                .replace(",", ".");
+                                .replace(",", "."); */
 
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }
