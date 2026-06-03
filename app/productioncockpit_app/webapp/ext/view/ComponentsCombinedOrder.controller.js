@@ -312,6 +312,9 @@ sap.ui.define(
 
                 //sessionStorage.removeItem("CombinedReturnState");
             },
+            formatComma: function (sValue) {
+                return sValue ? sValue.replace(".", ",") : sValue;
+            },
 
             onActionComponentsCombined: function (oEvent) {
                 //rimuovo storage id righe
@@ -461,6 +464,9 @@ sap.ui.define(
                                 selectedComponentsCombinedObject.Lgort1
                                     ? selectedComponentsCombinedObject.Lgort1
                                     : selectedComponentsCombinedObject.StorageLocation; */
+                        selectedComponentsCombinedObject.TotalQuantityInEntryUnit =
+                            String(selectedComponentsCombinedObject.TotalQuantityInEntryUnit || "")
+                                .replace(",", ".");
 
                         selectedComponentsCombinedArray.push(selectedComponentsCombinedObject)
                     }

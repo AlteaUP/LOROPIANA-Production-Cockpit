@@ -244,7 +244,7 @@ annotate service.ZZ1_C_COMBINEDPRODORDER with @(UI.LineItem #tableMacro2: [
     {
         $Type: 'UI.DataField',
         Value: CreationDate,
-        Label: 'CreationDate',
+        Label: 'Data di Creazione',
     }
 ]);
 

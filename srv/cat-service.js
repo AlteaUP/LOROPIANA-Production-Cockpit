@@ -253,7 +253,7 @@ module.exports = cds.service.impl(async function (srv) {
         const fetchLimit = 500;
 
         let q = SELECT.from("ZZ1_MFG_STOCKSEGMENT")
-            .columns("SEGMENTO");
+            .columns("SEGMENTO", "DESCRIZIONE");
 
         // mantiene eventuali filtri FE
         if (req.query.SELECT.where) {
@@ -283,15 +283,23 @@ module.exports = cds.service.impl(async function (srv) {
 
         const rows = result.value ?? result ?? [];
 
-        const unique = [...new Set(
-            rows
-                .map(r => r.SEGMENTO)
-                .filter(v => v != null && v !== "")
-        )];
+        /*     const unique = [...new Set(
+                rows
+                    .map(r => r.SEGMENTO)
+                    .filter(v => v != null && v !== "")
+            )]; */
+        const unique = [
+            ...new Map(
+                rows
+                    .filter(r => r.SEGMENTO != null && r.SEGMENTO !== "")
+                    .map(r => [r.SEGMENTO, {
+                        SEGMENTO: r.SEGMENTO,
+                        DESCRIZIONE: r.DESCRIZIONE
+                    }])
+            ).values()
+        ];
 
-        return unique
-            .slice(0, originalLimit)
-            .map(v => ({ SEGMENTO: v }));
+        return unique.slice(0, originalLimit);
     });
 
     this.on('READ', "ZZ1_MFP_REASON_NOTE", async request => {

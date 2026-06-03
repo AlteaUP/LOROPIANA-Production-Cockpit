@@ -566,6 +566,9 @@ sap.ui.define(
                     oTable.setModel(oModel, "local");
                 }
             },
+            formatComma: function (sValue) {
+                return sValue ? String(sValue).replace(".", ",") : sValue;
+            },
 
             onConfirmAssegnaBatchCombinedDialog: function () {
                 //assegno batch e metto id record assegnato in storage          
