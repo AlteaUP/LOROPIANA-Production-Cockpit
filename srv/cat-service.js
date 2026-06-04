@@ -230,6 +230,9 @@ module.exports = cds.service.impl(async function (srv) {
 
     this.on('READ', "ZZ1_RFM_WRKCHARVAL_F4", async request => {
         console.log("chiamata ZZ1_RFM_WRKCHARVAL_F4")
+        request.query.SELECT.columns.push({
+            ref: ["fornitore"]
+        });
         var data = await workCenters.tx(request).run(request.query);
         console.log("lunghezza array " + data.length)
 

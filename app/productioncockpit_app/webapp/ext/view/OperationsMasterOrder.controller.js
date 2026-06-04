@@ -500,6 +500,9 @@ sap.ui.define(
                         if (oDdtDate && oDdtDate.setRequired) {
                             oDdtDate.setRequired(bSubcontrg);
                         }
+                        //pulisco i campi
+                        oDdt.setValue("");
+                        oDdtDate.setValue("");
 
                         //calcolo il campo SumopTotalConfirmetYieldQty da mostrare nella popup
                         var oTable = oController.byId("TableOperations");
@@ -908,37 +911,106 @@ sap.ui.define(
             },
 
             onValueHelpWorkCentersConfirm: function (oEvent) {
-                var oSelectedItem = oEvent.getParameter("selectedItem");
-                oEvent.getSource().getBinding("items").filter([]);
+                const oSelectedItem = oEvent.getParameter("selectedItem");
 
-                if (!oSelectedItem) {
+                const oBinding = oEvent.getSource().getBinding("items");
+                if (oBinding) {
+                    oBinding.filter([]);
+                }
+
+                if (!oSelectedItem || !oController._oWorkCenterContext) {
                     return;
                 }
 
-                var oModel = oController._oWorkCenterContext.getModel();
-                var sPath = oController._oWorkCenterContext.getPath();
+                const oModel = oController._oWorkCenterContext.getModel();
+                const sPath = oController._oWorkCenterContext.getPath();
 
-                var sValue = oSelectedItem.getTitle ? oSelectedItem.getTitle() : oSelectedItem.getText();
-
-                var sProfile =
-                    sValue && sValue.startsWith("E") ? "PP02" :
-                        sValue && sValue.startsWith("I") ? "PP01" : "";
-
-                if (oModel && sPath) {
-                    var oCurrentObject = oModel.getProperty(sPath);
-
-                    if (oCurrentObject && Object.prototype.hasOwnProperty.call(oCurrentObject, "OperationControlProfile")) {
-                        oModel.setProperty(sPath + "/OperationControlProfile", sProfile);
-                    }
+                if (!oModel || !sPath) {
+                    return;
                 }
 
-                // Valori scelti nel SelectDialog
-                var sWorkCenter = oSelectedItem.getTitle();
-                var sWorkCenterText = oSelectedItem.getDescription();
+                const sWorkCenter = oSelectedItem.getTitle?.() || "";
+                const sWorkCenterText = oSelectedItem.getDescription?.() || "";
 
-                // Scrivo nel modello → la tabella si aggiorna da sola
+                const sProfile =
+                    sWorkCenter.startsWith("E") ? "PP02" :
+                        sWorkCenter.startsWith("I") ? "PP01" :
+                            "";
+
+                // aggiorno i campi
                 oModel.setProperty(sPath + "/WorkCenter", sWorkCenter);
                 oModel.setProperty(sPath + "/WorkCenterInternalID_1_Text", sWorkCenterText);
+                oModel.setProperty(sPath + "/OperationControlProfile", sProfile);
+
+                // recupero fornitore
+                const oCtx = oSelectedItem.getBindingContext();
+
+                if (oCtx) {
+                    (async () => {
+                        try {
+                            const oSelectedObject = await oCtx.requestObject();
+
+                            const sFornitore =
+                                oSelectedObject?.fornitore ||
+                                "";
+
+                            oModel.setProperty(sPath + "/Supplier", sFornitore);
+
+                        } catch (e) {
+                            console.error("Errore recupero fornitore:", e);
+                            oModel.setProperty(sPath + "/Supplier", "");
+                        }
+                    })();
+                } else {
+                    oModel.setProperty(sPath + "/Supplier", "");
+                }
+                /*          var oSelectedItem = oEvent.getParameter("selectedItem");
+                         oEvent.getSource().getBinding("items").filter([]);
+         
+                         if (!oSelectedItem) {
+                             return;
+                         }
+         
+                         var oModel = oController._oWorkCenterContext.getModel();
+                         var sPath = oController._oWorkCenterContext.getPath();
+         
+                         var sValue = oSelectedItem.getTitle
+                             ? oSelectedItem.getTitle()
+                             : oSelectedItem.getText();
+         
+                         var sProfile =
+                             sValue && sValue.startsWith("E") ? "PP02" :
+                                 sValue && sValue.startsWith("I") ? "PP01" : "";
+         
+                         if (oModel && sPath) {
+                             var oCurrentObject = oModel.getProperty(sPath);
+         
+                             if (
+                                 oCurrentObject &&
+                                 Object.prototype.hasOwnProperty.call(oCurrentObject, "OperationControlProfile")
+                             ) {
+                                 oModel.setProperty(sPath + "/OperationControlProfile", sProfile);
+                             }
+                         }
+         
+                         // Valori scelti
+                         var sWorkCenter = oSelectedItem.getTitle();
+                         var sWorkCenterText = oSelectedItem.getDescription();
+         
+                         // Recupero fornitore dal record selezionato del matchcode
+                         var sFornitore = "";
+         
+                         var oCtx = oSelectedItem.getBindingContext();
+         
+                         if (oCtx) {
+                             var oSelectedObject = await oCtx.requestObject();
+                             sFornitore = oSelectedObject.fornitore || oSelectedObject.Fornitore || "";
+                         }
+         
+                         // Scrivo nel modello
+                         oModel.setProperty(sPath + "/WorkCenter", sWorkCenter);
+                         oModel.setProperty(sPath + "/WorkCenterInternalID_1_Text", sWorkCenterText);
+                         oModel.setProperty(sPath + "/Supplier", sFornitore); */
 
             },
 

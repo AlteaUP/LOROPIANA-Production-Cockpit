@@ -8,6 +8,7 @@
 		cancel=".onValueHelpWorkCentersClose">
 		<StandardListItem
 			title="{workcenter}"
-            description="{workcentertext}"/>
+            description="{workcentertext}"
+			/>
 	</SelectDialog>
 </core:FragmentDefinition>
