@@ -289,6 +289,7 @@ sap.ui.define(
                         dataObjectToSend.lgort = oRow.StorageLocation
                         dataObjectToSend.werks = oRow.Plant
                         dataObjectToSend.stk_seg = oRow.RequirementSegment
+                        dataObjectToSend.posnr = oRow.BillOfMaterialItemNumber_2
                         //dataObjectToSend.posnr = oRow.BillOfMaterialItemNumber_2
                         dataObjectToSend.action = "BAAS"
 
@@ -613,6 +614,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
+                    dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
                     const reason = (table[i].Reason || "").substring(0, 3);
                     const old_matnr = table[i].Material || "";
                     const note = table[i].Note || "";

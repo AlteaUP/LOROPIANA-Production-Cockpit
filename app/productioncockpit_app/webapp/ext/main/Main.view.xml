@@ -68,14 +68,14 @@
                                 </table:Column>
                             </macros:columns>
                             <macros:actions>
-                                <table:Action id="stampaID" key="stampaAction" text="Stampa" press=".onStampa" placement="After" requiresSelection="true"/>                                
                                 <table:Action id="releaseOrderID" key="releaseOrderAction" text="{i18n>release}" press=".onRelaseOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="technicalCompleteOrderID" key="technicalCompleteOrderAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="closeOrderID" key="closeOrderAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="annullaOrderID" key="annullaOrderAction" text="{i18n>annullaChiusura}" press=".onAnnullaOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="componentsCombinedID" key="componentsCombinedAction" text="{i18n>components}" press=".onNavigateToComponentsCombinedOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="operationsCombinedID" key="operationsCombinedAction" text="{i18n>operations}" press=".onNavigateToOperationsCombinedOrder" placement="After" requiresSelection="true"/>
-                                <table:Action id="kittingCombinedID" key="kittingCombinedAction" text="{i18n>kitting}" press=".onNavigateToKittingCombinedOrder" placement="After" requiresSelection="true" visible="false"/>
+                                <table:Action id="stampaID" key="stampaAction" text="Stampa" press=".onStampa" placement="After" requiresSelection="true"/>                                
+                                <table:Action id="closeOrderCombinedID" key="closeOrderCombinedAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="technicalCompleteOrderCombinedID" key="technicalCompleteOrderCombinedAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="annullaOrderCombinedID" key="annullaOrderCombinedAction" text="{i18n>annullaChiusura}" press=".onAnnullaOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="componentsMasterID" key="componentsCombinedAction" text="{i18n>components}" press=".onNavigateToComponentsCombinedOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="operationsMasterID" key="operationsCombinedAction" text="{i18n>operations}" press=".onNavigateToOperationsCombinedOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="kittingMasterID" key="kittingCombinedAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true" visible="false"/>
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>
@@ -208,6 +208,9 @@
                                 </table:Column>
                             </macros:columns>
                             <macros:actions>
+                                <table:Action id="closeOrderMasterID" key="closeOrderMasterAction" text="{i18n>close}" press=".onCloseOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="technicalCompleteOrderMasterID" key="technicalCompleteOrderMasterAction" text="{i18n>technicalComplete}" press=".onTechnicalCompleteOrder" placement="After" requiresSelection="true"/>
+                                <table:Action id="annullaOrderMasterID" key="annullaOrderMasterAction" text="{i18n>annullaChiusura}" press=".onAnnullaOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="componentsID" key="componentsAction" text="{i18n>components}" press=".onNavigateToComponentsMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsID" key="operationsAction" text="{i18n>operations}" press=".onNavigateToOperationsMasterOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="kittingID" key="kittingAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true" visible="false"/>

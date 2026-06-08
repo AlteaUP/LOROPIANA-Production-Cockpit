@@ -775,7 +775,7 @@ annotate service.ZZ1_C_MFG_COMBINEDOPER_SUM with @(UI.LineItem #tableMacroCombin
 ]);
 
 annotate service.ZZ1_C_COMBORDER_COMP with @(
-    UI.SelectionFields #CombinedComp         : [Material],
+    UI.SelectionFields #CombinedComp         : [Material, ManufacturingOrderOperation],
     UI.DataPoint #radialChart                : {
         Value      : chart_percent,
         Criticality: chart_criticality,
@@ -898,8 +898,18 @@ annotate service.ZZ1_C_COMBORDER_COMP with @(
             Value : TotalWithdrawnQuantity,
             Label : 'Quantità Tot Prelevata',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : ManufacturingOrderOperation,
+            Label : 'Operazione',
+        },
     ]
 );
+
+annotate service.ZZ1_C_COMBORDER_COMP with {
+    Material @Common.Label: 'Materiale';
+    ManufacturingOrderOperation @Common.Label: 'Operazione';
+}
 
 annotate service.ZZ1_C_UNION_PROD_COMP with @(UI.LineItem #tableMacroComponentsorder: [
     {

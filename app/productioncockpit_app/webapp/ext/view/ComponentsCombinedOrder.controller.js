@@ -673,6 +673,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = table[i].StorageLocation
                     dataObjectToSend.werks = table[i].Plant
                     dataObjectToSend.stk_seg = table[i].RequirementSegment
+                    dataObjectToSend.posnr = table[i].BillOfMaterialItemNumber_2
 
                     const reason = (table[i].Reason || "").substring(0, 3);
                     const old_matnr = table[i].Material || "";
@@ -698,7 +699,6 @@ sap.ui.define(
                 }
                 var oBusyDialog = new sap.m.BusyDialog();
                 oBusyDialog.open();
-
                 const oModel = oController.getView().getModel();
                 var oBindingContext = oModel.bindContext("/Replacement(...)");
                 oBindingContext.setParameter("Record",
