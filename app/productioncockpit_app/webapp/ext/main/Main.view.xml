@@ -76,6 +76,7 @@
                                 <table:Action id="componentsMasterID" key="componentsCombinedAction" text="{i18n>components}" press=".onNavigateToComponentsCombinedOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="operationsMasterID" key="operationsCombinedAction" text="{i18n>operations}" press=".onNavigateToOperationsCombinedOrder" placement="After" requiresSelection="true"/>
                                 <table:Action id="kittingMasterID" key="kittingCombinedAction" text="{i18n>kitting}" press=".onNavigateToKittingMasterOrder" placement="After" requiresSelection="true" visible="false"/>
+                                <table:Action id="infoCombinedID" key="infoCombinedAction" press=".onOpenActionsInfoCombined" text="ℹ Info" placement="After" requiresSelection="true"/>
                             </macros:actions>
                         </macros:Table>
                     </IconTabFilter>

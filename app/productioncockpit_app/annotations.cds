@@ -691,12 +691,12 @@ annotate service.ZZ1_C_MFG_MASTEROPER_SUM with @(UI.LineItem #tableMacroOperatio
         $Type: 'UI.DataField',
         Value: PurchaseOrder,
         Label: '{i18n>purchaseOrder}',
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : IntermediatePhaseIndicator,
+        Label : 'IntermediatePhaseIndicator',
     }
-/*  {
-     $Type : 'UI.DataField',
-     Value : IntermediatePhaseIndicator,
-     Label : 'IntermediatePhaseIndicator',
- }, */
 ]);
 
 annotate service.ZZ1_C_MFG_COMBINEDOPER_SUM with @(UI.LineItem #tableMacroCombinedOperations: [

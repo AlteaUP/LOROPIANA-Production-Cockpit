@@ -60,6 +60,7 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::stampaAction").setEnabled(true);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::annullaOrderCombinedAction").setEnabled(true);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::infoCombinedAction").setEnabled(true);
                     } else {
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::releaseOrderAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::technicalCompleteOrderCombinedAction").setEnabled(false);
@@ -69,6 +70,7 @@ sap.ui.define(
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::kittingCombinedAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::stampaAction").setEnabled(false);
                         oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::annullaOrderCombinedAction").setEnabled(false);
+                        oController.byId("productioncockpitapp::ZZ1_PRODUCTION_COCKPIT_APIMain--TableCombined-content::CustomAction::infoCombinedAction").setEnabled(false);
                     }
                 });
                 /*this.byId("Table").attachSelectionChange(function (oEvent) {
@@ -115,7 +117,6 @@ sap.ui.define(
                        console.log("Master Table length " + dataMasterTable.length)
                    }); */
             },
-
             /**
              * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
              * @memberOf productioncockpitapp.ext.main.Main
@@ -456,6 +457,46 @@ sap.ui.define(
                 });
 
 
+            },
+            onOpenActionsInfoCombined: function () {
+                if (!this._oActionsInfoDialog) {
+                    this._oActionsInfoDialog = new sap.m.Dialog({
+                        title: "Funzionalità azioni",
+                        contentWidth: "600px",
+                        content: [
+                            new sap.m.List({
+                                items: [
+                                    new sap.m.StandardListItem({
+                                        title: "Videata 1 - Rilascia",
+                                        description: "Rilascia l'ordine di produzione combinato selezionato."
+                                    }),
+                                    new sap.m.StandardListItem({
+                                        title: "Videata 1 - Stampa",
+                                        description: "Permette di stampare i documenti associati all'ordine di produzione combinato selezionato."
+                                    }),
+                                    new sap.m.StandardListItem({
+                                        title: "Videata 1 - Elimina",
+                                        description: "Elimina l'ordine di produzione combinato selezionato."
+                                    }),
+                                    new sap.m.StandardListItem({
+                                        title: "Videata 1 - Chiudi Tecnicamente",
+                                        description: "Chiude tecnicamente l'ordine di produzione combinato selezionato."
+                                    })
+                                ]
+                            })
+                        ],
+                        endButton: new sap.m.Button({
+                            text: "Chiudi",
+                            press: function () {
+                                this._oActionsInfoDialog.close();
+                            }.bind(this)
+                        })
+                    });
+
+                    this.getView().addDependent(this._oActionsInfoDialog);
+                }
+
+                this._oActionsInfoDialog.open();
             },
 
             onCallServiceROL: function (oEvent) {

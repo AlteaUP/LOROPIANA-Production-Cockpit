@@ -895,27 +895,45 @@ module.exports = cds.service.impl(async function (srv) {
                 }
             }
 
-            //aggiungo flag IntermediatePhaseIndicator 
             let maxOp = -Infinity;
             let maxIdx = -1;
+            let maxCount = 0;
 
             finalData.forEach((row, idx) => {
                 row.IntermediatePhaseIndicator = "";
 
                 if (row.OperationIsDeleted === "X") return;
+
                 row.IntermediatePhaseIndicator = "X";
 
                 const opNum = parseInt(row.ManufacturingOrderOperation, 10);
                 if (Number.isNaN(opNum)) return;
 
                 if (opNum > maxOp) {
-                    if (maxIdx !== -1) finalData[maxIdx].IntermediatePhaseIndicator = "X";
                     maxOp = opNum;
                     maxIdx = idx;
+                    maxCount = 1;
+                } else if (opNum === maxOp) {
+                    maxCount++;
                 }
             });
-            if (maxIdx !== -1) finalData[maxIdx].IntermediatePhaseIndicator = "";
 
+            // Se l'ultima operazione è unica, tolgo il flag solo a quella.
+            // Se è presente più volte, tolgo il flag a tutte le sue occorrenze.
+            if (maxCount === 1) {
+                if (maxIdx !== -1) {
+                    finalData[maxIdx].IntermediatePhaseIndicator = "";
+                }
+            } else {
+                finalData.forEach((row) => {
+                    if (row.OperationIsDeleted === "X") return;
+
+                    const opNum = parseInt(row.ManufacturingOrderOperation, 10);
+                    if (opNum === maxOp) {
+                        row.IntermediatePhaseIndicator = "";
+                    }
+                });
+            }
             return finalData;
         } else {
             console.log("risultati MASTER OPER: ", data.length)
