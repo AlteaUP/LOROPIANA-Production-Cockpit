@@ -888,7 +888,7 @@ sap.ui.define(
                     dataObjectToSend.lgort = obj.StorageLocation
                     dataObjectToSend.werks = obj.Plant
                     dataObjectToSend.stk_seg = obj.RequirementSegment
-                    //dataObjectToSend.posnr = obj.BillOfMaterialItemNumber_2
+                    dataObjectToSend.posnr = obj.BillOfMaterialItemNumber_2
                     dataObjectToSend.action = "BADA"
 
                     dataToSend.push(dataObjectToSend)
