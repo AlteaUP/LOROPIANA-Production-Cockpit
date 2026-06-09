@@ -896,44 +896,32 @@ module.exports = cds.service.impl(async function (srv) {
             }
 
             let maxOp = -Infinity;
-            let maxIdx = -1;
-            let maxCount = 0;
 
-            finalData.forEach((row, idx) => {
-                row.IntermediatePhaseIndicator = "";
-
+            // 1. Trovo l'ultima operazione NON cancellata
+            finalData.forEach((row) => {
                 if (row.OperationIsDeleted === "X") return;
-
-                row.IntermediatePhaseIndicator = "X";
 
                 const opNum = parseInt(row.ManufacturingOrderOperation, 10);
                 if (Number.isNaN(opNum)) return;
 
                 if (opNum > maxOp) {
                     maxOp = opNum;
-                    maxIdx = idx;
-                    maxCount = 1;
-                } else if (opNum === maxOp) {
-                    maxCount++;
                 }
             });
 
-            // Se l'ultima operazione è unica, tolgo il flag solo a quella.
-            // Se è presente più volte, tolgo il flag a tutte le sue occorrenze.
-            if (maxCount === 1) {
-                if (maxIdx !== -1) {
-                    finalData[maxIdx].IntermediatePhaseIndicator = "";
-                }
-            } else {
-                finalData.forEach((row) => {
-                    if (row.OperationIsDeleted === "X") return;
+            // 2. Metto X solo sulle operazioni precedenti alla massima
+            finalData.forEach((row) => {
+                row.IntermediatePhaseIndicator = "";
 
-                    const opNum = parseInt(row.ManufacturingOrderOperation, 10);
-                    if (opNum === maxOp) {
-                        row.IntermediatePhaseIndicator = "";
-                    }
-                });
-            }
+                if (row.OperationIsDeleted === "X") return;
+
+                const opNum = parseInt(row.ManufacturingOrderOperation, 10);
+                if (Number.isNaN(opNum)) return;
+
+                if (opNum < maxOp) {
+                    row.IntermediatePhaseIndicator = "X";
+                }
+            });
             return finalData;
         } else {
             console.log("risultati MASTER OPER: ", data.length)
@@ -953,25 +941,34 @@ module.exports = cds.service.impl(async function (srv) {
                 }
             }
             //aggiungo flag IntermediatePhaseIndicator 
+
             let maxOp = -Infinity;
-            let maxIdx = -1;
 
-            data.forEach((row, idx) => {
-                row.IntermediatePhaseIndicator = "";
-
+            // 1. Trovo l'ultima operazione NON cancellata
+            data.forEach((row) => {
                 if (row.OperationIsDeleted === "X") return;
-                row.IntermediatePhaseIndicator = "X";
 
                 const opNum = parseInt(row.ManufacturingOrderOperation, 10);
                 if (Number.isNaN(opNum)) return;
 
                 if (opNum > maxOp) {
-                    if (maxIdx !== -1) data[maxIdx].IntermediatePhaseIndicator = "X";
                     maxOp = opNum;
-                    maxIdx = idx;
                 }
             });
-            if (maxIdx !== -1) data[maxIdx].IntermediatePhaseIndicator = "";
+
+            // 2. Metto X solo sulle operazioni precedenti alla massima
+            data.forEach((row) => {
+                row.IntermediatePhaseIndicator = "";
+
+                if (row.OperationIsDeleted === "X") return;
+
+                const opNum = parseInt(row.ManufacturingOrderOperation, 10);
+                if (Number.isNaN(opNum)) return;
+
+                if (opNum < maxOp) {
+                    row.IntermediatePhaseIndicator = "X";
+                }
+            });
 
             return data;
         }
