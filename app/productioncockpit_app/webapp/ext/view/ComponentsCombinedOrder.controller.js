@@ -878,7 +878,7 @@ sap.ui.define(
                         dataObjectToSend.matnr_new = ""
                     }
                     dataObjectToSend.matnr_old = obj.Material
-                    dataObjectToSend.charg_new = obj.Batch
+                    dataObjectToSend.charg_old = obj.Batch
                     dataObjectToSend.meins = obj.BaseUnit
                     dataObjectToSend.menge = Number(obj.TotalQuantityInEntryUnit)
                     dataObjectToSend.vornr_old = obj.ManufacturingOrderOperation
